@@ -39,11 +39,19 @@ public class TestCase1LoadBoard {
         $("#select2-shippers-receiver-origin-container").click();
         $(".select2-search__field").setValue("Auto test shipper 1");
         $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
+        $(".btn btn-default kv-datetime-picker").click();
 
         $("#select2-shippers-receiver-destination-container").click();
         $(".select2-search__field").setValue("Auto test shipper 2");
         $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
-        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+
+        $("#loads-reference").setValue("1122334");
+        $("#loads-rate-disp").setValue("100000").pressEnter();
+        $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
+
+//        $("#loads-pallets").setValue("1");
+//        $("#loads-weight").setValue("100");
+//        $(".btn.btn-primary.btn-block.btn-flat").click();
 
     }
 
