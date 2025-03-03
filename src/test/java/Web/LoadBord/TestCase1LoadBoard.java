@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -33,8 +34,17 @@ public class TestCase1LoadBoard {
 
         $("#select2-broker_search-container").click();
         $(".select2-search__field").setValue("Auto test broker");
-//        $("#select2-broker_search-results").setValue("Auto test broker");
-//        $(".select2-search select2-search--dropdown").setValue("Auto test broker");
+        $(".select2-results__options").shouldHave(text("LOADS DONE: 1")).click();
+
+        $("#select2-shippers-receiver-origin-container").click();
+        $(".select2-search__field").setValue("Auto test shipper 1");
+        $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
+
+        $("#select2-shippers-receiver-destination-container").click();
+        $(".select2-search__field").setValue("Auto test shipper 2");
+        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+
     }
 
     @AfterTest
