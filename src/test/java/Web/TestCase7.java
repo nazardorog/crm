@@ -38,8 +38,6 @@ public class TestCase7 {
         $$("td").findBy(text("18.16")).shouldBe(visible);
         $$("td").findBy(text("-66.72")).shouldBe(visible);
 
-
-
         System.out.println("Test7 - OK");
     }
 }

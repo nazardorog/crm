@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$$;
 
 public class TestCase11 {
     @Test(dependsOnMethods = {"Web.TestCase1.loginWeb"})
-    public void DocumentsSignatureInterface() {
+    public void documentsSignatureInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
 
@@ -23,5 +23,9 @@ public class TestCase11 {
         $(".content-header").shouldHave(text("Documents signature"));
         $$(".breadcrumb li").findBy(text("Home")).shouldBe(visible);
         $$(".breadcrumb li").findBy(text("Documents signature")).shouldBe(visible);
+
+        $("#new_fast_sign").shouldHave(text("Fast Signed"));
+        $("#new_fast_sign").shouldHave(text("Drafts"));
+//        $(".ul-menu-wrap").shouldHave(text(""))
     }
 }
