@@ -7,10 +7,10 @@ import org.testng.annotations.*;
 import static com.codeborne.selenide.Selenide.$;
 
 public class TestCase1 {
+
     public String webSite = "https://preprod.empirenational.com/adm";
 
     @BeforeTest
-
     public void runBrowser() {
         Configuration.browser = "chrome";
         System.setProperty("webdriver.chrome.driver", "C:/automation/chromedriver-win64/141/chromedriver.exe");
