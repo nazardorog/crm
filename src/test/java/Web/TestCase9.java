@@ -12,6 +12,7 @@ public class TestCase9 {
 
     @Test(dependsOnMethods = {"Web.TestCase1.loginWeb"})
     public void loadsInterface() {
+
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
 
         $(".loads-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
