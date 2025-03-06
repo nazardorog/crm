@@ -1,4 +1,4 @@
-package Web;
+package Web.Interface;
 
 import org.testng.annotations.Test;
 
@@ -9,9 +9,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase7 {
+public class TestCase7Interface {
 
-    @Test(dependsOnMethods = {"Web.TestCase1.loginWeb"})
+    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void shippersReceiversInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));

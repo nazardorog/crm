@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class TestCase1 {
+public class Login {
 
     public String webSite = "https://preprod.empirenational.com/adm";
 
