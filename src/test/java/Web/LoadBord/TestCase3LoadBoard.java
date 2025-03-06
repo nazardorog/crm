@@ -107,6 +107,10 @@ public class TestCase3LoadBoard {
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
 
+        //приховуємо help блок
+        SelenideElement helpBlock = $(".help-block");
+        executeJavaScript("arguments[0].style.display='none';", helpBlock);
+
         if (!$("#loads-load_type label").isDisplayed()){ //scroll
             scrollDown($("#add_load"), $("#loads-load_type label"));
         }

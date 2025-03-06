@@ -51,6 +51,7 @@ public class TestCase1LoadBoard {
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click(); // Вибираємо хвилини
 
+        //pallets shippers
         $("#loadspickuplocations-0-weight").setValue("1");
         $("#loadspickuplocations-0-pallets").setValue("1");
         $("#loadspickuplocations-0-pcs").setValue("1");
@@ -71,6 +72,7 @@ public class TestCase1LoadBoard {
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click();
 
+        //pallets destination
         $("#loadsdeliverylocations-0-pallets").setValue("1");
         $("#loadsdeliverylocations-0-weight").setValue("1");
         $("#loadsdeliverylocations-0-pcs").setValue("1");
@@ -109,6 +111,10 @@ public class TestCase1LoadBoard {
     //dispatch board
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
+
+        //приховуємо help блок
+        SelenideElement helpBlock = $(".help-block");
+        executeJavaScript("arguments[0].style.display='none';", helpBlock);
 
         if (!$("#loads-load_type label").isDisplayed()){ //scroll
             scrollDown($("#add_load"), $("#loads-load_type label"));

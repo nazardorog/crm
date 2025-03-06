@@ -131,7 +131,6 @@ public class TestCase5LoadBoard {
         Thread.sleep(4000);
         SelenideElement modal = $("#add_load");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
-
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
@@ -157,6 +156,10 @@ public class TestCase5LoadBoard {
         //dispatch board
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
+
+        //приховуємо help блок
+        SelenideElement helpBlock = $(".help-block");
+        executeJavaScript("arguments[0].style.display='none';", helpBlock);
 
         if (!$("#loads-load_type label").isDisplayed()){ //scroll
             scrollDown($("#add_load"), $("#loads-load_type label"));
