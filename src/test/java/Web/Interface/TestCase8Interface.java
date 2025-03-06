@@ -1,4 +1,4 @@
-package Web;
+package Web.Interface;
 
 import com.codeborne.selenide.CollectionCondition;
 import org.openqa.selenium.By;
@@ -10,9 +10,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase8 {
+public class TestCase8Interface {
 
-    @Test(dependsOnMethods = {"Web.TestCase1.loginWeb"})
+    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void wareHouseInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));

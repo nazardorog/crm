@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class TestCase1LoadBoard {
 
-    @Test(dependsOnMethods = {"Web.TestCase1.loginWeb"})
+    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void addNewLoad() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
@@ -125,7 +125,6 @@ public class TestCase1LoadBoard {
             $("#automatic_status_send]").click();
             $("#dispatch_load_send").click();
         }
-
     }
 
     public void scrollUp(SelenideElement modal, SelenideElement target){
