@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase5Interface {
+public class TestCase5Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void trucksInterface() {
 

@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase4Interface {
+public class TestCase4Interface{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void BrokersInterface() {

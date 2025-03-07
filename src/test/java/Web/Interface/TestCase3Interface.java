@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase3Interface {
+public class TestCase3Interface{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void loadBoardInterface() {

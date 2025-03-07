@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
-public class TestCase5LoadBoard {
+public class TestCase5LoadBoard{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void addNewLoad() throws InterruptedException {

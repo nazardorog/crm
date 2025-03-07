@@ -15,13 +15,16 @@ import java.time.LocalDateTime;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase1LoadBoard {
+public class TestCase1LoadBoard{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void addNewLoad() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $("#new_load").click();
+
+        //прибрати віджет чат
+        executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
         LocalDateTime now = LocalDateTime.now();
         int day = now.getDayOfMonth();
@@ -78,14 +81,13 @@ public class TestCase1LoadBoard {
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
         $("#loads-reference").setValue("1122334");
-        $("#loads-rate-disp").setValue("100000").pressEnter();
+//        $("#loads-rate-disp").setValue("100000").pressEnter();
         $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
 
     //load file
         Thread.sleep(4000);
         SelenideElement modal = $("#add_load");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
-
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);

@@ -14,9 +14,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase6LoadBoard {
-
-    private static final Logger log = LoggerFactory.getLogger(TestCase6LoadBoard.class);
+public class TestCase6LoadBoard{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void rateCustomersDriver() throws InterruptedException {
@@ -115,7 +113,7 @@ public class TestCase6LoadBoard {
         $(".field-loads-carrier_rate .help-block")
                 .shouldHave(Condition.visible)
                 .shouldHave(Condition.text("Carrier/Driver Rate should be less Customers Rate. If you're not mistaken, ignore the warning."))
-                .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));;
+                .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));
         $("#loads-carrier_rate")
                 .shouldHave(Condition.cssValue("border-color", "rgb(221, 75, 57)"));
 
