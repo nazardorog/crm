@@ -1,11 +1,7 @@
 package Web.LoadBord;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -18,7 +14,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class TestCase1LoadBoard{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void addNewLoad() throws InterruptedException {
+    public void fileTypeBol() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $("#new_load").click();
@@ -81,7 +77,7 @@ public class TestCase1LoadBoard{
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
         $("#loads-reference").setValue("1122334");
-//        $("#loads-rate-disp").setValue("100000").pressEnter();
+        $("#loads-rate-disp").setValue("100000").pressEnter();
         $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
 
     //load file
@@ -91,7 +87,6 @@ public class TestCase1LoadBoard{
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        SelenideElement targetElement = $(".btn-file");
         File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
@@ -108,9 +103,8 @@ public class TestCase1LoadBoard{
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#add_load_send_old").click();
 
-        $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
-
     //dispatch board
+        $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
 
@@ -132,14 +126,6 @@ public class TestCase1LoadBoard{
             $(".text-set-status-link").shouldHave(text("Please note that the pick-up for this load is scheduled for  Thursday. As a result, the truck's status will automatically change to 'Available On' in the delivery city at 12:01 AM on the pick-up day."));
             $("#automatic_status_send]").click();
             $("#dispatch_load_send").click();
-        }
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
         }
     }
 

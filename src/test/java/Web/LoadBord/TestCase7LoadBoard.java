@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class TestCase7LoadBoard {
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void rateCustomersDriver() throws InterruptedException {
+    public void dateValidationShippers(){
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $("#new_load").click();
@@ -22,8 +22,6 @@ public class TestCase7LoadBoard {
 
         LocalDateTime now = LocalDateTime.now();
         int day = now.getDayOfMonth();
-        int hour = now.getHour();
-        int minute = (now.getMinute() / 5) * 5;
 
         //brocker
         $("#select2-broker_search-container").shouldBe(Condition.visible, Condition.enabled).click();
@@ -215,6 +213,8 @@ public class TestCase7LoadBoard {
                 .findBy(Condition.text("Date From"))
                 .find(".help-block")
                 .shouldNotBe(Condition.visible);
+
+        $("#add_load .close").click();
 
         System.out.println("TestCase7LoadBoard - OK");
 

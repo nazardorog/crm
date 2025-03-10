@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.sleep;
 public class TestCase4LoadBoard{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void addNewLoad() throws InterruptedException {
+    public void fileTypeOthers() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $("#new_load").click();
@@ -85,7 +85,6 @@ public class TestCase4LoadBoard{
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        SelenideElement targetElement = $(".btn-file");
         File file = new File("C:/Empire/jpeg1.jpg");
         $("#loaddocuments-0-file").uploadFile(file);
 
@@ -128,14 +127,6 @@ public class TestCase4LoadBoard{
             $("#dispatch_load_send").click();
         }
 
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
-        }
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

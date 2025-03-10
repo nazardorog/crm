@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 public class TestCase5LoadBoard{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void addNewLoad() throws InterruptedException {
+    public void twoShippersOrignDestination() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $("#new_load").click();
@@ -134,7 +134,6 @@ public class TestCase5LoadBoard{
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        SelenideElement targetElement = $(".btn-file");
         File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
@@ -175,14 +174,6 @@ public class TestCase5LoadBoard{
             $(".text-set-status-link").shouldHave(text("Please note that the pick-up for this load is scheduled for  Thursday. As a result, the truck's status will automatically change to 'Available On' in the delivery city at 12:01 AM on the pick-up day."));
             $("#automatic_status_send]").click();
             $("#dispatch_load_send").click();
-        }
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
         }
     }
 
