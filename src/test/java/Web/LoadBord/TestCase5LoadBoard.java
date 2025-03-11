@@ -131,9 +131,11 @@ public class TestCase5LoadBoard{
         Thread.sleep(4000);
         SelenideElement modal = $("#add_load");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
+
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
+
         File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 

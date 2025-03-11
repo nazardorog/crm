@@ -129,6 +129,14 @@ public class TestCase1LoadBoard{
         }
     }
 
+    public void scrollUp(SelenideElement modal, SelenideElement target){
+
+        while (!target.isDisplayed()) {
+            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
+            sleep(500);
+        }
+    }
+
     public void scrollDown(SelenideElement modal, SelenideElement target) {
 
         while (!target.isDisplayed()) {
