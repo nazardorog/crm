@@ -39,15 +39,15 @@ public class TestCase8LoadBoard {
 
         //calendar shippers pickup from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
         //calendar shippers pickup to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click(); // Вибираємо хвилини
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
         $("#select2-shippers-receiver-destination-container").click();
         $(".select2-search__field").setValue("Auto test shipper 2");
@@ -61,7 +61,7 @@ public class TestCase8LoadBoard {
 
         //calendar shippers destination to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click();
 
