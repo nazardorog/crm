@@ -217,6 +217,5 @@ public class TestCase7LoadBoard {
         $("#add_load .close").click();
 
         System.out.println("TestCase7LoadBoard - OK");
-
     }
 }

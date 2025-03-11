@@ -177,6 +177,8 @@ public class TestCase5LoadBoard{
             $("#automatic_status_send]").click();
             $("#dispatch_load_send").click();
         }
+
+        System.out.println("TestCase5LoadBoard - OK");
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

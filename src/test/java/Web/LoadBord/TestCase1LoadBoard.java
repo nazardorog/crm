@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase1LoadBoard{
+public class TestCase1LoadBoard {
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void fileTypeBol() throws InterruptedException {
@@ -107,6 +107,9 @@ public class TestCase1LoadBoard{
         $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
+        $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test1"));
+        $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text("Auto Test2"));
+        $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0303"));
 
         //приховуємо help блок
         SelenideElement helpBlock = $(".help-block");
@@ -127,6 +130,8 @@ public class TestCase1LoadBoard{
             $("#automatic_status_send]").click();
             $("#dispatch_load_send").click();
         }
+
+        System.out.println("TestCase1LoadBoard - OK");
     }
 
     public void scrollUp(SelenideElement modal, SelenideElement target){

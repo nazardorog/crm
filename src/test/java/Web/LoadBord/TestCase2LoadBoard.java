@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.sleep;
 
-public class TestCase2LoadBoard{
+public class TestCase2LoadBoard {
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void fileTypeRateConfirmation() throws InterruptedException {
@@ -128,6 +128,7 @@ public class TestCase2LoadBoard{
             $("#dispatch_load_send").click();
         }
 
+        System.out.println("TestCase2LoadBoard - OK");
     }
 
     public void scrollUp(SelenideElement modal, SelenideElement target){

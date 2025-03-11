@@ -128,6 +128,7 @@ public class TestCase3LoadBoard{
             $("#dispatch_load_send").click();
         }
 
+        System.out.println("TestCase3LoadBoard - OK");
     }
 
     public void scrollUp(SelenideElement modal, SelenideElement target){

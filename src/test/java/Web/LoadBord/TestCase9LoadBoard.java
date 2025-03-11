@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class TestCase9LoadBoard {
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void twoShippersOrignDestination() throws InterruptedException {
+    public void dispatchLoadDriver() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $("#new_load").click();
@@ -42,20 +42,15 @@ public class TestCase9LoadBoard {
 
         //calendar shippers pickup from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
         //calendar shippers pickup to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click(); // Вибираємо хвилини
-
-        //pallets shippers
-        $("#loadspickuplocations-0-weight").setValue("1");
-        $("#loadspickuplocations-0-pallets").setValue("1");
-        $("#loadspickuplocations-0-pcs").setValue("1");
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
         $("#select2-shippers-receiver-destination-container").click();
         $(".select2-search__field").setValue("Auto test shipper 2");
@@ -69,22 +64,31 @@ public class TestCase9LoadBoard {
 
         //calendar shippers destination to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click();
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click();
+
+        $("#loads-reference").setValue("1122334");
+        $("#loads-rate-disp").setValue("100000").pressEnter();
+        $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
+
+        //pallets shippers
+        $("#loadspickuplocations-0-pallets").setValue("1");
+        $("#loadspickuplocations-0-weight").setValue("1");
+        $("#loadspickuplocations-0-pcs").setValue("1");
 
         //pallets destination
         $("#loadsdeliverylocations-0-pallets").setValue("1");
         $("#loadsdeliverylocations-0-weight").setValue("1");
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
-        $("#loads-reference").setValue("1122334");
-        $("#loads-rate-disp").setValue("100000").pressEnter();
-        $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
-
-        //load file
-        Thread.sleep(4000);
+        //скрол, клік Submit
         SelenideElement modal = $("#add_load");
+        executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
+        $("#add_load_send_old").click();
+
+//load file
+        Thread.sleep(4000);
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
@@ -102,15 +106,20 @@ public class TestCase9LoadBoard {
             scrollDown($("#add_load"), $("#load_documents_modal_pseudo_submit"));
         }
         $("#load_documents_modal_pseudo_submit").click();
-
-        executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#add_load_send_old").click();
 
-        $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
+//dispatch board
+        $("#select2-load_driver_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
+        $(".select2-search__field").setValue("Auto");
+        $$("#select2-load_driver_id-0-results").findBy(Condition.text("Auto Test")).click();
+        $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0303"));
+        $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test"));
+        $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text("Auto Test2"));
 
-        //dispatch board
-        $(".select2-search__field").setValue("0303");
-        $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
+        $$("#loads-load_type label").findBy(Condition.text("Board")).click();
+        $("#dispatch_load_send").click();
+
+        System.out.println("TestCase9LoadBoard - OK");
     }
 
     public void scrollUp(SelenideElement modal, SelenideElement target){

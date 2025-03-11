@@ -159,6 +159,7 @@ public class TestCase6LoadBoard{
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#dispatch_load_send").click();
 
+        System.out.println("TestCase6LoadBoard - OK");
     }
 
     public void scrollUp(SelenideElement modal, SelenideElement target){
