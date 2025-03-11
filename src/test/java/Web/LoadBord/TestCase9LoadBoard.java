@@ -35,18 +35,18 @@ public class TestCase9LoadBoard {
         $(".select2-results__options").shouldHave(text("Auto test broker")).click();
         $$("select#loads-agent_id option").findBy(text("Auto test agent")).click();
 
-        //shippers pickup
+        //origin Shippers
         $("#select2-shippers-receiver-origin-container").click();
         $(".select2-search__field").setValue("Auto test shipper 1");
         $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
 
-        //calendar shippers pickup from
+        //calendar Origin Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
-        //calendar shippers pickup to
+        //calendar Origin Date To
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
@@ -56,7 +56,7 @@ public class TestCase9LoadBoard {
         $(".select2-search__field").setValue("Auto test shipper 2");
         $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
 
-        //calendar shippers destination from
+        //calendar Destination Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
@@ -93,7 +93,6 @@ public class TestCase9LoadBoard {
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        SelenideElement targetElement = $(".btn-file");
         File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
