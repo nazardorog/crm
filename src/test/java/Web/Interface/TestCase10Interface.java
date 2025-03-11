@@ -30,5 +30,6 @@ public class TestCase10Interface{
         $("a[href='/adm/signature-document/draft']").shouldHave(text("Drafts"));
         $("a[href='/adm/signature-document/archive']").shouldHave(text("Archive"));
         $("a[href='/adm/signature-document/starred']").shouldHave(text("Starred"));
+    
     }
 }
