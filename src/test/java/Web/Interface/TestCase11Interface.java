@@ -5,8 +5,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -14,7 +13,7 @@ import static com.codeborne.selenide.Selenide.$$;
 public class TestCase11Interface{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void documentsSignatureInterface() {
+    public void docSignatureInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
         $(".reports-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
@@ -26,9 +25,19 @@ public class TestCase11Interface{
         $$(".breadcrumb li").findBy(text("Home")).shouldBe(visible);
         $$(".breadcrumb li").findBy(text("Documents signature")).shouldBe(visible);
 
-        $$(".ul-menu-wrap li a").shouldHave(CollectionCondition.texts("Fast Signed", "Drafts", "Archive", "Starred"));
-        $(".ul-menu-wrap li a").shouldHave(text("Drafts"));
-        $(".ul-menu-wrap li a").shouldHave(text("Archive"));
-        $(".ul-menu-wrap li a").shouldHave(text("Starred"));
+        $("#new_fast_sign").shouldHave(text("Fast Sign"));
+        $(".awaiting-signature-wrapper").shouldHave(text("Fast Signed"));
+        $(".envelopes-block-name").shouldHave(text("Envelopes"));
+
+
+        $$(".documents-envelopes .li a").findBy(exactText("Fast Signed"));
+        $$(".documents-envelopes .li a").findBy(exactText("Drafts"));
+        $$(".documents-envelopes .li a").findBy(exactText("Archive"));
+        $$(".documents-envelopes .li a").findBy(exactText("Starred"));
+
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Name of the document"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Type of Doc"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Status"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Updated At"));
     }
 }
