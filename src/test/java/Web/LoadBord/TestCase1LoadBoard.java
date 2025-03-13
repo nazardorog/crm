@@ -46,9 +46,9 @@ public class TestCase1LoadBoard {
 
         //calendar shippers pickup to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click(); // Вибираємо хвилини
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
         //pallets shippers
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -61,15 +61,15 @@ public class TestCase1LoadBoard {
 
         //calendar shippers destination from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
         //calendar shippers destination to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click();
+        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 4))).click(); // Вибираємо день
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
         //pallets destination
         $("#loadsdeliverylocations-0-pallets").setValue("1");
@@ -107,7 +107,7 @@ public class TestCase1LoadBoard {
         $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
-        $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test1"));
+        $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test"));
         $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text("Auto Test2"));
         $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0303"));
 

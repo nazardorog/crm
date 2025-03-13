@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class TestCase4Interface{
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void BrokersInterface() {
+    public void brokersInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
 

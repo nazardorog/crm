@@ -13,6 +13,7 @@ public class TestCase2Interface{
         $(".logo-mini-icon").click();
         $("#show_my_loads").setSelected(true);
 
+        $(".content-header").shouldHave(text("Load Board"));
         $(".li-tabs-home.li-tabs-route .updated-tabs-name-link").shouldHave(text("Loads en Route"));
 //        $("#pjaxContentTrucksRouteCount").shouldHave(text("0"));
         $(".li-tabs-home.li-tabs-delivered .updated-tabs-name-link").shouldHave(text("Loads Delivered"));

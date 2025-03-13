@@ -49,8 +49,8 @@ public class TestCase5LoadBoard{
         //calendar shippers pickup to 1
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click(); // Вибираємо хвилини
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click(); // Вибираємо хвилини
 
         //pallets shippers 1
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -71,8 +71,8 @@ public class TestCase5LoadBoard{
         //calendar shippers pickup to 2
         $("#loadspickuplocations-1-date_to-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 6 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 6, minute))).click(); // Вибираємо хвилини
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click(); // Вибираємо хвилини
 
         //pallets shippers 2
         $("#loadspickuplocations-1-weight").setValue("2");

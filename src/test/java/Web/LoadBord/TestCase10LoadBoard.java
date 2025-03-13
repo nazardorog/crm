@@ -120,15 +120,7 @@ public class TestCase10LoadBoard {
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
         $("#dispatch_load_send").click();
 
-        System.out.println("TestCase9LoadBoard - OK");
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
-        }
+        System.out.println("TestCase10LoadBoard - OK");
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {
