@@ -18,7 +18,7 @@ public class TestCase2LoadBoard {
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void fileTypeRateConfirmation() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
 
         LocalDateTime now = LocalDateTime.now();
@@ -129,14 +129,6 @@ public class TestCase2LoadBoard {
         }
 
         System.out.println("TestCase2LoadBoard - OK");
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
-        }
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

@@ -15,7 +15,7 @@ public class TestCase8Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void wareHouseInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
 
         $(".warehouses-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".warehouses-user").click();

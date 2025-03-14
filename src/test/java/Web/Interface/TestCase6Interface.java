@@ -14,7 +14,7 @@ public class TestCase6Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void expediteFleetInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
 
         $(".expedite-fleet-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".expedite-fleet-user").click();

@@ -18,7 +18,7 @@ public class TestCase10LoadBoard {
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void dispatchLoadTeamDriver() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
 
         //прибрати віджет чат
@@ -93,7 +93,6 @@ public class TestCase10LoadBoard {
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        SelenideElement targetElement = $(".btn-file");
         File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 

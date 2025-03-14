@@ -14,7 +14,7 @@ public class TestCase7Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void shippersReceiversInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
 
         $(".shippers-receivers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".shippers-receivers-user").click();

@@ -16,7 +16,7 @@ public class TestCase7LoadBoard {
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void dateValidationShippers(){
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 

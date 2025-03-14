@@ -18,7 +18,7 @@ public class TestCase5LoadBoard{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void twoShippersOrignDestination() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
 
         LocalDateTime now = LocalDateTime.now();

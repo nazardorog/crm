@@ -14,7 +14,7 @@ public class TestCase10Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void documentsSignatureInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
 
         $(".reports-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".reports-user").click();

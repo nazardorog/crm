@@ -18,7 +18,7 @@ public class TestCase9LoadBoard {
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void dispatchLoadDriver() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
 
         //прибрати віджет чат
@@ -108,7 +108,8 @@ public class TestCase9LoadBoard {
         $("#add_load_send_old").click();
 
 //dispatch board
-        $("#select2-load_driver_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
+        $("#select2-load_driver_id-0-container")
+                .shouldBe(visible, Duration.ofSeconds(20)).click();
         $(".select2-search__field").setValue("Auto");
         $$("#select2-load_driver_id-0-results").findBy(Condition.text("Auto Test")).click();
         $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0303"));

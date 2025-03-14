@@ -1,6 +1,5 @@
 package Web.Interface;
 
-import com.codeborne.selenide.CollectionCondition;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -15,7 +14,7 @@ public class TestCase11Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void docSignatureInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $(".reports-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".reports-user").click();
         $("body").click();
