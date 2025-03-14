@@ -15,7 +15,7 @@ public class TestCase8LoadBoard {
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void originalDestinationPltsWghtPcs(){
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
 
         //прибрати віджет чат

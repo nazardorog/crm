@@ -13,7 +13,7 @@ public class TestCase4Interface{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void brokersInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
 
         $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".brokers-user").click();

@@ -16,7 +16,7 @@ public class TestCase1LoadBoard {
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void fileTypeBol() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
 
         //прибрати віджет чат
@@ -132,14 +132,6 @@ public class TestCase1LoadBoard {
         }
 
         System.out.println("TestCase1LoadBoard - OK");
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
-        }
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

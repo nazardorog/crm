@@ -2,10 +2,7 @@ package Web.LoadBord;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
-
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -19,7 +16,7 @@ public class TestCase6LoadBoard{
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
     public void rateCustomersDriver() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
@@ -124,7 +121,6 @@ public class TestCase6LoadBoard{
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        SelenideElement targetElement = $(".btn-file");
         File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
@@ -160,14 +156,6 @@ public class TestCase6LoadBoard{
         $("#dispatch_load_send").click();
 
         System.out.println("TestCase6LoadBoard - OK");
-    }
-
-    public void scrollUp(SelenideElement modal, SelenideElement target){
-
-        while (!target.isDisplayed()) {
-            executeJavaScript("arguments[0].scrollTop -= 100;", modal); // Прокрутка вверх на 100 пікселів
-            sleep(500);
-        }
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

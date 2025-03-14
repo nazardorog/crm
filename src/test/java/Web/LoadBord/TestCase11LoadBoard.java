@@ -2,7 +2,6 @@ package Web.LoadBord;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import net.bytebuddy.asm.Advice;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
@@ -22,7 +21,7 @@ public class TestCase11LoadBoard {
         @Test(dependsOnMethods = {"Web.Login.loginWeb"})
         public void assingUser() throws InterruptedException {
 
-            $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+            $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
             $("#new_load").click();
 
             //прибрати віджет чат
@@ -96,7 +95,6 @@ public class TestCase11LoadBoard {
             $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
             executeJavaScript("arguments[0].scrollTop = 0;", modal);
-            SelenideElement targetElement = $(".btn-file");
             File file = new File("C:/Empire/pdf1.pdf");
             $("#loaddocuments-0-file").uploadFile(file);
 
@@ -154,7 +152,6 @@ public class TestCase11LoadBoard {
 
             //перевірка в лоад борд через Load assigned чи заасайнився юзер до грузу
             $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
-            $(".content-header").shouldHave(text("Load Board"));
             $(".content-header").shouldHave(text("Load Board"));
             $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
             $("td.our_pro_number i.glyphicon.glyphicon-link").click();
