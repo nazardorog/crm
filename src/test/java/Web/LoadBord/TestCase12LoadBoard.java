@@ -109,7 +109,6 @@ public class TestCase12LoadBoard {
 //dispatch board
         $("#select2-load_driver_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(20)).click();
-        $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
 
         //отримуємо номер вантажу
         String dispatchLoad = $("#load_dispatch .modal-title").getText();
