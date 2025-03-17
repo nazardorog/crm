@@ -164,7 +164,7 @@ public class TestCase12LoadBoard {
         //повертаємось на Load bord
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
 
-        System.out.println("TestCase11LoadBoard - OK");
+        System.out.println("TestCase12LoadBoard - OK");
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {
