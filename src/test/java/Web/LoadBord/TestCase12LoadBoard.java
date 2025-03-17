@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class TestCase12LoadBoard {
 
     @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void assingUser() throws InterruptedException {
+    public void calculate() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
@@ -107,6 +107,8 @@ public class TestCase12LoadBoard {
         $("#add_load_send_old").click();
 
 //dispatch board
+        $("#select2-load_driver_id-0-container")
+                .shouldBe(visible, Duration.ofSeconds(20)).click();
         $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
 
         //отримуємо номер вантажу
