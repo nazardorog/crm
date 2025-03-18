@@ -1,5 +1,6 @@
 package Web.Interface;
 
+import Web.Login;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -8,9 +9,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase9Interface{
+public class TestCase9Interface extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+        @Test
     public void loadsInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -38,5 +39,7 @@ public class TestCase9Interface{
         $$("th").findBy(text("Status")).shouldBe(visible);
         $$("th").findBy(text("Canceled load")).shouldBe(visible);
         $$("th").findBy(text("Actions")).shouldBe(visible);
+
+        System.out.println("TestCase9Interface - OK");
     }
 }

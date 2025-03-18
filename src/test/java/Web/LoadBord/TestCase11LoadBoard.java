@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
@@ -16,9 +17,9 @@ import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
-public class TestCase11LoadBoard {
+public class TestCase11LoadBoard extends Login {
 
-        @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+        @Test
         public void assingUser() throws InterruptedException {
 
             $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -110,7 +111,9 @@ public class TestCase11LoadBoard {
             $("#add_load_send_old").click();
 
 //dispatch board
-            $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
+                    $("#select2-load_truck_id-0-container")
+                .shouldBe(visible, Duration.ofSeconds(20))
+                .click();
 
             //отримуємо номер вантажу
             String dispatchLoad = $("#load_dispatch .modal-title").getText();
@@ -131,6 +134,7 @@ public class TestCase11LoadBoard {
 
             //вибираємо юзера для асайна
             $("#loadassignedusers-user_id").selectOption("Auto Test user1");
+            $("#loadassignedusers-user_id").getSelectedOption().shouldHave(text("Auto Test user1"));
             $("#load_assigned_users_send").click();
 
             //поточний час по Мексиці
@@ -140,14 +144,16 @@ public class TestCase11LoadBoard {
             $("#load_assigned_users_send").click();
 
             //перевірка чи заасайнився юзер
-            $$(".table-assigned-users .tr").findBy(text("User"));
-            $$(".table-assigned-users .tr").findBy(text("Auto Test user1"));
-            $$(".table-assigned-users .tr").findBy(text(currentTime));
+            $$(".table-assigned-users tr").findBy(text("User")).shouldBe(visible);
+            $$(".table-assigned-users tr").findBy(text("Auto Test user1")).shouldBe(visible);
+            $$(".table-assigned-users tr").findBy(text(currentTime)).shouldBe(visible);
 
-            $$(".table-assigned-users .tr").findBy(text("Auto Test user2"));
-            $$(".table-assigned-users .tr").findBy(text(currentTime));
+            $$(".table-assigned-users tr").findBy(text("Auto Test user2")).shouldBe(visible);
+            $$(".table-assigned-users tr").findBy(text(currentTime)).shouldBe(visible);
 
+            //видаляємо Auto Test user1
             $(".table-assigned-users .delete_user_assignment").click();
+            $$(".table-assigned-users tr").findBy(text("Auto Test user1")).should(exist);
             $("#dispatch_load_send").click();
 
             //перевірка в лоад борд через Load assigned чи заасайнився юзер до грузу
@@ -155,8 +161,8 @@ public class TestCase11LoadBoard {
             $(".content-header").shouldHave(text("Load Board"));
             $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
             $("td.our_pro_number i.glyphicon.glyphicon-link").click();
-            $$(".table-responsive .td").findBy(exactText("Auto Test user2"));
-            $$(".table-responsive .td").findBy(exactText(currentTime));
+            $$(".table-responsive .td").findBy(exactText("Auto Test user2")).shouldBe(visible);
+            $$(".table-responsive .td").findBy(exactText(currentTime)).shouldBe(visible);
 
             $(".modal-view-item .close").click();
             executeJavaScript("arguments[0].scrollTop = 0;", modal);
@@ -164,7 +170,7 @@ public class TestCase11LoadBoard {
             System.out.println("TestCase11LoadBoard - OK");
         }
 
-    public String mexicoTime() {
+        public String mexicoTime() {
             // Поточний час Мехіко
             LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Mexico_City"));
 
@@ -174,9 +180,8 @@ public class TestCase11LoadBoard {
             return now.format(formatter);
     }
 
-        public void scrollDown(SelenideElement modal, SelenideElement target) {
-
-        while (!target.isDisplayed()) {
+    public void scrollDown(SelenideElement modal, SelenideElement target) {
+            while (!target.isDisplayed()) {
             executeJavaScript("arguments[0].scrollTop += 100;", modal); // Прокрутка вниз на 100 пікселів
             sleep(500);
         }

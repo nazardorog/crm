@@ -1,5 +1,6 @@
 package Web.Interface;
 
+import Web.Login;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -9,9 +10,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase10Interface{
+public class TestCase10Interface extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+        @Test
     public void documentsSignatureInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -31,5 +32,6 @@ public class TestCase10Interface{
         $("a[href='/adm/signature-document/archive']").shouldHave(text("Archive"));
         $("a[href='/adm/signature-document/starred']").shouldHave(text("Starred"));
 
+        System.out.println("TestCase10Interface - OK");
     }
 }

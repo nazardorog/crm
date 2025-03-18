@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -11,13 +12,17 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
-public class TestCase13LoadBoard {
+public class TestCase13LoadBoard extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
-    public void newBrocker() throws InterruptedException{
+    @Test
+    public void newBrocker(){
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
+
+        //відкриваємо New Load
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $("#new_load").click();
 
         //генеруємо дані для створення брокера
         Random random = new Random();
@@ -27,10 +32,6 @@ public class TestCase13LoadBoard {
         String agentName = "Auto test agent" + String.format("%02d",random.nextInt(100));
         String agentMail = "AutoTestAgent" + String.format("%02d", random.nextInt(100))+ "@mail.com";
         String agentPhoneNumber = "(056) 334" + String.format("%04d", random.nextInt(10000)) + "01";
-
-        //відкриваємо New Load
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
-        $("#new_load").click();
 
         //створюємо Broker
         $("#new_broker").click();

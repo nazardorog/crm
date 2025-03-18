@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
@@ -11,9 +12,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase7LoadBoard {
+public class TestCase7LoadBoard extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+    @Test
     public void dateValidationShippers(){
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));

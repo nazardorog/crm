@@ -1,21 +1,30 @@
 package Web.Interface;
 
+import Web.Login;
+import com.codeborne.selenide.Selenide;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
-public class TestCase2Interface{
+public class TestCase2Interface extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+    @Test
+    @Description("Авторизація користувача в системі")
+    @Severity(SeverityLevel.CRITICAL)
+    @Step("Логін користувача")
     public void numberLoads() {
 
-        $(".logo-mini-icon").click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20)).click();
         $("#show_my_loads").setSelected(true);
 
-        $(".content-header").shouldHave(text("Load Board"));
-        $(".li-tabs-home.li-tabs-route .updated-tabs-name-link").shouldHave(text("Loads en Route"));
-//        $("#pjaxContentTrucksRouteCount").shouldHave(text("0"));
+        Allure.step("Введення логіна", () -> $(".content-header").shouldHave(text("Load Board")));
+        Allure.step("Введення пароля", () ->$(".li-tabs-home.li-tabs-route .updated-tabs-name-link").shouldHave(text("Loads en Route")));
+
         $(".li-tabs-home.li-tabs-delivered .updated-tabs-name-link").shouldHave(text("Loads Delivered"));
         $("#pjaxContentDeliveredCount").shouldHave(text("0"));
         $(".li-tabs-home.li-tabs-issue .updated-tabs-name-link").shouldHave(text("Loads Issue"));
@@ -31,6 +40,6 @@ public class TestCase2Interface{
         $(".li-tabs-home.li-tabs-invoiced .updated-tabs-name-link").click();
         $(".li-tabs-home.li-tabs-paid .updated-tabs-name-link").click();
 
-        System.out.println("Test2 - OK");
+        System.out.println("TestCase2Interface - OK");
     }
 }
