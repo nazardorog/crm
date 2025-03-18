@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
@@ -13,9 +14,9 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.sleep;
 
-public class TestCase2LoadBoard {
+public class TestCase2LoadBoard extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+    @Test
     public void fileTypeRateConfirmation() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -102,7 +103,9 @@ public class TestCase2LoadBoard {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#add_load_send_old").click();
 
-        $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
+                $("#select2-load_truck_id-0-container")
+                .shouldBe(visible, Duration.ofSeconds(20))
+                .click();
 
         //dispatch board
         $(".select2-search__field").setValue("0303");

@@ -1,5 +1,6 @@
 package Web.Interface;
 
+import Web.Login;
 import com.codeborne.selenide.CollectionCondition;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
@@ -10,9 +11,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase8Interface{
+public class TestCase8Interface extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+        @Test
     public void wareHouseInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -34,5 +35,7 @@ public class TestCase8Interface{
         $("#radius").shouldBe(value("200"));
         $("#number_warehouses").shouldHave(value("25"));
         $("#number_warehouses").$$("option").shouldHave(CollectionCondition.texts("25", "35", "50", "75"));
+
+        System.out.println("TestCase8Interface - OK");
     }
 }

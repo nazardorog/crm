@@ -1,5 +1,6 @@
 package Web.Interface;
 
+import Web.Login;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -9,9 +10,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase5Interface{
+public class TestCase5Interface extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+        @Test
     public void trucksInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -40,6 +41,6 @@ public class TestCase5Interface{
         $$("th").findBy(text("Driver Support")).shouldBe(visible);
         $$("th").findBy(text("Hr Content")).shouldBe(visible);
 
-        System.out.println("Test5 - OK");
+        System.out.println("TestCase5Interface - OK");
     }
 }

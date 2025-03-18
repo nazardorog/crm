@@ -1,5 +1,6 @@
 package Web.Interface;
 
+import Web.Login;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -9,9 +10,9 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 
-public class TestCase11Interface{
+public class TestCase11Interface extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+        @Test
     public void docSignatureInterface() {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -29,14 +30,16 @@ public class TestCase11Interface{
         $(".envelopes-block-name").shouldHave(text("Envelopes"));
 
 
-        $$(".documents-envelopes .li a").findBy(exactText("Fast Signed"));
-        $$(".documents-envelopes .li a").findBy(exactText("Drafts"));
-        $$(".documents-envelopes .li a").findBy(exactText("Archive"));
-        $$(".documents-envelopes .li a").findBy(exactText("Starred"));
+        $$(".documents-envelopes .li a").findBy(exactText("Fast Signed")).shouldBe(visible);
+        $$(".documents-envelopes .li a").findBy(exactText("Drafts")).shouldBe(visible);
+        $$(".documents-envelopes .li a").findBy(exactText("Archive")).shouldBe(visible);
+        $$(".documents-envelopes .li a").findBy(exactText("Starred")).shouldBe(visible);
 
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Name of the document"));
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Type of Doc"));
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Status"));
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Updated At"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Name of the document")).shouldBe(visible);
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Type of Doc")).shouldBe(visible);
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Status")).shouldBe(visible);
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Updated At")).shouldBe(visible);
+
+        System.out.println("TestCase11Interface - OK");
     }
 }

@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
@@ -13,9 +14,9 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
-public class TestCase12LoadBoard {
+public class TestCase12LoadBoard extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+    @Test
     public void calculate() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -116,7 +117,9 @@ public class TestCase12LoadBoard {
 
         //вводимо Truck
         $(".select2-search__field").setValue("0303");
-        $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
+        $(".select2-results__option--highlighted")
+                .shouldBe(visible, Duration.ofSeconds(20))
+                .shouldHave(text("0303")).click();
 
         //приховуємо help блок
         SelenideElement helpBlock = $(".help-block");

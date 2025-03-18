@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
@@ -10,9 +11,9 @@ import java.time.LocalDateTime;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase8LoadBoard {
+public class TestCase8LoadBoard extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+    @Test
     public void originalDestinationPltsWghtPcs(){
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));

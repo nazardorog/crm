@@ -1,5 +1,6 @@
 package Web.LoadBord;
 
+import Web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
@@ -11,9 +12,9 @@ import java.time.LocalDateTime;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TestCase1LoadBoard {
+public class TestCase1LoadBoard extends Login {
 
-    @Test(dependsOnMethods = {"Web.Login.loginWeb"})
+    @Test
     public void fileTypeBol() throws InterruptedException {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
@@ -28,7 +29,9 @@ public class TestCase1LoadBoard {
         int minute = (now.getMinute() / 5) * 5;
 
         //brocker
-        $("#select2-broker_search-container").shouldBe(Condition.visible, Condition.enabled).click();
+        $("#select2-broker_search-container")
+                .shouldBe(visible, Duration.ofSeconds(20))
+                .click();
         $(".select2-search__field").setValue("Auto test broker");
         $(".select2-results__options").shouldHave(text("Auto test broker")).click();
         $$("select#loads-agent_id option").findBy(text("Auto test agent")).click();
@@ -104,7 +107,9 @@ public class TestCase1LoadBoard {
         $("#add_load_send_old").click();
 
     //dispatch board
-        $("#select2-load_truck_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
+                $("#select2-load_truck_id-0-container")
+                .shouldBe(visible, Duration.ofSeconds(20))
+                .click();
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
         $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test"));
