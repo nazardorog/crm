@@ -2,6 +2,7 @@ package Web.LoadBord;
 
 import Web.Login;
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
@@ -34,8 +35,10 @@ public class TestCase11LoadBoard extends Login {
             int minute = (now.getMinute() / 5) * 5;
 
             //brocker
-            $("#select2-broker_search-container").shouldBe(Condition.visible, Condition.enabled).click();
-            $(".select2-search__field").setValue("Auto test broker");
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("New load"));
+        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(5));
+        $("#select2-broker_search-container").shouldBe(visible).click();
+        $(".select2-search__field").setValue("Auto test broker");
             $(".select2-results__options").shouldHave(text("Auto test broker")).click();
             $$("select#loads-agent_id option").findBy(text("Auto test agent")).click();
 
@@ -46,13 +49,13 @@ public class TestCase11LoadBoard extends Login {
 
             //calendar shippers pickup from
             $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
+            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
             $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
             //calendar shippers pickup to
             $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
+            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
             $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
@@ -62,15 +65,17 @@ public class TestCase11LoadBoard extends Login {
 
             //calendar shippers destination from
             $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
+            ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+            dateElement.findBy(exactText(String.valueOf(day + 3))).click();
             $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
             //calendar shippers destination to
             $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
-            $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
-            $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click();
+            dateElement.findBy(exactText(String.valueOf(day + 4))).click();
+            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 4))).click(); // Вибираємо день
+            $$(".datetimepicker-hours .hour").findBy(exactText(hour+ ":00")).click(); // Вибираємо годину
+            $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
             $("#loads-reference").setValue("1122334");
             $("#loads-rate-disp").setValue("100000").pressEnter();

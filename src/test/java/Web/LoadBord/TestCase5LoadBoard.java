@@ -31,7 +31,9 @@ public class TestCase5LoadBoard extends Login {
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
         //brockers
-        $("#select2-broker_search-container").shouldBe(Condition.visible, Condition.enabled).click();
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("New load"));
+        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(5));
+        $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
         $(".select2-results__options").shouldHave(text("Auto test broker")).click();
         $$("select#loads-agent_id option").findBy(text("Auto test agent")).click();
@@ -48,7 +50,7 @@ public class TestCase5LoadBoard extends Login {
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
         //calendar shippers pickup to 1
-        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
+        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").shouldBe(visible).click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click(); // Вибираємо хвилини

@@ -1,0 +1,5 @@
+mvn clean test -Dtest=TestCase2Interface
+mvn clean test                          -запуск всіх тестів
+allure serve allure-results             -запуск Allure server
+rm -r allure-results/*                  -очищає папку Allure
+
