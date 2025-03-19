@@ -18,7 +18,6 @@ public class Login {
         System.setProperty("webdriver.chrome.driver", "C:/automation/chromedriver-win64/141/chromedriver.exe");
         Selenide.open(webSite);
 
-
         $("#loginform-username").setValue("test1te");
         $("#loginform-password").setValue("t34n2215P39L");
         $(".btn.btn-primary.btn-block.btn-flat").click();
