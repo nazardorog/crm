@@ -2,6 +2,8 @@ package Web;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
@@ -15,8 +17,11 @@ public class Login {
     @BeforeMethod
     public void loginWeb() throws InterruptedException {
         Configuration.browser = "chrome";
+        Configuration.reportsFolder = "allure-results";
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         System.setProperty("webdriver.chrome.driver", "C:/automation/chromedriver-win64/141/chromedriver.exe");
         Selenide.open(webSite);
+
 
         $("#loginform-username").setValue("test1te");
         $("#loginform-password").setValue("t34n2215P39L");

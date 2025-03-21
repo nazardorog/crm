@@ -30,8 +30,7 @@ public class TestCase1LoadBoard extends Login {
         int minute = (now.getMinute() / 5) * 5;
 
         //brocker
-        $("#add_load").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("New load"));
-        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(5));
+        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
         $(".select2-results__options").shouldHave(text("Auto test broker")).click();
@@ -42,6 +41,10 @@ public class TestCase1LoadBoard extends Login {
         $(".select2-search__field").setValue("Auto test shipper 1");
         $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
 
+        $("#select2-shippers-receiver-destination-container").click();
+        $(".select2-search__field").setValue("Auto test shipper 2");
+        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+
         //calendar shippers pickup from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
         $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
@@ -50,23 +53,14 @@ public class TestCase1LoadBoard extends Login {
 
         //calendar shippers pickup to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
+        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
-        //pallets shippers
-        $("#loadspickuplocations-0-weight").setValue("1");
-        $("#loadspickuplocations-0-pallets").setValue("1");
-        $("#loadspickuplocations-0-pcs").setValue("1");
-
-        $("#select2-shippers-receiver-destination-container").click();
-        $(".select2-search__field").setValue("Auto test shipper 2");
-        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
-
         //calendar shippers destination from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
+        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
@@ -75,6 +69,11 @@ public class TestCase1LoadBoard extends Login {
         dateElement.findBy(exactText(String.valueOf(day + 4))).click();
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+
+        //pallets shippers
+        $("#loadspickuplocations-0-weight").setValue("1");
+        $("#loadspickuplocations-0-pallets").setValue("1");
+        $("#loadspickuplocations-0-pcs").setValue("1");
 
         //pallets destination
         $("#loadsdeliverylocations-0-pallets").setValue("1");

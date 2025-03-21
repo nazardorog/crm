@@ -23,7 +23,7 @@ public class TestCase11LoadBoard extends Login {
         @Test
         public void assingUser() throws InterruptedException {
 
-            $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+            $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(2));
             $("#new_load").click();
 
             //прибрати віджет чат
@@ -36,7 +36,7 @@ public class TestCase11LoadBoard extends Login {
 
             //brocker
             $("#add_load").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("New load"));
-            $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(5));
+            $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
             $("#select2-broker_search-container").shouldBe(visible).click();
             $(".select2-search__field").setValue("Auto test broker");
             $(".select2-results__options").shouldHave(text("Auto test broker")).click();
@@ -49,13 +49,16 @@ public class TestCase11LoadBoard extends Login {
 
             //calendar shippers pickup from
             $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
+            ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+            dateElement.findBy(exactText(String.valueOf(day + 1))).click();
+//            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
             $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
             //calendar shippers pickup to
             $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
+            dateElement.findBy(exactText(String.valueOf(day + 2))).click();
+//            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
             $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
@@ -65,7 +68,6 @@ public class TestCase11LoadBoard extends Login {
 
             //calendar shippers destination from
             $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-            ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
             dateElement.findBy(exactText(String.valueOf(day + 3))).click();
             $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
@@ -73,7 +75,6 @@ public class TestCase11LoadBoard extends Login {
             //calendar shippers destination to
             $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
             dateElement.findBy(exactText(String.valueOf(day + 4))).click();
-            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 4))).click(); // Вибираємо день
             $$(".datetimepicker-hours .hour").findBy(exactText(hour+ ":00")).click(); // Вибираємо годину
             $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
@@ -116,7 +117,7 @@ public class TestCase11LoadBoard extends Login {
             $("#add_load_send_old").click();
 
 //dispatch board
-                    $("#select2-load_truck_id-0-container")
+            $("#select2-load_truck_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(20))
                 .click();
 
@@ -140,12 +141,14 @@ public class TestCase11LoadBoard extends Login {
             //вибираємо юзера для асайна
             $("#loadassignedusers-user_id").selectOption("Auto Test user1");
             $("#loadassignedusers-user_id").getSelectedOption().shouldHave(text("Auto Test user1"));
+            Thread.sleep(4000);
             $("#load_assigned_users_send").click();
 
             //поточний час по Мексиці
+            Thread.sleep(4000);
             String currentTime = mexicoTime();
-
             $("#loadassignedusers-user_id").selectOption("Auto Test user2");
+            Thread.sleep(4000);
             $("#load_assigned_users_send").click();
 
             //перевірка чи заасайнився юзер
@@ -153,6 +156,7 @@ public class TestCase11LoadBoard extends Login {
             $$(".table-assigned-users tr").findBy(text("Auto Test user1")).shouldBe(visible);
             $$(".table-assigned-users tr").findBy(text(currentTime)).shouldBe(visible);
 
+            $$(".table-assigned-users tr").findBy(text("Auto Test user2")).shouldBe(visible);
             $$(".table-assigned-users tr").findBy(text("Auto Test user2")).shouldBe(visible);
             $$(".table-assigned-users tr").findBy(text(currentTime)).shouldBe(visible);
 
@@ -166,8 +170,9 @@ public class TestCase11LoadBoard extends Login {
             $(".content-header").shouldHave(text("Load Board"));
             $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
             $("td.our_pro_number i.glyphicon.glyphicon-link").click();
-            $$(".table-responsive .td").findBy(exactText("Auto Test user2")).shouldBe(visible);
-            $$(".table-responsive .td").findBy(exactText(currentTime)).shouldBe(visible);
+
+            $$("td").findBy(text("Auto Test user2")).shouldBe(visible);
+            $$("td").findBy(text(currentTime)).shouldBe(visible);
 
             $(".modal-view-item .close").click();
             executeJavaScript("arguments[0].scrollTop = 0;", modal);

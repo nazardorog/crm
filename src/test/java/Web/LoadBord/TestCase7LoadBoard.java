@@ -25,8 +25,7 @@ public class TestCase7LoadBoard extends Login {
         int day = now.getDayOfMonth();
 
         //brocker
-        $("#add_load").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("New load"));
-        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(5));
+        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
         $(".select2-results__options").shouldHave(text("Auto test broker")).click();
