@@ -1,0 +1,33 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Regression Suite ivan">
+    <test name="LoadBoard Tests ivan">
+        <classes>
+            <class name="Web.Interface.TestCase2Interface"/>
+            <class name="Web.Interface.TestCase3Interface"/>
+            <class name="Web.Interface.TestCase4Interface"/>
+            <class name="Web.Interface.TestCase5Interface"/>
+            <class name="Web.Interface.TestCase6Interface"/>
+            <class name="Web.Interface.TestCase7Interface"/>
+            <class name="Web.Interface.TestCase8Interface"/>
+            <class name="Web.Interface.TestCase9Interface"/>
+            <class name="Web.Interface.TestCase10Interface"/>
+            <class name="Web.Interface.TestCase11Interface"/>
+            <class name="Web.LoadBord.TestCase1LoadBoard"/>
+            <class name="Web.LoadBord.TestCase2LoadBoard"/>
+            <class name="Web.LoadBord.TestCase3LoadBoard"/>
+            <class name="Web.LoadBord.TestCase4LoadBoard"/>
+            <class name="Web.LoadBord.TestCase5LoadBoard"/>
+            <class name="Web.LoadBord.TestCase6LoadBoard"/>
+            <class name="Web.LoadBord.TestCase7LoadBoard"/>
+            <class name="Web.LoadBord.TestCase8LoadBoard"/>
+            <class name="Web.LoadBord.TestCase9LoadBoard"/>
+            <class name="Web.LoadBord.TestCase10LoadBoard"/>
+            <class name="Web.LoadBord.TestCase11LoadBoard"/>
+            <class name="Web.LoadBord.TestCase12LoadBoard"/>
+            <class name="Web.LoadBord.TestCase13LoadBoard"/>
+            <class name="Web.LoadBord.TestCase14LoadBoard"/>
+            <class name="Web.LoadBord.TestCase15LoadBoard"/>
+
+        </classes>
+    </test>
+</suite>
