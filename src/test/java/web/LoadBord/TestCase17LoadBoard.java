@@ -49,7 +49,9 @@ public class TestCase17LoadBoard extends Login {
         //Destination Shippers
         $("#select2-shippers-receiver-destination-container").click();
         $(".select2-search__field").setValue("Auto test shipper 2");
-        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+        $$("li.select2-results__option")
+                .findBy(text("Auto test shipper 2"))
+                .click();
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();

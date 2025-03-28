@@ -32,13 +32,16 @@ public class TestCase8LoadBoard extends Login {
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
-        $(".select2-results__options").shouldHave(text("Auto test broker")).click();
-        $$("select#loads-agent_id option").findBy(text("Auto test agent")).click();
-
-        //shippers pickup
+        $$(".select2-results__options")
+                .findBy(text("Auto test broker"))
+                .click();
+        $$("select#loads-agent_id option").findBy(text("Auto test agent ")).click();
+        //Origin Shippers
         $("#select2-shippers-receiver-origin-container").click();
         $(".select2-search__field").setValue("Auto test shipper 1");
-        $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
+        $$("li.select2-results__option")
+                .findBy(text("Auto test shipper 1"))
+                .click();
 
         //calendar shippers pickup from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
@@ -54,9 +57,12 @@ public class TestCase8LoadBoard extends Login {
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
 
+        //Destination Shippers
         $("#select2-shippers-receiver-destination-container").click();
         $(".select2-search__field").setValue("Auto test shipper 2");
-        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+        $$("li.select2-results__option")
+                .findBy(text("Auto test shipper 2"))
+                .click();
 
         //calendar shippers destination from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();

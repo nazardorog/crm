@@ -31,14 +31,12 @@ public class TestCase18LoadBoard extends Login {
         LocalDateTime now = LocalDateTime.now();
         int day = now.getDayOfMonth();
         int hour = now.getHour();
-        int month = now.getMonthValue();
         int minute = (now.getMinute() / 5) * 5;
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
-//        $(".select2-results__options").shouldHave(text("Auto test broker")).click();
         $$(".select2-results__options")
                 .findBy(text("Auto test broker"))
                 .click();
@@ -50,7 +48,6 @@ public class TestCase18LoadBoard extends Login {
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 1"))
                 .click();
-//        $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
 
         //Destination Shippers
         $("#select2-shippers-receiver-destination-container").click();
@@ -58,7 +55,6 @@ public class TestCase18LoadBoard extends Login {
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 2"))
                 .click();
-//        $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
@@ -112,11 +108,11 @@ public class TestCase18LoadBoard extends Login {
         //load file
         //скролить до верху
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-type").selectOption("BOL");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
 
         //файл pdf, тип POD
+        File file = new File("C:/Empire/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
         $("#loaddocuments-0-type").selectOption("POD");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
@@ -274,12 +270,6 @@ public class TestCase18LoadBoard extends Login {
         $$("span.pull-right").get(2).shouldHave(text("03/27"));
         $$("span.pull-right").get(3).shouldHave(text("03/28"));
 //        $$("tr[data-pk='30706'] span.pull-right").get(3).shouldHave(text("03/28"));
-
-//        $(".col_check_call span.pull-right").shouldHave(text("03/25 08:20"));
-
-
-
-
 
 
         System.out.println("TestCase18LoadBoard - OK");

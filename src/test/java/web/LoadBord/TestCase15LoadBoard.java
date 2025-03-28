@@ -35,9 +35,10 @@ public class TestCase15LoadBoard extends Login {
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
-        $(".select2-results__options").shouldHave(text("Auto test broker")).click();
-        $$("select#loads-agent_id option").findBy(text("Auto test agent")).click();
-
+        $$(".select2-results__options")
+                .findBy(text("Auto test broker"))
+                .click();
+        $$("select#loads-agent_id option").findBy(text("Auto test agent ")).click();
         //Origin Shippers
         $("#select2-shippers-receiver-origin-container").click();
         $(".select2-search__field").setValue("AutoTestNotSet1");

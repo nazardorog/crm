@@ -1,25 +1,25 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Regression Suite ivan" parallel="classes" thread-count="2">
+<suite name="Regression Suite ivan" parallel="classes" thread-count="1">
     <test name="LoadBoard Tests ivan" preserve-order="true">
         <classes>
-<!--            <class name="web.LoadBord.TestCase1LoadBoard"/>-->
+            <class name="web.LoadBord.TestCase1LoadBoard"/>
             <class name="web.LoadBord.TestCase2LoadBoard"/>
             <class name="web.LoadBord.TestCase3LoadBoard"/>
-<!--            <class name="web.LoadBord.TestCase4LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase5LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase6LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase7LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase8LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase9LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase10LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase11LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase12LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase13LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase14LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase15LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase16LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase17LoadBoard"/>-->
-<!--            <class name="web.LoadBord.TestCase18LoadBoard"/>-->
+            <class name="web.LoadBord.TestCase4LoadBoard"/>
+            <class name="web.LoadBord.TestCase5LoadBoard"/>
+            <class name="web.LoadBord.TestCase6LoadBoard"/>
+            <class name="web.LoadBord.TestCase7LoadBoard"/>
+            <class name="web.LoadBord.TestCase8LoadBoard"/>
+            <class name="web.LoadBord.TestCase9LoadBoard"/>
+            <class name="web.LoadBord.TestCase10LoadBoard"/>
+            <class name="web.LoadBord.TestCase11LoadBoard"/>
+            <class name="web.LoadBord.TestCase12LoadBoard"/>
+            <class name="web.LoadBord.TestCase13LoadBoard"/>
+            <class name="web.LoadBord.TestCase14LoadBoard"/>
+            <class name="web.LoadBord.TestCase15LoadBoard"/>
+            <class name="web.LoadBord.TestCase16LoadBoard"/>
+            <class name="web.LoadBord.TestCase17LoadBoard"/>
+            <class name="web.LoadBord.TestCase18LoadBoard"/>
         </classes>
     </test>
 
@@ -29,12 +29,12 @@
             <class name="web.Interface.TestCase3Interface"/>
             <class name="web.Interface.TestCase4Interface"/>
             <class name="web.Interface.TestCase5Interface"/>
-<!--            <class name="web.Interface.TestCase6Interface"/>-->
-<!--            <class name="web.Interface.TestCase7Interface"/>-->
-<!--            <class name="web.Interface.TestCase8Interface"/>-->
-<!--            <class name="web.Interface.TestCase9Interface"/>-->
-<!--            <class name="web.Interface.TestCase10Interface"/>-->
-<!--            <class name="web.Interface.TestCase11Interface"/>-->
+            <class name="web.Interface.TestCase6Interface"/>
+            <class name="web.Interface.TestCase7Interface"/>
+            <class name="web.Interface.TestCase8Interface"/>
+            <class name="web.Interface.TestCase9Interface"/>
+            <class name="web.Interface.TestCase10Interface"/>
+            <class name="web.Interface.TestCase11Interface"/>
         </classes>
 
     </test>

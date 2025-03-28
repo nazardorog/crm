@@ -34,7 +34,7 @@ public class TestCase13LoadBoard extends Login {
         String agentPhoneNumber = "(056) 334" + String.format("%04d", random.nextInt(10000)) + "01";
 
         //створюємо Broker
-        $("#new_broker").click();
+        $("#new_broker").shouldBe(visible).click();
         $("#brokers-mc_number").setValue(brokerMcNumber);
         $("#brokers-name").setValue(brokerName);
         $("#brokers-address").setValue("Mountain");

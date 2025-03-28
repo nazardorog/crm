@@ -7,12 +7,13 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.webdriver;
 
-public class Login {
+public class LoginUser2 {
 
     public String webSite = "https://preprod.empirenational.com/adm";
 
@@ -27,15 +28,15 @@ public class Login {
                 Selenide.open(webSite));
 
         Allure.step("Авторизація користувача", () -> {
-                    Allure.step("Вводить логін", () ->
-                            $("#loginform-username").setValue("test1te"));
+            Allure.step("Вводить логін", () ->
+                    $("#loginform-username").setValue("auto2t"));
 
-                    Allure.step("Вводить пароль", () ->
-                            $("#loginform-password").setValue("t34n2215P391"));
+            Allure.step("Вводить пароль", () ->
+                    $("#loginform-password").setValue("sxLM8Gi0T76o"));
 
-                    Allure.step("Клік по кнопці Submit", () ->
-                            $(".btn.btn-primary.btn-block.btn-flat").click());
-                });
+            Allure.step("Клік по кнопці Submit", () ->
+                    $(".btn.btn-primary.btn-block.btn-flat").click());
+        });
 
         WebDriver driver = webdriver().driver().getWebDriver();
         driver.manage().window().maximize();
