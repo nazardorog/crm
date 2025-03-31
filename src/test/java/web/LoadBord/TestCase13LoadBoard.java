@@ -17,6 +17,8 @@ public class TestCase13LoadBoard extends Login {
     @Test
     public void newBrocker(){
 
+        System.out.println("TestCase13LoadBoard - Start");
+
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
@@ -34,8 +36,8 @@ public class TestCase13LoadBoard extends Login {
         String agentPhoneNumber = "(056) 334" + String.format("%04d", random.nextInt(10000)) + "01";
 
         //створюємо Broker
-        $("#new_broker").shouldBe(visible).click();
-        $("#brokers-mc_number").setValue(brokerMcNumber);
+        $("#new_broker").shouldBe(visible, Duration.ofSeconds(20)).click();
+        $("#brokers-mc_number").shouldBe(visible, Duration.ofSeconds(20)).setValue(brokerMcNumber);
         $("#brokers-name").setValue(brokerName);
         $("#brokers-address").setValue("Mountain");
         $("#brokers-city").setValue("Colorado");

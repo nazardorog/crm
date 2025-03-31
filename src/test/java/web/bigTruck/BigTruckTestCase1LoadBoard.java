@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class BigTruckTestCase1LoadBoard extends LoginUser2 {
 
     @Test
-    public void fileTypeBol() throws InterruptedException {
+    public void newLoad() throws InterruptedException {
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(1)).click();

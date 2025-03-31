@@ -41,10 +41,10 @@ public class Login {
         driver.manage().window().maximize();
 
         String screenshotPath = Selenide.screenshot("screenTestEmpire");
-        System.out.println("test passed");
-        System.out.println("screenshot saved: " + screenshotPath);
+//        System.out.println("test passed");
+//        System.out.println("screenshot saved: " + screenshotPath);
         Thread.sleep(5000);
-        System.out.println("loginWeb - OK");
+//        System.out.println("loginWeb - OK");
     }
 
     @AfterMethod

@@ -1,5 +1,6 @@
 package web.LoadBord;
 
+import com.codeborne.selenide.Selenide;
 import web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -17,19 +19,21 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class TestCase12LoadBoard extends Login {
 
+    LocalDateTime now = LocalDateTime.now();
+    int currentDay = now.getDayOfMonth();
+    int hour = now.getHour();
+    int minute = (now.getMinute() / 5) * 5;
+
     @Test
     public void calculate() throws InterruptedException {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        System.out.println("TestCase12LoadBoard - Start");
+
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-
-        LocalDateTime now = LocalDateTime.now();
-        int day = now.getDayOfMonth();
-        int hour = now.getHour();
-        int minute = (now.getMinute() / 5) * 5;
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -39,45 +43,40 @@ public class TestCase12LoadBoard extends Login {
                 .findBy(text("Auto test broker"))
                 .click();
         $$("select#loads-agent_id option").findBy(text("Auto test agent ")).click();
-        //shippers pickup
+
+        //Origin Shippers
+//        $("#select2-shippers-receiver-origin-container").click();
+//        $(".select2-search__field").shouldBe(Condition.visible).setValue("Auto test shipper5");
+//        $(".select2-results").shouldHave(text("Auto test shipper5")).click();
+
         $("#select2-shippers-receiver-origin-container").click();
-        $(".select2-search__field").shouldBe(Condition.visible).setValue("Auto test shipper 1");
-        $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
-
-        //calendar shippers pickup from
-        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-
-        //calendar shippers pickup to
-        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-//        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+        $(".select2-search__field").setValue("Auto test shipper5");
+        $$("li.select2-results__option")
+                .findBy(text("Auto test shipper5"))
+                .click();
 
         //Destination Shippers
         $("#select2-shippers-receiver-destination-container").click();
-        $(".select2-search__field").setValue("Auto test shipper 2");
+        $(".select2-search__field").setValue("Auto test shipper6");
         $$("li.select2-results__option")
-                .findBy(text("Auto test shipper 2"))
+                .findBy(text("Auto test shipper6"))
                 .click();
 
-        //calendar shippers destination from
-        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-//        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+        //calendar Origin Shippers Date from
+        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
+        inputCalendar(1, 0);
 
-        //calendar shippers destination to
-        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(visible).click();
-        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-//        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click();
+        //calendar Origin Shippers Date to
+        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
+        inputCalendar(2, 1);
+
+        //calendar Destination Shippers Date from
+        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
+        inputCalendar(3, 2);
+
+        //calendar Destination Shippers Date to
+        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
+        inputCalendar(4, 3);
 
         $("#loads-reference").setValue("1122334");
         $("#loads-rate-disp").setValue("100000").pressEnter();
@@ -118,7 +117,8 @@ public class TestCase12LoadBoard extends Login {
         $("#add_load_send_old").click();
 
 //dispatch board
-        $("#select2-load_driver_id-0-container")
+
+        $("#select2-load_truck_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(20)).click();
 
         //отримуємо номер вантажу
@@ -126,7 +126,6 @@ public class TestCase12LoadBoard extends Login {
         String loadNumber = dispatchLoad.substring(dispatchLoad.lastIndexOf("#") + 1).trim();
 
         //вводимо Truck
-//        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted")
                 .shouldBe(visible, Duration.ofSeconds(20))
@@ -150,36 +149,60 @@ public class TestCase12LoadBoard extends Login {
         $$("th").findBy(text("Total:")).sibling(0).shouldHave(text("$800.00"));
 
         $("#dispatch_total_miles")
-                .shouldHave(text("85"))
+                .shouldHave(text("66"))
                 .closest("tr").$("th").shouldHave(text("Total Miles:"));
 
         $("#dispatch_total_time")
-                .shouldHave(matchText("1:[23][1-9]"))
+                .shouldHave(matchText("1:[345]"))
                 .closest("tr").$("th").shouldHave(text("Total Time:"));
 
         $("#dispatch_rate_mile")
-                .shouldHave(text("$11.76"))
+                .shouldHave(text("$15.15"))
                 .closest("tr").$("th").shouldHave(text("Rate / Mile:"));
 
         $("#dispatch_carrier_pay_mile")
-                .shouldHave(text("$9.41"))
+                .shouldHave(text("$12.12"))
                 .closest("tr").$("th").shouldHave(text("Carrier Pay/Mile:"));
 
         $("#dispatch_load_send").click();
 
         //перевіряємо в Load Bord Miles, Rate mile
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 
         $x("//*[@id='main-loads-grid']//tbody/tr[1]/td[4]")
-                .shouldHave(text("85mi"), text("$11.76"));
+                .shouldHave(text("66mi"), text("$15.15"));
 
         //повертаємось на Load bord
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         System.out.println("TestCase12LoadBoard - OK");
     }
+
+    public void inputCalendar(int introductionDay, int numberCalendar){
+
+        int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
+        int targetDay = currentDay + introductionDay;//день що потрібно ввести
+        boolean switchMonth = false;
+
+        //якщо день введення більше ніж кількість днів в місяця, переключаємо календарь на наступний місяць
+        if (targetDay > daysInMonth) {
+            targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
+            switchMonth = true;
+        }
+
+        if (switchMonth) {
+            Selenide.executeJavaScript("arguments[0].click();", $$(".datetimepicker-days .next").get(numberCalendar));
+        }
+
+        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+        dateElement.findBy(exactText(String.valueOf(targetDay))).click();
+
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+    }
+
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {
 

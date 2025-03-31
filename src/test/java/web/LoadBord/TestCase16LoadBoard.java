@@ -1,5 +1,6 @@
 package web.LoadBord;
 
+import com.codeborne.selenide.Selenide;
 import web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -8,9 +9,8 @@ import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -20,8 +20,22 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class TestCase16LoadBoard extends Login {
 
+    //поточний час по Мексиці
+    LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Mexico_City"));
+    int year = now.getYear();
+    int month = now.getMonthValue();
+    int day = now.getDayOfMonth();
+    int hourNotRounded = now.getHour();
+    int hour = ((hourNotRounded + 1) / 2) * 2;
+    int minute = (now.getMinute() / 5) * 5;
+    LocalDateTime statusDateDriver = now.plusDays(3).withHour(hour).withMinute(minute);
+    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+    String dateToShippersDestination = statusDateDriver.format(formatDate);
+
     @Test
     public void driverStatusAvailableOnAuto() throws InterruptedException {
+
+        System.out.println("TestCase16LoadBoard - Start");
 
         //перед тестом ставить драйверу Not Available
         $(".expedite-fleet-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
@@ -43,14 +57,7 @@ public class TestCase16LoadBoard extends Login {
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
-        //поточний час по Мексиці
-        LocalDateTime mexicoTime = LocalDateTime.now(ZoneId.of("America/Mexico_City"));
-        int year = mexicoTime.getYear();
-        int month = mexicoTime.getMonthValue();
-        int day = mexicoTime.getDayOfMonth();
-        int hourNotRounded = mexicoTime.getHour();
-        int hour = ((hourNotRounded + 1) / 2) * 2;
-        int minute = (mexicoTime.getMinute() / 5) * 5;
+
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -84,16 +91,24 @@ public class TestCase16LoadBoard extends Login {
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+        inputCalendar(2, 2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click();
-        Thread.sleep(1000);// Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+        inputCalendar(3, 3);
+
+//        //calendar Destination Shippers Date from
+//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
+//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
+//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+//
+//        //calendar Destination Shippers Date to
+//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
+//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
+//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click();
+//        Thread.sleep(1000);// Вибираємо годину
+//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");
@@ -164,8 +179,6 @@ public class TestCase16LoadBoard extends Login {
         $(".expedite-fleet-user").click();
         $("body").click();
 
-        //час Destination Shippers Date To
-        String dateToShippersDestination = String.format("%02d/%02d/%d %02d:%02d", month, day + 3, year, hour, minute);
         $(By.name("TrucksSearch[filter_driver_name]")).setValue("AutoTest Driver2").pressEnter();
         $(".truck-center-text").shouldHave(text("Available On"));
         $(".truck-date-when-there").shouldHave(text(dateToShippersDestination));
@@ -174,6 +187,29 @@ public class TestCase16LoadBoard extends Login {
 
         //go home
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20)).click();
+    }
+
+    public void inputCalendar(int introductionDay, int numberCalendar){
+
+        int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
+        int targetDay = day + introductionDay;//день що потрібно ввести
+        boolean switchMonth = false;
+
+        //якщо день введення більше ніж кількість днів в місяця, переключаємо календарь на наступний місяць
+        if (targetDay > daysInMonth) {
+            targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
+            switchMonth = true;
+        }
+
+        if (switchMonth) {
+            Selenide.executeJavaScript("arguments[0].click();", $$(".datetimepicker-days .next").get(numberCalendar));
+        }
+
+        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+        dateElement.findBy(exactText(String.valueOf(targetDay))).click();
+
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

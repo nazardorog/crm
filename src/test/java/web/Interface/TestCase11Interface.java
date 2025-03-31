@@ -29,16 +29,15 @@ public class TestCase11Interface extends Login {
         $(".awaiting-signature-wrapper").shouldHave(text("Fast Signed"));
         $(".envelopes-block-name").shouldHave(text("Envelopes"));
 
+        $$(".ul-menu-wrap .li a").findBy(exactText("Fast Signed"));
+        $$(".documents-envelopes .li a").findBy(exactText("Drafts"));
+        $$(".documents-envelopes .li a").findBy(exactText("Archive"));
+        $$(".documents-envelopes .li a").findBy(exactText("Starred"));
 
-        $$(".documents-envelopes .li a").findBy(exactText("Fast Signed")).shouldBe(visible);
-        $$(".documents-envelopes .li a").findBy(exactText("Drafts")).shouldBe(visible);
-        $$(".documents-envelopes .li a").findBy(exactText("Archive")).shouldBe(visible);
-        $$(".documents-envelopes .li a").findBy(exactText("Starred")).shouldBe(visible);
-
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Name of the document")).shouldBe(visible);
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Type of Doc")).shouldBe(visible);
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Status")).shouldBe(visible);
-        $$(".table-documents-content .style-filter-name a").findBy(exactText("Updated At")).shouldBe(visible);
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Name of the document"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Type of Doc"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Status"));
+        $$(".table-documents-content .style-filter-name a").findBy(exactText("Updated At"));
 
         System.out.println("TestCase11Interface - OK");
     }

@@ -1,5 +1,6 @@
 package web.LoadBord;
 
+import com.codeborne.selenide.Selenide;
 import web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -9,6 +10,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThanOrEqual;
 import static com.codeborne.selenide.Condition.*;
@@ -18,8 +20,16 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class TestCase15LoadBoard extends Login {
 
+    LocalDateTime now = LocalDateTime.now();
+    int currentDay = now.getDayOfMonth();
+    int hour = now.getHour();
+    int minute = (now.getMinute() / 5) * 5;
+
     @Test
     public void sippersCoordinatesNotSet() throws InterruptedException {
+
+        System.out.println("TestCase15LoadBoard - Start");
+
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(5));
         $("#new_load").click();
 
@@ -61,28 +71,44 @@ public class TestCase15LoadBoard extends Login {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+        inputCalendar(1, 0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+        inputCalendar(2, 1);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+        inputCalendar(3, 2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        dateElement.findBy(exactText(String.valueOf(day + 4))).click();
-        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+        inputCalendar(4, 3);
+
+//        //calendar Origin Shippers Date from
+//        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
+//        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+//        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
+//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+//
+//        //calendar Origin Shippers Date to
+//        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
+//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
+//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+//
+//        //calendar Destination Shippers Date from
+//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
+//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
+//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+//
+//        //calendar Destination Shippers Date to
+//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
+//        dateElement.findBy(exactText(String.valueOf(day + 4))).click();
+//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -131,6 +157,29 @@ public class TestCase15LoadBoard extends Login {
                 .get(1)
                 .shouldHave(text("You cannot add this load because shipper-receiver’s address is not valid."))
                 .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));
+    }
+
+    public void inputCalendar(int introductionDay, int numberCalendar){
+
+        int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
+        int targetDay = currentDay + introductionDay;//день що потрібно ввести
+        boolean switchMonth = false;
+
+        //якщо день введення більше ніж кількість днів в місяця, переключаємо календарь на наступний місяць
+        if (targetDay > daysInMonth) {
+            targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
+            switchMonth = true;
+        }
+
+        if (switchMonth) {
+            Selenide.executeJavaScript("arguments[0].click();", $$(".datetimepicker-days .next").get(numberCalendar));
+        }
+
+        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
+        dateElement.findBy(exactText(String.valueOf(targetDay))).click();
+
+        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
+        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

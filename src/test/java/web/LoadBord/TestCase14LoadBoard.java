@@ -15,6 +15,8 @@ public class TestCase14LoadBoard extends Login {
     @Test
     public void newShippers() throws InterruptedException {
 
+        System.out.println("TestCase14LoadBoard - Start");
+
         //прибрає віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
@@ -35,7 +37,7 @@ public class TestCase14LoadBoard extends Login {
         String contactPersonNumberShipperOrigin = "(057) 333-" + String.format("%04d", random.nextInt(10000));
 
         //створює Origin Shippers
-        $("[data-type='origin']").shouldBe(visible, Duration.ofSeconds(5)).click();
+        $("[data-type='origin']").shouldBe(visible, Duration.ofSeconds(20)).click();
         $("#shippersreceivers-name").setValue(nameShipperOrigin);
         $("#shippersreceivers-street1").setValue(street1ShipperOrigin);
         $("#country_shippers_receivers").selectOption(countryShipperOrigin);

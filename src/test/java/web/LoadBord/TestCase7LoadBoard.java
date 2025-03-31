@@ -17,6 +17,8 @@ public class TestCase7LoadBoard extends Login {
     @Test
     public void dateValidationShippers(){
 
+        System.out.println("TestCase7LoadBoard - Start");
+
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
         $("#new_load").click();
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
