@@ -111,10 +111,10 @@ public class TestCase1LoadBoard extends Login {
 
     //dispatch board
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        $("#select2-load_truck_id-0-container")
-                .shouldBe(visible, Duration.ofSeconds(30))
-                .click();
-        $(".select2-search__field").setValue("0303");
+//        $("#select2-load_truck_id-0-container")
+//                .shouldBe(visible, Duration.ofSeconds(30))
+//                .click();
+        $(".select2-search__field").shouldBe(enabled).setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
         $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test"));
         $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text("Auto Test2"));

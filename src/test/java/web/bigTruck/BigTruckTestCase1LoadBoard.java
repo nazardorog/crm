@@ -16,12 +16,12 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 
-// Click Up:
-// CRM SEMI Truck
-// Load board
-// 1. Создание груза
-
 public class BigTruckTestCase1LoadBoard extends LoginUser2 {
+
+    // Click Up:
+    // CRM SEMI Truck
+    // Load board
+    // 1. Создание груза
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
@@ -184,7 +184,7 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
-        //клік по лого Empire National
+        //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();

@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 public class TestCase13LoadBoard extends Login {
 
     @Test
-    public void newBrocker(){
+    public void newBrocker() throws InterruptedException{
 
         System.out.println("TestCase13LoadBoard - Start");
 
@@ -56,7 +56,7 @@ public class TestCase13LoadBoard extends Login {
         $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
         //перевіряємо додавання свтореного Агента на фреймі New Load під полем Broker
-//        Thread.sleep(4000);
+        Thread.sleep(5000);
         $(".bt-load-broker-main-flex").shouldHave(text(brokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
@@ -95,7 +95,7 @@ public class TestCase13LoadBoard extends Login {
         $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
         //перевіряємо відредаговані дані брокера
-//        Thread.sleep(4000);
+        Thread.sleep(5000);
         $(".bt-load-broker-main-flex").shouldHave(text(editBrokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Texas"));
         $(".bt-load-broker-main-flex").shouldHave(text("Dallas"));

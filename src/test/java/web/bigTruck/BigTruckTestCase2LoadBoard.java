@@ -16,12 +16,12 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-// Click Up:
-// CRM SEMI Truck
-// Load board
-// 2. Редактирование Груза
-
 public class BigTruckTestCase2LoadBoard extends LoginUser2 {
+
+    // Click Up:
+    // CRM SEMI Truck
+    // Load board
+    // 2. Редактирование Груза
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
@@ -34,9 +34,6 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $("#new_load").click();
-
-        //прибрати віджет чат
-//        executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -57,6 +54,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         String commodity = String.format("%3d", random.nextInt(10000000));
         $("#loads-reference").setValue(reference);
         $("#loads-rate-disp").setValue("100000").pressEnter();
+        $("#loads-load_miles").setValue("200");
         $("#loads-commodity_big_trucks_note").setValue(commodity);
         $("#select2-booked_with-container").shouldHave(text("Auto 2Test BT"));
         $("#loads-commodity").setValue("Text Commodity Notes");
@@ -117,7 +115,6 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
         $("#info-tab").click();
-        $("#loads-load_miles").setValue("200");
 
         //клік по кнопці "Submit & Dispatch" на фрейм New Load
         $("#add_load_send_dispatch").click();
@@ -248,7 +245,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
                 .findBy(text("Auto test agent39"))
                 .click();
 
-
+        //input other data
         $("#loads-rate-disp").setValue("175000").pressEnter();
         $("#select2-booked_with-container").shouldHave(text("Auto 2Test BT"));
         $$("div#loads-check_full_load label").findBy(text("PTL")).click();

@@ -41,7 +41,7 @@
     <test name="Load Board Big Truck">
         <classes>
             <class name="web.bigTruck.BigTruckTestCase1LoadBoard"/>
-<!--            <class name="web.bigTruck.BigTruckTestCase2LoadBoard"/>-->
+            <class name="web.bigTruck.BigTruckTestCase2LoadBoard"/>
         </classes>
     </test>
 
