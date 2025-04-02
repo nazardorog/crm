@@ -15,7 +15,7 @@ public class TestCase7Interface extends Login {
         @Test
     public void shippersReceiversInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".shippers-receivers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".shippers-receivers-user").click();

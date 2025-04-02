@@ -27,7 +27,7 @@ public class TestCase1LoadBoard extends Login {
 
         System.out.println("TestCase1LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //прибрати віджет чат
@@ -112,7 +112,7 @@ public class TestCase1LoadBoard extends Login {
     //dispatch board
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
         $("#select2-load_truck_id-0-container")
-                .shouldBe(visible, Duration.ofSeconds(20))
+                .shouldBe(visible, Duration.ofSeconds(30))
                 .click();
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();

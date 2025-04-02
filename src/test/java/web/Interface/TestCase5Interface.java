@@ -15,7 +15,7 @@ public class TestCase5Interface extends Login {
         @Test
     public void trucksInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".trucks-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".trucks-user").click();

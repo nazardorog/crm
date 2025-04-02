@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.Random;
 
@@ -32,18 +31,11 @@ public class TestCase18LoadBoard extends Login {
 
         System.out.println("TestCase18LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(1)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $("#new_load").click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-
-        //поточний час по серверу
-        LocalDateTime now = LocalDateTime.now();
-        int day = now.getDayOfMonth();
-        int hour = now.getHour();
-        Month month = now.getMonth();
-        int minute = (now.getMinute() / 5) * 5;
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -84,31 +76,7 @@ public class TestCase18LoadBoard extends Login {
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
         inputCalendar(4, 3);
 
-//        //calendar Origin Shippers Date from
-//        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-//        dateElement.findBy(exactText(String.valueOf(day))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar Origin Shippers Date to
-//        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar Destination Shippers Date from
-//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//        //calendar Destination Shippers Date to
-//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click();
-//        Thread.sleep(1000);// Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+//        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");
@@ -228,45 +196,19 @@ public class TestCase18LoadBoard extends Login {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(-1, 4);
+        inputCalendar(2, 4);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(0, 5);
+        inputCalendar(3, 5);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(1, 6);
+        inputCalendar(4, 6);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(2, 7);
-
-//        //calendar Origin Shippers Date from
-//        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-////        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-//        dateElement.findBy(exactText(String.valueOf(day - 1))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar Origin Shippers Date to
-//        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar Destination Shippers Date from
-//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//        //calendar Destination Shippers Date to
-//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click();
-//        Thread.sleep(1000);// Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
+        inputCalendar(5, 7);
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("2");
@@ -287,7 +229,7 @@ public class TestCase18LoadBoard extends Login {
         Thread.sleep(2000);
         refresh();
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 
@@ -304,23 +246,23 @@ public class TestCase18LoadBoard extends Login {
         $(".view_pick_up_location").shouldHave(text("Washington, DC 20016"));
         $("span.small-txt.big-truck-none-bold").shouldHave(text("Wt 2 Plt 2 Pcs 2"));
 
-        LocalDateTime futureDate = now.plusDays(-1);
+        LocalDateTime futureDate = now.plusDays(2);
         String formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
         String selector = String.format("tr[data-pk='%s'] span.pull-right", loadNumber);
         $$(selector).get(0).shouldHave(text(formattedDate));
 
-        futureDate = now.plusDays(0);
+        futureDate = now.plusDays(3);
         formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
         $$(selector).get(1).shouldHave(text(formattedDate));
 
         $(".view_delivery_location").shouldHave(text("Monroeville, PA 15146"));
         $("span.small-txt.big-truck-none-bold").shouldHave(text("Wt 2 Plt 2 Pcs 2"));
 
-        futureDate = now.plusDays(1);
+        futureDate = now.plusDays(4);
         formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
         $$(selector).get(2).shouldHave(text(formattedDate));
 
-        futureDate = now.plusDays(2);
+        futureDate = now.plusDays(5);
         formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
         $$(selector).get(3).shouldHave(text(formattedDate));
 

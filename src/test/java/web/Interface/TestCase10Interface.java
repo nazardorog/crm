@@ -15,7 +15,7 @@ public class TestCase10Interface extends Login {
         @Test
     public void documentsSignatureInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".reports-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".reports-user").click();

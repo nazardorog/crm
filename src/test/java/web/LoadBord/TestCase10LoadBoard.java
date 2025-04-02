@@ -29,16 +29,11 @@ public class TestCase10LoadBoard extends Login {
 
         System.out.println("TestCase10LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-
-        LocalDateTime now = LocalDateTime.now();
-        int day = now.getDayOfMonth();
-        int hour = now.getHour();
-        int minute = (now.getMinute() / 5) * 5;
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -78,36 +73,6 @@ public class TestCase10LoadBoard extends Login {
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
         inputCalendar(4, 3);
-
-//        //calendar shippers pickup from
-//        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-//        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar shippers pickup to
-//        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-//        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-//        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-////        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//
-//
-//        //calendar shippers destination from
-//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-////        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//        //calendar shippers destination to
-//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-////        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click();
 
         $("#loads-reference").setValue("1122334");
         $("#loads-rate-disp").setValue("100000").pressEnter();

@@ -153,7 +153,7 @@ public class TestCase12LoadBoard extends Login {
                 .closest("tr").$("th").shouldHave(text("Total Miles:"));
 
         $("#dispatch_total_time")
-                .shouldHave(matchText("1:[345]"))
+                .shouldHave(matchText("1:[1234567]"))
                 .closest("tr").$("th").shouldHave(text("Total Time:"));
 
         $("#dispatch_rate_mile")

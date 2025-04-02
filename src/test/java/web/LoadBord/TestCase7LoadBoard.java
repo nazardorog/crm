@@ -19,7 +19,7 @@ public class TestCase7LoadBoard extends Login {
 
         System.out.println("TestCase7LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 

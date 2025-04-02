@@ -20,7 +20,7 @@ public class TestCase2Interface extends Login {
     @Step("Логін користувача")
     public void numberLoads() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $("#show_my_loads").setSelected(true);
 
         $(".content-header").shouldHave(text("Load Board"));

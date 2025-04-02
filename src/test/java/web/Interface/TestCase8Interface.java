@@ -16,7 +16,7 @@ public class TestCase8Interface extends Login {
         @Test
     public void wareHouseInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".warehouses-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".warehouses-user").click();

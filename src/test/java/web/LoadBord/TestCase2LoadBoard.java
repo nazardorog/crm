@@ -29,7 +29,7 @@ public class TestCase2LoadBoard extends Login {
 
         System.out.println("TestCase2LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //Brocker
@@ -108,11 +108,11 @@ public class TestCase2LoadBoard extends Login {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#add_load_send_old").click();
 
-                $("#select2-load_truck_id-0-container")
-                .shouldBe(visible, Duration.ofSeconds(20))
+        //dispatch board
+        $("#select2-load_truck_id-0-container")
+                .shouldBe(visible, Duration.ofSeconds(30))
                 .click();
 
-        //dispatch board
         $(".select2-search__field").setValue("0303");
         $(".select2-results__option--highlighted").shouldHave(text("0303")).click();
 

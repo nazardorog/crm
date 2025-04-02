@@ -32,7 +32,7 @@ public class TestCase11LoadBoard extends Login {
 
             System.out.println("TestCase11LoadBoard - Start");
 
-            $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(2));
+            $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30));
             $("#new_load").click();
 
             //прибрати віджет чат
@@ -48,13 +48,17 @@ public class TestCase11LoadBoard extends Login {
 
             //Origin Shippers
             $("#select2-shippers-receiver-origin-container").click();
-            $(".select2-search__field").shouldBe(Condition.visible).setValue("Auto test shipper 1");
-            $(".select2-results").shouldHave(text("Auto test shipper 1")).click();
+            $(".select2-search__field").setValue("Auto test shipper 1");
+            $$("li.select2-results__option")
+                    .findBy(text("Auto test shipper 1"))
+                    .click();
 
             //Destination Shippers
             $("#select2-shippers-receiver-destination-container").click();
             $(".select2-search__field").setValue("Auto test shipper 2");
-            $(".select2-results__options").shouldHave(text("Auto test shipper 2")).click();
+            $$("li.select2-results__option")
+                    .findBy(text("Auto test shipper 2"))
+                    .click();
 
             //calendar Origin Shippers Date from
             $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
@@ -140,6 +144,8 @@ public class TestCase11LoadBoard extends Login {
             $("#add_load_send_old").click();
 
 //dispatch board
+            executeJavaScript("arguments[0].scrollTop = 0;", modal);
+
             $("#select2-load_truck_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(30))
                 .click();
@@ -189,7 +195,7 @@ public class TestCase11LoadBoard extends Login {
             $("#dispatch_load_send").click();
 
             //перевірка в лоад борд через Load assigned чи заасайнився юзер до грузу
-            $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
+            $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
             $(".content-header").shouldHave(text("Load Board"));
             $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
             $("td.our_pro_number i.glyphicon.glyphicon-link").click();

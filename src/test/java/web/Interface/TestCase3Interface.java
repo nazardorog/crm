@@ -16,7 +16,7 @@ public class TestCase3Interface extends Login {
     @Test
     public void loadBoardInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         $("#new_load").shouldHave(text("New Load"));
         $("#OTR").shouldHave(text("OTR"));

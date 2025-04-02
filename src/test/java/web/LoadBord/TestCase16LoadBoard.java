@@ -22,8 +22,6 @@ public class TestCase16LoadBoard extends Login {
 
     //поточний час по Мексиці
     LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Mexico_City"));
-    int year = now.getYear();
-    int month = now.getMonthValue();
     int day = now.getDayOfMonth();
     int hourNotRounded = now.getHour();
     int hour = ((hourNotRounded + 1) / 2) * 2;
@@ -34,7 +32,6 @@ public class TestCase16LoadBoard extends Login {
 
     @Test
     public void driverStatusAvailableOnAuto() throws InterruptedException {
-
         System.out.println("TestCase16LoadBoard - Start");
 
         //перед тестом ставить драйверу Not Available
@@ -51,7 +48,7 @@ public class TestCase16LoadBoard extends Login {
         $("#update_truck_send").click();
 
         //тест
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
         $("#new_load").click();
 
         //прибрати віджет чат
@@ -170,8 +167,10 @@ public class TestCase16LoadBoard extends Login {
 
         //frame automatic status driver
         $("#dispatch_load_send").click();
-        $("#set-automatic-status-link").shouldBe(visible).click();
-        $("#automatic_status_send").shouldBe(visible).click();
+        Thread.sleep(4000);
+        $("#set-automatic-status-link").shouldBe(enabled).click();
+        $(".modal-wrapper-set-auto-status-text").shouldBe(enabled).shouldHave(text("Please note that the pick-up for this load is scheduled for  today. As a result, the truck's status will automatically change to 'Available On' in the delivery city three hours before the scheduled pick-up time."));
+        $("#automatic_status_send").shouldBe(enabled).click();
 
         //перевіряє статус Available On водія в Expedite Fleet
         $("#dispatch_load_send").click();
@@ -186,7 +185,7 @@ public class TestCase16LoadBoard extends Login {
         $(".city-state-zip").shouldHave(text("Philadelphia, PA 19019"));
 
         //go home
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

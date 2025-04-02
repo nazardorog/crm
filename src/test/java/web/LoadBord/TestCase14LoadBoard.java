@@ -21,7 +21,7 @@ public class TestCase14LoadBoard extends Login {
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
         //відкриває New Load
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
     //створює Origin Shippers
@@ -48,7 +48,8 @@ public class TestCase14LoadBoard extends Login {
         $("#contact_person_phone_number-create").setValue(contactPersonNumberShipperOrigin);
         $("#add_shippers-receiver_send").click();
 
-        //перевіряє додавання свтореного Original Shipper на фреймі New Load
+        //перевіряє додавання створеного Original Shipper на фреймі New Load
+        Thread.sleep(4000);
         $(".shipper-locations-name").shouldBe(visible).shouldHave(text(nameShipperOrigin));
         $(".shipper-locations-street").shouldHave(text(street1ShipperOrigin));
         $(".shipper-locations-location").shouldHave(text("Kansas City, MO " + zipCodeShipperOrigin));
@@ -78,7 +79,7 @@ public class TestCase14LoadBoard extends Login {
         $("#update_shippers-receiver_send").click();
 
         //перевіряє відредаговані дані Original Shipper на фреймі New Load
-        Thread.sleep(1000);
+        Thread.sleep(4000);
         $(".shipper-locations-name").shouldHave(text(editNameShipperOrigin));
         $(".shipper-locations-street").shouldHave(text(editStreet1ShipperOrigin));
         $(".shipper-locations-location").shouldHave(text("Kansas City, MO " + editZipCodeShipperOrigin));
@@ -107,6 +108,7 @@ public class TestCase14LoadBoard extends Login {
         $("#add_shippers-receiver_send").click();
 
         //перевіряє додавання свтореного Destination Shipper на фреймі New Load
+        Thread.sleep(4000);
         $("#shippers-destination-sortable .shipper-locations-name").shouldHave(text(nameShipperDest));
         $("#shippers-destination-sortable .shipper-locations-street").shouldHave(text(street1ShipperDest));
         $("#shippers-destination-sortable .shipper-locations-location").shouldHave(text("Boston, MA " + zipCodeShipperDest));
@@ -136,37 +138,38 @@ public class TestCase14LoadBoard extends Login {
         $("#update_shippers-receiver_send").click();
 
         //перевіряє відредаговані дані Destination Shipper на фреймі New Load
-        Thread.sleep(1000);
+        Thread.sleep(4000);
         $("#shippers-destination-sortable .shipper-locations-name").shouldHave(text(editNameShipperDest));
         $("#shippers-destination-sortable .shipper-locations-street").shouldHave(text(editStreet1ShipperDest));
         $("#shippers-destination-sortable .shipper-locations-location").shouldHave(text("Denver, CO " + editZipCodeShipperDest));
 
         //повертаємось на Load bord далі вкладка Shippers/receivers
         $("#add_load .close").click();
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         $(".shippers-receivers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".shippers-receivers-user").click();
         $("body").click();
 
         //перевіряє роректність координат Original Shippers
-        $("[name='ShippersReceiversSearch[name]']").setValue(editNameShipperOrigin).pressEnter();
+        $("[name='ShippersReceiversSearch[name]']").shouldBe(enabled).setValue(editNameShipperOrigin).pressEnter();
+        Thread.sleep(4000);
         $("#w0").shouldHave(text(editNameShipperOrigin));
         $("#w0").shouldHave(text("Kansas City, MO " + editZipCodeShipperOrigin));
         $("#w0").shouldHave(text(editStreet1ShipperOrigin));
         $("#w0").shouldHave(text("39.03"));
         $("#w0").shouldHave(text("-94.57"));
 
-        //перевіряє роректність координат Destination Shippers
+        //перевіряє коректність координат Destination Shippers
         $("[name='ShippersReceiversSearch[name]']").clear();
-        $("[name='ShippersReceiversSearch[name]']").setValue(editNameShipperDest).pressEnter();
+        $("[name='ShippersReceiversSearch[name]']").shouldBe(enabled).setValue(editNameShipperDest).pressEnter();
         $("#w0").shouldBe(visible).shouldHave(text(editNameShipperDest));
         $("#w0").shouldHave(text("Denver, CO " + editZipCodeShipperDest));
         $("#w0").shouldHave(text(editStreet1ShipperDest));
         $("#w0").shouldHave(text("39.73"));
         $("#w0").shouldHave(text("-105.02"));
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         System.out.println("TestCase14LoadBoard - OK");
     }

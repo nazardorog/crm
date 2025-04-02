@@ -14,7 +14,7 @@ public class TestCase4Interface extends Login {
         @Test
     public void brokersInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".brokers-user").click();

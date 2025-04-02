@@ -29,7 +29,7 @@ public class TestCase4LoadBoard extends Login {
 
         System.out.println("TestCase4LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(5));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //Brockers

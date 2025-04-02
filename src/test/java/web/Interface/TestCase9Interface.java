@@ -14,7 +14,7 @@ public class TestCase9Interface extends Login {
         @Test
     public void loadsInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".loads-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".loads-user").click();

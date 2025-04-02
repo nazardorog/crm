@@ -6,8 +6,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.Random;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
@@ -23,21 +22,24 @@ public class TestCase13LoadBoard extends Login {
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
 
         //відкриваємо New Load
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //генеруємо дані для створення брокера
         Random random = new Random();
         String brokerMcNumber = "" + random.nextInt(10000000);
-        String brokerName = "Auto test broker" + String.format("%02d",random.nextInt(100));
+        String brokerName = "AutoTestBroker" + String.format("%03d",random.nextInt(1000));
         String brokerPhoneNumber = "(056) 333-" + String.format("%04d", random.nextInt(10000));
-        String agentName = "Auto test agent" + String.format("%02d",random.nextInt(100));
-        String agentMail = "AutoTestAgent" + String.format("%02d", random.nextInt(100))+ "@mail.com";
+        String agentName = "AutoTestAgent_" + brokerName;
+        String agentMail = agentName+ "@mail.com";
         String agentPhoneNumber = "(056) 334" + String.format("%04d", random.nextInt(10000)) + "01";
 
         //створюємо Broker
-        $("#new_broker").shouldBe(visible, Duration.ofSeconds(20)).click();
-        $("#brokers-mc_number").shouldBe(visible, Duration.ofSeconds(20)).setValue(brokerMcNumber);
+        $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $("#brokers-mc_number")
+                .shouldBe(visible, Duration.ofSeconds(30))
+                .shouldBe(enabled)
+                .setValue(brokerMcNumber);
         $("#brokers-name").setValue(brokerName);
         $("#brokers-address").setValue("Mountain");
         $("#brokers-city").setValue("Colorado");
@@ -51,9 +53,10 @@ public class TestCase13LoadBoard extends Login {
         $("#agents-0-name").setValue(agentName);
         $("#agents-0-email").setValue(agentMail);
         $("#agents-0-phone_number").setValue(agentPhoneNumber);
-        $(".btn-update-broker-agents .btn-primary ").click();
+        $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
         //перевіряємо додавання свтореного Агента на фреймі New Load під полем Broker
+//        Thread.sleep(4000);
         $(".bt-load-broker-main-flex").shouldHave(text(brokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
@@ -62,14 +65,19 @@ public class TestCase13LoadBoard extends Login {
         //генеруємо дані для редагування Брокера
         $(".broker_buttons .glyphicon-pencil").click();
         String editBrokerMcNumber = "" + random.nextInt(10000000);
-        String editBrokerName = "Auto test broker" + String.format("%02d",random.nextInt(100));
+        String editBrokerName = "AutoTestBrokerEdit" + String.format("%03d",random.nextInt(1000));
         String editBrokerPhoneNumber = "(056) 333-" + String.format("%04d", random.nextInt(10000));
-        String editAgentName = "Auto test agent" + String.format("%02d",random.nextInt(100));
-        String editAgentMail = "AutoTestAgent" + String.format("%02d", random.nextInt(100))+ "@mail.com";
+        String editAgentName = "AutoTestAgentEdit_" + editBrokerName;
+        String editAgentMail = editAgentName + "@mail.com";
         String editAgentPhoneNumber = "(056) 334" + String.format("%04d", random.nextInt(10000)) + "01";
 
         //вводимо відредаговані дані Брокера
-        $("#brokers-mc_number").setValue(editBrokerMcNumber);
+        $("#brokers-mc_number")
+                .shouldBe(visible, Duration.ofSeconds(30))
+                .shouldBe(enabled)
+                .setValue(editBrokerMcNumber);
+
+//        $("#brokers-mc_number").setValue(editBrokerMcNumber);
         $("#brokers-name").setValue(editBrokerName);
         $("#brokers-address").setValue("Texas");
         $("#brokers-city").setValue("Dallas");
@@ -84,9 +92,10 @@ public class TestCase13LoadBoard extends Login {
         $("#agents-0-name").setValue(editAgentName);
         $("#agents-0-email").setValue(editAgentMail);
         $("#agents-0-phone_number").setValue(editAgentPhoneNumber);
-        $(".btn-update-broker-agents .btn-primary ").click();
+        $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
         //перевіряємо відредаговані дані брокера
+//        Thread.sleep(4000);
         $(".bt-load-broker-main-flex").shouldHave(text(editBrokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Texas"));
         $(".bt-load-broker-main-flex").shouldHave(text("Dallas"));
@@ -94,7 +103,7 @@ public class TestCase13LoadBoard extends Login {
 
         //повертаємось на Load bord
         $("#add_load .close").click();
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(10)).click();
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         System.out.println("TestCase13LoadBoard - OK");
     }

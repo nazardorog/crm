@@ -26,6 +26,9 @@ public class Login {
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(webSite));
 
+                WebDriver driver = webdriver().driver().getWebDriver();
+                driver.manage().window().maximize();
+
         Allure.step("Авторизація користувача", () -> {
                     Allure.step("Вводить логін", () ->
                             $("#loginform-username").setValue("test1te"));
@@ -36,15 +39,7 @@ public class Login {
                     Allure.step("Клік по кнопці Submit", () ->
                             $(".btn.btn-primary.btn-block.btn-flat").click());
                 });
-
-        WebDriver driver = webdriver().driver().getWebDriver();
-        driver.manage().window().maximize();
-
-        String screenshotPath = Selenide.screenshot("screenTestEmpire");
-//        System.out.println("test passed");
-//        System.out.println("screenshot saved: " + screenshotPath);
-        Thread.sleep(5000);
-//        System.out.println("loginWeb - OK");
+        Thread.sleep(1000);
     }
 
     @AfterMethod

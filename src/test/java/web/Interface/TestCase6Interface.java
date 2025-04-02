@@ -15,7 +15,7 @@ public class TestCase6Interface extends Login {
         @Test
     public void expediteFleetInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".expedite-fleet-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".expedite-fleet-user").click();

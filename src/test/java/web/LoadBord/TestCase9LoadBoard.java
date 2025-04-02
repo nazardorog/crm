@@ -29,16 +29,11 @@ public class TestCase9LoadBoard extends Login {
 
         System.out.println("TestCase9LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(20));
+        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-
-        LocalDateTime now = LocalDateTime.now();
-        int day = now.getDayOfMonth();
-        int hour = now.getHour();
-        int minute = (now.getMinute() / 5) * 5;
 
         //Brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
