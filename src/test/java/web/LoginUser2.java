@@ -23,7 +23,7 @@ public class LoginUser2 {
         Configuration.browser = "chrome";
         Configuration.reportsFolder = "allure-results";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        System.setProperty("webdriver.chrome.driver", "C:/automation/chromedriver-win64/141/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:/automation/chromedriver-win64/135/chromedriver.exe");
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(webSite));
 

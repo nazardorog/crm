@@ -160,7 +160,8 @@ public class TestCase17LoadBoard extends Login {
 
     //dispatch board
         $("#select2-load_truck_id-0-container")
-                .shouldBe(visible, Duration.ofSeconds(20))
+                .shouldBe(visible)
+                .shouldBe(enabled)
                 .click();
 
         //отримує номер вантажу
@@ -185,8 +186,8 @@ public class TestCase17LoadBoard extends Login {
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 
-        $("#main-loads-grid .dropdown-toggle").click();
-        $$(".dropdown-menu-right li").findBy(text("Documents")).click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(enabled).click();
+        $$(".dropdown-menu-right li").findBy(text("Documents")).shouldBe(visible).click();
 
         $$(".panel-title-address").get(0).shouldHave(Condition.text("Document: 1"));
         $$("input.file-caption-name").get(0).shouldHave(Condition.attribute("title", "1pdf.pdf"));

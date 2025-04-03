@@ -76,35 +76,6 @@ public class TestCase11LoadBoard extends Login {
             $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
             inputCalendar(4, 3);
 
-//            //calendar shippers pickup from
-//            $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-//            ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-//            dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-////            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-//            $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//            $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//            //calendar shippers pickup to
-//            $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-//            dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-////            $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 2))).click(); // Вибираємо день
-//            $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//            $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//
-//
-//            //calendar shippers destination from
-//            $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//            dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-//            $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//            $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//            //calendar shippers destination to
-//            $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-//            dateElement.findBy(exactText(String.valueOf(day + 4))).click();
-//            $$(".datetimepicker-hours .hour").findBy(exactText(hour+ ":00")).click(); // Вибираємо годину
-//            $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-
             $("#loads-reference").setValue("1122334");
             $("#loads-rate-disp").setValue("100000").pressEnter();
             $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
@@ -153,6 +124,7 @@ public class TestCase11LoadBoard extends Login {
             //отримуємо номер вантажу
             String dispatchLoad = $("#load_dispatch .modal-title").getText();
             String loadNumber = dispatchLoad.substring(dispatchLoad.lastIndexOf("#") + 1).trim();
+            System.out.println("Номер вантажу: " + loadNumber);
 
             //вводимо Truck
             $(".select2-search__field").setValue("0303");
@@ -168,8 +140,8 @@ public class TestCase11LoadBoard extends Login {
             $$("#loads-load_type label").findBy(Condition.text("Board")).click();
 
             //вибираємо юзера для асайна
-            $("#loadassignedusers-user_id").selectOption("Auto Test user1");
-            $("#loadassignedusers-user_id").getSelectedOption().shouldHave(text("Auto Test user1"));
+            $("#loadassignedusers-user_id").shouldBe(visible).selectOption("Auto Test user1");
+            $("#loadassignedusers-user_id").getSelectedOption().shouldHave(text("Auto Test user1"), Duration.ofSeconds(5));
             Thread.sleep(4000);
             $("#load_assigned_users_send").click();
 
@@ -198,9 +170,11 @@ public class TestCase11LoadBoard extends Login {
             $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
             $(".content-header").shouldHave(text("Load Board"));
             $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
+            $("a.view_load").shouldBe(text(loadNumber), Duration.ofSeconds(10));
             $("td.our_pro_number i.glyphicon.glyphicon-link").click();
 
-            $$("td").findBy(text("Auto Test user2")).shouldBe(visible);
+            $$("td").findBy(Condition.text("Auto Test user2" ))
+                    .shouldHave(Condition.text("Auto Test user2"), Duration.ofSeconds(5));
             $$("td").findBy(text(currentTime)).shouldBe(visible);
 
             $(".modal-view-item .close").click();
