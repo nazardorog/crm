@@ -188,7 +188,7 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
-        $("a.view_load").shouldBe(text(loadNumber));
+        $("td a.view_load").shouldHave(text(loadNumber));
 
         System.out.println("bigTruckTestCase1LoadBoard - OK");
     }

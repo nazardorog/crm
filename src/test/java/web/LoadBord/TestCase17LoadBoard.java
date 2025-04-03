@@ -185,9 +185,10 @@ public class TestCase17LoadBoard extends Login {
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
+        $("td a.view_load").shouldHave(text(loadNumber));
 
         $("#main-loads-grid .dropdown-toggle").shouldBe(enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Documents")).shouldBe(visible).click();
+        $$(".dropdown-menu-right li").findBy(text("Documents")).shouldBe(enabled).click();
 
         $$(".panel-title-address").get(0).shouldHave(Condition.text("Document: 1"));
         $$("input.file-caption-name").get(0).shouldHave(Condition.attribute("title", "1pdf.pdf"));
