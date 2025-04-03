@@ -67,45 +67,20 @@ public class TestCase15LoadBoard extends Login {
         $("#shippers-destination-sortable .shipper-locations-location").shouldHave(text("autoTest"));
 
         //calendar Origin Shippers Date from
-        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
+        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").shouldBe(enabled).click();
         inputCalendar(1, 0);
 
         //calendar Origin Shippers Date to
-        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
+        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled).click();
         inputCalendar(2, 1);
 
         //calendar Destination Shippers Date from
-        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
+        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").shouldBe(enabled).click();
         inputCalendar(3, 2);
 
         //calendar Destination Shippers Date to
-        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
+        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled).click();
         inputCalendar(4, 3);
-
-//        //calendar Origin Shippers Date from
-//        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-//        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-//        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar Origin Shippers Date to
-//        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar Destination Shippers Date from
-//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//        //calendar Destination Shippers Date to
-//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 4))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -145,14 +120,14 @@ public class TestCase15LoadBoard extends Login {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#add_load_send_old").shouldHave(visible).click();
 
-        $$(".load-error div").shouldHave(sizeGreaterThanOrEqual(2));
+//        $$(".load-error div").shouldHave(sizeGreaterThanOrEqual(2));
         $$(".load-error div")
                 .get(0)
                 .shouldHave(text("You cannot add this load because shipper-receiver’s address is not valid."))
                 .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));
         $$(".load-error div")
                 .get(1)
-                .shouldHave(text("You cannot add this load because shipper-receiver’s address is not valid."))
+                .shouldHave(exactText("You cannot add this load because shipper-receiver’s address is not valid."))
                 .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));
     }
 
@@ -173,7 +148,7 @@ public class TestCase15LoadBoard extends Login {
         }
 
         ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-        dateElement.findBy(exactText(String.valueOf(targetDay))).click();
+        dateElement.findBy(exactText(String.valueOf(targetDay))).shouldBe(enabled).click();
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
