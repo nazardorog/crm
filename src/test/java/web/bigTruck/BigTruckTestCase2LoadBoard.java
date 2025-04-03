@@ -32,8 +32,8 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
     public void editCargoBigTruck () throws InterruptedException {
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
-        $("#new_load").click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -188,7 +188,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
 
         //в Load Board знаходить створений вантаж
 //        String loadNumber = "30957";
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
 

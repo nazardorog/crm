@@ -33,8 +33,8 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
     public void availableCargoToEnRout () throws InterruptedException {
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
-        $("#new_load").click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -129,7 +129,7 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
 //        String loadNumber = "31038";
 
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
         $("#available-loads-grid-filters .form-control").shouldBe(enabled).setValue(loadNumber).pressEnter();
 
@@ -183,7 +183,7 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
         $(".load-info-modal-dialog .close").click();
 
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));

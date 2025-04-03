@@ -29,8 +29,8 @@ public class TestCase3LoadBoard extends Login {
 
         System.out.println("TestCase3LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
-        $("#new_load").click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));

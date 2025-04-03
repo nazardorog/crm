@@ -27,8 +27,8 @@ public class TestCase17LoadBoard extends Login {
 
         System.out.println("TestCase17LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
-        $("#new_load").click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
@@ -182,7 +182,7 @@ public class TestCase17LoadBoard extends Login {
         $("#dispatch_load_send").click();
 
         //перевірка в лоад борд коректність доданих файлів
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 

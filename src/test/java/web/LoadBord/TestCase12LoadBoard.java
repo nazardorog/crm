@@ -29,8 +29,8 @@ public class TestCase12LoadBoard extends Login {
 
         System.out.println("TestCase12LoadBoard - Start");
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
-        $("#new_load").click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
@@ -167,7 +167,7 @@ public class TestCase12LoadBoard extends Login {
         $("#dispatch_load_send").click();
 
         //перевіряємо в Load Bord Miles, Rate mile
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 
@@ -175,7 +175,7 @@ public class TestCase12LoadBoard extends Login {
                 .shouldHave(text("66mi"), text("$15.15"));
 
         //повертаємось на Load bord
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
         System.out.println("TestCase12LoadBoard - OK");
     }

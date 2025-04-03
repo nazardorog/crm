@@ -30,7 +30,7 @@ public class TestCase9LoadBoard extends Login {
         System.out.println("TestCase9LoadBoard - Start");
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
-        $("#new_load").click();
+        $("#new_load").shouldBe(enabled).click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");

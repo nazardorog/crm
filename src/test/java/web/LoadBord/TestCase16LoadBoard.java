@@ -48,8 +48,8 @@ public class TestCase16LoadBoard extends Login {
         $("#update_truck_send").click();
 
         //тест
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
-        $("#new_load").click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
@@ -185,7 +185,7 @@ public class TestCase16LoadBoard extends Login {
         $(".city-state-zip").shouldHave(text("Philadelphia, PA 19019"));
 
         //go home
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

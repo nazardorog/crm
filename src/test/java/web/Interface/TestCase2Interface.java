@@ -8,8 +8,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 
 @Listeners({AllureTestNg.class})
@@ -20,7 +19,7 @@ public class TestCase2Interface extends Login {
     @Step("Логін користувача")
     public void numberLoads() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#show_my_loads").setSelected(true);
 
         $(".content-header").shouldHave(text("Load Board"));

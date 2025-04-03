@@ -23,7 +23,7 @@ public class TestCase13LoadBoard extends Login {
 
         //відкриваємо New Load
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
-        $("#new_load").click();
+        $("#new_load").shouldBe(enabled).click();
 
         //генеруємо дані для створення брокера
         Random random = new Random();
@@ -103,7 +103,7 @@ public class TestCase13LoadBoard extends Login {
 
         //повертаємось на Load bord
         $("#add_load .close").click();
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
         System.out.println("TestCase13LoadBoard - OK");
     }

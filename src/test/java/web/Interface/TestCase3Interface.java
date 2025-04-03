@@ -5,8 +5,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -16,7 +15,7 @@ public class TestCase3Interface extends Login {
     @Test
     public void loadBoardInterface() {
 
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
         $("#new_load").shouldHave(text("New Load"));
         $("#OTR").shouldHave(text("OTR"));

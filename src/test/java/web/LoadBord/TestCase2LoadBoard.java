@@ -30,7 +30,7 @@ public class TestCase2LoadBoard extends Login {
         System.out.println("TestCase2LoadBoard - Start");
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
-        $("#new_load").click();
+        $("#new_load").shouldBe(enabled).click();
 
         //Brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));

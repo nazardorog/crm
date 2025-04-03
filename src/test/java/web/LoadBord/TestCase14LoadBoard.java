@@ -22,7 +22,7 @@ public class TestCase14LoadBoard extends Login {
 
         //відкриває New Load
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
-        $("#new_load").click();
+        $("#new_load").shouldBe(enabled).click();
 
     //створює Origin Shippers
 
@@ -145,7 +145,7 @@ public class TestCase14LoadBoard extends Login {
 
         //повертаємось на Load bord далі вкладка Shippers/receivers
         $("#add_load .close").click();
-        $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
         $(".shippers-receivers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".shippers-receivers-user").click();
