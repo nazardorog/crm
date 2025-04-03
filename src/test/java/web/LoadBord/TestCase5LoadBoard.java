@@ -70,11 +70,11 @@ public class TestCase5LoadBoard extends Login {
                 .click();
 
         //calendar Origin Shippers Date from 2
-        $("#loadspickuplocations-1-date_from-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        $("#loadspickuplocations-1-date_from-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
         inputCalendar(1, 2);
 
         //calendar Origin Shippers Date to 2
-        $("#loadspickuplocations-1-date_to-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        $("#loadspickuplocations-1-date_to-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
         inputCalendar(2, 3);
 
         //pallets shippers 2
@@ -90,11 +90,11 @@ public class TestCase5LoadBoard extends Login {
                 .click();
 
         //calendar Destination Shippers Date from 1
-        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
         inputCalendar(3, 4);
 
         //calendar Destination Shippers Date to 1
-        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
         inputCalendar(4, 5);
 
         //pallets shippers destination 1
@@ -110,11 +110,11 @@ public class TestCase5LoadBoard extends Login {
                 .click();
 
         //calendar Destination Shippers Date from 2
-        $("#loadsdeliverylocations-1-date_from-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        $("#loadsdeliverylocations-1-date_from-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
         inputCalendar(3, 6);
 
         //calendar Destination Shippers Date to 2
-        $("#loadsdeliverylocations-1-date_to-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        $("#loadsdeliverylocations-1-date_to-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
         inputCalendar(4, 7);
 
         //pallets shippers destination 2
