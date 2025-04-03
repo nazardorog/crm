@@ -76,8 +76,6 @@ public class TestCase18LoadBoard extends Login {
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
         inputCalendar(4, 3);
 
-//        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -144,7 +142,8 @@ public class TestCase18LoadBoard extends Login {
         System.out.println("Номер вантажу: " + loadNumber);
 
     //редагування в лоад борд вантажу
-//        String loadNumber = "30853";
+        //String loadNumber = "30853";
+
         //перевіряє дані створеного вантажу
         $(".content-header").shouldHave(text("Load Board"));
         Thread.sleep(1000);

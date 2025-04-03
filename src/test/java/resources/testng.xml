@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Regression Suite ivan" parallel="classes" thread-count="2">
-    <test name="LoadBoard Tests ivan" preserve-order="true">
+    <test name="LoadBoardTests" preserve-order="true">
         <classes>
             <class name="web.LoadBord.TestCase1LoadBoard"/>
             <class name="web.LoadBord.TestCase2LoadBoard"/>
@@ -23,7 +23,7 @@
         </classes>
     </test>
 
-    <test name="Web Interface Ivan">
+    <test name="WebInterface">
         <classes>
             <class name="web.Interface.TestCase2Interface"/>
             <class name="web.Interface.TestCase3Interface"/>
@@ -38,11 +38,12 @@
         </classes>
     </test>
 
-    <test name="Load Board Big Truck">
+    <test name="LoadBoardBigTruck">
         <classes>
             <class name="web.bigTruck.BigTruckTestCase1LoadBoard"/>
             <class name="web.bigTruck.BigTruckTestCase2LoadBoard"/>
             <class name="web.bigTruck.BigTruckTestCase3LoadBoard"/>
+            <class name="web.bigTruck.BigTruckTestCase4LoadBoard"/>
         </classes>
     </test>
 

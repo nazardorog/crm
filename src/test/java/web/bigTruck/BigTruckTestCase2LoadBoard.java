@@ -124,6 +124,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
 
         //отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
+        System.out.println("BigTruckTestCase2LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -184,10 +185,8 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").shouldBe(enabled).click();
 
-        System.out.println("номер вантажу:" + loadNumber);
-
-        //в Load Board знаходить створений вантаж
-//        String loadNumber = "30957";
+        //Load Board знаходить створений вантаж
+        //String loadNumber = "30957";
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
@@ -239,10 +238,14 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
                 .click();
 
         //agent brocker
+        $("#select2-broker-agent-load-select-container")
+                .shouldNotHave(text("Auto test agent"), Duration.ofSeconds(5));
+
         $("#select2-broker-agent-load-select-container").shouldBe(visible).click();
         $(".select2-search__field").shouldBe(visible).setValue("Auto test agent39");
         $$(".select2-results__options")
                 .findBy(text("Auto test agent39"))
+                .shouldBe(visible, Duration.ofSeconds(5))
                 .click();
 
         //input other data

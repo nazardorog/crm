@@ -120,6 +120,7 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
 
         //отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
+        System.out.println("BigTruckTestCase3LoadBoard. Номер вантажу:" + loadNumber);
 
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").shouldBe(enabled).click();
