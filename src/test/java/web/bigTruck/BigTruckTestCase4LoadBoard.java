@@ -209,6 +209,8 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
+
+        System.out.println("bigTruckTestCase4LoadBoard - OK");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

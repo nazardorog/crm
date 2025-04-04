@@ -195,6 +195,8 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
+
+        System.out.println("bigTruckTestCase3LoadBoard - OK");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

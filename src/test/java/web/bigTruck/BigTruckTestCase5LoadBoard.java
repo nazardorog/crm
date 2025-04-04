@@ -218,6 +218,8 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Invoiced")).click();
         $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
+
+        System.out.println("bigTruckTestCase5LoadBoard - OK");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

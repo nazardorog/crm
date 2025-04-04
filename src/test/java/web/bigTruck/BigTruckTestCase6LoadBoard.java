@@ -9,19 +9,19 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase2LoadBoard extends LoginUser2 {
+public class BigTruckTestCase6LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 2. Редактирование Груза
+    // 6. Перевод груза с load invoicеd в loads paidd
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
@@ -29,7 +29,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void editCargoBigTruck () throws InterruptedException {
+    public void invoicedCargoToPaid () throws InterruptedException{
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -124,7 +124,6 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
 
         //отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
-        System.out.println("BigTruckTestCase2LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -166,126 +165,91 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         $(".kv-datetime-picker").click();
         inputCalendar(0, 0);
 
-        //перевіряє вибрану дату Start Date
-        LocalDateTime choseDate = now.withMinute(minute).withSecond(0).withNano(0);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/dd/yyyy HH:mm");
-        String formattedDateTime = choseDate.format(formatter);
-        String displayedDate = $("#loadexpenses-start_date").getValue();
-        Thread.sleep(10000);
-
-        if (displayedDate.equals(formattedDateTime)) {
-            System.out.println("✅ Дата відображається правильно: " + choseDate);
-        } else {
-            System.out.println("✅ Дата відображається не правильно: " + choseDate);
-        }
-
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").shouldBe(enabled).click();
 
-        //Load Board знаходить створений вантаж
-        //String loadNumber = "30957";
+        System.out.println("BigTruckTestCase4LoadBoard. Номер вантажу:" + loadNumber);
+
+        //*** Переводить вантаж на вкладку Loads Delivered ***
+        //в Load Board знаходить створений вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
+        $("a.view_load").shouldBe(text(loadNumber));
 
-        //перевіряє дані створеного вантажу
-        $("td a.view_load").shouldHave(text(loadNumber));
-        $("td a.view_truck").shouldHave(text("0305"));
-        $("td .text-aqua").shouldHave(text("AutoTest Trailer"));
-        $(".bt-col-driver-carrier .drivers-wrap").shouldHave(exactText("Auto Test Driver3 Big Truck"));
-        $(".bt-col-driver-carrier .team-driver-wrap").shouldHave(exactText("Auto Test Driver4 Big Truck"));
+        //відкриває Drop Info
+        $("#loadsdeliverylocations-date_delivery").shouldNotBe(visible);
+        $(".col-destination .view_delivery_location").shouldBe(visible).click();
+        $("#view_item .modal-title").shouldBe(visible, Duration.ofSeconds(5));
+        $("#view_item .loads-delivery-view").shouldBe(visible, Duration.ofSeconds(5));
 
-        $("td .view_broker").shouldHave(text("Auto test broker"));
-        $(".loads-locations .view_pick_up_location").shouldHave(text("Kansas City, MO"));
-        $(".col-origin .big-truck-none-bold").shouldHave(text("Wt 1 Plt 1 Pcs 1"));
-        $(".loads-locations .view_delivery_location").shouldHave(text("New York, NY"));
-        $(".col-destination .big-truck-none-bold").shouldHave(text("Wt 1 Plt 1 Pcs 1"));
+        //Drop Info встановлює Date delivery
+        $("#loadsdeliverylocations-date_delivery-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        inputCalendar(1, 1);
 
-        //перевіряє дату Origin Shippers Date from, формат мм/дд
-        LocalDateTime futureDate = now.plusDays(1);
-        String formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
-        $$(".col-origin .loads-locations-time-frame .pull-right ").get(0).shouldHave(text(formattedDate));
-
-        //перевіряє дату Origin Shippers Date to, формат мм/дд
-        futureDate = now.plusDays(2);
-        formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
-        $$(".col-origin .loads-locations-time-frame .pull-right ").get(1).shouldHave(text(formattedDate));
-
-        //перевіряє дату Destination Shippers Date from, формат мм/дд
-        futureDate = now.plusDays(3);
-        formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
-        $$(".col-destination .loads-locations-time-frame .pull-right ").get(0).shouldHave(text(formattedDate));
-
-        //перевіряє дату Destination Shippers Date to, формат мм/дд
-        futureDate = now.plusDays(4);
-        formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
-        $$(".col-destination .loads-locations-time-frame .pull-right ").get(1).shouldHave(text(formattedDate));
+        //закриває модальне вікно Drop Info
+        $("#view_item .close").click();
 
         //клік редагування вантажу
         $("#main-loads-grid .dropdown-toggle").click();
-        $$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).click();
 
-        //вводить нові дані редагування
-        //brocker
-        $("#update_load").shouldBe(visible, Duration.ofSeconds(10));
-        $("#select2-broker_search-container").shouldBe(visible).click();
-        $(".select2-search__field").shouldBe(visible).setValue("Auto test broker10");
-        $$(".select2-results__options")
-                .findBy(text("Auto test broker10"))
+        //перевіряє що вантаж відображаєтсья на Loads Delivered
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
+        $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
+
+        //*** Переводить вантаж з Loads Delivered в Load Invoiced ***
+        Thread.sleep(1000);
+        $("#delivered-loads-grid .dropdown-toggle").shouldBe(enabled).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as invoiced")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+
+        $("#mark_as_invoiced .modal-header").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("Mark as invoiced"));
+        $("#mark_as_invoiced_apply").shouldBe(enabled).click();
+
+        //перевіряє що вантаж не відображається на Loads Delivered
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
+        $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#delivered-loads-grid .empty").shouldHave(text("No results found."));
+
+        //перевіряє що вантаж вже відображається на Loads Invoiced
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Invoiced")).click();
+        $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
+
+        //перевіряє що вантаж відображається на Loads Invoiced
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Invoiced")).click();
+        $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
+
+        //*** Переводить вантаж з Load Invoiced в Loads Paid ***
+
+        //вкладка Loads Invoiced, ставить чек бокс в колонці Load pair
+        $("#invoice-loads-grid .container-checkbox-green")
+                .shouldBe(visible, enabled)
+                .setSelected(true);
+
+        //клік по батон Save вкладки Loads Invoiced
+        $("#paid-bulk-btn")
+                .shouldBe(visible, enabled)
                 .click();
 
-        //agent brocker
-        $("#select2-broker-agent-load-select-container")
-                .shouldNotHave(text("Auto test agent"), Duration.ofSeconds(5));
+        //перевіряє що вантаж не відображається на Loads Invoiced
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Invoiced")).click();
+        $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#invoice-loads-grid .empty").shouldHave(text("No results found."));
 
-        $("#select2-broker-agent-load-select-container").shouldBe(visible).click();
-        $(".select2-search__field").shouldBe(visible).setValue("Auto test agent39");
-        $$(".select2-results__options")
-                .findBy(text("Auto test agent39"))
-                .shouldBe(visible, Duration.ofSeconds(5))
-                .click();
+        //перевіряє що вантаж відображається на Loads Paid
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Paid")).click();
+        $("#paid input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#paid-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        //input other data
-        $("#loads-rate-disp").setValue("175000").pressEnter();
-        $("#select2-booked_with-container").shouldHave(text("Auto 2Test BT"));
-        $$("div#loads-check_full_load label").findBy(text("PTL")).click();
-        $$("#loads-local_type label").findBy(text("OTR")).click();
-        $$("#loads-load_type label").findBy(text("Warm")).click();
-
-        $("#select2-booked_with-container").shouldBe(enabled).click();
-        $$(".select2-results__options")
-                .findBy(text("Auto 3Test BT"))
-                .click();
-
-        $("#update_load_send").shouldBe(enabled).click();
-
-        //клік редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").shouldBe(enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(enabled).click();
-
-        $("#loads-rate-disp").shouldBe(visible).shouldHave(value("$ 1,750.00"));
-        $("#select2-booked_with-container").shouldHave(text("Auto 3Test BT"));
-        $$("#loads-check_full_load label")
-                .findBy(text("PTL"))
-                .$("input")
-                .shouldBe(checked);
-
-        $$("#loads-local_type label")
-                .findBy(text("OTR"))
-                .$("input")
-                .shouldBe(checked);
-
-        $$("#loads-load_type label")
-                .findBy(text("Warm"))
-                .$("input")
-                .shouldBe(checked);
-
-        System.out.println("bigTruckTestCase2LoadBoard - OK");
+        System.out.println("bigTruckTestCase6LoadBoard - OK");
     }
-
 
     public void inputCalendar(int introductionDay, int numberCalendar){
 
