@@ -56,11 +56,15 @@ public class TestCase13LoadBoard extends Login {
         $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
         //перевіряємо додавання свтореного Агента на фреймі New Load під полем Broker
+        System.out.println("TestCase13LoadBoard - Нового Брокера створено:" + brokerName);
+        System.out.println("TestCase13LoadBoard - Нового Агента створено:" + brokerName);
         Thread.sleep(5000);
         $(".bt-load-broker-main-flex").shouldHave(text(brokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
         $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumber));
+
+
 
         //генеруємо дані для редагування Брокера
         $(".broker_buttons .glyphicon-pencil").click();
@@ -95,6 +99,8 @@ public class TestCase13LoadBoard extends Login {
         $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
         //перевіряємо відредаговані дані брокера
+        System.out.println("TestCase13LoadBoard - Відредагований Брокер:" + editBrokerName);
+        System.out.println("TestCase13LoadBoard - Відредагований Агент:" + editAgentName);
         Thread.sleep(5000);
         $(".bt-load-broker-main-flex").shouldHave(text(editBrokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Texas"));

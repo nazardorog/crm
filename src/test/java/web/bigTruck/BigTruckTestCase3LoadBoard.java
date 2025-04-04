@@ -1,5 +1,6 @@
 package web.bigTruck;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.Keys;
@@ -127,9 +128,18 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
 
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
-        $("#available-loads-grid-filters .form-control").shouldBe(enabled).setValue(loadNumber).pressEnter();
-        $("td a.view_load").shouldHave(text(loadNumber));
+        $$("#loadTabs .updated-tabs-name-link")
+                .findBy(text("Available Loads:"))
+                .click();
+
+        $("#available-loads-grid-filters .form-control")
+                .shouldBe(visible, enabled)
+                .setValue(loadNumber).pressEnter();
+
+        $$("table#available-loads-grid tbody tr").shouldHave(CollectionCondition.size(1));
+        $("td a.view_load")
+                .shouldHave(text(loadNumber))
+                .shouldBe(visible);
 
         //клік на око, редагування вантажу Dispatch load
         $("#available-loads-grid button.view_load").click();

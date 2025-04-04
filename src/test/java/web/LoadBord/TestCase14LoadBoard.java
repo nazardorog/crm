@@ -79,7 +79,7 @@ public class TestCase14LoadBoard extends Login {
         $("#update_shippers-receiver_send").click();
 
         //перевіряє відредаговані дані Original Shipper на фреймі New Load
-        Thread.sleep(4000);
+        Thread.sleep(6000);
         $(".shipper-locations-name").shouldHave(text(editNameShipperOrigin));
         $(".shipper-locations-street").shouldHave(text(editStreet1ShipperOrigin));
         $(".shipper-locations-location").shouldHave(text("Kansas City, MO " + editZipCodeShipperOrigin));
