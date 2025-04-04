@@ -208,7 +208,7 @@ public class TestCase17LoadBoard extends Login {
         download(fileName3, selectorFile3);
         download(fileName4, selectorFile4);
 
-        System.out.println("TestCase17LoadBoard - OK");
+        System.out.println("TestCase17LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

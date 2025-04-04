@@ -32,6 +32,6 @@ public class TestCase10Interface extends Login {
         $("a[href='/adm/signature-document/archive']").shouldHave(text("Archive"));
         $("a[href='/adm/signature-document/starred']").shouldHave(text("Starred"));
 
-        System.out.println("TestCase10Interface - OK");
+        System.out.println("TestCase10Interface - Test Pass");
     }
 }

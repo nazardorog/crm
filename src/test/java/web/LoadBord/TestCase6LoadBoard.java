@@ -187,7 +187,7 @@ public class TestCase6LoadBoard extends Login {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#dispatch_load_send").click();
 
-        System.out.println("TestCase6LoadBoard - OK");
+        System.out.println("TestCase6LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

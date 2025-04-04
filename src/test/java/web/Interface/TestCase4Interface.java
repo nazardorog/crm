@@ -25,6 +25,6 @@ public class TestCase4Interface extends Login {
         $$(".breadcrumb li").findBy(text("Home")).shouldBe(visible);
         $$(".breadcrumb li").findBy(text("Brokers")).shouldBe(visible);
 
-        System.out.println("TestCase4Interface - OK");
+        System.out.println("TestCase4Interface - Test Pass");
     }
 }

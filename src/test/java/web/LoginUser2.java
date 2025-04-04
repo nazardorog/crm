@@ -45,7 +45,7 @@ public class LoginUser2 {
         System.out.println("test passed");
         System.out.println("screenshot saved: " + screenshotPath);
         Thread.sleep(5000);
-        System.out.println("loginWeb - OK");
+        System.out.println("loginWeb - Test Pass");
     }
 
     @AfterMethod

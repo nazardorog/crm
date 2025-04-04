@@ -39,6 +39,6 @@ public class TestCase6Interface extends Login {
         $$("td").findBy(text("Hold Time")).shouldBe(visible);
         $$("td").findBy(text("Hold Actions")).shouldBe(visible);
 
-        System.out.println("TestCase6Interface - OK");
+        System.out.println("TestCase6Interface - Test Pass");
     }
 }

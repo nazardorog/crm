@@ -166,7 +166,7 @@ public class TestCase18LoadBoard extends Login {
 //        $(".col_check_call span.pull-right").shouldHave(text("03/25 08:20"));
 
         //редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
 
         //вводить нові дані Broker, Agent, Origin Shippers, Distanation Shippers
@@ -232,7 +232,7 @@ public class TestCase18LoadBoard extends Login {
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 
-        $("#main-loads-grid .dropdown-toggle").click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(visible).click();
 
         $("td a.view_load").shouldHave(text(loadNumber));
@@ -265,7 +265,7 @@ public class TestCase18LoadBoard extends Login {
         formattedDate = String.format("%02d/%02d", futureDate.getMonthValue(), futureDate.getDayOfMonth());
         $$(selector).get(3).shouldHave(text(formattedDate));
 
-        System.out.println("TestCase18LoadBoard - OK");
+        System.out.println("TestCase18LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

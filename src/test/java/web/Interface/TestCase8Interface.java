@@ -36,6 +36,6 @@ public class TestCase8Interface extends Login {
         $("#number_warehouses").shouldHave(value("25"));
         $("#number_warehouses").$$("option").shouldHave(CollectionCondition.texts("25", "35", "50", "75"));
 
-        System.out.println("TestCase8Interface - OK");
+        System.out.println("TestCase8Interface - Test Pass");
     }
 }

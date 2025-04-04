@@ -111,6 +111,6 @@ public class TestCase13LoadBoard extends Login {
         $("#add_load .close").click();
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
-        System.out.println("TestCase13LoadBoard - OK");
+        System.out.println("TestCase13LoadBoard - Test Pass");
     }
 }

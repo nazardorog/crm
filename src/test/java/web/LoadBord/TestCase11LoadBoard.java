@@ -180,7 +180,7 @@ public class TestCase11LoadBoard extends Login {
             $(".modal-view-item .close").click();
             executeJavaScript("arguments[0].scrollTop = 0;", modal);
 
-            System.out.println("TestCase11LoadBoard - OK");
+            System.out.println("TestCase11LoadBoard - Test Pass");
         }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

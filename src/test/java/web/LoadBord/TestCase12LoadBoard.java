@@ -177,7 +177,7 @@ public class TestCase12LoadBoard extends Login {
         //повертаємось на Load bord
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
-        System.out.println("TestCase12LoadBoard - OK");
+        System.out.println("TestCase12LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

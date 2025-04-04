@@ -31,6 +31,8 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
     @Test
     public void newLoad() throws InterruptedException {
 
+        System.out.println("BigTruckTestCase1LoadBoard - Start");
+
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
@@ -191,7 +193,7 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("td a.view_load").shouldHave(text(loadNumber));
 
-        System.out.println("bigTruckTestCase1LoadBoard - OK");
+        System.out.println("bigTruckTestCase1LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

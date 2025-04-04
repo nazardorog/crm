@@ -30,6 +30,8 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
     @Test
     public void dеlivеredCargoToInvoiced () throws InterruptedException{
 
+        System.out.println("BigTruckTestCase5LoadBoard - Start");
+
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
@@ -170,7 +172,7 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").shouldBe(enabled).click();
 
-        System.out.println("BigTruckTestCase4LoadBoard. Номер вантажу:" + loadNumber);
+        System.out.println("BigTruckTestCase5LoadBoard. Номер вантажу:" + loadNumber);
 
         //*** Переводить вантаж на вкладку Loads Delivered ***
         //в Load Board знаходить створений вантаж
@@ -193,10 +195,10 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
         $("#view_item .close").click();
 
         //клік редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).click();
 
-        //перевіряє що вантаж відображаєтсья на Loads Delivered
+        //перевіряє що вантаж відображається на Loads Delivered
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
@@ -219,7 +221,7 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
         $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        System.out.println("bigTruckTestCase5LoadBoard - OK");
+        System.out.println("bigTruckTestCase5LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

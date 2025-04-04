@@ -150,7 +150,7 @@ public class TestCase8LoadBoard extends Login {
 
         $("#add_load .close").click();
 
-        System.out.println("TestCase8LoadBoard - OK");
+        System.out.println("TestCase8LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

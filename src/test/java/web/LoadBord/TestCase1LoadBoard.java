@@ -140,7 +140,7 @@ public class TestCase1LoadBoard extends Login {
             $("#dispatch_load_send").click();
         }
 
-        System.out.println("TestCase1LoadBoard - OK");
+        System.out.println("TestCase1LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

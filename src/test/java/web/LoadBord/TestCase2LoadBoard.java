@@ -136,7 +136,7 @@ public class TestCase2LoadBoard extends Login {
             $("#dispatch_load_send").click();
         }
 
-        System.out.println("TestCase2LoadBoard - OK");
+        System.out.println("TestCase2LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

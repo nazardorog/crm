@@ -34,6 +34,6 @@ public class TestCase3Interface extends Login {
         $$("th").findBy(text("Destination")).shouldBe(visible);
         $$("th").findBy(text("Actions")).shouldBe(visible);
 
-        System.out.println("TestCase3Interface - OK");
+        System.out.println("TestCase3Interface - Test Pass");
     }
 }

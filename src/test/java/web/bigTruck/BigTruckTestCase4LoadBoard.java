@@ -31,6 +31,8 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
     @Test
     public void enRoutCargoToDеlivеred() throws InterruptedException {
 
+        System.out.println("BigTruckTestCase4LoadBoard - Start");
+
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
@@ -198,19 +200,19 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //клік редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).click();
 
         //перевіряє що вантаж вже не відображається на Loads en Route
         $("a.view_load").shouldNotBe(text(loadNumber));
         $("#main-loads-grid .empty").shouldHave(text("No results found."));
 
-        //перевіряє що вантаж відображаєтсья на Loads Delivered
+        //перевіряє що вантаж відображається на Loads Delivered
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        System.out.println("bigTruckTestCase4LoadBoard - OK");
+        System.out.println("bigTruckTestCase4LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

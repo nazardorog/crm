@@ -41,6 +41,6 @@ public class TestCase5Interface extends Login {
         $$("th").findBy(text("Driver Support")).shouldBe(visible);
         $$("th").findBy(text("Hr Content")).shouldBe(visible);
 
-        System.out.println("TestCase5Interface - OK");
+        System.out.println("TestCase5Interface - Test Pass");
     }
 }

@@ -39,6 +39,6 @@ public class TestCase7Interface extends Login {
         $$("td").findBy(text("18.16")).shouldBe(visible);
         $$("td").findBy(text("-66.72")).shouldBe(visible);
 
-        System.out.println("TestCase7Interface - OK");
+        System.out.println("TestCase7Interface - Test Pass");
     }
 }

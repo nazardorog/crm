@@ -31,6 +31,8 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
     @Test
     public void editCargoBigTruck () throws InterruptedException {
 
+        System.out.println("BigTruckTestCase2LoadBoard - Start");
+
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
@@ -225,7 +227,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         $$(".col-destination .loads-locations-time-frame .pull-right ").get(1).shouldHave(text(formattedDate));
 
         //клік редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
 
         //вводить нові дані редагування
@@ -283,7 +285,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
                 .$("input")
                 .shouldBe(checked);
 
-        System.out.println("bigTruckTestCase2LoadBoard - OK");
+        System.out.println("bigTruckTestCase2LoadBoard - Test Pass");
     }
 
 

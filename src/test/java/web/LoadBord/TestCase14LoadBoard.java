@@ -171,7 +171,7 @@ public class TestCase14LoadBoard extends Login {
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
-        System.out.println("TestCase14LoadBoard - OK");
+        System.out.println("TestCase14LoadBoard - Test Pass");
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

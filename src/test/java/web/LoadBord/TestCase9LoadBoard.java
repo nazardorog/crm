@@ -158,7 +158,7 @@ public class TestCase9LoadBoard extends Login {
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
         $("#dispatch_load_send").click();
 
-        System.out.println("TestCase9LoadBoard - OK");
+        System.out.println("TestCase9LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

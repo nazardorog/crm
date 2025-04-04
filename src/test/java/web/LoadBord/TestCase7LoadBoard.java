@@ -224,6 +224,6 @@ public class TestCase7LoadBoard extends Login {
 
         $("#add_load .close").click();
 
-        System.out.println("TestCase7LoadBoard - OK");
+        System.out.println("TestCase7LoadBoard - Test Pass");
     }
 }

@@ -39,6 +39,6 @@ public class TestCase11Interface extends Login {
         $$(".table-documents-content .style-filter-name a").findBy(exactText("Status"));
         $$(".table-documents-content .style-filter-name a").findBy(exactText("Updated At"));
 
-        System.out.println("TestCase11Interface - OK");
+        System.out.println("TestCase11Interface - Test Pass");
     }
 }

@@ -40,6 +40,6 @@ public class TestCase2Interface extends Login {
         $(".li-tabs-home.li-tabs-invoiced .updated-tabs-name-link").click();
         $(".li-tabs-home.li-tabs-paid .updated-tabs-name-link").click();
 
-        System.out.println("TestCase2Interface - OK");
+        System.out.println("TestCase2Interface - Test Pass");
     }
 }

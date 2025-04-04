@@ -40,6 +40,6 @@ public class TestCase9Interface extends Login {
         $$("th").findBy(text("Canceled load")).shouldBe(visible);
         $$("th").findBy(text("Actions")).shouldBe(visible);
 
-        System.out.println("TestCase9Interface - OK");
+        System.out.println("TestCase9Interface - Test Pass");
     }
 }
