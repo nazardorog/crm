@@ -167,7 +167,8 @@ public class TestCase18LoadBoard extends Login {
 
         //редагування вантажу
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
+        $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+//        $$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
 
         //вводить нові дані Broker, Agent, Origin Shippers, Distanation Shippers
         $("#delete_load_broker").click();

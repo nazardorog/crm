@@ -131,14 +131,14 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
 
         //вибирає Carrier
         $("#select2-carrierId-container").click();
-        $$(".select2-results__option").findBy(text("AutoTestOwner5 INC")).click();
-        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner5 INC"));
+        $$(".select2-results__option").findBy(text("AutoTestOwner1 INC")).click();
+        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner1 INC"));
 
         //вибирає Truck
         $("#select2-trucks-template-container").click();
         $(".select2-search__field").setValue("0305");
-        $$(".select2-results__option").findBy(text("0305 (AutoTestOwner5 INC)")).click();
-        $("#select2-trucks-template-container").shouldHave(text("0305 (AutoTestOwner5 INC)"));
+        $$(".select2-results__option").findBy(text("0305 (AutoTestOwner1 INC)")).click();
+        $("#select2-trucks-template-container").shouldHave(text("0305 (AutoTestOwner1 INC)"));
 
         //вибирає Driver
         $("#select2-load_driver_id-container").click();
@@ -155,8 +155,8 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
         //вибирає Trailer
         $("#select2-trailer_id-create-container").click();
         $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("AutoTest Trailer")).click();
-        $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer"));
+        $$(".select2-results__option").findBy(text("AutoTest Trailer1")).click();
+        $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer1"));
 
         //вибирає Location From вводить Location To
         $("#loadexpenses-location").selectOption("Kansas City, MO 64110");
@@ -196,7 +196,7 @@ public class BigTruckTestCase5LoadBoard extends LoginUser2 {
 
         //клік редагування вантажу
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //перевіряє що вантаж відображається на Loads Delivered
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();

@@ -2,6 +2,7 @@ package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.Assertions;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -13,8 +14,7 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class BigTruckTestCase7LoadBoard extends LoginUser2 {
 
@@ -132,14 +132,14 @@ public class BigTruckTestCase7LoadBoard extends LoginUser2 {
 
         //вибирає Carrier
         $("#select2-carrierId-container").click();
-        $$(".select2-results__option").findBy(text("AutoTestOwner5 INC")).click();
-        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner5 INC"));
+        $$(".select2-results__option").findBy(text("AutoTestOwner1 INC")).click();
+        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner1 INC"));
 
         //вибирає Truck
         $("#select2-trucks-template-container").click();
         $(".select2-search__field").setValue("0305");
-        $$(".select2-results__option").findBy(text("0305 (AutoTestOwner5 INC)")).click();
-        $("#select2-trucks-template-container").shouldHave(text("0305 (AutoTestOwner5 INC)"));
+        $$(".select2-results__option").findBy(text("0305 (AutoTestOwner1 INC)")).click();
+        $("#select2-trucks-template-container").shouldHave(text("0305 (AutoTestOwner1 INC)"));
 
         //вибирає Driver
         $("#select2-load_driver_id-container").click();
@@ -156,8 +156,8 @@ public class BigTruckTestCase7LoadBoard extends LoginUser2 {
         //вибирає Trailer
         $("#select2-trailer_id-create-container").click();
         $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("AutoTest Trailer")).click();
-        $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer"));
+        $$(".select2-results__option").findBy(text("AutoTest Trailer1")).click();
+        $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer1"));
 
         //вибирає Location From вводить Location To
         $("#loadexpenses-location").selectOption("Kansas City, MO 64110");
@@ -175,38 +175,42 @@ public class BigTruckTestCase7LoadBoard extends LoginUser2 {
 
         System.out.println("BigTruckTestCase6LoadBoard. Номер вантажу:" + loadNumber);
 
-        //*** Переводить вантаж на вкладку Loads Delivered ***
-        //в Load Board знаходить створений вантаж
+        //*** Переводить вантаж з Loads en Route в Load Delivered ***
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        //відкриває Drop Info
+        //відкриває Drop Info, клік в Destination по місту
         $("#loadsdeliverylocations-date_delivery").shouldNotBe(visible);
         $(".col-destination .view_delivery_location").shouldBe(visible).click();
         $("#view_item .modal-title").shouldBe(visible, Duration.ofSeconds(5));
         $("#view_item .loads-delivery-view").shouldBe(visible, Duration.ofSeconds(5));
 
-        //Drop Info встановлює Date delivery
+        //Drop Info встановлює Date delivered
         $("#loadsdeliverylocations-date_delivery-datetime .kv-datetime-picker").shouldBe(enabled).click();
         inputCalendar(1, 1);
 
         //закриває модальне вікно Drop Info
         $("#view_item .close").click();
 
-        //клік редагування вантажу
+        //клік по три крапки й вибирає Mark as delivered
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+//        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-//        String loadNumber = "31249";
+        //попап діалог
+        String alertText = switchTo().alert().getText();
+        System.out.println("Alert says: " + alertText);
+        Assertions.assertEquals("Are you sure you want to Mark as delivered this load?", alertText);
+        switchTo().alert().accept();
 
         //перевіряє що вантаж відображається на Loads Delivered
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        //*** Переводить вантаж з Loads Delivered в Load Invoiced ***
+        //*** Переводить вантаж з Loads Delivered в Loads en Route ***
         Thread.sleep(1000);
         $("#delivered-loads-grid .dropdown-toggle").shouldBe(enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Bounce to en Route")).shouldBe(enabled, Duration.ofSeconds(1)).click();
@@ -228,6 +232,7 @@ public class BigTruckTestCase7LoadBoard extends LoginUser2 {
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid .empty").shouldHave(text("No results found."));
 
+        //перевіряє відображення вантажу на вкладці Loads en Route
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("td a.view_load").shouldHave(text(loadNumber));
