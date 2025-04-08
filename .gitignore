@@ -40,3 +40,5 @@ build/
 ### Allure ###
 allure-results/
 allure-report/
+
+webApi/

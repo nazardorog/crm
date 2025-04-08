@@ -45,6 +45,9 @@
             <class name="web.bigTruck.BigTruckTestCase3LoadBoard"/>
             <class name="web.bigTruck.BigTruckTestCase4LoadBoard"/>
             <class name="web.bigTruck.BigTruckTestCase5LoadBoard"/>
+            <class name="web.bigTruck.BigTruckTestCase6LoadBoard"/>
+            <class name="web.bigTruck.BigTruckTestCase7LoadBoard"/>
+            <class name="web.bigTruck.BigTruckTestCase8LoadBoard"/>
         </classes>
     </test>
 

@@ -228,7 +228,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
 
         //клік редагування вантажу
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //вводить нові дані редагування
         //brocker
