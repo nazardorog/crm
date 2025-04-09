@@ -1,9 +1,10 @@
 package web.bigTruck;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -11,31 +12,28 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase9LoadBoard extends LoginUser2 {
+public class BigTruckTestCase11LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 9. Dispatch/Add driver
+    // 11. Dispatch/Add expenses
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
     int hour = now.getHour();
     int minute = (now.getMinute() / 5) * 5;
+    private String loadNumber;
 
     @Test
-    public void driverAddDell () throws InterruptedException {
-
-        System.out.println("BigTruckTestCase3LoadBoard - Start");
+    public void expensesAddDell (){
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -124,7 +122,7 @@ public class BigTruckTestCase9LoadBoard extends LoginUser2 {
         $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
-        String loadNumber = $("#view_load .check_call_pro").getText();
+        loadNumber = $("#view_load .check_call_pro").getText();
         System.out.println("BigTruckTestCase3LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
@@ -173,134 +171,59 @@ public class BigTruckTestCase9LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
+//        loadNumber = "31488";
+
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        //перевіряє дані водія перед редагуванням фрейм Load Board
-        $("td a.view_truck").shouldHave(text("0305"));
-        $("td .text-aqua").shouldHave(text("AutoTest Trailer1"));
-        $(".bt-col-driver-carrier .drivers-wrap").shouldHave(exactText("Auto Test Driver3 Big Truck"));
-        $(".bt-col-driver-carrier .team-driver-wrap").shouldHave(exactText("Auto Test Driver4 Big Truck"));
-
         //відкриває Dispatch
         $("#main-loads-grid button.view_load").click();
 
-        //перевіряє дані dispatch що були при створенні вантажу
-        $$("#loadDriversContent .view_driver").get(0).shouldHave(text("Auto Test Driver3 Big Truck"));
-        $$("#loadDriversContent .view_driver").get(1).shouldHave(text("Auto Test Driver4 Big Truck"));
-        $("#loadDriversContent .text-muted").shouldHave(text("AutoTestOwner1 INC"));
-        $("#loadDriversContent span.text-purple").shouldHave(text("0305"));
-        $("#loadDriversContent span.text-aqua").shouldHave(text("AutoTest Trailer1"));
+        // *** Додає Expense ***
+        $(".dispatch-head-drivers i.fa-money").click();
 
-        //***Додає другого водія до вантажу***
-        $(".dispatch-head-drivers span.icon-plus-load").click();
+        // Фрейм Add expenses
+        $("#add_expenses .modal-title").shouldHave(text("Add expenses"));
 
-        //вибирає Carrier
-        $("#select2-carrierId-container").click();
-        $$(".select2-results__option").findBy(text("AutoTestOwner2 INC")).click();
-        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner2 INC"));
+        // Поле Name
+        $("#loadexpenses-name").shouldBe(visible).setValue("Fuel is gasoline");
 
-        //вибирає Truck
-        $("#select2-trucks-template-container").click();
-        $(".select2-search__field").setValue("0306");
-        $$(".select2-results__option").findBy(text("0306 (AutoTestOwner2 INC)")).click();
-        $("#select2-trucks-template-container").shouldHave(text("0306 (AutoTestOwner2 INC)"));
-
-        //вибирає Driver
-        $("#select2-load_driver_id-container").click();
-        $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("Auto Test Driver5 Big Truck")).click();
-        $("#select2-load_driver_id-container").shouldHave(text("Auto Test Driver5 Big Truck"));
-
-        //вибирає Team Driver
-        $("#select2-load_team_driver_id-container").click();
-        $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("Auto Test Driver6 Big Truck")).click();
-        $("#select2-load_team_driver_id-container").shouldHave(text("Auto Test Driver6 Big Truck"));
-
-        //вибирає Trailer
-        $("#select2-trailer_id-create-container").click();
-        $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("AutoTest Trailer2")).click();
-        $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer2"));
-
-        //вводить Location To
-        $("#loadexpenses-location_to").setValue("edit New York, NY 10002");
-
-        //вибирає Start Date
+        // Календар Start Date
         $(".kv-datetime-picker").click();
-        inputCalendar(1, 0);
+        inputCalendar(0, 0);
 
-        //клік по Submit фрейм Add driver
-        $("#update_load_driver_send").click();
+        // Поле Amount
+        $("#loadexpenses-amount-disp").shouldBe(visible).setValue("1000");
 
-        //селектори водія та доданого водія на фрейм dispatch
-        ElementsCollection drivers = $$("tr td a.view_driver");
-        ElementsCollection owner = $$("tr td a.text-muted");
-        ElementsCollection truck = $$("tr td span.text-purple");
-        ElementsCollection trailer = $$("tr td span.text-aqua");
+        // Поле Location
+        $("#loadexpenses-location").shouldBe(visible).setValue("New York");
 
-        //перевіряє першого водія фрейм dispatch
-        drivers.get(0).shouldHave(text("Auto Test Driver3 Big Truck"));
-        drivers.get(1).shouldHave(text("Auto Test Driver4 Big Truck"));
-        owner.get(0).shouldHave(text("AutoTestOwner1 INC"));
-        truck.get(0).shouldHave(text("0305"));
-        trailer.get(0).shouldHave(text("AutoTest Trailer1"));
+        // Поле Note
+        $("#loadexpenses-note").shouldBe(visible).setValue("additional filling");
 
-        //перевіряє другого водія фрейм dispatch
-        drivers.get(2).shouldHave(text("Auto Test Driver5 Big Truck"));
-        drivers.get(3).shouldHave(text("Auto Test Driver6 Big Truck"));
-        owner.get(1).shouldHave(text("AutoTestOwner2 INC"));
-        truck.get(1).shouldHave(text("0306"));
-        trailer.get(1).shouldHave(text("AutoTest Trailer2"));
+        // Клік Submit фрейм Add expenses
+        $("#update_load_expenses_send").click();
 
-        //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").click();
+        //перевіряє доданий Expenses на фрейм Dispatch
+        SelenideElement expensesDispatch = $$("td[colspan='2']")
+                .findBy(text("Fuel is gasoline"));
 
-        //перевіряє дані водія після редагування Load Board вкладка Loads en Route
-        //перевіряє першого водія
-        $(".loads-driver-height-block.level-0 a.view_truck").shouldHave(text("0305"));
-        $(".loads-driver-height-block.level-0 span.text-aqua").shouldHave(text("AutoTest Trailer1"));
-        $$(".loads-driver-height-block.level-0 a.view_driver").get(0).shouldHave(text("Auto Test Driver3 Big Truck"));
-        $$(".loads-driver-height-block.level-0 a.view_driver").get(1).shouldHave(text("Auto Test Driver4 Big Truck"));
+        expensesDispatch.shouldBe(visible);
+        expensesDispatch.shouldHave(text("Fuel is gasoline"));
+        expensesDispatch.shouldHave(text("additional filling"));
+        $$("tr[data-expense-key]").findBy(text("Fuel is gasoline")).shouldHave(text("New York"));
+        $$("tr[data-expense-key]").findBy(text("Fuel is gasoline")).shouldHave(text("$10.00"));
 
-        //перевіряє другого водія
-        $(".loads-driver-height-block.level-1 a.view_truck").shouldHave(text("0306"));
-        $(".loads-driver-height-block.level-1 span.text-aqua").shouldHave(text("AutoTest Trailer2"));
-        $$(".loads-driver-height-block.level-1 a.view_driver").get(0).shouldHave(text("Auto Test Driver5 Big Truck"));
-        $$(".loads-driver-height-block.level-1 a.view_driver").get(1).shouldHave(text("Auto Test Driver6 Big Truck"));
+        // *** Видаляє Expense ***
+        $("#loadDriversContent span.glyphicon-minus").shouldBe(visible, enabled).click();
 
-        //відкриваємо Dispatch
-        $("#main-loads-grid button.view_load").click();
+        //перевіряє що Expense видалений з таб частини на фрейм Dispatch
+        expensesDispatch.shouldNotBe(visible);
 
-        //перевіряє другого водія фрейм dispatch
-        truck.get(1).shouldHave(text("0306"));
-
-        //видаляє другого водія shouldNotHave
-        $("#loadDriversContent span.glyphicon-minus").click();
-
-        //перевіряє що другий водій видалений фрейм dispatch
-        truck.get(1).shouldNotHave(visible);
-
-        //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").click();
-
-        //перевіряє що другий водій видалений та перший відображається Load Board вкладка Loads en Route
-        //перевіряє першого водія
-        $(".loads-driver-height-block.level-0 a.view_truck").shouldHave(text("0305"));
-        $(".loads-driver-height-block.level-0 span.text-aqua").shouldHave(text("AutoTest Trailer1"));
-        $$(".loads-driver-height-block.level-0 a.view_driver").get(0).shouldHave(text("Auto Test Driver3 Big Truck"));
-        $$(".loads-driver-height-block.level-0 a.view_driver").get(1).shouldHave(text("Auto Test Driver4 Big Truck"));
-
-        //перевіряє що другий водій не відображається
-        $(".loads-driver-height-block.level-1 a.view_truck").shouldNotHave(visible);
-        $(".loads-driver-height-block.level-1 span.text-aqua").shouldNotHave(visible);
-        $(".loads-driver-height-block.level-1 a.view_driver").shouldNotHave(visible);
-
-        System.out.println("bigTruckTestCase9LoadBoard - Test Pass");
+        System.out.println("bigTruckTestCase10LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

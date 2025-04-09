@@ -169,8 +169,6 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
-//        String loadNumber = "31419";
-
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
@@ -183,7 +181,6 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
         //***Додаємо Warehouses***
         $(".dispatch-head-drivers i.fa-home").click();
 
-        //фрейм Add warehouses
         //WareHouse
         $("#select2-loadexpenses-warehouse_id-container").shouldBe(enabled).click();
         $(".select2-search__field").setValue("auto");
