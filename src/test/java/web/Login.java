@@ -19,6 +19,7 @@ public class Login {
     @BeforeMethod
     @Description("Авторизація користувача в системі")
     public void loginWeb() throws InterruptedException {
+
         Configuration.browser = "chrome";
         Configuration.reportsFolder = "allure-results";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
