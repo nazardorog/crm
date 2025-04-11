@@ -13,16 +13,17 @@ import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.switchTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class BigTruckTestCase13LoadBoard extends LoginUser2 {
+public class BigTruckTestCase14LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 13. Чек Колы - Редактирование
+    // 14. Чек Колы - Удаление
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
@@ -32,9 +33,9 @@ public class BigTruckTestCase13LoadBoard extends LoginUser2 {
     String agent = "Auto test agent";
 
     @Test
-    public void checkCallEdit (){
+    public void checkCallDell (){
 
-        System.out.println("BigTruckTestCase13LoadBoard - Start");
+        System.out.println("BigTruckTestCase14LoadBoard - Start");
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -172,10 +173,12 @@ public class BigTruckTestCase13LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
+//        loadNumber = "31572";
+
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
-        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
+        $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
         //відкриває Dispatch
@@ -215,7 +218,7 @@ public class BigTruckTestCase13LoadBoard extends LoginUser2 {
         $("#add_check_call_load")
                 .shouldBe(visible);
 
-        // new Call 1 поле Location
+        // Додає Call 1 поле Location
         $("#loadnotes-location")
                 .setValue(zipCheckCalls1);
         $$("#autocomplete-results-loadnotes-location li")
@@ -295,116 +298,58 @@ public class BigTruckTestCase13LoadBoard extends LoginUser2 {
         $("#check_call_load_send")
                 .click();
 
-        // *** Дані для редагування CheckCalls
-        // Дані edit Check Call 1
-        String editNoteCheckCalls1 = "Edit Note Check cool 1";
-        String editTapeCheckCalls1 = "User";
-        String editZipCheckCalls1 = "78702";
-        String editLocationCheckCalls1 = "Austin, TX";
-        String editUserCheckCalls1 = "Auto 2Test BT";
 
-        // Дані edit Check Call 2
-        String editNoteCheckCalls2 = "Edit Note Check cool 2";
-        String editTapeCheckCalls2 = "Alert";
-        String editZipCheckCalls2 = "61611";
-        String editLocationCheckCalls2 = "East Peoria, IL";
-        String editUserCheckCalls2 = "Auto 2Test BT";
-
-        // Дані edit Check Call 3
-        String editNoteCheckCalls3 = "Edit Note Check cool 3";
-        String editTapeCheckCalls3 = "LFB";
-        String editZipCheckCalls3 = "76502";
-        String editLocationCheckCalls3 = "Temple, TX";
-        String editUserCheckCalls3 = "Auto 2Test BT";
-
-        // *** Check Call 1 редагування ***
-        // Check Call 1 перевіряє дані до редагування фрейм Dispatch
+        // Селектори для видалення
         SelenideElement rowCheckCalls1 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls1));
-        rowCheckCalls1.$("td:nth-of-type(2)").shouldHave(text(tapeCheckCalls1));
-        rowCheckCalls1.$(".check_call_user").shouldHave(text(userCheckCalls1));
-        rowCheckCalls1.$(".check_call_location").shouldHave(text(locationCheckCalls1));
-        rowCheckCalls1.$(".check_call_note").shouldHave(text(noteCheckCalls1));
-
-        // Check Call 1 клік по олівець
-        rowCheckCalls1.$(".update_load_note .glyphicon-pencil").shouldBe(visible, enabled).click();
-        $("#update_load_note").shouldBe(visible);
-
-        // Check Call 1 перевіряє дані до редагування фрейм Update Load Note
-        $("#loadnotes-location").shouldHave(value(locationCheckCalls1 + " " + zipCheckCalls1));
-        $("#loadnotes-note").shouldHave(text(noteCheckCalls1));
-
-        // Check Call 1 редагує дані
-        $("#loadnotes-location").setValue(editZipCheckCalls1);
-        $$("#autocomplete-results-loadnotes-location li").findBy(text(editLocationCheckCalls1 + " " + editZipCheckCalls1)).shouldBe(visible).click();
-        $("#loadnotes-note").setValue(editNoteCheckCalls1).shouldBe(visible);
-        $("#update_load_note_send").click();
-
-        // Check Call 1 перевіряє дані після редагування фрайм Dispatch
-        SelenideElement editRowCheckCalls1 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(editNoteCheckCalls1));
-        editRowCheckCalls1.$("td:nth-of-type(2)").shouldHave(text(editTapeCheckCalls1));
-        editRowCheckCalls1.$(".check_call_user").shouldHave(text(editUserCheckCalls1));
-        editRowCheckCalls1.$(".check_call_location").shouldHave(text(editLocationCheckCalls1));
-        editRowCheckCalls1.$(".check_call_note").shouldHave(text(editNoteCheckCalls1));
-
-        // *** Check Call 2 редагування ***
-        // Check Call 2 перевіряє дані до редагування фрейм Dispatch
         SelenideElement rowCheckCalls2 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls2));
-        rowCheckCalls2.$("td:nth-of-type(2)").shouldHave(text(tapeCheckCalls2));
-        rowCheckCalls2.$(".check_call_user").shouldHave(text(userCheckCalls2));
-        rowCheckCalls2.$(".check_call_location").shouldHave(text(locationCheckCalls2));
-        rowCheckCalls2.$(".check_call_note").shouldHave(text(noteCheckCalls2));
-
-        // Check Call 2 клік по олівець
-        rowCheckCalls2.$(".update_load_note .glyphicon-pencil").shouldBe(visible, enabled).click();
-        $("#update_load_note").shouldBe(visible);
-
-        // Check Call 2 перевіряє дані до редагування фрейм Update Load Note
-        $("#loadnotes-location").shouldHave(value(locationCheckCalls2 + " " + zipCheckCalls2));
-        $("#loadnotes-note").shouldHave(text(noteCheckCalls2));
-
-        // Check Call 2 редагує дані
-        $("#loadnotes-location").setValue(editZipCheckCalls2);
-        $$("#autocomplete-results-loadnotes-location li").findBy(text(editLocationCheckCalls2 + " " + editZipCheckCalls2)).shouldBe(visible).click();
-        $("#loadnotes-note").setValue(editNoteCheckCalls2).shouldBe(visible);
-        $("#update_load_note_send").click();
-
-        // Check Call 2 перевіряє дані після редагування фрайм Dispatch
-        SelenideElement editRowCheckCalls2 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(editNoteCheckCalls2));
-        editRowCheckCalls2.$("td:nth-of-type(2)").shouldHave(text(editTapeCheckCalls2));
-        editRowCheckCalls2.$(".check_call_user").shouldHave(text(editUserCheckCalls2));
-        editRowCheckCalls2.$(".check_call_location").shouldHave(text(editLocationCheckCalls2));
-        editRowCheckCalls2.$(".check_call_note").shouldHave(text(editNoteCheckCalls2));
-
-        // *** Check Call 3 редагування ***
-        // Check Call 3 перевіряє дані до редагування фрейм Dispatch
         SelenideElement rowCheckCalls3 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls3));
-        rowCheckCalls3.$("td:nth-of-type(2)").shouldHave(text(tapeCheckCalls3));
-        rowCheckCalls3.$(".check_call_user").shouldHave(text(userCheckCalls3));
-        rowCheckCalls3.$(".check_call_location").shouldHave(text(locationCheckCalls3));
-        rowCheckCalls3.$(".check_call_note").shouldHave(text(noteCheckCalls3));
 
-        // Check Call 3 клік по олівець
-        rowCheckCalls3.$(".update_load_note .glyphicon-pencil").shouldBe(visible, enabled).click();
-        $("#update_load_note").shouldBe(visible);
+        // *** Видаляє Check Call 1 ***
+        rowCheckCalls1.$(".glyphicon-trash").shouldBe(visible, enabled).click();
 
-        // Check Call 3 перевіряє дані до редагування фрейм Update Load Note
-        $("#loadnotes-location").shouldHave(value(locationCheckCalls3 + " " + zipCheckCalls3));
-        $("#loadnotes-note").shouldHave(text(noteCheckCalls3));
+        // Check Call 1 попап діалог
+        String popapText1 = switchTo().alert().getText();
+        System.out.println("попап Check Call 1 текст: " + popapText1);
 
-        // Check Call 3 редагує дані
-        $("#loadnotes-location").setValue(editZipCheckCalls3);
-        $$("#autocomplete-results-loadnotes-location li").findBy(text(editLocationCheckCalls3 + " " + editZipCheckCalls3)).shouldBe(visible).click();
-        $("#loadnotes-note").setValue(editNoteCheckCalls3).shouldBe(visible);
-        $("#update_load_note_send").click();
+        // Check Call 1 попап підтвердження видалення
+        assertThat(popapText1).isEqualTo("Are you sure you want to delete this load note?");
+        switchTo().alert().accept();
 
-        // Check Call 3 перевіряє дані після редагування фрайм Dispatch
-        SelenideElement editRowCheckCalls3 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(editNoteCheckCalls3));
-        editRowCheckCalls3.$("td:nth-of-type(2)").shouldHave(text(editTapeCheckCalls3));
-        editRowCheckCalls3.$(".check_call_user").shouldHave(text(editUserCheckCalls3));
-        editRowCheckCalls3.$(".check_call_location").shouldHave(text(editLocationCheckCalls3));
-        editRowCheckCalls3.$(".check_call_note").shouldHave(text(editNoteCheckCalls3));
+        // Check Call 1 перевірка що видалений
+        rowCheckCalls1.shouldNot(exist);
 
-        System.out.println("bigTruckTestCase13LoadBoard - Test Pass");
+        // *** Видаляє Check Call 2 ***
+        rowCheckCalls2.$(".glyphicon-trash").shouldBe(visible, enabled).click();
+
+        // Check Call 2 попап діалог
+        String popapText2 = switchTo().alert().getText();
+        System.out.println("Alert says: " + popapText2);
+
+        // Check Call 2 попап підтвердження видалення
+        assertThat(popapText2).isEqualTo("Are you sure you want to delete this load note?");
+        switchTo().alert().accept();
+
+        // Check Call 2 перевірка що видалений
+        rowCheckCalls1.shouldNot(exist);
+
+        // *** Видаляє Check Call 2 ***
+        rowCheckCalls3.$(".glyphicon-trash").shouldBe(visible, enabled).click();
+
+        // Check Call 3 попап діалог
+        String popapText3 = switchTo().alert().getText();
+        System.out.println("Alert says: " + popapText3);
+
+        // Check Call 3 попап підтвердження видалення
+        assertThat(popapText3).isEqualTo("Are you sure you want to delete this load note?");
+        switchTo().alert().accept();
+
+        // Check Call 3 перевірка що видалений
+        rowCheckCalls1.shouldNot(exist);
+
+        // додаткова перевірка що таблиця Check Calls пуста
+        $(".table-dispatch-check-calls").shouldHave(text("No results found."));
+
+        System.out.println("bigTruckTestCase14LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){
@@ -429,4 +374,5 @@ public class BigTruckTestCase13LoadBoard extends LoginUser2 {
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
+
 }
