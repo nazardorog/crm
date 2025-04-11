@@ -1,9 +1,7 @@
 package web.bigTruck;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -11,8 +9,6 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.util.Collection;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -33,9 +29,9 @@ public class BigTruckTestCase9LoadBoard extends LoginUser2 {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void driverAddDell () throws InterruptedException {
+    public void driverAddDell () {
 
-        System.out.println("BigTruckTestCase3LoadBoard - Start");
+        System.out.println("BigTruckTestCase9LoadBoard - Start");
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

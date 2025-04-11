@@ -29,7 +29,7 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void enRoutCargoToDеlivеred() throws InterruptedException {
+    public void enRoutCargoToDеlivеred() {
 
         System.out.println("BigTruckTestCase4LoadBoard - Start");
 
@@ -194,14 +194,14 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
         //закриває модальне вікно Drop Info
         $("#view_item .close").click();
 
-        //додатково перевіряє що вантаж на вкладці
+        //додатково перевіряє що вантаж на вкладці Loads en Route
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
         //клік редагування вантажу
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(20)).click();
 
         //перевіряє що вантаж вже не відображається на Loads en Route
         $("a.view_load").shouldNotBe(text(loadNumber));

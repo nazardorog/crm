@@ -2,13 +2,12 @@ package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
 import java.io.File;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
+import java.time.*;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -16,22 +15,24 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase10LoadBoard extends LoginUser2 {
+public class BigTruckTestCase12LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 10. Dispatch/Add warehouse
+    // 12. Чек Колы - Создание
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
     int hour = now.getHour();
     int minute = (now.getMinute() / 5) * 5;
+    String loadNumber;
+    String agent = "Auto test agent";
 
     @Test
-    public void wareHousesAddDell () {
+    public void checkCallAdd (){
 
-        System.out.println("BigTruckTestCase10LoadBoard - Start");
+        System.out.println("BigTruckTestCase12LoadBoard - Start");
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -45,7 +46,7 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
                 .findBy(text("Auto test broker"))
                 .click();
         $("#select2-broker-agent-load-select-container").click();
-        $(".select2-search__field").setValue("Auto test agent");
+        $(".select2-search__field").setValue(agent);
         $$(".select2-results__options")
                 .findBy(text("Auto test agent"))
                 .click();
@@ -115,12 +116,12 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
         $("#loadsdeliverylocations-0-weight").setValue("1");
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
-        //зберігає номер вантажу на фрейм Dispatch board
+        //відкриває фрейм Dispatch board
         $("#add_load_send_dispatch").click();
         $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
-        String loadNumber = $("#view_load .check_call_pro").getText();
+        loadNumber = $("#view_load .check_call_pro").getText();
         System.out.println("BigTruckTestCase3LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
@@ -169,6 +170,8 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
+//        loadNumber = "31487";
+
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
@@ -177,36 +180,139 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
 
         //відкриває Dispatch
         $("#main-loads-grid button.view_load").click();
+        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
 
-        //***Додаємо Warehouses***
-        $(".dispatch-head-drivers i.fa-home").click();
+        // Перевіряє що таблиця Check Calls пуста
+        $(".table-dispatch-check-calls").shouldHave(text("No results found."));
 
-        //WareHouse
-        $("#select2-loadexpenses-warehouse_id-container").shouldBe(enabled).click();
-        $(".select2-search__field").setValue("auto");
-        $$("li.select2-results__option")
-                .findBy(text("AutoTestWareHouses1"))
+    // *** Додає Check Call 1 ***
+        $(".dispatch-head-drivers a.check_call_load")
+                .shouldBe(visible)
+                .shouldBe(enabled)
+                .click();
+        $("#add_check_call_load").shouldBe(visible);
+
+        // Поле Location
+        $("#loadnotes-location").setValue("7700");
+        $$("#autocomplete-results-loadnotes-location li")
+                .findBy(text("Houston, TX 77001"))
+                .shouldBe(visible)
                 .click();
 
-        //Amount
-        $("#loadexpenses-amount-disp").setValue("1000");
-        $("#loadexpenses-location").setValue("New York warehouse");
+        // Поле Note
+        $("#loadnotes-note").setValue("Note Check cool 1").shouldBe(visible);
 
-        //клік Submit фрейм Add warehouses
-        $("#update_load_warehouses_send").click();
+        // Клік по Submit фрейм Check Call
+        $("#check_call_load_send").click();
 
-        //перевіряє доданий warehouses на фрейм Dispatch
-        $("#loadDriversContent .view_warehouses").shouldHave(text("AutoTestWareHouses1"));
-        $$("#loadDriversContent a.text-muted").findBy(text("contact AutoTestWareHouses1"));
-        $$("#loadDriversContent a.text-muted").findBy(text("(011) 998-8771"));
+        //Перевіряє додавання Check Call 1 на Dispatch
+        String noteCheckCalls1 = "Note Check cool 1";
 
-        //видаляє warehouses
-        $("#loadDriversContent span.glyphicon-minus").shouldBe(visible, enabled).click();
+        SelenideElement rowCheckCalls1 = $$("table.table-dispatch-check-calls tbody tr")
+                .findBy(text(noteCheckCalls1));
 
-        //перевіряє що warehouses видалений
-        $("#loadDriversContent .view_warehouses").shouldNot(visible);
+        rowCheckCalls1.$("td:nth-of-type(2)").shouldHave(text("User"));
+        rowCheckCalls1.$(".check_call_user").shouldHave(text("Auto 2Test BT"));
+        rowCheckCalls1.$(".check_call_location").shouldHave(text("Houston, TX"));
+        rowCheckCalls1.$(".check_call_note").shouldHave(text("Note Check cool 1"));
 
-        System.out.println("bigTruckTestCase10LoadBoard - Test Pass");
+    // *** Додає Check Call 2 ***
+        $(".dispatch-head-drivers a.check_call_load")
+                .shouldBe(visible)
+                .shouldBe(enabled)
+                .click();
+        $("#add_check_call_load").shouldBe(visible);
+
+        // Поле Location
+        $("#loadnotes-location").setValue("75216");
+        $$("#autocomplete-results-loadnotes-location li")
+                .findBy(text("Dallas, TX 75216"))
+                .shouldBe(visible)
+                .click();
+
+        // Поле Note
+        $("#loadnotes-note").setValue("Note Check cool 2").shouldBe(visible);
+
+        // Чек бокс Alert
+        $("#loadnotes-alert").click();
+
+        // Клік по Submit фрейм Check Call
+        $("#check_call_load_send").click();
+
+        // Перевіряє додавання Check Call 2 на Dispatch
+        String noteCheckCalls2 = "Note Check cool 2";
+
+        SelenideElement rowCheckCalls2 = $$("table.table-dispatch-check-calls tbody tr")
+                .findBy(text(noteCheckCalls2));
+
+        rowCheckCalls2.$("td:nth-of-type(2)").shouldHave(text("Alert"));
+        rowCheckCalls2.$(".check_call_user").shouldHave(text("Auto 2Test BT"));
+        rowCheckCalls2.$(".check_call_location").shouldHave(text("Dallas, TX"));
+        rowCheckCalls2.$(".check_call_note .alert-note").shouldHave(text("Note Check cool 2"));
+        rowCheckCalls2.$(".check_call_note input.alert-solved").shouldBe(visible);
+        rowCheckCalls2.$$(".check_call_note span.text-red").findBy(text(" : solve alert")).shouldBe(visible);
+
+// *** Додає Check Call 3 ***
+        String locationLfb = "78213";
+
+        $(".dispatch-head-drivers a.check_call_load")
+                .shouldBe(visible)
+                .shouldBe(enabled)
+                .click();
+        $("#add_check_call_load").shouldBe(visible);
+
+        // Поле Location
+        $("#loadnotes-location").setValue(locationLfb);
+        $$("#autocomplete-results-loadnotes-location li")
+                .findBy(text("San Antonio, TX 78213"))
+                .shouldBe(visible)
+                .click();
+
+        // Поле Note
+        $("#loadnotes-note").setValue("Note Check cool 3").shouldBe(visible);
+
+        // Чек бокс LFB
+        $("#loadnotes-location_for_broker").click();
+        $(".preview-lfb__head").shouldBe(visible).shouldHave(text("This message will be received by the broker"));
+        $$(".preview-lfb__content").findBy(text("Hello " + agent));
+        $$(".preview-lfb__content").findBy(text("The driver's current location is "));
+        $$(".preview-lfb__content").findBy(text(locationLfb));
+        $$(".preview-lfb__content").findBy(text("All good for delivery on "));
+        $$(".preview-lfb__content").findBy(text("We will keep you posted"));
+        $$(".preview-lfb__content").findBy(text("Thank you."));
+
+        // Calendar ETA
+        $("#add_eta-datetime .kv-datetime-picker").click();
+        inputCalendar(0, 0);
+
+        // Клік по Submit фрейм Check Call
+        $("#check_call_load_send").click();
+
+        // Перевіряє додавання Check Call 3 на Dispatch
+        String noteCheckCalls3 = "Note Check cool 3";
+        SelenideElement rowCheckCalls3 = $$("table.table-dispatch-check-calls tbody tr")
+                .findBy(text(noteCheckCalls3));
+        rowCheckCalls3.$("td:nth-of-type(2)").shouldHave(text("LFB"));
+        rowCheckCalls3.$(".check_call_user").shouldHave(text("Auto 2Test BT"));
+        rowCheckCalls3.$(".check_call_location").shouldHave(text("San Antonio, TX"));
+        rowCheckCalls3.$(".lfb-timer").shouldBe(visible);
+        rowCheckCalls3.$(".check_call_note").shouldHave(text("Note Check cool 3"));
+        rowCheckCalls3.$(".check_call_note").shouldHave(text("Available time to cancel "));
+
+        // Закриває модальне вікно Dispatch Load
+        $(".load-info-modal-dialog .close").click();
+
+        //перевіряє що вантаж відображається на Loads en Route
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
+        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
+        $("a.view_load").shouldBe(text(loadNumber));
+
+        // Перевіряє Check Call на Load Board вкладка Loads en Route
+        $(".col-style-checkcall .pull-left").shouldHave(text("Dallas, TX"));
+        $(".col-style-checkcall .small-txt").shouldHave(text("Note Check cool 2"));
+
+        System.out.println("bigTruckTestCase12LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){
@@ -231,4 +337,5 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
-}
+
+    }

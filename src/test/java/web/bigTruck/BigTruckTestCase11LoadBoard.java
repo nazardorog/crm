@@ -3,8 +3,6 @@ package web.bigTruck;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -30,10 +28,12 @@ public class BigTruckTestCase11LoadBoard extends LoginUser2 {
     int currentDay = now.getDayOfMonth();
     int hour = now.getHour();
     int minute = (now.getMinute() / 5) * 5;
-    private String loadNumber;
+    String loadNumber;
 
     @Test
     public void expensesAddDell (){
+
+        System.out.println("BigTruckTestCase11LoadBoard - Start");
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -119,7 +119,7 @@ public class BigTruckTestCase11LoadBoard extends LoginUser2 {
 
         //зберігає номер вантажу на фрейм Dispatch board
         $("#add_load_send_dispatch").click();
-        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
+        $("#view_load").shouldBe(visible, Duration.ofSeconds(10)).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
         loadNumber = $("#view_load .check_call_pro").getText();
@@ -171,8 +171,6 @@ public class BigTruckTestCase11LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
-//        loadNumber = "31488";
-
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
@@ -223,7 +221,7 @@ public class BigTruckTestCase11LoadBoard extends LoginUser2 {
         //перевіряє що Expense видалений з таб частини на фрейм Dispatch
         expensesDispatch.shouldNotBe(visible);
 
-        System.out.println("bigTruckTestCase10LoadBoard - Test Pass");
+        System.out.println("bigTruckTestCase11LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

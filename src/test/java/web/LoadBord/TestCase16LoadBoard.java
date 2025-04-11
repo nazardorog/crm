@@ -94,19 +94,6 @@ public class TestCase16LoadBoard extends Login {
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
         inputCalendar(3, 3);
 
-//        //calendar Destination Shippers Date from
-//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 2))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//        //calendar Destination Shippers Date to
-//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click();
-//        Thread.sleep(1000);// Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");
         $("#loadspickuplocations-0-weight").setValue("1");
