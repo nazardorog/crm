@@ -1,29 +1,36 @@
 package web.bigTruck;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.util.Optional;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.switchTo;
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static web.LoadBord.TestCase17LoadBoard.clearDownloadFolder;
 
-public class BigTruckTestCase14LoadBoard extends LoginUser2 {
+public class BigTruckTestCase16LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 14. Чек Колы - Удаление
+    // 16. Actions - Get BOL
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
@@ -33,9 +40,9 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
     String agent = "Auto test agent";
 
     @Test
-    public void checkCallDell (){
+    public void getBol () throws InterruptedException, IOException {
 
-        System.out.println("BigTruckTestCase14LoadBoard - Start");
+        System.out.println("BigTruckTestCase15LoadBoard - Start");
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -125,7 +132,7 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
 
         //отримує номер вантажу
         loadNumber = $("#view_load .check_call_pro").getText();
-        System.out.println("BigTruckTestCase14LoadBoard. Номер вантажу:" + loadNumber);
+        System.out.println("BigTruckTestCase15LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -173,183 +180,67 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").click();
 
-//        loadNumber = "31572";
-
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        //відкриває Dispatch
-        $("#main-loads-grid button.view_load").click();
-        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
+        //очищає папку перед завантаженням
+        String folderPath = "C:\\autotest_v1\\build\\downloads";
+        Configuration.downloadsFolder = folderPath;
+        clearDownloadFolder(folderPath);
 
-        // Перевіряє що таблиця Check Calls пуста
-        $(".table-dispatch-check-calls").shouldHave(text("No results found."));
+        //*** Відкриває меню і вибирає Get load confirmation ***
+        Thread.sleep(1000);
+        $("#trucks_en_route .dropdown-toggle").shouldBe(enabled).click();
+        $$(".dropdown-menu-right li").findBy(text("Get BOL")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-        // Дані для створення CheckCalls
-        // Дані new Check Call 1
-        String noteCheckCalls1 = "Note Check cool 1";
-        String tapeCheckCalls1 = "User";
-        String zipCheckCalls1 = "77001";
-        String locationCheckCalls1 = "Houston, TX";
-        String userCheckCalls1 = "Auto 2Test BT";
+        //Перевіряє прев"ю
+        $(".name-bill-lading").shouldHave(text("BILL OF LADING  "));
+        $("input[name ='BILL_OF_LADING_NUMBER']").shouldHave(value(loadNumber));
+        $("input[name ='PickUpLocation[name]']").shouldHave(value("Auto test shipper 1"));
+        $("input[name ='PickUpLocation[street1]']").shouldHave(value("Moornings Way"));
+        $("input[name ='PickUpLocation[city_state_zip]']").shouldHave(value("Kansas City, MO 64110"));
 
-        // Дані new Check Call 2
-        String noteCheckCalls2 = "Note Check cool 2";
-        String tapeCheckCalls2 = "Alert";
-        String zipCheckCalls2 = "75216";
-        String locationCheckCalls2 = "Dallas, TX";
-        String userCheckCalls2 = "Auto 2Test BT";
+        $("input[name ='DeliveryLocation[name]']").shouldHave(value("Auto test shipper 2"));
+        $("input[name ='DeliveryLocation[street1]']").shouldHave(value("Cherry st"));
+        $("input[name ='DeliveryLocation[city_state_zip]']").shouldHave(value("New York, NY 10002"));
 
-        // Дані new Check Call 3
-        String noteCheckCalls3 = "Note Check cool 3";
-        String tapeCheckCalls3 = "LFB";
-        String zipCheckCalls3 = "78213";
-        String locationCheckCalls3 = "San Antonio, TX";
-        String userCheckCalls3 = "Auto 2Test BT";
+        //завантажує файл
+        $("#get_pdf").shouldBe(visible,enabled).click();
 
-        // *** Додає Check Call 1 ***
-        $(".dispatch-head-drivers a.check_call_load")
-                .shouldBe(visible)
-                .shouldBe(enabled)
-                .click();
-        $("#add_check_call_load")
-                .shouldBe(visible);
+        // чекає завантаження файлу 10 секунд
+        File downloadedPdf = null;
+        int attempts = 0;
+        int maxAttempts = 20; // 20 * 500мс = 10 секунд
+        while (attempts < maxAttempts) {
+            try {
+                Optional<Path> found = Files.walk(Paths.get(folderPath))
+                        .filter(p -> p.getFileName().toString().equals("dompdf_out.pdf"))
+                        .findFirst();
 
-        // Додає Call 1 поле Location
-        $("#loadnotes-location")
-                .setValue(zipCheckCalls1);
-        $$("#autocomplete-results-loadnotes-location li")
-                .findBy(text(locationCheckCalls1 + " " + zipCheckCalls1))
-                .shouldBe(visible)
-                .click();
+                if (found.isPresent()) {
+                    downloadedPdf = found.get().toFile();
+                    break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        // new Call 1 поле Note
-        $("#loadnotes-note")
-                .setValue(noteCheckCalls1)
-                .shouldBe(visible);
+            Selenide.sleep(500); // чекаємо 0.5 секунди
+            attempts++;
+        }
 
-        // new Call 1 клік Submit фрейм Check Call
-        $("#check_call_load_send")
-                .click();
+        if (downloadedPdf == null) {
+            throw new FileNotFoundException("Файл Bol не був завантажений за 10 секунд");
+        }
+        else {
+            assertThat(downloadedPdf.length()).isGreaterThan(0);
+            System.out.println("Файл Bol успішно завантажений");
+        }
 
-        // *** Додає Check Call 2 ***
-        $(".dispatch-head-drivers a.check_call_load")
-                .shouldBe(visible)
-                .shouldBe(enabled)
-                .click();
-        $("#add_check_call_load")
-                .shouldBe(visible);
-
-        // new Call 2 поле Location
-        $("#loadnotes-location")
-                .setValue(zipCheckCalls2);
-        $$("#autocomplete-results-loadnotes-location li")
-                .findBy(text(locationCheckCalls2 + " " + zipCheckCalls2))
-                .shouldBe(visible)
-                .click();
-
-        // new Call 2 поле Note
-        $("#loadnotes-note")
-                .setValue(noteCheckCalls2)
-                .shouldBe(visible);
-
-        // new Call 2 чек бокс Alert
-        $("#loadnotes-alert")
-                .click();
-
-        // new Call 2 клік Submit фрейм Check Call
-        $("#check_call_load_send")
-                .click();
-
-        // *** Додає Check Call 3 ***
-        $(".dispatch-head-drivers a.check_call_load")
-                .shouldBe(visible)
-                .shouldBe(enabled)
-                .click();
-        $("#add_check_call_load")
-                .shouldBe(visible);
-
-        // new Call 3 поле Location
-        $("#loadnotes-location")
-                .setValue(zipCheckCalls3);
-        $$("#autocomplete-results-loadnotes-location li")
-                .findBy(text(locationCheckCalls3 + " " + zipCheckCalls3))
-                .shouldBe(visible)
-                .click();
-
-        // new Call 3 поле Note
-        $("#loadnotes-note")
-                .setValue(noteCheckCalls3)
-                .shouldBe(visible);
-
-        // new Call 3 чек бокс LFB
-        $("#loadnotes-location_for_broker")
-                .click();
-
-        // new Call 3 Сalendar ETA
-        $("#add_eta-datetime .kv-datetime-picker")
-                .click();
-        inputCalendar(0, 0);
-
-        // new Call 3 клік Submit фрейм Check Call
-        $("#check_call_load_send")
-                .click();
-
-
-        // Селектори для видалення
-        SelenideElement rowCheckCalls1 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls1));
-        SelenideElement rowCheckCalls2 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls2));
-        SelenideElement rowCheckCalls3 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls3));
-
-        // *** Видаляє Check Call 1 ***
-        rowCheckCalls1.$(".glyphicon-trash").shouldBe(visible, enabled).click();
-
-        // Check Call 1 попап діалог
-        String popapText1 = switchTo().alert().getText();
-        System.out.println("попап Check Call 1 текст: " + popapText1);
-
-        // Check Call 1 попап підтвердження видалення
-        assertThat(popapText1).isEqualTo("Are you sure you want to delete this load note?");
-        switchTo().alert().accept();
-
-        // Check Call 1 перевірка що видалений
-        rowCheckCalls1.shouldNot(exist);
-
-        // *** Видаляє Check Call 2 ***
-        rowCheckCalls2.$(".glyphicon-trash").shouldBe(visible, enabled).click();
-
-        // Check Call 2 попап діалог
-        String popapText2 = switchTo().alert().getText();
-        System.out.println("Alert says: " + popapText2);
-
-        // Check Call 2 попап підтвердження видалення
-        assertThat(popapText2).isEqualTo("Are you sure you want to delete this load note?");
-        switchTo().alert().accept();
-
-        // Check Call 2 перевірка що видалений
-        rowCheckCalls1.shouldNot(exist);
-
-        // *** Видаляє Check Call 2 ***
-        rowCheckCalls3.$(".glyphicon-trash").shouldBe(visible, enabled).click();
-
-        // Check Call 3 попап діалог
-        String popapText3 = switchTo().alert().getText();
-        System.out.println("Alert says: " + popapText3);
-
-        // Check Call 3 попап підтвердження видалення
-        assertThat(popapText3).isEqualTo("Are you sure you want to delete this load note?");
-        switchTo().alert().accept();
-
-        // Check Call 3 перевірка що видалений
-        rowCheckCalls1.shouldNot(exist);
-
-        // додаткова перевірка що таблиця Check Calls пуста
-        $(".table-dispatch-check-calls").shouldHave(text("No results found."));
-
-        System.out.println("bigTruckTestCase14LoadBoard - Test Pass");
+        System.out.println("bigTruckTestCase15LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){
@@ -374,5 +265,4 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
-
 }

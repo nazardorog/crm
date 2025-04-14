@@ -121,7 +121,7 @@ public class BigTruckTestCase10LoadBoard extends LoginUser2 {
 
         //отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
-        System.out.println("BigTruckTestCase3LoadBoard. Номер вантажу:" + loadNumber);
+        System.out.println("BigTruckTestCase10LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();

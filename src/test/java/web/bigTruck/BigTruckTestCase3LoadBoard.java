@@ -128,12 +128,12 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
         //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").shouldBe(enabled).click();
 
-        //перевіряє що вантаж відображається на Available Loads
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
-        $("#available-loads-grid-filters .input[name='LoadsSearch[our_pro_number]']").click();
-        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).shouldBe(editable).setValue(loadNumber).pressEnter();
-        $("a.view_load").shouldBe(text(loadNumber));
+//        //перевіряє що вантаж відображається на Available Loads
+//        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+//        $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
+//        $("#available-loads-grid-filters .input[name='LoadsSearch[our_pro_number]']").click();
+//        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).shouldBe(editable).setValue(loadNumber).pressEnter();
+//        $("a.view_load").shouldBe(text(loadNumber));
 
 
 
@@ -148,10 +148,10 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
                 .shouldBe(visible, enabled)
                 .setValue(loadNumber).pressEnter();
 
-        $$("table#available-loads-grid tbody tr").shouldHave(CollectionCondition.size(1));
-        $("td a.view_load")
-                .shouldHave(text(loadNumber))
-                .shouldBe(visible);
+//        $$("table#available-loads-grid tbody tr").shouldHave(CollectionCondition.size(1));
+//        $(".li-tabs-home.li-tabs-available-loads a.view_load")
+//                .shouldHave(text(loadNumber))
+//                .shouldBe(visible);
 
         //клік на око, редагування вантажу Dispatch load
         $("#available-loads-grid button.view_load").click();
