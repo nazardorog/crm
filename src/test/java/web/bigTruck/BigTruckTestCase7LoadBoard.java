@@ -170,7 +170,7 @@ public class BigTruckTestCase7LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled).click();
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         System.out.println("BigTruckTestCase7LoadBoard. Номер вантажу:" + loadNumber);
 

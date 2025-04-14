@@ -1,37 +1,49 @@
 package web.bigTruck;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static web.LoadBord.TestCase17LoadBoard.clearDownloadFolder;
 
-public class BigTruckTestCase8LoadBoard extends LoginUser2 {
+public class BigTruckTestCase17LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 8. Actions / Edit Dispatch
+    // 17. Actions - Get Invoice
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
     int hour = now.getHour();
     int minute = (now.getMinute() / 5) * 5;
+    String loadNumber;
+    String agent = "Auto test agent";
 
     @Test
-    public void editDispatchCargoBigTruck () throws InterruptedException {
+    public void getInvoice () throws InterruptedException, IOException {
 
-        System.out.println("BigTruckTestCase8LoadBoard - Start");
+        System.out.println("BigTruckTestCase17LoadBoard - Start");
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -116,18 +128,16 @@ public class BigTruckTestCase8LoadBoard extends LoginUser2 {
         $("#loadsdeliverylocations-0-weight").setValue("1");
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
-        //клік по вкладці Info
         $("#info-tab").click();
 
         //клік по кнопці "Submit & Dispatch" на фрейм New Load
         $("#add_load_send_dispatch").click();
 
         //dispatch board
-        $("#view_load").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("Dispatch #"));
+        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
-        System.out.println("BigTruckTestCase2LoadBoard. Номер вантажу:" + loadNumber);
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -172,116 +182,102 @@ public class BigTruckTestCase8LoadBoard extends LoginUser2 {
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
 
-        //закриває модальне вікно Dispatch board
+        //закриває модальне вікно Dispatch Load
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
-//        String loadNumber = "31348";
+        System.out.println("BigTruckTestCase17LoadBoard. Номер вантажу:" + loadNumber);
 
-        //перевіряє що вантаж відображається на Loads en Route
+        //*** Переводить вантаж на вкладку Loads Delivered ***
+        //в Load Board знаходить створений вантаж
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        //перевіряє дані водія перед редагуванням фрейм Load Board
-        $("td a.view_truck").shouldHave(text("0305"));
-        $("td .text-aqua").shouldHave(text("AutoTest Trailer1"));
-        $(".bt-col-driver-carrier .drivers-wrap").shouldHave(exactText("Auto Test Driver3 Big Truck"));
-        $(".bt-col-driver-carrier .team-driver-wrap").shouldHave(exactText("Auto Test Driver4 Big Truck"));
+        //відкриває Drop Info
+        $("#loadsdeliverylocations-date_delivery").shouldNotBe(visible);
+        $(".col-destination .view_delivery_location").shouldBe(visible).click();
+        $("#view_item .modal-title").shouldBe(visible, Duration.ofSeconds(5));
+        $("#view_item .loads-delivery-view").shouldBe(visible, Duration.ofSeconds(5));
 
-        //клік по три крапки й вибирає Edit Dispatch
+        //Drop Info встановлює Date delivery
+        $("#loadsdeliverylocations-date_delivery-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        inputCalendar(1, 1);
+
+        //закриває модальне вікно Drop Info
+        $("#view_item .close").click();
+
+        //клік редагування вантажу
+        Thread.sleep(1000);
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Edit Dispatch")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-        //перевіряє дані водія в Update Driver
-        $$("#loadDriversContent .view_driver").get(0).shouldHave(text("Auto Test Driver3 Big Truck"));
-        $$("#loadDriversContent .view_driver").get(1).shouldHave(text("Auto Test Driver4 Big Truck"));
-        $("#loadDriversContent .text-muted").shouldHave(text("AutoTestOwner1 INC"));
-        $("#loadDriversContent span.text-purple").shouldHave(text("0305"));
-        $("#loadDriversContent span.text-aqua").shouldHave(text("AutoTest Trailer1"));
+        //перевіряє що вантаж відображається на Loads Delivered
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
+        $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        //клік по олівець для редагування
-        $("#loadDriversContent .glyphicon-pencil").shouldBe(visible, enabled).click();
+        //*** Переводить вантаж з Loads Delivered в Load Invoiced ***
+        Thread.sleep(1000);
+        $("#delivered-loads-grid .dropdown-toggle").shouldBe(enabled).click();
+        $$(".dropdown-menu-right li").findBy(text("Mark as invoiced")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-        //перевіряє дані dispatch що були при створенні вантажу
-        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner1 INC"));
-        $("#select2-trucks-template-container").shouldHave(text("0305"));
-        $("#select2-load_driver_id-container").shouldHave(text("Auto Test Driver3 Big Truck"));
-        $("#select2-load_team_driver_id-container").shouldHave(text("Auto Test Driver4 Big Truck"));
-        $("#select2-trailer_id-update-container").shouldBe(text("AutoTest Trailer1"));
-        $("#loadexpenses-location").shouldHave(text("Kansas City, MO 64110"));
-        $("#loadexpenses-location_to").shouldHave(value("New York, NY 10002"));
+        $("#mark_as_invoiced .modal-header").shouldBe(visible, Duration.ofSeconds(5)).shouldHave(text("Mark as invoiced"));
+        $("#mark_as_invoiced_apply").shouldBe(enabled).click();
 
-        //вибирає Carrier
-        $("#select2-carrierId-container").click();
-        $$(".select2-results__option").findBy(text("AutoTestOwner2 INC")).click();
-        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner2 INC"));
+        //перевіряє що вантаж відображається на Loads Invoiced
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Invoiced")).click();
+        $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
+        $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        //вибирає Truck
-        $("#select2-trucks-template-container").click();
-        $(".select2-search__field").setValue("0306");
-        $$(".select2-results__option").findBy(text("0306 (AutoTestOwner2 INC)")).click();
-        $("#select2-trucks-template-container").shouldHave(text("0306 (AutoTestOwner2 INC)"));
+        //очищає папку перед завантаженням
+        String folderPath = Configuration.downloadsFolder;
+        clearDownloadFolder(folderPath);
 
-        //вибирає Driver
-        $("#select2-load_driver_id-container").click();
-        $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("Auto Test Driver5 Big Truck")).click();
-        $("#select2-load_driver_id-container").shouldHave(text("Auto Test Driver5 Big Truck"));
+        //*** Відкриває меню і вибирає Get invoice ***
+        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $$("#invoiced .dropdown-menu-right li").findBy(text("Get invoice")).shouldBe(enabled, Duration.ofSeconds(5)).click();
 
-        //вибирає Team Driver
-        $("#select2-load_team_driver_id-container").click();
-        $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("Auto Test Driver6 Big Truck")).click();
-        $("#select2-load_team_driver_id-container").shouldHave(text("Auto Test Driver6 Big Truck"));
+        //Перевіряє прев"ю
+        $(".modal-view-pdf").shouldHave(text("Load invoice Trip#" + loadNumber));
+        $(".invNum").shouldHave(text("Invoice #" + loadNumber));
+        $(".pick").shouldHave(text("Kansas City, MO 64110"));
+        $("td.drop span").shouldHave(text("New York, NY 10002"));
 
-        //вибирає Trailer
-        $("#select2-trailer_id-update-container").click();
-        $(".select2-search__field").setValue("Auto");
-        $$(".select2-results__option").findBy(text("AutoTest Trailer2")).click();
-        $("#select2-trailer_id-update-container").shouldHave(text("AutoTest Trailer2"));
+        //завантажує файл
+        $("#get_pdf").shouldBe(visible,enabled).click();
 
-        //вибирає Location From вводить Location To
-        $("#loadexpenses-location_to").setValue("edit New York, NY 10002");
+        // чекає завантаження файлу 10 секунд
+        File downloadedPdf = null;
+        int attempts = 0;
+        int maxAttempts = 20; // 20 * 500мс = 10 секунд
+        while (attempts < maxAttempts) {
+            try {
+                Optional<Path> found = Files.walk(Paths.get(folderPath))
+                        .filter(p -> p.getFileName().toString().equals("invoice-pdf.pdf"))
+                        .findFirst();
 
-        //вибирає Start Date
-        $(".kv-datetime-picker").click();
-        inputCalendar(1, 0);
+                if (found.isPresent()) {
+                    downloadedPdf = found.get().toFile();
+                    break;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        //клік по Submit фрейм Add driver
-        $("#update_load_driver_send").click();
+            Selenide.sleep(500); // чекаємо 0.5 секунди
+            attempts++;
+        }
 
-        //перевіряє дані водія після редагування в фрейм Dispatch
-        $$("#loadDriversContent .view_driver").get(0).shouldHave(text("Auto Test Driver5 Big Truck"));
-        $$("#loadDriversContent .view_driver").get(1).shouldHave(text("Auto Test Driver6 Big Truck"));
-        $("#loadDriversContent .text-muted").shouldHave(text("AutoTestOwner2 INC"));
-        $("#loadDriversContent span.text-purple").shouldHave(text("0306"));
-        $("#loadDriversContent span.text-aqua").shouldHave(text("AutoTest Trailer2"));
+        if (downloadedPdf == null) {
+            throw new FileNotFoundException("Файл Invoice не був завантажений за 10 секунд");
+        }
+        else {
+            assertThat(downloadedPdf.length()).isGreaterThan(0);
+            System.out.println("Файл Invoice успішно завантажений");
+        }
 
-        //клік по карандаш для редагування
-        $("#loadDriversContent .glyphicon-pencil").shouldBe(visible, enabled).click();
-
-        //***Перевіряє дані водія після редагування на фрейм Update driver***
-        $("#select2-carrierId-container").shouldHave(text("AutoTestOwner2 INC"));
-        $("#select2-trucks-template-container").shouldHave(text("0306"));
-        $("#select2-load_driver_id-container").shouldHave(text("Auto Test Driver5 Big Truck")).shouldHave(visible);
-        $("#select2-load_team_driver_id-container").shouldHave(text("Auto Test Driver6 Big Truck"));
-        $("#select2-trailer_id-update-container").shouldBe(text("AutoTest Trailer2"));
-        $("#loadexpenses-location").shouldHave(text("Kansas City, MO 64110"));
-        $("#loadexpenses-location_to").shouldHave(value("edit New York, NY 10002"));
-
-        //клік по Submit фрейм Update driver
-        $("#update_load_driver_send").click();
-
-        //закриває модальне вікно Dispatch board
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
-
-        //перевіряє дані водія після редагуванням на фрейм Load Board
-        $("td a.view_truck").shouldHave(text("0306"));
-        $("td .text-aqua").shouldHave(text("AutoTest Trailer2"));
-        $(".bt-col-driver-carrier .drivers-wrap").shouldHave(exactText("Auto Test Driver5 Big Truck"));
-        $(".bt-col-driver-carrier .team-driver-wrap").shouldHave(exactText("Auto Test Driver6 Big Truck"));
-
-        System.out.println("bigTruckTestCase8LoadBoard - Test Pass");
+        System.out.println("bigTruckTestCase17LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

@@ -178,7 +178,7 @@ public class BigTruckTestCase16LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").click();
+        $(".load-info-modal-dialog .close").shouldBe(visible, enabled).click();
 
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -187,8 +187,7 @@ public class BigTruckTestCase16LoadBoard extends LoginUser2 {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //очищає папку перед завантаженням
-        String folderPath = "C:\\autotest_v1\\build\\downloads";
-        Configuration.downloadsFolder = folderPath;
+        String folderPath = Configuration.downloadsFolder;
         clearDownloadFolder(folderPath);
 
         //*** Відкриває меню і вибирає Get load confirmation ***
@@ -240,7 +239,7 @@ public class BigTruckTestCase16LoadBoard extends LoginUser2 {
             System.out.println("Файл Bol успішно завантажений");
         }
 
-        System.out.println("bigTruckTestCase15LoadBoard - Test Pass");
+        System.out.println("bigTruckTestCase16LoadBoard - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){

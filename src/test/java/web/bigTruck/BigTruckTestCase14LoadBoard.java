@@ -171,7 +171,7 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").click();
+        $(".load-info-modal-dialog .close").shouldBe(visible, enabled).click();
 
 //        loadNumber = "31572";
 
@@ -297,7 +297,6 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
         // new Call 3 клік Submit фрейм Check Call
         $("#check_call_load_send")
                 .click();
-
 
         // Селектори для видалення
         SelenideElement rowCheckCalls1 = $$("table.table-dispatch-check-calls tbody tr").findBy(text(noteCheckCalls1));

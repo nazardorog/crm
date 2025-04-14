@@ -189,8 +189,7 @@ public class BigTruckTestCase15LoadBoard extends LoginUser2 {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //очищає папку перед завантаженням
-        String folderPath = "C:\\autotest_v1\\build\\downloads";
-        Configuration.downloadsFolder = folderPath;
+        String folderPath = Configuration.downloadsFolder;
         clearDownloadFolder(folderPath);
 
         //*** Відкриває меню і вибирає Get load confirmation ***

@@ -126,7 +126,7 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
         System.out.println("BigTruckTestCase3LoadBoard. Номер вантажу:" + loadNumber);
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled).click();
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
 //        //перевіряє що вантаж відображається на Available Loads
 //        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -189,7 +189,7 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
         $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer1"));
 
         //вибирає Location From вводить Location To
-        $("#loadexpenses-location").selectOption("Kansas City, MO 64110");
+        $("#loadexpenses-location").shouldBe(visible).selectOption("Kansas City, MO 64110");
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date

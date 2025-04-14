@@ -171,7 +171,7 @@ public class BigTruckTestCase6LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled).click();
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         System.out.println("BigTruckTestCase6LoadBoard. Номер вантажу:" + loadNumber);
 
@@ -216,11 +216,6 @@ public class BigTruckTestCase6LoadBoard extends LoginUser2 {
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid .empty").shouldHave(text("No results found."));
-
-//        //перевіряє що вантаж вже відображається на Loads Invoiced
-//        $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Invoiced")).click();
-//        $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
-//        $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
         //перевіряє що вантаж відображається на Loads Invoiced
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

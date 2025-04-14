@@ -240,7 +240,7 @@ public class TestCase17LoadBoard extends Login {
         File downloadedFile = selector.download();
 
         //перейменовує файл під потрібне ім"я
-        File finalFile = new File("C:\\empire\\test-download\\" + fileName);
+        File finalFile = new File("C:\\empire\\test-download" + fileName);
         downloadedFile.renameTo(finalFile);
         assert finalFile.exists() : "Файл не був завантажений!";
 

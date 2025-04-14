@@ -2,6 +2,7 @@ package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -171,7 +172,7 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled).click();
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         System.out.println("BigTruckTestCase4LoadBoard. Номер вантажу:" + loadNumber);
 
