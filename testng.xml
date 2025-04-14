@@ -21,7 +21,7 @@
             <class name="web.LoadBord.TestCase17LoadBoard"/>
             <class name="web.LoadBord.TestCase18LoadBoard"/>
         </classes>
-    </test>
+    </test>17
 
     <test name="LoadBoardBigTruck">
         <classes>

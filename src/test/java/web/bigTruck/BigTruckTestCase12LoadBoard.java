@@ -168,7 +168,7 @@ public class BigTruckTestCase12LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").click();
+        $(".load-info-modal-dialog .close").shouldBe(visible, Duration.ofSeconds(30)).click();
 
 //        loadNumber = "31487";
 
@@ -300,7 +300,7 @@ public class BigTruckTestCase12LoadBoard extends LoginUser2 {
         rowCheckCalls3.$(".check_call_note").shouldHave(text("Available time to cancel "));
 
         // Закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").click();
+        $(".load-info-modal-dialog .close").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

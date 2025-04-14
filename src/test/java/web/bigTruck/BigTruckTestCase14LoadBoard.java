@@ -171,9 +171,7 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(visible, enabled).click();
-
-//        loadNumber = "31572";
+        $(".load-info-modal-dialog .close").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

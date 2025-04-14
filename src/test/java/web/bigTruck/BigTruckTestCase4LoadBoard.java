@@ -201,7 +201,7 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //клік редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
+        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(5)).click();
         $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(20)).click();
 
         //перевіряє що вантаж вже не відображається на Loads en Route
