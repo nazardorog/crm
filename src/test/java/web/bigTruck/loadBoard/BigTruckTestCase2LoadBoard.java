@@ -291,7 +291,6 @@ public class BigTruckTestCase2LoadBoard {
                 .$("input")
                 .shouldBe(checked);
 
-
         System.out.println("bigTruckTestCase2LoadBoard - Test Pass");
     }
 
