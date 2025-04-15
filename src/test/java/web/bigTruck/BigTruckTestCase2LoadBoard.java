@@ -185,6 +185,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
         $("#update_load_driver_send").click();
 
         //закриває модальне вікно Dispatch Load
+        $("#toast-container").shouldNotBe(visible);
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         //Load Board знаходить створений вантаж на вкладці Loads en Route
