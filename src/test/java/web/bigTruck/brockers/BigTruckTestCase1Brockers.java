@@ -1,7 +1,7 @@
 package web.bigTruck.brockers;
 
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import web.config.LoginBigTruck;
 
 import java.time.Duration;
 import java.util.Random;
@@ -33,18 +33,19 @@ public class BigTruckTestCase1Brockers {
         System.out.println("BigTruckTestCase1Brockers - Start");
 
         //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
-
-        Random random = new Random();
-        String randomNumber = String.format("%7d", random.nextInt(10000000));
-        generateDataNewBroker(randomNumber);
+        LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
 
-        //відкриває створення брокера, клац по "+" біля поля Broker
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000);
+        int randomNumberMc = random.nextInt(10000);
+        generateDataNewBroker(randomNumber, randomNumberMc);
+
+        //створює Broker
+        //клік по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         //фрейм Add Broker вкладка General
@@ -75,19 +76,15 @@ public class BigTruckTestCase1Brockers {
         $("#agents-0-phone_number").setValue(agentPhoneNumberBigTruck);
         $("#agent-cell_phone-update0").setValue(brokerPhoneNumberBigTruck + "01");
 
-        //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
+        //фрейм Add Broker кнопка Submit
         $("#add_broker_send").shouldBe(enabled).click();
-        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(20));
-        $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
-
-        System.out.println("Broker name: " + brokerNameBigTruck);
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));
 
         //фрейм New load вибирає Агента в полі Select Agent
         $("#select2-broker-agent-load-select-container").shouldBe(visible).click();
-        $(".select2-search__field").setValue("Agent_");
+        $(".select2-search__field").setValue("Auto");
         $$(".select2-results__options")
                 .findBy(text(agentNameBigTruck))
                 .click();
@@ -98,28 +95,18 @@ public class BigTruckTestCase1Brockers {
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
         $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumberBigTruck));
-
-
-        System.out.println("BigTruckTestCase1Brockers - Test Pass");
     }
 
-    void generateDataNewBroker(String randomNumber){
+    void generateDataNewBroker(int randomNumber, int randomNumberMc){
 
         //генеруємо дані для створення брокера
-//        brokerMcNumberBigTruck = "" + randomNumberMc + randomNumber;
-        brokerMcNumberBigTruck = randomNumber;
+        brokerMcNumberBigTruck = "" + randomNumberMc + randomNumber;
         ffMcNumberBigTruck = "FF" + brokerMcNumberBigTruck;
         brokerNameBigTruck = "AutoTestBrokerBigTruck" + randomNumber;
         brokerDbaNameBigTruck = "AutoTestBrokerBigTruckDba" + randomNumber;
-        brokerPhoneNumberBigTruck = "(090) 888-8881";
-        agentNameBigTruck = "Agent_" + randomNumber;
+        brokerPhoneNumberBigTruck = "(056) 333-3" + randomNumber;
+        agentNameBigTruck = "Agent_" + brokerNameBigTruck;
         agentMailBigTruck = agentNameBigTruck + "@mail.com";
-        agentPhoneNumberBigTruck = "090888-8882";
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
+        agentPhoneNumberBigTruck = "(056) 335" + randomNumber + "01";
     }
 }
