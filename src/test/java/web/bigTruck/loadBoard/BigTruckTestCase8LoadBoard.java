@@ -170,10 +170,11 @@ public class BigTruckTestCase8LoadBoard extends LoginUser2 {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch board
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
-        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє що вантаж відображається на Loads en Route
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
