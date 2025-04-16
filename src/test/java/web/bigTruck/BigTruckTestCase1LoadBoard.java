@@ -3,7 +3,7 @@ package web.bigTruck;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+import web.config.*;
 
 import java.io.File;
 import java.time.Duration;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class BigTruckTestCase1LoadBoard extends LoginUser2 {
+public class BigTruckTestCase1LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -32,6 +32,9 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
     public void newLoad() throws InterruptedException {
 
         System.out.println("BigTruckTestCase1LoadBoard - Start");
+
+        WebDriverConfig.setup();
+        LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

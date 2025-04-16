@@ -9,7 +9,6 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -29,7 +28,7 @@ public class BigTruckTestCase8LoadBoard extends LoginUser2 {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void editDispatchCargoBigTruck () throws InterruptedException {
+    public void editDispatchCargoBigTruck () {
 
         System.out.println("BigTruckTestCase8LoadBoard - Start");
 
@@ -174,8 +173,7 @@ public class BigTruckTestCase8LoadBoard extends LoginUser2 {
 
         //закриває модальне вікно Dispatch board
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
-
-//        String loadNumber = "31348";
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє що вантаж відображається на Loads en Route
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();

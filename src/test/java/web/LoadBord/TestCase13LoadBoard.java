@@ -55,7 +55,7 @@ public class TestCase13LoadBoard extends Login {
         $("#agents-0-phone_number").setValue(agentPhoneNumber);
         $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
 
-        //перевіряємо додавання свтореного Агента на фреймі New Load під полем Broker
+        //перевіряємо додавання створеного Агента на фреймі New Load під полем Broker
         System.out.println("TestCase13LoadBoard - Нового Брокера створено:" + brokerName);
         System.out.println("TestCase13LoadBoard - Нового Агента створено:" + brokerName);
         Thread.sleep(5000);
@@ -63,8 +63,6 @@ public class TestCase13LoadBoard extends Login {
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
         $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumber));
-
-
 
         //генеруємо дані для редагування Брокера
         $(".broker_buttons .glyphicon-pencil").click();
