@@ -95,6 +95,9 @@ public class BigTruckTestCase1Brockers {
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
         $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumberBigTruck));
+
+        web.config.CloseWebDriver.tearDown();
+        System.out.println("BigTruckTestCase1Brockers - Test Pass");
     }
 
     void generateDataNewBroker(int randomNumber, int randomNumberMc){
