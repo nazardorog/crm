@@ -122,7 +122,7 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
         $("#add_load_send_dispatch").click();
 
         //dispatch board
-        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
+        $("#view_load").shouldBe(visible, Duration.ofSeconds(10)).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
@@ -183,9 +183,11 @@ public class BigTruckTestCase1LoadBoard extends LoginUser2 {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $(".toast-message").shouldNotBe(visible, Duration.ofSeconds(10));
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

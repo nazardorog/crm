@@ -1,9 +1,7 @@
 package web.bigTruck;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -31,7 +29,7 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void availableCargoToEnRout () throws InterruptedException {
+    public void availableCargoToEnRout () {
 
         System.out.println("BigTruckTestCase3LoadBoard - Start");
 
@@ -126,7 +124,8 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
         System.out.println("BigTruckTestCase3LoadBoard. Номер вантажу:" + loadNumber);
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
 //        //перевіряє що вантаж відображається на Available Loads
 //        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -198,9 +197,11 @@ public class BigTruckTestCase3LoadBoard extends LoginUser2 {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(visible, Duration.ofSeconds(30)).click();
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

@@ -2,7 +2,6 @@ package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -170,9 +169,11 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         System.out.println("BigTruckTestCase4LoadBoard. Номер вантажу:" + loadNumber);
 
@@ -201,7 +202,7 @@ public class BigTruckTestCase4LoadBoard extends LoginUser2 {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //клік редагування вантажу
-        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(20)).click();
 
         //перевіряє що вантаж вже не відображається на Loads en Route

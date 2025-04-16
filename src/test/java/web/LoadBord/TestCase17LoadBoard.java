@@ -134,8 +134,8 @@ public class TestCase17LoadBoard extends Login {
 
     //dispatch board
         $("#select2-load_truck_id-0-container")
-                .shouldBe(visible)
-                .shouldBe(enabled)
+                .shouldBe(visible, Duration.ofSeconds(10))
+                .shouldBe(enabled, Duration.ofSeconds(10))
                 .click();
 
         //отримує номер вантажу

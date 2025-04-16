@@ -3,7 +3,6 @@ package web.bigTruck;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import web.LoginUser2;
 
@@ -57,9 +56,9 @@ public class BigTruckTestCase17LoadBoard extends LoginUser2 {
                 .findBy(text("Auto test broker"))
                 .click();
         $("#select2-broker-agent-load-select-container").click();
-        $(".select2-search__field").setValue("Auto test agent");
+        $(".select2-search__field").setValue(agent);
         $$(".select2-results__options")
-                .findBy(text("Auto test agent"))
+                .findBy(text(agent))
                 .click();
 
         //input other data
@@ -137,7 +136,7 @@ public class BigTruckTestCase17LoadBoard extends LoginUser2 {
         $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
-        String loadNumber = $("#view_load .check_call_pro").getText();
+        loadNumber = $("#view_load .check_call_pro").getText();
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -181,9 +180,11 @@ public class BigTruckTestCase17LoadBoard extends LoginUser2 {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         System.out.println("BigTruckTestCase17LoadBoard. Номер вантажу:" + loadNumber);
 

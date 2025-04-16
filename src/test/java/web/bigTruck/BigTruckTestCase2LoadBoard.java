@@ -183,10 +183,11 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
-        $("#toast-container").shouldNotBe(visible);
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
+        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //Load Board знаходить створений вантаж на вкладці Loads en Route
         //String loadNumber = "30957";
