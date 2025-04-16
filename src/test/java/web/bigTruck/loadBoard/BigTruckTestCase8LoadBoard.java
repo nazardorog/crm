@@ -1,10 +1,9 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
+import web.LoginUser2;
 
 import java.io.File;
 import java.time.Duration;
@@ -16,7 +15,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase8LoadBoard {
+public class BigTruckTestCase8LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
@@ -29,13 +28,9 @@ public class BigTruckTestCase8LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void editDispatchCargoBigTruck () throws InterruptedException {
+    public void editDispatchCargoBigTruck () {
 
         System.out.println("BigTruckTestCase8LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -175,11 +170,10 @@ public class BigTruckTestCase8LoadBoard {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
-        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch board
-        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє що вантаж відображається на Loads en Route
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
@@ -275,10 +269,8 @@ public class BigTruckTestCase8LoadBoard {
 
         //клік по Submit фрейм Update driver
         $("#update_load_driver_send").click();
-        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch board
-        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         //перевіряє дані водія після редагуванням на фрейм Load Board
@@ -286,7 +278,6 @@ public class BigTruckTestCase8LoadBoard {
         $("td .text-aqua").shouldHave(text("AutoTest Trailer2"));
         $(".bt-col-driver-carrier .drivers-wrap").shouldHave(exactText("Auto Test Driver5 Big Truck"));
         $(".bt-col-driver-carrier .team-driver-wrap").shouldHave(exactText("Auto Test Driver6 Big Truck"));
-
 
         System.out.println("bigTruckTestCase8LoadBoard - Test Pass");
     }
@@ -312,11 +303,5 @@ public class BigTruckTestCase8LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

@@ -1,9 +1,9 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import web.config.*;
 
 import java.io.File;
 import java.time.Duration;
@@ -33,9 +33,8 @@ public class BigTruckTestCase1LoadBoard {
 
         System.out.println("BigTruckTestCase1LoadBoard - Start");
 
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
+        WebDriverConfig.setup();
+        LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -95,19 +94,19 @@ public class BigTruckTestCase1LoadBoard {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(1,0);
+        inputCalendar(1, 0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(2,1);
+        inputCalendar(2, 1);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(3,2);
+        inputCalendar(3, 2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(4,3);
+        inputCalendar(4, 3);
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");
@@ -208,7 +207,7 @@ public class BigTruckTestCase1LoadBoard {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
@@ -223,11 +222,5 @@ public class BigTruckTestCase1LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }
