@@ -1,10 +1,9 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
+import web.LoginUser2;
 
 import java.io.File;
 import java.time.Duration;
@@ -17,7 +16,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase4LoadBoard {
+public class BigTruckTestCase4LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
@@ -30,13 +29,9 @@ public class BigTruckTestCase4LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void enRoutCargoToDеlivеred() throws InterruptedException{
+    public void enRoutCargoToDеlivеred() {
 
         System.out.println("BigTruckTestCase4LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -207,7 +202,6 @@ public class BigTruckTestCase4LoadBoard {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //клік редагування вантажу
-        Thread.sleep(1000);
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(20)).click();
 
@@ -219,7 +213,6 @@ public class BigTruckTestCase4LoadBoard {
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads Delivered")).click();
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
-
 
         System.out.println("bigTruckTestCase4LoadBoard - Test Pass");
     }
@@ -245,11 +238,5 @@ public class BigTruckTestCase4LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

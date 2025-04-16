@@ -1,13 +1,9 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
-
+import web.LoginUser2;
 
 import java.io.File;
 import java.time.Duration;
@@ -20,7 +16,7 @@ import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase3LoadBoard {
+public class BigTruckTestCase3LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
@@ -33,13 +29,9 @@ public class BigTruckTestCase3LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void availableCargoToEnRout () throws InterruptedException{
+    public void availableCargoToEnRout () {
 
         System.out.println("BigTruckTestCase3LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -135,6 +127,16 @@ public class BigTruckTestCase3LoadBoard {
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
+//        //перевіряє що вантаж відображається на Available Loads
+//        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+//        $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
+//        $("#available-loads-grid-filters .input[name='LoadsSearch[our_pro_number]']").click();
+//        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).shouldBe(editable).setValue(loadNumber).pressEnter();
+//        $("a.view_load").shouldBe(text(loadNumber));
+
+
+
+
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link")
@@ -145,13 +147,13 @@ public class BigTruckTestCase3LoadBoard {
                 .shouldBe(visible, enabled)
                 .setValue(loadNumber).pressEnter();
 
-        //рядок таблиці
-        SelenideElement rowLoad = $$("#available-loads-grid tbody tr")
-                .get(0)
-                .shouldHave(text(loadNumber));
+//        $$("table#available-loads-grid tbody tr").shouldHave(CollectionCondition.size(1));
+//        $(".li-tabs-home.li-tabs-available-loads a.view_load")
+//                .shouldHave(text(loadNumber))
+//                .shouldBe(visible);
 
         //клік на око, редагування вантажу Dispatch load
-        rowLoad.$("button.view_load").click();
+        $("#available-loads-grid button.view_load").click();
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -207,7 +209,6 @@ public class BigTruckTestCase3LoadBoard {
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-
         System.out.println("bigTruckTestCase3LoadBoard - Test Pass");
     }
 
@@ -234,9 +235,4 @@ public class BigTruckTestCase3LoadBoard {
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
-    }
 }

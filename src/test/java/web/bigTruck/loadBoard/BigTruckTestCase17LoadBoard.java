@@ -1,11 +1,10 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
+import web.LoginUser2;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,9 +23,9 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static web.expedite.loadBoard.TestCase17LoadBoard.clearDownloadFolder;
+import static web.LoadBord.TestCase17LoadBoard.clearDownloadFolder;
 
-public class BigTruckTestCase17LoadBoard {
+public class BigTruckTestCase17LoadBoard extends LoginUser2 {
 
     // Click Up:
     // CRM SEMI Truck
@@ -44,10 +43,6 @@ public class BigTruckTestCase17LoadBoard {
     public void getInvoice () throws InterruptedException, IOException {
 
         System.out.println("BigTruckTestCase17LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -138,7 +133,7 @@ public class BigTruckTestCase17LoadBoard {
         $("#add_load_send_dispatch").click();
 
         //dispatch board
-        $("#view_load").shouldBe(visible, Duration.ofSeconds(10)).shouldHave(text("Dispatch #"));
+        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
         loadNumber = $("#view_load .check_call_pro").getText();
@@ -236,15 +231,12 @@ public class BigTruckTestCase17LoadBoard {
         $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        Selenide.sleep(5000);
-
         //очищає папку перед завантаженням
         String folderPath = Configuration.downloadsFolder;
         clearDownloadFolder(folderPath);
 
         //*** Відкриває меню і вибирає Get invoice ***
-        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(20)).click();
-        $("#invoiced .dropdown-menu-right").shouldBe(visible,Duration.ofSeconds(10));
+        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(5)).click();
         $$("#invoiced .dropdown-menu-right li").findBy(text("Get invoice")).shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         //Перевіряє прев"ю
@@ -286,7 +278,6 @@ public class BigTruckTestCase17LoadBoard {
             System.out.println("Файл Invoice успішно завантажений");
         }
 
-
         System.out.println("bigTruckTestCase17LoadBoard - Test Pass");
     }
 
@@ -311,11 +302,5 @@ public class BigTruckTestCase17LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }
