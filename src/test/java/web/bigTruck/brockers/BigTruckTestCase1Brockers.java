@@ -1,7 +1,6 @@
 package web.bigTruck.brockers;
 
 import org.testng.annotations.Test;
-import web.config.LoginBigTruck;
 
 import java.time.Duration;
 import java.util.Random;
@@ -33,7 +32,8 @@ public class BigTruckTestCase1Brockers {
         System.out.println("BigTruckTestCase1Brockers - Start");
 
         //старт браузер і авторизація
-        LoginBigTruck.loginWeb();
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
