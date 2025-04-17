@@ -100,8 +100,6 @@ public class BigTruckTestCase3Brockers {
         $(".modal-new-load-bigtrucks .close").click();
         $(".modal-new-load-bigtrucks").shouldNotBe(visible, Duration.ofSeconds(10));
 
-//        String brokerMcNumberBigTruck = "9811775";
-
         //переходить на список брокерів
         $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".brokers-user").click();
