@@ -33,6 +33,10 @@ public class BigTruckTestCase6LoadBoard {
 
         System.out.println("BigTruckTestCase6LoadBoard - Start");
 
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
+
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();

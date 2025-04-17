@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -33,9 +34,13 @@ public class BigTruckTestCase14LoadBoard {
     String agent = "Auto test agent";
 
     @Test
-    public void checkCallDell (){
+    public void checkCallDell () throws InterruptedException {
 
         System.out.println("BigTruckTestCase14LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

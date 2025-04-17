@@ -29,9 +29,13 @@ public class BigTruckTestCase9LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void driverAddDell () {
+    public void driverAddDell () throws InterruptedException {
 
         System.out.println("BigTruckTestCase9LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
