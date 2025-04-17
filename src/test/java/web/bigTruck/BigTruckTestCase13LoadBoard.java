@@ -4,7 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+
 
 import java.io.File;
 import java.time.Duration;
@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase13LoadBoard extends LoginUser2 {
+public class BigTruckTestCase13LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -406,6 +406,7 @@ public class BigTruckTestCase13LoadBoard extends LoginUser2 {
         editRowCheckCalls3.$(".check_call_location").shouldHave(text(editLocationCheckCalls3));
         editRowCheckCalls3.$(".check_call_note").shouldHave(text(editNoteCheckCalls3));
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase13LoadBoard - Test Pass");
     }
 

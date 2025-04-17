@@ -17,7 +17,7 @@ public class BigTruckTestCase2Brockers {
     // Click Up:
     // CRM SEMI Truck
     // Brockers
-    // 1. Создание Брокера
+    // 2. Редактирование брокера
 
     Random random = new Random();
     int randomNumber;
@@ -46,10 +46,10 @@ public class BigTruckTestCase2Brockers {
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
 
-        //відкриває створення брокера, клік по "+" біля поля Broker
+        //відкриває створення брокера, клац по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
 
-        //генерує дані та вводить. Створює Брокера
+        //генерує дані та вводить, створює Брокера
         randomNumber = random.nextInt(1000);
         randomNumberMc = random.nextInt(10000);
         generateDataNewBroker(randomNumber, randomNumberMc);
@@ -160,10 +160,6 @@ public class BigTruckTestCase2Brockers {
         agentMailBigTruck = agentNameBigTruck + "@" + randomNumber + "mail.com";
         agentPhoneNumberBigTruck = "(057) 335-5" + randomNumber;
     }
-
-//    void inputDateBroker() {
-//        inputDateBroker(false); // викликає метод з параметром
-//    }
 
     void inputDateBroker(){
 

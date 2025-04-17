@@ -4,7 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+
 
 import java.io.File;
 import java.time.Duration;
@@ -17,7 +17,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase11LoadBoard extends LoginUser2 {
+public class BigTruckTestCase11LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -223,6 +223,7 @@ public class BigTruckTestCase11LoadBoard extends LoginUser2 {
         //перевіряє що Expense видалений з таб частини на фрейм Dispatch
         expensesDispatch.shouldNotBe(visible);
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase11LoadBoard - Test Pass");
     }
 

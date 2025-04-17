@@ -4,7 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +25,7 @@ import static com.codeborne.selenide.Selenide.$$;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static web.LoadBord.TestCase17LoadBoard.clearDownloadFolder;
 
-public class BigTruckTestCase16LoadBoard extends LoginUser2 {
+public class BigTruckTestCase16LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -241,6 +241,7 @@ public class BigTruckTestCase16LoadBoard extends LoginUser2 {
             System.out.println("Файл Bol успішно завантажений");
         }
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase16LoadBoard - Test Pass");
     }
 

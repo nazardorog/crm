@@ -3,7 +3,7 @@ package web.bigTruck;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+
 
 import java.io.File;
 import java.time.Duration;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase6LoadBoard extends LoginUser2 {
+public class BigTruckTestCase6LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -247,6 +247,7 @@ public class BigTruckTestCase6LoadBoard extends LoginUser2 {
         $("#paid input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#paid-loads-grid a.view_load").shouldHave(text(loadNumber));
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase6LoadBoard - Test Pass");
     }
 

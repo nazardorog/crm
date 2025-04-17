@@ -4,7 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+
 
 import java.io.File;
 import java.time.Duration;
@@ -18,7 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class BigTruckTestCase14LoadBoard extends LoginUser2 {
+public class BigTruckTestCase14LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -348,6 +348,7 @@ public class BigTruckTestCase14LoadBoard extends LoginUser2 {
         // додаткова перевірка що таблиця Check Calls пуста
         $(".table-dispatch-check-calls").shouldHave(text("No results found."));
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase14LoadBoard - Test Pass");
     }
 

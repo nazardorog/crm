@@ -1,5 +1,7 @@
 package web.bigTruck.brockers;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -7,15 +9,15 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase1Brockers {
+public class BigTruckTestCase4Brockers {
 
     // Click Up:
     // CRM SEMI Truck
     // Brockers
-    // 1. Создание Брокера
+    // 4. Remove from DNU
 
     String brokerMcNumberBigTruck;
     String ffMcNumberBigTruck;
@@ -27,9 +29,9 @@ public class BigTruckTestCase1Brockers {
     String agentPhoneNumberBigTruck;
 
     @Test
-    public void newBrokersBigTruck() throws InterruptedException{
+    public void newBrokersBigTruck() throws InterruptedException {
 
-        System.out.println("BigTruckTestCase1Brockers - Start");
+        System.out.println("BigTruckTestCase4Brockers - Start");
 
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();
@@ -75,8 +77,14 @@ public class BigTruckTestCase1Brockers {
         $("#agents-0-phone_number").setValue(agentPhoneNumberBigTruck);
         $("#agent-cell_phone-update0").setValue(brokerPhoneNumberBigTruck + "01");
 
-        //фрейм Add Broker кнопка Submit
-        $("#add_broker_send").shouldBe(enabled).click();
+        //фрейм Add Broker приховуємо warning блок
+        SelenideElement warningBlock = $(".has-success .warning-block-wrapper");
+        executeJavaScript("arguments[0].style.display='none';", warningBlock);
+
+        //закриває фрейм Add Broker
+        SelenideElement modal = $("#add_broker");
+        $("#add_broker_send").shouldBe(visible, enabled).click();
+        modal.shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));
@@ -88,15 +96,62 @@ public class BigTruckTestCase1Brockers {
                 .findBy(text(agentNameBigTruck))
                 .click();
 
-        //перевіряє створеного агента
-        $("#select2-broker-agent-load-select-container").shouldHave(text(agentNameBigTruck));
-        $("#select2-broker-agent-load-select-container").shouldHave(text("Agent Last Name" + randomNumber));
-        $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
-        $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
-        $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumberBigTruck));
+        //закриває фрейм New load
+        $(".modal-new-load-bigtrucks .close").click();
+        $(".modal-new-load-bigtrucks").shouldNotBe(visible, Duration.ofSeconds(10));
+
+        //переходить на список брокерів
+        $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
+        $(".brokers-user").click();
+        $("body").click();
+
+        //шукає брокера по MC
+        $("#brokerssearch-mc_number").setValue(brokerMcNumberBigTruck).pressEnter();
+
+        //перевіряє що брокера знайдено
+        SelenideElement rowBroker = $$("table.table-brokers-style-profile tbody tr")
+                .findBy(text(brokerMcNumberBigTruck))
+                .shouldBe(visible);
+
+        //перевіряє що DNU не встановлено для брокера
+        rowBroker.$("td", 8).shouldHave(text("Active"));
+
+        //праве меню вибирає Add to DNU
+        rowBroker.$(".btn-action-more").click();
+        $$(".dropdown-menu-right a").findBy(text("Add to DNU")).shouldBe(visible, enabled).click();
+
+        //фрейм DNU встановлює DNU для брокера
+        $("#broker_dnu_modal .bootstrap-dialog-title").shouldBe(visible);
+        $("#category-dropdown").selectOption("4 - Dry Van Only");
+        $("#category-dropdown").getSelectedOption().shouldHave(Condition.text("4 - Dry Van Only"), Duration.ofSeconds(10));
+        $("#brokers-comment").shouldBe(visible, Duration.ofSeconds(20));
+        $("#brokers-comment").shouldBe(enabled, Duration.ofSeconds(20));
+        sleep(5000);
+        $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, Duration.ofSeconds(10)).pressEnter();
+        $("#brokers-comment").shouldHave(value("DNU reason massage"), Duration.ofSeconds(10));
+
+        //закриває фрейм DNU
+        $("#broker_from_dnu_send").click();
+        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(10));
+
+        //перевіряє що DNU встановлено для брокера
+        rowBroker.$("td", 8).shouldHave(text("DNU"));
+
+        //праве меню вибирає Remove from DNU
+        rowBroker.$(".btn-action-more").click();
+        $(".remove_broker_dnu").shouldBe(visible, enabled).click();
+
+        //фрейм DNU вводить Reason
+        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(10));
+        $("#note").setValue("DNU delete reason massage");
+        $("#broker_from_dnu_send").click();
+        $("#brokers-blacklist-form").shouldNotBe(visible);
+
+        //перевіряє що DNU не встановлено для брокера
+        rowBroker.$("td", 8).shouldHave(text("Active"));
 
         web.config.CloseWebDriver.tearDown();
-        System.out.println("BigTruckTestCase1Brockers - Test Pass");
+        System.out.println("BigTruckTestCase4Brockers - Test Pass");
     }
 
     void generateDataNewBroker(int randomNumber, int randomNumberMc){

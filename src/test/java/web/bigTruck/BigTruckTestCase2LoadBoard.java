@@ -3,7 +3,7 @@ package web.bigTruck;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
-import web.LoginUser2;
+
 
 import java.io.File;
 import java.time.Duration;
@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase2LoadBoard extends LoginUser2 {
+public class BigTruckTestCase2LoadBoard {
 
     // Click Up:
     // CRM SEMI Truck
@@ -287,6 +287,7 @@ public class BigTruckTestCase2LoadBoard extends LoginUser2 {
                 .$("input")
                 .shouldBe(checked);
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase2LoadBoard - Test Pass");
     }
 
