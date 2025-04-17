@@ -213,7 +213,7 @@ public class BigTruckTestCase10LoadBoard {
         //перевіряє що warehouses видалений
         $("#loadDriversContent .view_warehouses").shouldNot(visible);
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase10LoadBoard - Test Pass");
     }
 

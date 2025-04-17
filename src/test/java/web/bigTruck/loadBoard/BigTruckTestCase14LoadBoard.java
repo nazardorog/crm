@@ -354,7 +354,7 @@ public class BigTruckTestCase14LoadBoard {
         // додаткова перевірка що таблиця Check Calls пуста
         $(".table-dispatch-check-calls").shouldHave(text("No results found."));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase14LoadBoard - Test Pass");
     }
 

@@ -1,5 +1,6 @@
 package web.bigTruck.brockers;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -95,7 +96,7 @@ public class BigTruckTestCase1Brockers {
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
         $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumberBigTruck));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("BigTruckTestCase1Brockers - Test Pass");
     }
 
@@ -110,5 +111,11 @@ public class BigTruckTestCase1Brockers {
         agentNameBigTruck = "Agent_" + brokerNameBigTruck;
         agentMailBigTruck = agentNameBigTruck + "@mail.com";
         agentPhoneNumberBigTruck = "(056) 335" + randomNumber + "01";
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        System.out.println("Tear down - close WebDriver");
+        web.config.CloseWebDriver.tearDown();
     }
 }

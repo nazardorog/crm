@@ -4,8 +4,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import web.config.LoginBigTruck;
-import web.config.WebDriverConfig;
+
 
 
 import java.io.File;
@@ -216,7 +215,7 @@ public class BigTruckTestCase3LoadBoard {
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase3LoadBoard - Test Pass");
     }
 

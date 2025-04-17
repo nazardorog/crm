@@ -4,9 +4,6 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import web.config.LoginBigTruck;
-import web.config.WebDriverConfig;
-
 
 import java.io.File;
 import java.time.Duration;
@@ -294,7 +291,7 @@ public class BigTruckTestCase2LoadBoard {
                 .$("input")
                 .shouldBe(checked);
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase2LoadBoard - Test Pass");
     }
 

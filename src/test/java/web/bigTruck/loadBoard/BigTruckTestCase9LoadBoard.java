@@ -305,7 +305,7 @@ public class BigTruckTestCase9LoadBoard {
         $(".loads-driver-height-block.level-1 span.text-aqua").shouldNotHave(visible);
         $(".loads-driver-height-block.level-1 a.view_driver").shouldNotHave(visible);
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase9LoadBoard - Test Pass");
     }
 
