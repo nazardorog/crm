@@ -2,7 +2,6 @@ package web.bigTruck.brockers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -82,10 +81,10 @@ public class BigTruckTestCase3Brockers {
         SelenideElement warningBlock = $(".has-success .warning-block-wrapper");
         executeJavaScript("arguments[0].style.display='none';", warningBlock);
 
-        //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
-        $("#add_broker_send").shouldBe(enabled).click();
-        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(10));
-        $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
+        //закриває фрейм Add Broker
+        SelenideElement modal = $("#add_broker");
+        $("#add_broker_send").shouldBe(visible, enabled).click();
+        modal.shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));
@@ -100,6 +99,8 @@ public class BigTruckTestCase3Brockers {
         //закриває фрейм New load
         $(".modal-new-load-bigtrucks .close").click();
         $(".modal-new-load-bigtrucks").shouldNotBe(visible, Duration.ofSeconds(10));
+
+//        String brokerMcNumberBigTruck = "9811775";
 
         //переходить на список брокерів
         $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
@@ -138,7 +139,7 @@ public class BigTruckTestCase3Brockers {
         //перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
 
-
+        web.config.CloseWebDriver.tearDown();
         System.out.println("BigTruckTestCase3Brockers - Test Pass");
     }
 
@@ -153,11 +154,5 @@ public class BigTruckTestCase3Brockers {
         agentNameBigTruck = "Agent_" + brokerNameBigTruck;
         agentMailBigTruck = agentNameBigTruck + "@mail.com";
         agentPhoneNumberBigTruck = "(056) 335" + randomNumber + "01";
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

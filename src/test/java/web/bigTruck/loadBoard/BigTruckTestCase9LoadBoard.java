@@ -1,8 +1,7 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
@@ -30,13 +29,9 @@ public class BigTruckTestCase9LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void driverAddDell () throws InterruptedException {
+    public void driverAddDell () {
 
         System.out.println("BigTruckTestCase9LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -305,7 +300,7 @@ public class BigTruckTestCase9LoadBoard {
         $(".loads-driver-height-block.level-1 span.text-aqua").shouldNotHave(visible);
         $(".loads-driver-height-block.level-1 a.view_driver").shouldNotHave(visible);
 
-
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase9LoadBoard - Test Pass");
     }
 
@@ -315,7 +310,7 @@ public class BigTruckTestCase9LoadBoard {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
@@ -330,11 +325,5 @@ public class BigTruckTestCase9LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

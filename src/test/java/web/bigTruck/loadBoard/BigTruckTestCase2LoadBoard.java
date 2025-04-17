@@ -1,9 +1,9 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+
 
 import java.io.File;
 import java.time.Duration;
@@ -32,10 +32,6 @@ public class BigTruckTestCase2LoadBoard {
     public void editCargoBigTruck () throws InterruptedException {
 
         System.out.println("BigTruckTestCase2LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -291,6 +287,7 @@ public class BigTruckTestCase2LoadBoard {
                 .$("input")
                 .shouldBe(checked);
 
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase2LoadBoard - Test Pass");
     }
 
@@ -316,11 +313,5 @@ public class BigTruckTestCase2LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

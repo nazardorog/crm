@@ -2,7 +2,6 @@ package web.bigTruck.brockers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -82,10 +81,10 @@ public class BigTruckTestCase4Brockers {
         SelenideElement warningBlock = $(".has-success .warning-block-wrapper");
         executeJavaScript("arguments[0].style.display='none';", warningBlock);
 
-        //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
-        $("#add_broker_send").shouldBe(enabled).click();
-        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(10));
-        $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
+        //закриває фрейм Add Broker
+        SelenideElement modal = $("#add_broker");
+        $("#add_broker_send").shouldBe(visible, enabled).click();
+        modal.shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));
@@ -133,7 +132,7 @@ public class BigTruckTestCase4Brockers {
 
         //закриває фрейм DNU
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(10));
 
         //перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
@@ -143,7 +142,7 @@ public class BigTruckTestCase4Brockers {
         $(".remove_broker_dnu").shouldBe(visible, enabled).click();
 
         //фрейм DNU вводить Reason
-        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(20));
+        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(10));
         $("#note").setValue("DNU delete reason massage");
         $("#broker_from_dnu_send").click();
         $("#brokers-blacklist-form").shouldNotBe(visible);
@@ -151,7 +150,7 @@ public class BigTruckTestCase4Brockers {
         //перевіряє що DNU не встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("Active"));
 
-
+        web.config.CloseWebDriver.tearDown();
         System.out.println("BigTruckTestCase4Brockers - Test Pass");
     }
 
@@ -166,11 +165,5 @@ public class BigTruckTestCase4Brockers {
         agentNameBigTruck = "Agent_" + brokerNameBigTruck;
         agentMailBigTruck = agentNameBigTruck + "@mail.com";
         agentPhoneNumberBigTruck = "(056) 335" + randomNumber + "01";
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

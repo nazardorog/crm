@@ -35,17 +35,16 @@ public class BigTruckTestCase1Brockers {
         web.config.WebDriverConfig.setup();
         web.config.LoginBigTruck.loginWeb();
 
-        //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
-
         Random random = new Random();
         int randomNumber = random.nextInt(1000);
         int randomNumberMc = random.nextInt(10000);
         generateDataNewBroker(randomNumber, randomNumberMc);
 
-        //створює Broker
-        //клік по "+" біля поля Broker
+        //створює новий вантаж
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $("#new_load").shouldBe(enabled).click();
+
+        //відкриває створення брокера, клац по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
 
         //фрейм Add Broker вкладка General

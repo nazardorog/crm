@@ -1,9 +1,8 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
@@ -24,7 +23,7 @@ import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static web.expedite.loadBoard.TestCase17LoadBoard.clearDownloadFolder;
+import static web.LoadBord.TestCase17LoadBoard.clearDownloadFolder;
 
 public class BigTruckTestCase16LoadBoard {
 
@@ -44,10 +43,6 @@ public class BigTruckTestCase16LoadBoard {
     public void getBol () throws InterruptedException, IOException {
 
         System.out.println("BigTruckTestCase15LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -246,7 +241,7 @@ public class BigTruckTestCase16LoadBoard {
             System.out.println("Файл Bol успішно завантажений");
         }
 
-
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase16LoadBoard - Test Pass");
     }
 
@@ -256,7 +251,7 @@ public class BigTruckTestCase16LoadBoard {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
@@ -271,11 +266,5 @@ public class BigTruckTestCase16LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

@@ -1,9 +1,8 @@
-package web.bigTruck.loadBoard;
+package web.bigTruck;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
@@ -31,13 +30,9 @@ public class BigTruckTestCase12LoadBoard {
     String agent = "Auto test agent";
 
     @Test
-    public void checkCallAdd () throws InterruptedException {
+    public void checkCallAdd (){
 
         System.out.println("BigTruckTestCase12LoadBoard - Start");
-
-        //старт браузер і авторизація
-        web.config.WebDriverConfig.setup();
-        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -319,7 +314,7 @@ public class BigTruckTestCase12LoadBoard {
         $(".col-style-checkcall .pull-left").shouldHave(text("Dallas, TX"));
         $(".col-style-checkcall .small-txt").shouldHave(text("Note Check cool 2"));
 
-
+        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase12LoadBoard - Test Pass");
     }
 
@@ -329,7 +324,7 @@ public class BigTruckTestCase12LoadBoard {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
@@ -346,9 +341,4 @@ public class BigTruckTestCase12LoadBoard {
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
-}
