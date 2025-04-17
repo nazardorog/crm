@@ -199,7 +199,6 @@ public class BigTruckTestCase1LoadBoard {
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("td a.view_load").shouldHave(text(loadNumber));
 
-        web.config.CloseWebDriver.tearDown();
         System.out.println("bigTruckTestCase1LoadBoard - Test Pass");
     }
 

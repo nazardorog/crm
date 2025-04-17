@@ -246,7 +246,7 @@ public class BigTruckTestCase16LoadBoard {
             System.out.println("Файл Bol успішно завантажений");
         }
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase16LoadBoard - Test Pass");
     }
 

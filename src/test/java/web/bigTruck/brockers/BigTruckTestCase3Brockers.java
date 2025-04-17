@@ -2,6 +2,7 @@ package web.bigTruck.brockers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -137,7 +138,7 @@ public class BigTruckTestCase3Brockers {
         //перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("BigTruckTestCase3Brockers - Test Pass");
     }
 
@@ -152,5 +153,11 @@ public class BigTruckTestCase3Brockers {
         agentNameBigTruck = "Agent_" + brokerNameBigTruck;
         agentMailBigTruck = agentNameBigTruck + "@mail.com";
         agentPhoneNumberBigTruck = "(056) 335" + randomNumber + "01";
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        System.out.println("Tear down - close WebDriver");
+        web.config.CloseWebDriver.tearDown();
     }
 }

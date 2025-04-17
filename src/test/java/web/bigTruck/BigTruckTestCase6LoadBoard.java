@@ -252,7 +252,7 @@ public class BigTruckTestCase6LoadBoard {
         $("#paid input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#paid-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase6LoadBoard - Test Pass");
     }
 

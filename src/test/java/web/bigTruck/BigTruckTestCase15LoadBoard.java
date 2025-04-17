@@ -238,7 +238,7 @@ public class BigTruckTestCase15LoadBoard {
             System.out.println("Файл Load confirmation успішно завантажений");
         }
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase15LoadBoard - Test Pass");
     }
 

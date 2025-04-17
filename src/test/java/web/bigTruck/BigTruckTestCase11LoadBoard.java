@@ -228,7 +228,7 @@ public class BigTruckTestCase11LoadBoard {
         //перевіряє що Expense видалений з таб частини на фрейм Dispatch
         expensesDispatch.shouldNotBe(visible);
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase11LoadBoard - Test Pass");
     }
 

@@ -285,7 +285,7 @@ public class BigTruckTestCase8LoadBoard {
         $(".bt-col-driver-carrier .drivers-wrap").shouldHave(exactText("Auto Test Driver5 Big Truck"));
         $(".bt-col-driver-carrier .team-driver-wrap").shouldHave(exactText("Auto Test Driver6 Big Truck"));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase8LoadBoard - Test Pass");
     }
 

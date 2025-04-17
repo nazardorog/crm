@@ -283,7 +283,7 @@ public class BigTruckTestCase17LoadBoard {
             System.out.println("Файл Invoice успішно завантажений");
         }
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase17LoadBoard - Test Pass");
     }
 

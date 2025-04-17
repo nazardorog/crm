@@ -319,7 +319,7 @@ public class BigTruckTestCase12LoadBoard {
         $(".col-style-checkcall .pull-left").shouldHave(text("Dallas, TX"));
         $(".col-style-checkcall .small-txt").shouldHave(text("Note Check cool 2"));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase12LoadBoard - Test Pass");
     }
 

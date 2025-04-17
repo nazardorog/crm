@@ -228,7 +228,7 @@ public class BigTruckTestCase5LoadBoard {
         $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase5LoadBoard - Test Pass");
     }
 

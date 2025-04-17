@@ -219,7 +219,7 @@ public class BigTruckTestCase4LoadBoard {
         $("#delivered input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#delivered-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase4LoadBoard - Test Pass");
     }
 

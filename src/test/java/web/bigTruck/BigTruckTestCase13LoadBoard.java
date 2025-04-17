@@ -411,7 +411,7 @@ public class BigTruckTestCase13LoadBoard {
         editRowCheckCalls3.$(".check_call_location").shouldHave(text(editLocationCheckCalls3));
         editRowCheckCalls3.$(".check_call_note").shouldHave(text(editNoteCheckCalls3));
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("bigTruckTestCase13LoadBoard - Test Pass");
     }
 

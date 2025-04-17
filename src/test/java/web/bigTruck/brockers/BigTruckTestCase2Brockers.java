@@ -2,6 +2,7 @@ package web.bigTruck.brockers;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -142,7 +143,7 @@ public class BigTruckTestCase2Brockers {
         //перевіряє відредаговані дані брокера
         validationDataBroker();
 
-        web.config.CloseWebDriver.tearDown();
+
         System.out.println("BigTruckTestCase2Brockers - Test Pass");
     }
 
@@ -228,5 +229,11 @@ public class BigTruckTestCase2Brockers {
         $("#agents-0-last_name").shouldHave(value("Agent Last Name" + randomNumber));
         $("#agents-0-phone_number").shouldHave(value(agentPhoneNumberBigTruck + " ex _"));
         $("#agent-cell_phone-update0").shouldHave(value(brokerPhoneNumberBigTruck + " ex _"));
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        System.out.println("Tear down - close WebDriver");
+        web.config.CloseWebDriver.tearDown();
     }
 }
