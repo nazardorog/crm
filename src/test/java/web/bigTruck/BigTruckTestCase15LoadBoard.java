@@ -3,6 +3,7 @@ package web.bigTruck;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
@@ -262,5 +263,11 @@ public class BigTruckTestCase15LoadBoard {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        System.out.println("Tear down - close WebDriver");
+        web.config.CloseWebDriver.tearDown();
     }
 }
