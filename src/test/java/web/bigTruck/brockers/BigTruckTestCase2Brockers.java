@@ -76,7 +76,7 @@ public class BigTruckTestCase2Brockers {
 
         System.out.println("BigTruckTestCase2Brockers MCBroker:" + brokerMcNumberBigTruck + ". Broker name:" + brokerNameBigTruck);
 
-        //перевіряє створеного агента
+        //перевіряє створеного агента фрейм New load
         $("#select2-broker-agent-load-select-container").shouldHave(text(agentNameBigTruck));
         $("#select2-broker-agent-load-select-container").shouldHave(text("Agent Last Name" + randomNumber));
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
@@ -139,7 +139,7 @@ public class BigTruckTestCase2Brockers {
         rowBroker.$(".btn-action-more").click();
         $(".dropdown-profile-style .update_broker_main").click();
 
-        //перевіряє дані створеного брокера
+        //перевіряє відредаговані дані брокера
         validationDataBroker();
 
         web.config.CloseWebDriver.tearDown();
@@ -204,7 +204,7 @@ public class BigTruckTestCase2Brockers {
 
     public void validationDataBroker (){
 
-        //перевіряє дані брокера перед редагуванням фрейм Add Broker вкладка General
+        //вкладка General перевіряє дані брокера перед редагуванням фрейм Add Broker
         $("#update_broker").shouldBe(visible, Duration.ofSeconds(20));
         $("#brokers-mc_number").shouldHave(value(brokerMcNumberBigTruck));
         $("#brokers-name").shouldHave(value(brokerNameBigTruck));
@@ -216,13 +216,13 @@ public class BigTruckTestCase2Brockers {
         $("#brokers-custom_limit").shouldHave(value("" + randomNumber));
         $("#brokers-note").shouldHave(text("AutoTestBrockersNote"));
 
-        //перевіряє дані брокера перед редагуванням фрейм Add Broker вкладка Contact
+        //вкладка Contact перевіряє дані брокера перед редагуванням фрейм Add Broker
         $(byText("Contact")).click();
         $("#brokers-main_name").shouldHave(value ("Broker contact main Name"));
         $("#brokers-main_phone_number").shouldHave(value(brokerPhoneNumberBigTruck));
         $("#brokers-main_email").shouldHave(value("BrokerContact" + randomNumber + "@mail.com"));
 
-        //фрейм Add Broker вкладка Agents
+        //вкладка Agents перевіряє дані брокера перед редагуванням фрейм Add Broker
         $(byText("Agents")).click();
         $("#agents-0-name").shouldHave(value(agentNameBigTruck));
         $("#agents-0-last_name").shouldHave(value("Agent Last Name" + randomNumber));

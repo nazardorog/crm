@@ -29,9 +29,13 @@ public class BigTruckTestCase4LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void enRoutCargoToDеlivеred() {
+    public void enRoutCargoToDеlivеred() throws InterruptedException{
 
         System.out.println("BigTruckTestCase4LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

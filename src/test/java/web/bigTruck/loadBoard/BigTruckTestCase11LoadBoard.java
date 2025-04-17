@@ -31,9 +31,13 @@ public class BigTruckTestCase11LoadBoard {
     String loadNumber;
 
     @Test
-    public void expensesAddDell (){
+    public void expensesAddDell () throws InterruptedException {
 
         System.out.println("BigTruckTestCase11LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

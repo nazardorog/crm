@@ -32,9 +32,13 @@ public class BigTruckTestCase13LoadBoard {
     String agent = "Auto test agent";
 
     @Test
-    public void checkCallEdit (){
+    public void checkCallEdit () throws InterruptedException {
 
         System.out.println("BigTruckTestCase13LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

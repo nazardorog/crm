@@ -29,9 +29,13 @@ public class BigTruckTestCase10LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void wareHousesAddDell () {
+    public void wareHousesAddDell () throws InterruptedException {
 
         System.out.println("BigTruckTestCase10LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

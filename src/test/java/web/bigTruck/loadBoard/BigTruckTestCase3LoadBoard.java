@@ -3,6 +3,8 @@ package web.bigTruck;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
+import web.config.LoginBigTruck;
+import web.config.WebDriverConfig;
 
 
 import java.io.File;
@@ -29,9 +31,13 @@ public class BigTruckTestCase3LoadBoard {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void availableCargoToEnRout () {
+    public void availableCargoToEnRout () throws InterruptedException{
 
         System.out.println("BigTruckTestCase3LoadBoard - Start");
+
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

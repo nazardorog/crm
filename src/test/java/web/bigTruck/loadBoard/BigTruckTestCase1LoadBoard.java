@@ -3,7 +3,6 @@ package web.bigTruck;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.Test;
-import web.config.*;
 
 import java.io.File;
 import java.time.Duration;
@@ -33,8 +32,9 @@ public class BigTruckTestCase1LoadBoard {
 
         System.out.println("BigTruckTestCase1LoadBoard - Start");
 
-        WebDriverConfig.setup();
-        LoginBigTruck.loginWeb();
+        //старт браузер і авторизація
+        web.config.WebDriverConfig.setup();
+        web.config.LoginBigTruck.loginWeb();
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
