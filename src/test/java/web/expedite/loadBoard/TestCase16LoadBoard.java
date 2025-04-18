@@ -1,4 +1,4 @@
-package web.LoadBord;
+package web.expedite.loadBoard;
 
 import com.codeborne.selenide.Selenide;
 import web.Login;
@@ -53,8 +53,6 @@ public class TestCase16LoadBoard extends Login {
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-
-
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -154,19 +152,31 @@ public class TestCase16LoadBoard extends Login {
 
         //frame automatic status driver
         $("#dispatch_load_send").click();
-        Thread.sleep(4000);
         $("#set-automatic-status-link").shouldBe(enabled).click();
         $(".modal-wrapper-set-auto-status-text").shouldBe(enabled).shouldHave(text("Please note that the pick-up for this load is scheduled for  today. As a result, the truck's status will automatically change to 'Available On' in the delivery city three hours before the scheduled pick-up time."));
         $("#automatic_status_send").shouldBe(enabled).click();
 
-        //перевіряє статус Available On водія в Expedite Fleet
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Status will be automatically change."));
+        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+
         $("#dispatch_load_send").click();
+
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Load dispatch sucessfully added"));
+        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+
+        //перевіряє статус Available On водія в Expedite Fleet
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
         $(".expedite-fleet-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".expedite-fleet-user").click();
         $("body").click();
 
+        $("input[name='TrucksSearch[filter_driver_name]']").shouldBe(visible, Duration.ofSeconds(10)).setValue("AutoTest Driver2").pressEnter();
         $(By.name("TrucksSearch[filter_driver_name]")).setValue("AutoTest Driver2").pressEnter();
-        $(".truck-center-text").shouldHave(text("Available On"));
+        $(".truck-center-text").shouldHave(text("Available On"), Duration.ofSeconds(10));
         $(".truck-date-when-there").shouldHave(text(dateToShippersDestination));
         $(".driver-name").shouldHave(text("AutoTest Driver2"));
         $(".city-state-zip").shouldHave(text("Philadelphia, PA 19019"));
