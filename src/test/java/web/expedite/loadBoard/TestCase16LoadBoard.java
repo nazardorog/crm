@@ -152,20 +152,20 @@ public class TestCase16LoadBoard extends Login {
 
         //frame automatic status driver
         $("#dispatch_load_send").click();
-        $("#set-automatic-status-link").shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $("#set-automatic-status-link").shouldBe(enabled).click();
         $(".modal-wrapper-set-auto-status-text").shouldBe(enabled).shouldHave(text("Please note that the pick-up for this load is scheduled for  today. As a result, the truck's status will automatically change to 'Available On' in the delivery city three hours before the scheduled pick-up time."));
         $("#automatic_status_send").shouldBe(enabled).click();
 
         //тост вспливайка
         $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
-        $(".toast-message").shouldHave(visible, Duration.ofSeconds(20)).shouldHave(text("Status will be automatically change."));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Status will be automatically change."));
         $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
 
         $("#dispatch_load_send").click();
 
         //тост вспливайка
         $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
-        $(".toast-message").shouldHave(visible, Duration.ofSeconds(20)).shouldHave(text("Load dispatch sucessfully added"));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Load dispatch sucessfully added"));
         $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
 
         //перевіряє статус Available On водія в Expedite Fleet
@@ -191,7 +191,7 @@ public class TestCase16LoadBoard extends Login {
         int targetDay = day + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
