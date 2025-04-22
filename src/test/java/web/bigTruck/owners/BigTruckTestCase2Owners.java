@@ -26,7 +26,7 @@ public class BigTruckTestCase2Owners {
     int currentDay = now.getDayOfMonth();
 
     @Test
-    public void newOwnersBigTruck() throws InterruptedException{
+    public void editOwnersBigTruck() throws InterruptedException{
 
         System.out.println("BigTruckTestCase2Owners - Start");
 
@@ -157,7 +157,6 @@ public class BigTruckTestCase2Owners {
         $("#owners-type label").shouldBe(visible).shouldHave(text("Company"))
                 .$("input[type='radio']").shouldBe(checked);
         $("#owners-company_name").setValue(atCompanyNameEdit);
-//        $("#owners-owner_name").setValue(atOwnerNameEdit);
         $("#owners-street1").setValue(atStreet1Edit);
         $("#owners-street2").setValue(atStreet2Edit);
         $("#owners-zip").setValue(String.valueOf(atZipEdit));
@@ -204,7 +203,7 @@ public class BigTruckTestCase2Owners {
 
         // *** Перевіряє відредаговані дані Owner фрайм view owner ***
 
-        //перевіряє створеного Owner в списку Owners
+        //перевіряє відредагованого Owner в списку Owners
         $("input[name='OwnersSearch[name]']").shouldBe(visible, Duration.ofSeconds(10)).setValue(atOwnerName).pressEnter();
         $("#ownerssearch-owners_asset").selectOption("All");
 
@@ -250,6 +249,21 @@ public class BigTruckTestCase2Owners {
 
         $("table#w0").$$("tr").findBy(text("Tax ID"))
                 .$$("td").first().shouldHave(text(atTaxIdEdit));
+
+        $("table.owner_payment_view").$$("tr").findBy(text("Account Holder"))
+                .$$("td").first().shouldHave(text(atAccountHolderEdit));
+
+        $("table.owner_payment_view").$$("tr").findBy(text("Bank Name"))
+                .$$("td").first().shouldHave(text(atBankNameEdit));
+
+        $("table.owner_payment_view").$$("tr").findBy(text("Account type"))
+                .$$("td").first().shouldHave(text("Savings"));
+
+        $("table.owner_payment_view").$$("tr").findBy(text("Routing Number"))
+                .$$("td").first().shouldHave(text("988899994"));
+
+        $("table.owner_payment_view").$$("tr").findBy(text("Account Number"))
+                .$$("td").first().shouldHave(text("988899995"));
 
         $("#view_owner button.close").click();
         $("#view_owner").shouldNotBe(visible, Duration.ofSeconds(10));

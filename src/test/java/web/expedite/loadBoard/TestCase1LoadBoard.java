@@ -59,18 +59,19 @@ public class TestCase1LoadBoard extends Login {
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
         inputCalendarNew(1, 0);
+//        inputCalendar(1, 0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendarNew(2, 1);
+        inputCalendar(2, 1);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendarNew(3, 2);
+        inputCalendar(3, 2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendarNew(4, 3);
+        inputCalendar(4, 3);
 
         //pallets shippers
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -166,12 +167,7 @@ public class TestCase1LoadBoard extends Login {
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
-    public static void inputCalendarNew(int introductionDay, int numberCalendar){
-
-        LocalDateTime now = LocalDateTime.now();
-        int currentDay = now.getDayOfMonth();
-        int hour = now.getHour();
-        int minute = (now.getMinute() / 5) * 5;
+    public void inputCalendarNew(int introductionDay, int numberCalendar){
 
         int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
