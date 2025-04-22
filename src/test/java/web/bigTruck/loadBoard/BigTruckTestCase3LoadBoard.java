@@ -1,4 +1,4 @@
-package web.bigTruck;
+package web.bigTruck.loadBoard;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;

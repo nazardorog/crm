@@ -1,4 +1,4 @@
-package web.bigTruck;
+package web.bigTruck.loadBoard;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
@@ -23,7 +23,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static web.LoadBord.TestCase17LoadBoard.clearDownloadFolder;
+import static web.expedite.loadBoard.TestCase17LoadBoard.clearDownloadFolder;
 
 public class BigTruckTestCase15LoadBoard {
 

@@ -88,7 +88,7 @@ public class TestCase18LoadBoard extends Login {
 
         //input other data
         Random random = new Random();
-        String reference = String.format("%3d", random.nextInt(10000000));
+        String reference = String.format("%3d", random.nextInt(10000000)) ;
         $("#loads-reference").setValue(reference);
         $("#loads-rate-disp").setValue("100000").pressEnter();
         $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
@@ -139,7 +139,7 @@ public class TestCase18LoadBoard extends Login {
 
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
         System.out.println("Номер вантажу: " + loadNumber);
 
         //перевіряє дані створеного вантажу
@@ -273,7 +273,7 @@ public class TestCase18LoadBoard extends Login {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;

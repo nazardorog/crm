@@ -157,7 +157,7 @@ public class TestCase9LoadBoard extends Login {
 
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
 
         System.out.println("TestCase9LoadBoard - Test Pass");
     }
@@ -168,7 +168,7 @@ public class TestCase9LoadBoard extends Login {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;

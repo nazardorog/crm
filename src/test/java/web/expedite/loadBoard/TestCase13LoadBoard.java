@@ -1,4 +1,4 @@
-package web.LoadBord;
+package web.expedite.loadBoard;
 
 import web.Login;
 import org.testng.annotations.Test;

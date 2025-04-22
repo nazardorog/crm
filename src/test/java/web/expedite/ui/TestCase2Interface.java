@@ -21,6 +21,7 @@ public class TestCase2Interface {//extends Login {
         web.config.WebDriverConfig.setup();
         web.config.LoginExpedite.loginWeb();
 
+        web.config.WebDriverConfig.setup();
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#show_my_loads").setSelected(true);
 

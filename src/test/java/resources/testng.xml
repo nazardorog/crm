@@ -1,63 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Empire National" parallel="classes" thread-count="3">
-    <test name="bigTruckLoadBoard">
+<suite name="Empire National" parallel="classes" thread-count="1">
+    <test name="reserve">
         <classes>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase1LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase2LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase3LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase4LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase5LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase6LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase7LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase8LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase9LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase10LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase11LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase12LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase13LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase14LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase15LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase16LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase17LoadBoard"/>
+            <class name="web.expedite.ui.TestCase2Interface"/>
         </classes>
     </test>
-    <test name="bigTruckBrokers">
-        <classes>
-            <class name="web.bigTruck.brockers.BigTruckTestCase1Brockers"/>
-            <class name="web.bigTruck.brockers.BigTruckTestCase2Brockers"/>
-            <class name="web.bigTruck.brockers.BigTruckTestCase3Brockers"/>
-            <class name="web.bigTruck.brockers.BigTruckTestCase4Brockers"/>
-        </classes>
-    </test>
-    <test name="bigTruckOwners">
-        <classes>
-            <class name="web.bigTruck.owners.BigTruckTestCase1Owners"/>
-            <class name="web.bigTruck.owners.BigTruckTestCase2Owners"/>
-            <class name="web.bigTruck.owners.BigTruckTestCase3Owners"/>
-        </classes>
-    </test>
-    <test name="bigTruckShippersReceivers">
-        <classes>
-            <class name="web.bigTruck.shippersReceivers.BigTruckTestCase1ShippersReceivers"/>
-            <class name="web.bigTruck.shippersReceivers.BigTruckTestCase2ShippersReceivers"/>
-            <class name="web.bigTruck.shippersReceivers.BigTruckTestCase3ShippersReceivers"/>
-        </classes>
-    </test>
-    <test name="bigTruckTrailers">
-        <classes>
-            <class name="web.bigTruck.trailers.BigTruckTestCase1Trailers"/>
-            <class name="web.bigTruck.trailers.BigTruckTestCase2Trailers"/>
-            <class name="web.bigTruck.trailers.BigTruckTestCase3Trailers"/>
-            <class name="web.bigTruck.trailers.BigTruckTestCase4Trailers"/>
-        </classes>
-    </test>
-    <test name="bigTruckTruck">
-        <classes>
-            <class name="web.bigTruck.trucks.BigTruckTestCase1Trucks"/>
-            <class name="web.bigTruck.trucks.BigTruckTestCase2Trucks"/>
-            <class name="web.bigTruck.trucks.BigTruckTestCase3Trucks"/>
-        </classes>
-    </test>
+
     <test name="expediteLoadBoard" preserve-order="true">
         <classes>
             <class name="web.expedite.loadBoard.TestCase1LoadBoard"/>
@@ -80,6 +28,7 @@
             <class name="web.expedite.loadBoard.TestCase18LoadBoard"/>
         </classes>
     </test>
+
     <test name="expediteWebInterface">
         <classes>
             <class name="web.expedite.ui.TestCase2Interface"/>
@@ -94,4 +43,24 @@
             <class name="web.expedite.ui.TestCase11Interface"/>
         </classes>
     </test>
+
+    <test name="bigTruckLoadBoard">
+        <classes>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase1LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase2LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase3LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase4LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase5LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase6LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase7LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase8LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase9LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase10LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase11LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase12LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase13LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase14LoadBoard"/>
+        </classes>
+    </test>
+
 </suite>

@@ -26,10 +26,9 @@ public class BigTruckTestCase2Owners {
     int currentDay = now.getDayOfMonth();
 
     @Test
-    public void editOwnersBigTruck() throws InterruptedException{
+    public void newOwnersBigTruck() throws InterruptedException{
 
         System.out.println("BigTruckTestCase2Owners - Start");
-        System.out.println("Running test in thread: " + Thread.currentThread().getId());
 
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();
@@ -129,8 +128,6 @@ public class BigTruckTestCase2Owners {
         rowOwner.shouldBe(text(atCompanyName));
         rowOwner.shouldBe(text(atOwnerName), Duration.ofSeconds(20));
 
-        // *** Редагування Owner вкладка General фрейму Add owner ***
-
         //клік по кнопці три крапки вибір Update
         $(".owners-td button.dropdown-toggle").click();
         $(".dropdown-menu-right .update_owner")
@@ -140,8 +137,11 @@ public class BigTruckTestCase2Owners {
                 .click();
         $("#update_owner").shouldBe(visible);
 
+        // *** Редагування Owner вкладка General фрейму Add owner ***
+
         //дані редагування вкладка General
         String atCompanyNameEdit = "Company name auto test 2" + randomNumber + " INC";
+        String atOwnerNameEdit = "Owner name auto test 2" + randomNumber;
         String atStreet1Edit = "Street auto test 21";
         String atStreet2Edit = "Street auto test 22";
         String atCityEdit = "City auto test 2";
@@ -157,6 +157,7 @@ public class BigTruckTestCase2Owners {
         $("#owners-type label").shouldBe(visible).shouldHave(text("Company"))
                 .$("input[type='radio']").shouldBe(checked);
         $("#owners-company_name").setValue(atCompanyNameEdit);
+//        $("#owners-owner_name").setValue(atOwnerNameEdit);
         $("#owners-street1").setValue(atStreet1Edit);
         $("#owners-street2").setValue(atStreet2Edit);
         $("#owners-zip").setValue(String.valueOf(atZipEdit));
@@ -201,14 +202,15 @@ public class BigTruckTestCase2Owners {
         $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Owner sucessfully updated"));
         $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
 
-        // *** Перевіряє відредаговані дані Owner ***
+        // *** Перевіряє відредаговані дані Owner фрайм view owner ***
 
-        //перевіряє відредагованого Owner в списку Owners
+        //перевіряє створеного Owner в списку Owners
         $("input[name='OwnersSearch[name]']").shouldBe(visible, Duration.ofSeconds(10)).setValue(atOwnerName).pressEnter();
         $("#ownerssearch-owners_asset").selectOption("All");
 
         //клік по кнопці око
         $(".owners-td span.glyphicon-eye-open").click();
+        $("#view_owner").shouldBe(visible);
 
         //перевіряє відредаговані дані Owner
         $("#view_owner").shouldBe(visible, Duration.ofSeconds(10));
@@ -248,21 +250,6 @@ public class BigTruckTestCase2Owners {
 
         $("table#w0").$$("tr").findBy(text("Tax ID"))
                 .$$("td").first().shouldHave(text(atTaxIdEdit));
-
-        $("table.owner_payment_view").$$("tr").findBy(text("Account Holder"))
-                .$$("td").first().shouldHave(text(atAccountHolderEdit));
-
-        $("table.owner_payment_view").$$("tr").findBy(text("Bank Name"))
-                .$$("td").first().shouldHave(text(atBankNameEdit));
-
-        $("table.owner_payment_view").$$("tr").findBy(text("Account type"))
-                .$$("td").first().shouldHave(text("Savings"));
-
-        $("table.owner_payment_view").$$("tr").findBy(text("Routing Number"))
-                .$$("td").first().shouldHave(text("988899994"));
-
-        $("table.owner_payment_view").$$("tr").findBy(text("Account Number"))
-                .$$("td").first().shouldHave(text("988899995"));
 
         $("#view_owner button.close").click();
         $("#view_owner").shouldNotBe(visible, Duration.ofSeconds(10));

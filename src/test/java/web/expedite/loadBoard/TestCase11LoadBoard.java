@@ -165,7 +165,7 @@ public class TestCase11LoadBoard extends Login {
             $(".table-assigned-users .delete_user_assignment").click();
             $$(".table-assigned-users tr").findBy(text("Auto Test user1")).should(exist);
                     $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
 
             //перевірка в лоад борд через Load assigned чи заасайнився юзер до грузу
             $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -190,7 +190,7 @@ public class TestCase11LoadBoard extends Login {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;

@@ -165,7 +165,7 @@ public class TestCase12LoadBoard extends Login {
                 .closest("tr").$("th").shouldHave(text("Carrier Pay/Mile:"));
 
         $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
 
         //перевіряємо в Load Bord Miles, Rate mile
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -187,7 +187,7 @@ public class TestCase12LoadBoard extends Login {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;

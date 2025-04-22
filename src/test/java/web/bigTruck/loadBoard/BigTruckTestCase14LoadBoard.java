@@ -1,4 +1,4 @@
-package web.bigTruck;
+package web.bigTruck.loadBoard;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
