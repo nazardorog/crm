@@ -207,6 +207,7 @@ public class BigTruckTestCase4LoadBoard {
         $("a.view_load").shouldBe(text(loadNumber));
 
         //клік редагування вантажу
+        Thread.sleep(1000);
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled, Duration.ofSeconds(20)).click();
 
