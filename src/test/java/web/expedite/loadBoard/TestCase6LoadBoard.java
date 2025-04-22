@@ -197,7 +197,7 @@ public class TestCase6LoadBoard extends Login {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
