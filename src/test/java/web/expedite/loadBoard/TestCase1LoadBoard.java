@@ -58,7 +58,8 @@ public class TestCase1LoadBoard extends Login {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(1, 0);
+        inputCalendarNew(1, 0);
+//        inputCalendar(1, 0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
@@ -149,7 +150,7 @@ public class TestCase1LoadBoard extends Login {
         int targetDay = currentDay + introductionDay;//день що потрібно ввести
         boolean switchMonth = false;
 
-        //якщо день введення більше ніж кількість днів в місяця, перемикає календарь на наступний місяць
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
         if (targetDay > daysInMonth) {
             targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
             switchMonth = true;
@@ -164,6 +165,41 @@ public class TestCase1LoadBoard extends Login {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+    }
+
+    public void inputCalendarNew(int introductionDay, int numberCalendar){
+
+        int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
+        int targetDay = currentDay + introductionDay;//день що потрібно ввести
+        boolean switchMonth = false;
+
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        if (targetDay > daysInMonth) {
+            targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
+            switchMonth = true;
+        }
+
+        // календар що зараз відкритий
+        SelenideElement activeCalendar = $$(".datetimepicker").filter(Condition.visible).get(0); // перший видимий
+
+        // Перемикає місяць ТІЛЬКИ в цьому календарі
+        if (switchMonth) {
+            activeCalendar.$(".datetimepicker-days .next").click();
+        }
+
+        // Клікає дату в цьому календарі
+        activeCalendar.$$(".datetimepicker-days .day:not(.old):not(.new)")
+                .findBy(exactText(String.valueOf(targetDay)))
+                .click();
+
+        // Вибираємо час (тільки в активному календарі)
+        activeCalendar.$$(".datetimepicker-hours .hour")
+                .findBy(exactText(hour + ":00"))
+                .click();
+
+        activeCalendar.$$(".datetimepicker-minutes .minute")
+                .findBy(exactText(String.format("%d:%02d", hour, minute)))
+                .click();
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {
