@@ -275,8 +275,10 @@ public class BigTruckTestCase8LoadBoard {
 
         //клік по Submit фрейм Update driver
         $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch board
+        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         //перевіряє дані водія після редагуванням на фрейм Load Board
