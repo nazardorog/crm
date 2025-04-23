@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  chrome:
+    image: selenium/standalone-chrome:latest
+    shm_size: 2gb
+    ports:
+      - "4444:4444"
+    environment:
+      - SE_NODE_SESSION_TIMEOUT=60
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - chrome
+    environment:
+      - BROWSER=chrome
+      - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
+    volumes:
+      - .:/app
+      - ./allure-results:/app/allure-results
+  allure:
+    image: allureframework/allure-docker-service:latest
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./allure-results:/app/allure-results

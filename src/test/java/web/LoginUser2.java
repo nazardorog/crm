@@ -1,6 +1,7 @@
 package web;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.FileDownloadMode;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.Allure;
@@ -22,6 +23,8 @@ public class LoginUser2 {
     public void loginWeb() throws InterruptedException {
         Configuration.browser = "chrome";
         Configuration.reportsFolder = "allure-results";
+        Configuration.fileDownload = FileDownloadMode.FOLDER;
+        Configuration.downloadsFolder = "C:\\empire\\test-download";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         System.setProperty("webdriver.chrome.driver", "C:/automation/chromedriver-win64/135/chromedriver.exe");
         Allure.step("Відкриває браузер", () ->
@@ -45,7 +48,6 @@ public class LoginUser2 {
         System.out.println("test passed");
         System.out.println("screenshot saved: " + screenshotPath);
         Thread.sleep(5000);
-        System.out.println("loginWeb - Test Pass");
     }
 
     @AfterMethod
