@@ -1,10 +1,9 @@
-package web.bigTruck.truck;
+package web.bigTruck.trucks;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -14,16 +13,16 @@ import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BigTruckTestCase1Truck {
+public class BigTruckTestCase2Trucks {
 
     // Click Up:
     // CRM SEMI Truck
     // Trucks
-    // 1. Создание New truck
+    // 2. Редактирование трака
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
@@ -31,9 +30,9 @@ public class BigTruckTestCase1Truck {
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
-    public void newOwnersBigTruck() throws InterruptedException {
+    public void editTruckBigTruck() throws InterruptedException {
 
-        System.out.println("BigTruckTestCase1Truck - Start");
+        System.out.println("BigTruckTestCase2Truck - Start");
 
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();
@@ -50,9 +49,9 @@ public class BigTruckTestCase1Truck {
         // *** Вкладка General фрейму Add truck ***
 
         Random random = new Random();
-        int randomNumber = random.nextInt(1000);
+        String randomNumber = String.format("%3d", random.nextInt(1000));
 
-        // *** Вкладка General фрейму Add owner ***
+        // *** Вкладка General фрейму Add truck ***
         String atTruckNumber = "Truck Number auto test 1" + randomNumber;
         String atVinNumber = "VIN12345678999" + randomNumber;
         String atPlateNumber = "Plate auto test 1" + randomNumber;
@@ -65,6 +64,8 @@ public class BigTruckTestCase1Truck {
         String atCity = "Atlanta";
         String atState = "GA";
         String atOwner = "AutoTestOwner1 INC";
+        String atNote = "Note truck 1";
+        String atStatus = "Available";
 
         $("#trucks-truck_number").setValue(atTruckNumber);
         $("#trucks-vin_number").setValue(atVinNumber);
@@ -80,8 +81,8 @@ public class BigTruckTestCase1Truck {
         $(".kv-datetime-picker").click();
         inputCalendar(0, 0);
 
-        $("#trucks-status").selectOption("Available");
-        $("#trucks-title_status").selectOption("Salvage");
+        $("#trucks-status").selectOption(atStatus);
+        $("#trucks-title_status").selectOption("Clean");
         $("#trucks-cab_type").selectOption("Sleeper");
 
         //пошук по Zip коду
@@ -106,7 +107,7 @@ public class BigTruckTestCase1Truck {
         inputCalendarDayOnly(0, 0);
 
         //поле Note
-        $("#trucks-note").setValue("Note truck");
+        $("#trucks-note").setValue(atNote);
 
         // *** Вкладка Documents фрейму Add truck ***
         $("a[href='#documents']").shouldBe(visible).click();
@@ -128,17 +129,138 @@ public class BigTruckTestCase1Truck {
         $("input[name='TrucksSearch[truck_number]']").shouldBe(visible).setValue(atTruckNumber).pressEnter();
 
         SelenideElement truckNumber = $$("table.color-table-bigtruck tbody tr")
-                .findBy(text(atTruckNumber));
+                .get(0)
+                .shouldHave(text(atTruckNumber));
 
         truckNumber.shouldHave(text(atTruckNumber));
         truckNumber.shouldHave(text(atVinNumber));
         truckNumber.shouldHave(text(atPlateNumber));
+        truckNumber.shouldHave(text(atStatus));
         truckNumber.shouldHave(text(atMake));
         truckNumber.shouldHave(text(atModel));
         truckNumber.shouldHave(text(atModel));
         truckNumber.shouldHave(text(atYear));
 
-        System.out.println("BigTruckTestCase1Truck - Test Pass");
+        // *** Редагування Truck вкладка General фрейму Add truck ***
+        truckNumber.$(".glyphicon-pencil").click();
+
+        //редагування дані редагування вкладка General
+        String atVinNumberEdit = "VIN99345678999" + randomNumber;
+        String atPlateNumberEdit = "Plate auto test 2" + randomNumber;
+        String atPlateStateEdit = "PL";
+        String atModelEdit = "Volvo auto test 2";
+        String atColorEdit = "Green auto test 2";
+        String atYearEdit = "2022";
+        String atMakeEdit = "Make truck auto test 2";
+        String atZipEdit = "76827";
+        String atCityEdit = "Brookesmith";
+        String atStateEdit = "TX";
+        String atOwnerEdit = "AutoTestOwner2 INC";
+        String atNoteEdit = "Note truck 2";
+        String atStatusEdit = "Available On";
+
+        //вводить дані редагування
+        $(".bootstrap-dialog-title").shouldHave(text("Update truck"), Duration.ofSeconds(20));
+        $("#trucks-vin_number").setValue(atVinNumberEdit);
+        $("#trucks-plate_number").setValue(atPlateNumberEdit);
+        $("#trucks-plate_state").setValue(atPlateStateEdit);
+        $("#trucks-model").setValue(atModelEdit);
+        $("#trucks-color").setValue(atColorEdit);
+        $("#trucks-year").setValue(atYearEdit);
+        $("#trucks-make").setValue(atMakeEdit);
+
+        //редагування календар Date When Will Be There
+        $(".kv-datetime-picker").click();
+        inputCalendar(1, 0);
+
+        $("#trucks-status").selectOption("Available On");
+        $("#trucks-title_status").selectOption("Salvage");
+        $("#trucks-cab_type").selectOption("Day cab");
+
+        //редагування пошук по Zip коду
+        $("#trucks-last_zip").setValue(atZipEdit);
+        $("#zipFillBtn").click();
+        $("#trucks-last_city").shouldHave(value(atCityEdit));
+        $("#trucks-last_state").shouldHave(value(atStateEdit));
+
+        //редагування поле Owner
+        $("#select2-owner_id-update-container").click();
+        $(".select2-search__field").setValue("AutoTestOwner");
+        $$("li.select2-results__option")
+                .findBy(text(atOwnerEdit))
+                .click();
+
+        //редагування календар Registration Expiration
+        $("#trucks-registration_expiration-kvdate .kv-date-picker").click();
+        inputCalendarDayOnly(1, 0);
+
+        //редагування календар Annual Vehicle
+        $("#trucks-annual_vehicle_expiration-kvdate .kv-date-picker").click();
+        inputCalendarDayOnly(1, 0);
+
+        //редагування поле Note
+        $("#trucks-note").setValue(atNoteEdit);
+
+        //редагування Submit фрейм Update truck
+        $("#update_truck_send").click();
+
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Truck sucessfully updated"));
+        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+
+        // *** Перевіряє відредаговані дані Truck в списку ***
+        $("input[name='TrucksSearch[truck_number]']").shouldBe(visible).setValue(atTruckNumber).pressEnter();
+
+        SelenideElement rowTruck = $$("table.color-table-bigtruck tbody tr")
+                .get(0)
+                .shouldHave(text(atTruckNumber));
+
+        rowTruck.shouldHave(text(atTruckNumber));
+        rowTruck.shouldHave(text(atVinNumberEdit));
+        rowTruck.shouldHave(text(atPlateNumberEdit));
+        rowTruck.shouldHave(text(atStatusEdit));
+        rowTruck.shouldHave(text(atMakeEdit));
+        rowTruck.shouldHave(text(atModelEdit));
+        rowTruck.shouldHave(text(atModelEdit));
+        rowTruck.shouldHave(text(atYearEdit));
+
+        // *** Перевіряє відредаговані дані Truck фрейм Truck owner ***
+
+        //клік по кнопці око
+        rowTruck.$(".glyphicon-eye-open").click();
+        $("#view_truck").shouldBe(visible, Duration.ofSeconds(10));
+
+        //перевіряє відредаговані дані Truck в View truck
+        $("table#w0").$$("tr").findBy(text("Vin Number"))
+                .$$("td").first().shouldHave(text(atVinNumberEdit));
+
+        $("table#w0").$$("tr").findBy(text("Plate Number"))
+                .$$("td").first().shouldHave(text(atPlateNumberEdit));
+
+        $("table#w0").$$("tr").findBy(text("Make"))
+                .$$("td").first().shouldHave(text(atMakeEdit));
+
+        $("table#w0").$$("tr").findBy(text("Model"))
+                .$$("td").first().shouldHave(text(atModelEdit));
+
+        $("table#w0").$$("tr").findBy(text("Type Truck"))
+                .$$("td").first().shouldHave(text("Semi truck"));
+
+        $("table#w0").$$("tr").findBy(text("Year"))
+                .$$("td").first().shouldHave(text(atYearEdit));
+
+        $("table#w0").$$("tr").findBy(text("Updated By"))
+                .$$("td").first().shouldHave(text("Auto 2Test BT"));
+
+        $("table#w0").$$("tr").findBy(text("Note"))
+                .$$("td").first().shouldHave(text(atNoteEdit));
+
+        //закриває фрейм View truck
+        $("#view_truck button.close").click();
+        $("#view_truck").shouldNotBe(visible, Duration.ofSeconds(10));
+
+        System.out.println("BigTruckTestCase2Truck - Test Pass");
     }
 
     public void inputCalendar(int introductionDay, int numberCalendar){
@@ -194,11 +316,5 @@ public class BigTruckTestCase1Truck {
 
         ElementsCollection dateElement = $$(".datepicker-days .day:not(.old):not(.new)");
         dateElement.findBy(exactText(String.valueOf(targetDay))).click();
-    }
-
-    @AfterMethod(alwaysRun = true)
-    public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
-        web.config.CloseWebDriver.tearDown();
     }
 }

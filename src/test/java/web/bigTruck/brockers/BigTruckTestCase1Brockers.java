@@ -76,8 +76,10 @@ public class BigTruckTestCase1Brockers {
         $("#agents-0-phone_number").setValue(agentPhoneNumberBigTruck);
         $("#agent-cell_phone-update0").setValue(brokerPhoneNumberBigTruck + "01");
 
-        //фрейм Add Broker кнопка Submit
+        //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
         $("#add_broker_send").shouldBe(enabled).click();
+        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));

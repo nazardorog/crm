@@ -95,19 +95,19 @@ public class BigTruckTestCase1LoadBoard {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(1, 0);
+        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(1,0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(2, 1);
+        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(2,1);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(3, 2);
+        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(3,2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(4, 3);
+        web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew(4,3);
 
         //pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");

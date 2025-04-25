@@ -28,6 +28,7 @@ public class BigTruckTestCase1Owners {
     public void newOwnersBigTruck() throws InterruptedException{
 
         System.out.println("BigTruckTestCase1Owners - Start");
+        System.out.println("Running test in thread: " + Thread.currentThread().getId());
         
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();

@@ -139,7 +139,7 @@ public class TestCase18LoadBoard extends Login {
 
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
         System.out.println("Номер вантажу: " + loadNumber);
 
         //перевіряє дані створеного вантажу

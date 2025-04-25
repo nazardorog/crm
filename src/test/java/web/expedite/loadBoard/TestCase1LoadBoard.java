@@ -167,7 +167,12 @@ public class TestCase1LoadBoard extends Login {
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
-    public void inputCalendarNew(int introductionDay, int numberCalendar){
+    public static void inputCalendarNew(int introductionDay, int numberCalendar){
+
+        LocalDateTime now = LocalDateTime.now();
+        int currentDay = now.getDayOfMonth();
+        int hour = now.getHour();
+        int minute = (now.getMinute() / 5) * 5;
 
         int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
         int targetDay = currentDay + introductionDay;//день що потрібно ввести

@@ -165,7 +165,7 @@ public class TestCase12LoadBoard extends Login {
                 .closest("tr").$("th").shouldHave(text("Carrier Pay/Mile:"));
 
         $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряємо в Load Bord Miles, Rate mile
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

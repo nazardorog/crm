@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Empire National" parallel="classes" thread-count="1">
+<suite name="Empire National" parallel="classes" thread-count="2">
     <test name="reserve">
         <classes>
             <class name="web.expedite.ui.TestCase2Interface"/>
@@ -10,22 +10,22 @@
         <classes>
             <class name="web.expedite.loadBoard.TestCase1LoadBoard"/>
             <class name="web.expedite.loadBoard.TestCase2LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase3LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase4LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase5LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase6LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase7LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase8LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase9LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase10LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase11LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase12LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase13LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase14LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase15LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase16LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase17LoadBoard"/>
-            <class name="web.expedite.loadBoard.TestCase18LoadBoard"/>
+<!--            <class name="web.expedite.loadBoard.TestCase3LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase4LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase5LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase6LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase7LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase8LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase9LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase10LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase11LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase12LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase13LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase14LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase15LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase16LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase17LoadBoard"/>-->
+<!--            <class name="web.expedite.loadBoard.TestCase18LoadBoard"/>-->
         </classes>
     </test>
 
@@ -33,33 +33,58 @@
         <classes>
             <class name="web.expedite.ui.TestCase2Interface"/>
             <class name="web.expedite.ui.TestCase3Interface"/>
-            <class name="web.expedite.ui.TestCase4Interface"/>
-            <class name="web.expedite.ui.TestCase5Interface"/>
-            <class name="web.expedite.ui.TestCase6Interface"/>
-            <class name="web.expedite.ui.TestCase7Interface"/>
-            <class name="web.expedite.ui.TestCase8Interface"/>
-            <class name="web.expedite.ui.TestCase9Interface"/>
-            <class name="web.expedite.ui.TestCase10Interface"/>
-            <class name="web.expedite.ui.TestCase11Interface"/>
+<!--            <class name="web.expedite.ui.TestCase4Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase5Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase6Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase7Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase8Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase9Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase10Interface"/>-->
+<!--            <class name="web.expedite.ui.TestCase11Interface"/>-->
         </classes>
     </test>
 
     <test name="bigTruckLoadBoard">
         <classes>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase1LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase2LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase3LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase4LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase5LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase6LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase7LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase8LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase9LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase10LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase11LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase12LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase13LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase14LoadBoard"/>
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase1LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase2LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase3LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase4LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase5LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase6LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase7LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase8LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase9LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase10LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase11LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase12LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase13LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase14LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase15LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase16LoadBoard"/>-->
+<!--            <class name="web.bigTruck.loadBoard.BigTruckTestCase17LoadBoard"/>-->
+        </classes>
+    </test>
+    <test name="bigTruckBrokers">
+        <classes>
+<!--            <class name="web.bigTruck.brockers.BigTruckTestCase1Brockers"/>-->
+<!--            <class name="web.bigTruck.brockers.BigTruckTestCase2Brockers"/>-->
+<!--            <class name="web.bigTruck.brockers.BigTruckTestCase3Brockers"/>-->
+<!--            <class name="web.bigTruck.brockers.BigTruckTestCase4Brockers"/>-->
+        </classes>
+    </test>
+    <test name="bigTruckOwners">
+        <classes>
+<!--            <class name="web.bigTruck.owners.BigTruckTestCase1Owners"/>-->
+<!--            <class name="web.bigTruck.owners.BigTruckTestCase2Owners"/>-->
+<!--            <class name="web.bigTruck.owners.BigTruckTestCase3Owners"/>-->
+        </classes>
+    </test>
+    <test name="bigTruckTruck">
+        <classes>
+<!--            <class name="web.bigTruck.trucks.BigTruckTestCase1Trucks"/>-->
+<!--            <class name="web.bigTruck.trucks.BigTruckTestCase2Trucks"/>-->
+<!--            <class name="web.bigTruck.trucks.BigTruckTestCase3Trucks"/>-->
         </classes>
     </test>
 

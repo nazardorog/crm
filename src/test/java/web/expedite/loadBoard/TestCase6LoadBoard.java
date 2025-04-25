@@ -54,47 +54,19 @@ public class TestCase6LoadBoard extends Login {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(1, 0);
+        inputCalendarNew(1, 0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(2, 1);
+        inputCalendarNew(2, 1);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(3, 2);
+        inputCalendarNew(3, 2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(4, 3);
-
-//        //calendar shippers pickup from
-//        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-//        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar shippers pickup to
-//        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-//        ElementsCollection dateElement = $$(".datetimepicker-days .day:not(.old):not(.new)");
-//        dateElement.findBy(exactText(String.valueOf(day + 1))).click();
-////        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 1))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
-//
-//        //calendar shippers destination from
-//        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-////        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click();
-//
-//        //calendar shippers destination to
-//        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(visible).click();
-//        dateElement.findBy(exactText(String.valueOf(day + 3))).click();
-////        $$(".datetimepicker-days .day").findBy(exactText(String.valueOf(day + 3))).click(); // Вибираємо день
-//        $$(".datetimepicker-hours .hour").findBy(exactText(hour + 2 + ":00")).click(); // Вибираємо годину
-//        $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour + 2, minute))).click();
+        inputCalendarNew(4, 3);
 
         //pallets shippers
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -186,7 +158,12 @@ public class TestCase6LoadBoard extends Login {
 
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
+
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Load dispatch sucessfully added"));
+        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
 
         System.out.println("TestCase6LoadBoard - Test Pass");
     }
@@ -212,6 +189,41 @@ public class TestCase6LoadBoard extends Login {
 
         $$(".datetimepicker-hours .hour").findBy(exactText(hour + ":00")).click(); // Вибираємо годину
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
+    }
+
+    public void inputCalendarNew(int introductionDay, int numberCalendar){
+
+        int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
+        int targetDay = currentDay + introductionDay;//день що потрібно ввести
+        boolean switchMonth = false;
+
+        //якщо день введення більше ніж кількість днів в місяця, перемикає календар на наступний місяць
+        if (targetDay > daysInMonth) {
+            targetDay -= daysInMonth; // якщо виходимо за межі місяця, віднімаємо дні
+            switchMonth = true;
+        }
+
+        // календар що зараз відкритий
+        SelenideElement activeCalendar = $$(".datetimepicker").filter(Condition.visible).get(0); // перший видимий
+
+        // Перемикає місяць ТІЛЬКИ в цьому календарі
+        if (switchMonth) {
+            activeCalendar.$(".datetimepicker-days .next").click();
+        }
+
+        // Клікає дату в цьому календарі
+        activeCalendar.$$(".datetimepicker-days .day:not(.old):not(.new)")
+                .findBy(exactText(String.valueOf(targetDay)))
+                .click();
+
+        // Вибираємо час (тільки в активному календарі)
+        activeCalendar.$$(".datetimepicker-hours .hour")
+                .findBy(exactText(hour + ":00"))
+                .click();
+
+        activeCalendar.$$(".datetimepicker-minutes .minute")
+                .findBy(exactText(String.format("%d:%02d", hour, minute)))
+                .click();
     }
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {

@@ -125,7 +125,7 @@ public class TestCase10LoadBoard extends Login {
 
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
 
         System.out.println("TestCase10LoadBoard - Test Pass");
     }

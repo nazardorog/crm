@@ -16,9 +16,11 @@ public class TestCase2Interface {//extends Login {
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Step("Логін користувача")
-    public void numberLoads() {
+    public void numberLoads() throws InterruptedException {
 
         web.config.WebDriverConfig.setup();
+        web.config.LoginExpedite.loginWeb();
+
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#show_my_loads").setSelected(true);
 

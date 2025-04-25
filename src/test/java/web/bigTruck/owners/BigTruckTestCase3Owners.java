@@ -31,6 +31,7 @@ public class BigTruckTestCase3Owners {
     public void deleteOwnersBigTruck() throws InterruptedException{
 
         System.out.println("BigTruckTestCase3Owners - Start");
+        System.out.println("Running test in thread: " + Thread.currentThread().getId());
 
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();
@@ -129,7 +130,7 @@ public class BigTruckTestCase3Owners {
         rowOwner.shouldBe(text(atCompanyName));
         rowOwner.shouldBe(text(atOwnerName), Duration.ofSeconds(20));
 
-        //клік по кнопці три крапки вибір Update
+        //клік по кнопці три крапки вибір Delete
         $(".owners-td button.dropdown-toggle").click();
         $(".dropdown-menu-right .dd-icon-delete")
                 .shouldBe(visible)
