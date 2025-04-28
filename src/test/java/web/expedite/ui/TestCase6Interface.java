@@ -35,7 +35,7 @@ public class TestCase6Interface extends Login {
         $$("td").findBy(text("Driver Name")).shouldBe(visible);
         $$("td").findBy(text("Email/Phone")).shouldBe(visible);
         $$("td").findBy(text("City State Zip")).shouldBe(visible);
-        $$("td").findBy(text("Dimensions/payload")).shouldBe(visible);
+        $$("td").findBy(text("Dimensions/ Payload")).shouldBe(visible);
         $$("td").findBy(text("Hold Time")).shouldBe(visible);
         $$("td").findBy(text("Hold Actions")).shouldBe(visible);
 

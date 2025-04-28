@@ -29,6 +29,7 @@ public class TestCase17LoadBoard extends Login {
 
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(20));
 
         //прибрати віджет чат
         executeJavaScript("document.querySelector('.chat-widget').style.display='none'");

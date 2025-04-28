@@ -27,8 +27,6 @@ public class BigTruckTestCase4Trailers {
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
-    int hour = now.getHour();
-    int minute = (now.getMinute() / 5) * 5;
 
     @Test
     public void deleteTrailerBigTruck() throws InterruptedException {
@@ -55,7 +53,7 @@ public class BigTruckTestCase4Trailers {
         int randomNumber = random.nextInt(1000);
 
         String atTrailerNumber = "Trailer Number auto test 1" + randomNumber;
-        String atVinNumber = "VIN12345678999" + randomNumber;;
+        String atVinNumber = "VIN12345678999" + randomNumber;
         String atPlateNumber = "Plate auto test 1" + randomNumber;
         String atPlateNumberState = "PL";
         String atMake = "Make trailer auto test 1";
@@ -123,7 +121,7 @@ public class BigTruckTestCase4Trailers {
 
         trailerNumber.shouldHave(text(atTrailerNumber));
 
-        //видяляє Trailer
+        //видаляє Trailer
         trailerNumber.$("a[title='Delete']").click();
 
         //popap підтвердження видалення

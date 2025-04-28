@@ -1,10 +1,8 @@
 package web.bigTruck.trailers;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -27,8 +25,6 @@ public class BigTruckTestCase1Trailers {
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();
-    int hour = now.getHour();
-    int minute = (now.getMinute() / 5) * 5;
 
     @Test
     public void newTrailersDryVanBigTruck() throws InterruptedException {
@@ -55,7 +51,7 @@ public class BigTruckTestCase1Trailers {
         int randomNumber = random.nextInt(1000);
 
         String atTrailerNumber = "Trailer Number auto test 1" + randomNumber;
-        String atVinNumber = "VIN12345678999" + randomNumber;;
+        String atVinNumber = "VIN12345678999" + randomNumber;
         String atPlateNumber = "Plate auto test 1" + randomNumber;
         String atPlateNumberState = "PL";
         String atMake = "Make trailer auto test 1";
@@ -117,18 +113,18 @@ public class BigTruckTestCase1Trailers {
         //перевіряє створений Trailer в списку
         $("input[name='TrailersSearch[trailer_number]']").shouldBe(visible).setValue(atTrailerNumber).pressEnter();
 
-        SelenideElement trailerNumber = $$("table.table-striped tbody tr")
+        SelenideElement rowTrailer = $$("table.table-striped tbody tr")
                 .get(0)
                 .shouldHave(text(atTrailerNumber));
 
-        trailerNumber.shouldHave(text(atTrailerNumber));
-        trailerNumber.shouldHave(text(atVinNumber));
-        trailerNumber.shouldHave(text(atPlateNumber));
-        trailerNumber.shouldHave(text(atMake));
-        trailerNumber.shouldHave(text(atModel));
-        trailerNumber.shouldHave(text(atTypeTrailer));
-        trailerNumber.shouldHave(text(atYear));
-        trailerNumber.shouldHave(text(atOwner));
+        rowTrailer.shouldHave(text(atTrailerNumber));
+        rowTrailer.shouldHave(text(atVinNumber));
+        rowTrailer.shouldHave(text(atPlateNumber));
+        rowTrailer.shouldHave(text(atMake));
+        rowTrailer.shouldHave(text(atModel));
+        rowTrailer.shouldHave(text(atTypeTrailer));
+        rowTrailer.shouldHave(text(atYear));
+        rowTrailer.shouldHave(text(atOwner));
 
         System.out.println("BigTruckTestCase1Truck - Test Pass");
     }

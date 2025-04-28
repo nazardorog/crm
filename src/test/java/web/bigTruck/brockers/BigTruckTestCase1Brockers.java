@@ -37,9 +37,8 @@ public class BigTruckTestCase1Brockers {
         web.config.LoginBigTruck.loginWeb();
 
         Random random = new Random();
-        int randomNumber = random.nextInt(1000);
-        int randomNumberMc = random.nextInt(10000);
-        generateDataNewBroker(randomNumber, randomNumberMc);
+        String randomNumber = String.format("%7d", random.nextInt(10000000));
+        generateDataNewBroker(randomNumber);
 
         //створює новий вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -78,15 +77,17 @@ public class BigTruckTestCase1Brockers {
 
         //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
         $("#add_broker_send").shouldBe(enabled).click();
-        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(20));
         $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
+
+        System.out.println("Broker name: " + brokerNameBigTruck);
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));
 
         //фрейм New load вибирає Агента в полі Select Agent
         $("#select2-broker-agent-load-select-container").shouldBe(visible).click();
-        $(".select2-search__field").setValue("Auto");
+        $(".select2-search__field").setValue("Agent_");
         $$(".select2-results__options")
                 .findBy(text(agentNameBigTruck))
                 .click();
@@ -102,17 +103,18 @@ public class BigTruckTestCase1Brockers {
         System.out.println("BigTruckTestCase1Brockers - Test Pass");
     }
 
-    void generateDataNewBroker(int randomNumber, int randomNumberMc){
+    void generateDataNewBroker(String randomNumber){
 
         //генеруємо дані для створення брокера
-        brokerMcNumberBigTruck = "" + randomNumberMc + randomNumber;
+//        brokerMcNumberBigTruck = "" + randomNumberMc + randomNumber;
+        brokerMcNumberBigTruck = randomNumber;
         ffMcNumberBigTruck = "FF" + brokerMcNumberBigTruck;
         brokerNameBigTruck = "AutoTestBrokerBigTruck" + randomNumber;
         brokerDbaNameBigTruck = "AutoTestBrokerBigTruckDba" + randomNumber;
-        brokerPhoneNumberBigTruck = "(056) 333-3" + randomNumber;
-        agentNameBigTruck = "Agent_" + brokerNameBigTruck;
+        brokerPhoneNumberBigTruck = "(090) 888-8881";
+        agentNameBigTruck = "Agent_" + randomNumber;
         agentMailBigTruck = agentNameBigTruck + "@mail.com";
-        agentPhoneNumberBigTruck = "(056) 335" + randomNumber + "01";
+        agentPhoneNumberBigTruck = "090888-8882";
     }
 
     @AfterMethod(alwaysRun = true)

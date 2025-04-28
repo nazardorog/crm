@@ -1,7 +1,9 @@
 package web.bigTruck.loadBoard;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -133,16 +135,6 @@ public class BigTruckTestCase3LoadBoard {
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-//        //перевіряє що вантаж відображається на Available Loads
-//        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-//        $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
-//        $("#available-loads-grid-filters .input[name='LoadsSearch[our_pro_number]']").click();
-//        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).shouldBe(editable).setValue(loadNumber).pressEnter();
-//        $("a.view_load").shouldBe(text(loadNumber));
-
-
-
-
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link")
@@ -153,13 +145,13 @@ public class BigTruckTestCase3LoadBoard {
                 .shouldBe(visible, enabled)
                 .setValue(loadNumber).pressEnter();
 
-//        $$("table#available-loads-grid tbody tr").shouldHave(CollectionCondition.size(1));
-//        $(".li-tabs-home.li-tabs-available-loads a.view_load")
-//                .shouldHave(text(loadNumber))
-//                .shouldBe(visible);
+        //рядок таблиці
+        SelenideElement rowLoad = $$("#available-loads-grid tbody tr")
+                .get(0)
+                .shouldHave(text(loadNumber));
 
         //клік на око, редагування вантажу Dispatch load
-        $("#available-loads-grid button.view_load").click();
+        rowLoad.$("button.view_load").click();
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();

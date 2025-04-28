@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.sleep;
+import static web.expedite.loadBoard.TestCase1LoadBoard.inputCalendarNew;
 
 public class TestCase2LoadBoard extends Login {
 
@@ -57,19 +58,19 @@ public class TestCase2LoadBoard extends Login {
 
         //calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(1, 0);
+        inputCalendarNew(1, 0);
 
         //calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(2, 1);
+        inputCalendarNew(2, 1);
 
         //calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        inputCalendar(3, 2);
+        inputCalendarNew(3, 2);
 
         //calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        inputCalendar(4, 3);
+        inputCalendarNew(4, 3);
 
         $("#loadspickuplocations-0-weight").setValue("1");
         $("#loadspickuplocations-0-pallets").setValue("1");

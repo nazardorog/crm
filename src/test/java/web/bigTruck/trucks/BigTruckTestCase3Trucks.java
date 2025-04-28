@@ -125,8 +125,6 @@ public class BigTruckTestCase3Trucks {
         $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Truck successfully added"));
         $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
 
-//        String atTruckNumber = "Truck Number auto test 1456";
-
         //перевіряє створений Truck в списку
         $("input[name='TrucksSearch[truck_number]']").shouldBe(visible).setValue(atTruckNumber).pressEnter();
 
@@ -142,7 +140,7 @@ public class BigTruckTestCase3Trucks {
         truckNumber.shouldHave(text(atModel));
         truckNumber.shouldHave(text(atYear));
 
-        //видяляє Truck
+        //видаляє Truck
         truckNumber.$("a[title='Delete']").click();
 
         //popap підтвердження видалення

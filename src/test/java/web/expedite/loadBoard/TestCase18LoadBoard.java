@@ -88,7 +88,7 @@ public class TestCase18LoadBoard extends Login {
 
         //input other data
         Random random = new Random();
-        String reference = String.format("%3d", random.nextInt(10000000)) ;
+        String reference = String.format("%3d", random.nextInt(10000000));
         $("#loads-reference").setValue(reference);
         $("#loads-rate-disp").setValue("100000").pressEnter();
         $("#loads-carrier_rate-disp").setValue("80000").pressEnter();

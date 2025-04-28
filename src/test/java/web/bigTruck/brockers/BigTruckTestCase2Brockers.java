@@ -133,7 +133,7 @@ public class BigTruckTestCase2Brockers {
 
         rowBroker.shouldHave(text(brokerNameBigTruck), Duration.ofSeconds(20));
 
-        System.out.println("BigTruckTestCase2Brockers MCBroker:" + brokerMcNumberBigTruck + ". Broker name:" + brokerNameBigTruck);
+        System.out.println("Edit BigTruckTestCase2Brockers MCBroker:" + brokerMcNumberBigTruck + ". Broker name:" + brokerNameBigTruck);
 
         //вибирає редагування брокера
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));

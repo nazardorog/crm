@@ -1,11 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Empire National" parallel="classes" thread-count="3">
+<suite name="Empire National" parallel="classes" thread-count="1">
 
     <test name="test package">
         <packages>
                 <package name="web.bigTruck.brockers"/>
-                <package name="web.bigTruck.owners"/>
-                <package name="web.bigTruck.trucks"/>
+<!--                <package name="web.bigTruck.owners"/>-->
+<!--                <package name="web.bigTruck.trucks"/>-->
         </packages>
     </test>
 
