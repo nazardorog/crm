@@ -1,6 +1,7 @@
 package web.expedite.loadBoard;
 
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Feature;
 import web.Login;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
@@ -15,6 +16,7 @@ import java.time.YearMonth;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
+@Feature("Expedite")
 public class TestCase1LoadBoard extends Login {
 
     LocalDateTime now = LocalDateTime.now();
@@ -167,7 +169,12 @@ public class TestCase1LoadBoard extends Login {
         $$(".datetimepicker-minutes .minute").findBy(exactText(String.format("%d:%02d", hour, minute))).click(); // Вибираємо хвилини
     }
 
-    public void inputCalendarNew(int introductionDay, int numberCalendar){
+    public static void inputCalendarNew(int introductionDay, int numberCalendar){
+
+        LocalDateTime now = LocalDateTime.now();
+        int currentDay = now.getDayOfMonth();
+        int hour = now.getHour();
+        int minute = (now.getMinute() / 5) * 5;
 
         int daysInMonth = YearMonth.of(now.getYear(), now.getMonth()).lengthOfMonth(); // к-сть днів у поточному місяці
         int targetDay = currentDay + introductionDay;//день що потрібно ввести

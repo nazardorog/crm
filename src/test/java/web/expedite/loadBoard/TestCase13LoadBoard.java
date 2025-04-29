@@ -1,5 +1,6 @@
 package web.expedite.loadBoard;
 
+import com.codeborne.selenide.SelenideElement;
 import web.Login;
 import org.testng.annotations.Test;
 
@@ -24,6 +25,8 @@ public class TestCase13LoadBoard extends Login {
         //відкриваємо New Load
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").shouldBe(enabled).click();
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(20));
+
 
         //генеруємо дані для створення брокера
         Random random = new Random();
@@ -59,10 +62,13 @@ public class TestCase13LoadBoard extends Login {
         System.out.println("TestCase13LoadBoard - Нового Брокера створено:" + brokerName);
         System.out.println("TestCase13LoadBoard - Нового Агента створено:" + brokerName);
         Thread.sleep(5000);
-        $(".bt-load-broker-main-flex").shouldHave(text(brokerName));
-        $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
-        $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
-        $(".bt-load-broker-main-flex").shouldHave(text(brokerPhoneNumber));
+
+        SelenideElement broker = $(".bt-load-broker-main-flex");
+        broker.shouldBe(visible, Duration.ofSeconds(5000));
+        broker.shouldHave(text(brokerName));
+        broker.shouldHave(text("Mountain"));
+        broker.shouldHave(text("Colorado"));
+        broker.shouldHave(text(brokerPhoneNumber));
 
         //генеруємо дані для редагування Брокера
         $(".broker_buttons .glyphicon-pencil").click();

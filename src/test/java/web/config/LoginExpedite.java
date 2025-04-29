@@ -3,6 +3,9 @@ package web.config;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginExpedite {
@@ -13,10 +16,10 @@ public class LoginExpedite {
     public static void loginWeb() throws InterruptedException {
         Allure.step("Авторизація користувача", () -> {
             Allure.step("Вводить логін", () ->
-                    $("#loginform-username").setValue("test1te"));
+                    $("#loginform-username").shouldBe(visible, Duration.ofSeconds(10)).setValue("test1te"));
 
             Allure.step("Вводить пароль", () ->
-                    $("#loginform-password").setValue("t34n2215P391"));
+                    $("#loginform-password").setValue("t34n2215P392"));
 
             Allure.step("Клік по кнопці Submit", () ->
                     $(".btn.btn-primary.btn-block.btn-flat").click());

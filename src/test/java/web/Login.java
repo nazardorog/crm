@@ -35,7 +35,7 @@ public class Login {
                             $("#loginform-username").setValue("test1te"));
 
                     Allure.step("Вводить пароль", () ->
-                            $("#loginform-password").setValue("t34n2215P391"));
+                            $("#loginform-password").setValue("t34n2215P392"));
 
                     Allure.step("Клік по кнопці Submit", () ->
                             $(".btn.btn-primary.btn-block.btn-flat").click());

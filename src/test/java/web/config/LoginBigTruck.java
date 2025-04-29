@@ -16,7 +16,7 @@ public class LoginBigTruck {
                     $("#loginform-username").setValue("auto2t"));
 
             Allure.step("Вводить пароль", () ->
-                    $("#loginform-password").setValue("sxLM8Gi0T76o"));
+                    $("#loginform-password").setValue("sxLM8Gi0T761"));
 
             Allure.step("Клік по кнопці Submit", () ->
                     $(".btn.btn-primary.btn-block.btn-flat").click());

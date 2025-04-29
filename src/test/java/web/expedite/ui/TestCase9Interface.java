@@ -9,10 +9,13 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class TestCase9Interface extends Login {
+public class TestCase9Interface {
 
-        @Test
-    public void loadsInterface() {
+    @Test
+    public void loadsInterface() throws InterruptedException {
+
+        web.config.WebDriverConfig.setup();
+        web.config.LoginExpedite.loginWeb();
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 

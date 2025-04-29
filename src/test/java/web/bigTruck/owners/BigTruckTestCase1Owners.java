@@ -3,6 +3,7 @@ package web.bigTruck.owners;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Feature;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -14,6 +15,7 @@ import java.util.Random;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
+@Feature("Big Truck")
 public class BigTruckTestCase1Owners {
 
     // Click Up:

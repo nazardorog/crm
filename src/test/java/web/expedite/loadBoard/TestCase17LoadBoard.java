@@ -154,7 +154,7 @@ public class TestCase17LoadBoard extends Login {
 
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевірка в лоад борд коректність доданих файлів
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

@@ -2,6 +2,7 @@ package web.bigTruck.loadBoard;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Feature;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -16,6 +17,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
+@Feature("Big Truck")
 public class BigTruckTestCase2LoadBoard {
 
     // Click Up:

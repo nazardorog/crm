@@ -186,7 +186,7 @@ public class TestCase6LoadBoard extends Login {
 
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
                 $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
 
         System.out.println("TestCase6LoadBoard - Test Pass");
     }

@@ -60,10 +60,10 @@ public class BigTruckTestCase2Brockers {
         SelenideElement warningBlock = $(".has-success .warning-block-wrapper");
         executeJavaScript("arguments[0].style.display='none';", warningBlock);
 
-        //закриває фрейм Add Broker
-        SelenideElement modal = $("#add_broker");
-        $("#add_broker_send").shouldBe(visible, enabled).click();
-        modal.shouldNotBe(visible, Duration.ofSeconds(20));
+        //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
+        $("#add_broker_send").shouldBe(enabled).click();
+        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
 
         //фрейм New load перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck), Duration.ofSeconds(10));

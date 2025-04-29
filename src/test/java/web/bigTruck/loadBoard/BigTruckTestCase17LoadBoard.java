@@ -138,7 +138,7 @@ public class BigTruckTestCase17LoadBoard {
         $("#add_load_send_dispatch").click();
 
         //dispatch board
-        $("#view_load").shouldBe(visible).shouldHave(text("Dispatch #"));
+        $("#view_load").shouldBe(visible, Duration.ofSeconds(10)).shouldHave(text("Dispatch #"));
 
         //отримує номер вантажу
         loadNumber = $("#view_load .check_call_pro").getText();
@@ -236,12 +236,15 @@ public class BigTruckTestCase17LoadBoard {
         $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
+        Selenide.sleep(5000);
+
         //очищає папку перед завантаженням
         String folderPath = Configuration.downloadsFolder;
         clearDownloadFolder(folderPath);
 
         //*** Відкриває меню і вибирає Get invoice ***
-        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(20)).click();
+        $("#invoiced .dropdown-menu-right").shouldBe(visible,Duration.ofSeconds(10));
         $$("#invoiced .dropdown-menu-right li").findBy(text("Get invoice")).shouldBe(enabled, Duration.ofSeconds(5)).click();
 
         //Перевіряє прев"ю

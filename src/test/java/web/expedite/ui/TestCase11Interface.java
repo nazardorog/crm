@@ -10,10 +10,13 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 
-public class TestCase11Interface extends Login {
+public class TestCase11Interface {
 
-        @Test
-    public void docSignatureInterface() {
+    @Test
+    public void docSignatureInterface() throws InterruptedException {
+
+        web.config.WebDriverConfig.setup();
+        web.config.LoginExpedite.loginWeb();
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $(".reports-user").shouldBe(visible, Duration.ofSeconds(10)).hover();

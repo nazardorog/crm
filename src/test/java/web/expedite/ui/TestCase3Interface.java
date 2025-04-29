@@ -10,10 +10,13 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 
-public class TestCase3Interface extends Login {
+public class TestCase3Interface {
 
     @Test
-    public void loadBoardInterface() {
+    public void loadBoardInterface() throws InterruptedException {
+
+        web.config.WebDriverConfig.setup();
+        web.config.LoginExpedite.loginWeb();
 
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
 
