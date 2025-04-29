@@ -3,6 +3,7 @@ package web.bigTruck.trailers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -97,7 +98,14 @@ public class BigTruckTestCase3Trailers {
         $("a[href='#documents']").shouldBe(visible).click();
 
         //завантажує файл
-        File file = new File("C:/Empire/pdf1.pdf");
+        String filePath;
+        if (new File("/.dockerenv").exists()) {
+            filePath = "/app/Empire/1pdf.pdf";  // для Docker
+        } else {
+            filePath = "C:\\Empire\\1pdf.pdf";  // для локально
+        }
+        File file = new File(filePath);
+
         $("#trailerdocuments-0-file").uploadFile(file);
 
         //поле Description
@@ -232,7 +240,7 @@ public class BigTruckTestCase3Trailers {
         $("#view_trailer button.close").click();
         $("#view_trailer").shouldNotBe(visible, Duration.ofSeconds(10));
 
-        System.out.println("BigTruckTestCase3Truck - Test Pass");
+        System.out.println("BigTruckTestCase3Trailers - Test Pass");
     }
 
     public void inputCalendarDayOnly(int introductionDay, int numberCalendar){
@@ -256,5 +264,10 @@ public class BigTruckTestCase3Trailers {
         activeCalendar.$$(".datepicker-days .day:not(.old):not(.new)")
                 .findBy(exactText(String.valueOf(targetDay)))
                 .click();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        web.config.CloseWebDriver.tearDown();
     }
 }

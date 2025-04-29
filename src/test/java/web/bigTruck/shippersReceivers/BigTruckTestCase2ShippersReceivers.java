@@ -22,7 +22,7 @@ public class BigTruckTestCase2ShippersReceivers {
     @Test (priority = 1)
     public void newShippersReceiversBigTruck() throws InterruptedException {
 
-        System.out.println("BigTruckTestCase1ShippersReceivers - Start");
+        System.out.println("BigTruckTestCase2ShippersReceivers - Start");
 
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();

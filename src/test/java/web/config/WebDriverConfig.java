@@ -14,7 +14,8 @@ public class WebDriverConfig {
 
     public static void setup() {
 
-        String runEnv = System.getProperty("run.env", "local");
+//        String runEnv = System.getProperty("run.env", "local");
+        String runEnv = System.getenv().getOrDefault("RUN_ENV", "local");
         String webSite = "https://preprod.empirenational.com/adm";
 
         Configuration.browser = "chrome";

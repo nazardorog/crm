@@ -82,10 +82,10 @@ public class BigTruckTestCase4Brockers {
         SelenideElement warningBlock = $(".has-success .warning-block-wrapper");
         executeJavaScript("arguments[0].style.display='none';", warningBlock);
 
-        //закриває фрейм Add Broker
-        SelenideElement modal = $("#add_broker");
-        $("#add_broker_send").shouldBe(visible, enabled).click();
-        modal.shouldNotBe(visible, Duration.ofSeconds(20));
+        //фрейм Add Broker кнопка Submit, закриття фрейму Add broker
+        $("#add_broker_send").shouldBe(enabled).click();
+        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#add_load").shouldBe(visible, Duration.ofSeconds(10));
 
         //перевіряє створеного брокера в полі Broker
         $("#select2-broker_search-container").shouldBe(text(brokerNameBigTruck + " | " + brokerDbaNameBigTruck));
@@ -133,7 +133,7 @@ public class BigTruckTestCase4Brockers {
 
         //закриває фрейм DNU
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
@@ -143,7 +143,7 @@ public class BigTruckTestCase4Brockers {
         $(".remove_broker_dnu").shouldBe(visible, enabled).click();
 
         //фрейм DNU вводить Reason
-        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(10));
+        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(20));
         $("#note").setValue("DNU delete reason massage");
         $("#broker_from_dnu_send").click();
         $("#brokers-blacklist-form").shouldNotBe(visible);

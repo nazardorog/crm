@@ -3,6 +3,7 @@ package web.bigTruck.trailers;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -100,7 +101,14 @@ public class BigTruckTestCase2Trailers {
         $("a[href='#documents']").shouldBe(visible).click();
 
         //завантажує файл
-        File file = new File("C:/Empire/pdf1.pdf");
+        String filePath;
+        if (new File("/.dockerenv").exists()) {
+            filePath = "/app/Empire/1pdf.pdf";  // для Docker
+        } else {
+            filePath = "C:\\Empire\\1pdf.pdf";  // для локально
+        }
+        File file = new File(filePath);
+
         $("#trailerdocuments-0-file").uploadFile(file);
 
         //поле Description
@@ -133,7 +141,7 @@ public class BigTruckTestCase2Trailers {
         trailerNumber.shouldHave(text(atYear));
         trailerNumber.shouldHave(text(atOwner));
 
-        System.out.println("BigTruckTestCase2Truck - Test Pass");
+        System.out.println("BigTruckTestCase2Trailers - Test Pass");
     }
 
     public void inputCalendarDayOnly(int introductionDay, int numberCalendar){
@@ -159,4 +167,8 @@ public class BigTruckTestCase2Trailers {
                 .click();
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        web.config.CloseWebDriver.tearDown();
+    }
 }

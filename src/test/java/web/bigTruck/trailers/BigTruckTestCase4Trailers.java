@@ -96,7 +96,14 @@ public class BigTruckTestCase4Trailers {
         $("a[href='#documents']").shouldBe(visible).click();
 
         //завантажує файл
-        File file = new File("C:/Empire/pdf1.pdf");
+        String filePath;
+        if (new File("/.dockerenv").exists()) {
+            filePath = "/app/Empire/1pdf.pdf";  // для Docker
+        } else {
+            filePath = "C:\\Empire\\1pdf.pdf";  // для локально
+        }
+        File file = new File(filePath);
+
         $("#trailerdocuments-0-file").uploadFile(file);
 
         //поле Description
@@ -135,7 +142,7 @@ public class BigTruckTestCase4Trailers {
         $("input[name='TrailersSearch[trailer_number]']").shouldBe(visible, Duration.ofSeconds(10)).setValue(atTrailerNumber).pressEnter();
         $(".empty").shouldBe(text("No results found."));
 
-        System.out.println("BigTruckTestCase4Truck - Test Pass");
+        System.out.println("BigTruckTestCase4Trailers - Test Pass");
     }
 
     public void inputCalendarDayOnly(int introductionDay, int numberCalendar){
@@ -163,7 +170,6 @@ public class BigTruckTestCase4Trailers {
 
     @AfterMethod(alwaysRun = true)
     public void closeWebDriver() {
-        System.out.println("Tear down - close WebDriver");
         web.config.CloseWebDriver.tearDown();
     }
 }

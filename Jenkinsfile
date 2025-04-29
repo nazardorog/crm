@@ -8,12 +8,12 @@ pipeline {
             }
         }
 
-        stage('Build & Test in Docker') {
+        stage('Run docker-compose tests') {
             steps {
                 script {
-                    docker.build('my-autotest-image').inside {
-                        sh 'mvn clean test'
-                    }
+                    sh 'docker-compose down || true' // на випадок залишків
+                    sh 'docker-compose up --build --abort-on-container-exit'
+                    sh 'docker-compose down'
                 }
             }
         }

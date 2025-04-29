@@ -74,7 +74,14 @@ public class BigTruckTestCase6LoadBoard {
         $("#select2-loaddocuments-0-type-container").click();
         $$(".select2-results__option").findBy(text("Rate confirmation")).click();
 
-        File file = new File("C:/Empire/pdf1.pdf");
+        String filePath;
+        if (new File("/.dockerenv").exists()) {
+            filePath = "/app/Empire/1pdf.pdf";  // для Docker
+        } else {
+            filePath = "C:\\Empire\\1pdf.pdf";  // для локально
+        }
+        File file = new File(filePath);
+
         $("#loaddocuments-0-file").uploadFile(file);
         $("#load_documents_modal_pseudo_submit").click();
 

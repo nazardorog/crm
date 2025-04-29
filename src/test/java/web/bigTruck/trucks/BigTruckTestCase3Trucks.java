@@ -34,7 +34,7 @@ public class BigTruckTestCase3Trucks {
     @Test
     public void deleteTruckBigTruck() throws InterruptedException {
 
-        System.out.println("BigTruckTestCase1Truck - Start");
+        System.out.println("BigTruckTestCase3Truck - Start");
 
         //старт браузер і авторизація
         web.config.WebDriverConfig.setup();
