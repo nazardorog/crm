@@ -1,0 +1,8 @@
+<suite name="TestSuite1">
+    <test name="Group1">
+        <classes>
+            <class name="web.bigTruck.trailers.BigTruckTestCase1Trailers"/>
+            <class name="web.bigTruck.trailers.BigTruckTestCase2Trailers"/>
+        </classes>
+    </test>
+</suite>

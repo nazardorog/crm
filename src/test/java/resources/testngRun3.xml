@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="TestSuite1" parallel="classes" thread-count="1">
+
+    <test name="Group1">
+        <classes>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase1LoadBoard"/>
+            <class name="web.bigTruck.loadBoard.BigTruckTestCase2LoadBoard"/>
+        </classes>
+    </test>
+</suite>
