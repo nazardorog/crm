@@ -11,7 +11,7 @@ pipeline {
         stage('Run docker-compose tests') {
             steps {
                 script {
-                    sh 'docker-compose down || true' // на випадок залишків
+                    sh 'docker-compose down || true'
                     sh 'docker-compose up --build --abort-on-container-exit'
                     sh 'docker-compose down'
                 }
