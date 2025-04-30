@@ -7,7 +7,6 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('Run docker-compose tests') {
             steps {
                 script {
