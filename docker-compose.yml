@@ -8,27 +8,6 @@ services:
       - "4441:4444"
     environment:
       - SE_NODE_SESSION_TIMEOUT=60
-#  chrome2:
-#    image: selenium/standalone-chrome:latest
-#    shm_size: 12gb
-#    ports:
-#      - "4442:4444"
-#    environment:
-#      - SE_NODE_SESSION_TIMEOUT=60
-#  chrome3:
-#    image: selenium/standalone-chrome:latest
-#    shm_size: 12gb
-#    ports:
-#      - "4443:4444"
-#    environment:
-#      - SE_NODE_SESSION_TIMEOUT=60
-#  chrome4:
-#    image: selenium/standalone-chrome:latest
-#    shm_size: 12gb
-#    ports:
-#      - "4444:4444"
-#    environment:
-#      - SE_NODE_SESSION_TIMEOUT=60
 
   tests1:
     build:
@@ -47,57 +26,6 @@ services:
       - ./allure-results:/app/allure-results
     command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun1.xml
 
-#  tests2:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - chrome2
-#    environment:
-#      - BROWSER=chrome
-#      - SELENIUM_REMOTE_URL=http://chrome2:4444/wd/hub
-#      - RUN_ENV=remote
-#    volumes:
-#      - /c/autotest_v1/empire:/app/Empire
-#      - .:/app
-#      - ./empire:/app/empire
-#      - ./allure-results:/app/allure-results
-#    command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun2.xml
-
-#  tests3:
-#      build:
-#        context: .
-#        dockerfile: Dockerfile
-#      depends_on:
-#        - chrome3
-#      environment:
-#        - BROWSER=chrome
-#        - SELENIUM_REMOTE_URL=http://chrome3:4444/wd/hub
-#        - RUN_ENV=remote
-#      volumes:
-#        - /c/autotest_v1/empire:/app/Empire
-#        - .:/app
-#        - ./empire:/app/empire
-#        - ./allure-results:/app/allure-results
-#      command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun3.xml
-#
-#  tests4:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - chrome4
-#    environment:
-#      - BROWSER=chrome
-#      - SELENIUM_REMOTE_URL=http://chrome4:4444/wd/hub
-#      - RUN_ENV=remote
-#    volumes:
-#      - /c/autotest_v1/empire:/app/Empire
-#      - .:/app
-#      - ./empire:/app/empire
-#      - ./allure-results:/app/allure-results
-#    command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun4.xml
-
   allure:
     image: frankescobar/allure-docker-service:latest
     ports:
@@ -105,3 +33,4 @@ services:
     volumes:
       - ./allure-results:/app/allure-results
     command: allure serve /app/allure-results
+
