@@ -98,7 +98,6 @@ services:
 #      - ./allure-results:/app/allure-results
 #    command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun4.xml
 
-
   allure:
     image: frankescobar/allure-docker-service:latest
     ports:
