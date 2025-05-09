@@ -21,13 +21,15 @@
                 <version>3.0.0-M7</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>
+<!--                        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>-->
+<!--                        <suiteXmlFile>src/test/java/resources/testngRun.xml</suiteXmlFile>-->
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <!--suppress UnresolvedMavenProperty -->
                         <run.env>${run.env}</run.env>
                     </systemPropertyVariables>
-
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                 </configuration>
             </plugin>
             <!-- Плагін для автоматичного запуску Allure -->
@@ -50,6 +52,28 @@
                         <argument>allure-results</argument>
                     </arguments>
                 </configuration>
+            </plugin>
+<!--            запуск автоматично allure docker-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>open-browser</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument>start http://localhost:5050/projects/default/reports/latest/index.html</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Очищення allure-results перед тестами -->
             <plugin>
@@ -78,6 +102,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>
     </properties>
     <dependencies>
         <dependency>
@@ -125,18 +150,23 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.22.0</version> <!-- або новіша -->
+            <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>2.0.30</version> <!-- або останню -->
+            <version>2.0.30</version>
         </dependency>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox-tools</artifactId>
             <version>2.0.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 
@@ -162,5 +192,4 @@
             </properties>
         </profile>
     </profiles>
-
 </project>

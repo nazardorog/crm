@@ -1,29 +1,35 @@
-version: '3.8'
-
 services:
-  chrome:
+
+  chrome1:
     image: selenium/standalone-chrome:latest
-    shm_size: 2gb
+    shm_size: 12gb
     ports:
-      - "4444:4444"
+      - "4441:4444"
     environment:
       - SE_NODE_SESSION_TIMEOUT=60
 
-  tests:
+  tests1:
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - chrome
+      - chrome1
     environment:
       - BROWSER=chrome
-      - SELENIUM_REMOTE_URL=http://chrome:4444/wd/hub
+      - SELENIUM_REMOTE_URL=http://chrome1:4444/wd/hub
+      - RUN_ENV=remote
     volumes:
-      - .:/app
       - ./allure-results:/app/allure-results
+#    command: mvn test -DsuiteXmlFile=src/test/java/resources/testng.xml && ls -la /app/allure-results
+    command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun1.xml && ls -la /app/allure-results
+
   allure:
-    image: allureframework/allure-docker-service:latest
+    image: frankescobar/allure-docker-service:latest
     ports:
-      - "5050:5050"
+      - "172.24.48.1:5050:5050"
     volumes:
       - ./allure-results:/app/allure-results
+    command: sh -c "allure generate /app/allure-results --clean -o /app/allure-report && tail -f /dev/null"
+#volumes:
+#  jenkins_home:
+

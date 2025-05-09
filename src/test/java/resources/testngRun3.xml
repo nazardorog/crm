@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="TestSuite1" parallel="classes" thread-count="1">
+
+    <test name="BigTruck">
+        <classes>
+            <class name="web.bigTruck.smoke.loadBoard.WBS009_LoadDriverAddDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS010_LoadWareHousesAddDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS011_LoadExpensesAddDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS012_LoadCheckCallAdd"/>
+        </classes>
+    </test>
+</suite>

@@ -1,7 +1,14 @@
-FROM maven:3.9.6-eclipse-temurin-17-alpine
+FROM maven:3.8-openjdk-17
 
 WORKDIR /app
 
-COPY . /app
+# Копіюємо файли pom.xml та src
+WORKDIR /app
+#COPY pom.xml .
+#COPY src ./src
 
-CMD ["mvn", "clean", "test"]
+# Встановлюємо залежності
+RUN mvn dependency:go-offline
+
+# Команда за замовчуванням
+CMD ["mvn", "test"]
