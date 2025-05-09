@@ -11,5 +11,5 @@ allure-results/
 jenkins_home/
 target/
 test-reports/
-
+build/reports/
 webApi/
