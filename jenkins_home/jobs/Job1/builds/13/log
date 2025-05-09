@@ -1,0 +1,9 @@
+Started by user [8mha:////4Lp7rQe9t0RfBl3OXrwkY4vO49KCyyhBinrkBBcqzJOKAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/Job1/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins5958240592121741031.sh
++ cd /app
++ docker-compose -p autotest_v1 up --build tests1
+/tmp/jenkins5958240592121741031.sh: 3: docker-compose: not found
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

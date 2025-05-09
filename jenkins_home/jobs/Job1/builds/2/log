@@ -1,0 +1,14 @@
+Started by user [8mha:////4Lp7rQe9t0RfBl3OXrwkY4vO49KCyyhBinrkBBcqzJOKAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/Job1/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins5060458206862770859.sh
++ docker compose ps
+no configuration file provided: not found
+Build step 'Execute shell' marked build as failure
+[workspace] $ /var/jenkins_home/tools/ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation/allure/bin/allure generate -c -o /var/jenkins_home/jobs/Job1/workspace/allure-report
+allure-results does not exist
+Report successfully generated to /var/jenkins_home/jobs/Job1/workspace/allure-report
+Allure report was successfully generated.
+Creating artifact for the build.
+Artifact was added to the build.
+Finished: FAILURE

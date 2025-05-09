@@ -1,0 +1,10 @@
+Started by user [8mha:////4Lp7rQe9t0RfBl3OXrwkY4vO49KCyyhBinrkBBcqzJOKAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/Job1/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins4235935489659820910.sh
++ cd /app
++ docker-compose -f /app/docker-compose.yml up --build tests
+time="2025-05-01T17:35:17Z" level=warning msg="/app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+no such service: tests
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

@@ -1,0 +1,17 @@
+Started by user [8mha:////4Lp7rQe9t0RfBl3OXrwkY4vO49KCyyhBinrkBBcqzJOKAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/Job1/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins2658359923531716261.sh
++ cd /app
++ docker-compose up --build
+time="2025-05-01T19:51:52Z" level=warning msg="/app/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+Compose can now delegate builds to bake for better performance.
+ To do so, set COMPOSE_BAKE=true.
+#0 building with "default" instance using docker driver
+
+#1 [tests1 internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2B done
+#1 DONE 0.0s
+failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

@@ -1,0 +1,18 @@
+Started by user [8mha:////4H8fZi4xgCcoz4MUwlkC+M9QVHYqvC8YGwJgLLNhfFWEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/Job1
+[Job1] $ /bin/sh -xe /tmp/jenkins6201536059724684396.sh
++ docker ps -a
+CONTAINER ID   IMAGE                                       COMMAND                  CREATED          STATUS                      PORTS                                              NAMES
+33f95b0ab02a   autotest_v1-tests1                          "/usr/local/bin/mvn-…"   11 minutes ago   Exited (0) 10 minutes ago                                                      autotest_v1-tests1-1
+6aa6a9e5759a   selenium/standalone-chrome:latest           "/opt/bin/entry_poin…"   11 minutes ago   Up 11 minutes               5900/tcp, 9000/tcp, 0.0.0.0:4441->4444/tcp         autotest_v1-chrome1-1
+019a5f4fff81   autotest_v1-jenkins                         "/usr/bin/tini -- /u…"   11 minutes ago   Up 11 minutes               0.0.0.0:8080->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
+02c769a0e9bc   frankescobar/allure-docker-service:latest   "sh -c 'allure gener…"   23 minutes ago   Up 11 minutes (unhealthy)   4040/tcp, 172.24.48.1:5050->5050/tcp               autotest_v1-allure-1
++ /var/jenkins_home/tools/ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation/allure/bin/allure generate /var/jenkins_home/workspace/Job1/allure-results -c -o /var/jenkins_home/workspace/Job1/allure-report
+Report successfully generated to /var/jenkins_home/workspace/Job1/allure-report
+[Job1] $ /var/jenkins_home/tools/ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation/allure/bin/allure generate -c -o /var/jenkins_home/workspace/Job1/allure-report
+Report successfully generated to /var/jenkins_home/workspace/Job1/allure-report
+Allure report was successfully generated.
+Creating artifact for the build.
+Artifact was added to the build.
+Finished: SUCCESS

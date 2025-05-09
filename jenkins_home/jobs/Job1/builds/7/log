@@ -1,0 +1,10 @@
+Started by user [8mha:////4Lp7rQe9t0RfBl3OXrwkY4vO49KCyyhBinrkBBcqzJOKAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/jobs/Job1/workspace
+[workspace] $ /bin/sh -xe /tmp/jenkins2668454930704059524.sh
++ docker ps
+CONTAINER ID   IMAGE                                       COMMAND                  CREATED             STATUS                         PORTS                                              NAMES
+595e4b8ca19c   autotest_v1-jenkins                         "/usr/bin/tini -- /u…"   23 minutes ago      Up About a minute              0.0.0.0:8080->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
+995814acb15b   selenium/standalone-chrome:latest           "/opt/bin/entry_poin…"   About an hour ago   Up About an hour               5900/tcp, 9000/tcp, 0.0.0.0:4441->4444/tcp         autotest_v1-chrome1-1
+f7765538064e   frankescobar/allure-docker-service:latest   "sh -c 'allure gener…"   About an hour ago   Up About an hour (unhealthy)   4040/tcp, 172.24.48.1:5050->5050/tcp               autotest_v1-allure-1
+Finished: SUCCESS

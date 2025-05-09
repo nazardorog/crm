@@ -29,7 +29,7 @@
                         <!--suppress UnresolvedMavenProperty -->
                         <run.env>${run.env}</run.env>
                     </systemPropertyVariables>
-
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                 </configuration>
             </plugin>
             <!-- Плагін для автоматичного запуску Allure -->
@@ -162,6 +162,11 @@
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox-tools</artifactId>
             <version>2.0.30</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
         </dependency>
     </dependencies>
 

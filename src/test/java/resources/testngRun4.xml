@@ -3,10 +3,10 @@
 
     <test name="BigTruck">
         <classes>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase13LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase14LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase15LoadBoard"/>
-            <class name="web.bigTruck.loadBoard.BigTruckTestCase16LoadBoard"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS013_LoadCheckCallEdit"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS014_LoadCheckCallDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS015_LoadConfirmation"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS016_LoadGetBol"/>
         </classes>
     </test>
 </suite>

@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+
   chrome1:
     image: selenium/standalone-chrome:latest
     shm_size: 12gb
@@ -20,11 +19,9 @@ services:
       - SELENIUM_REMOTE_URL=http://chrome1:4444/wd/hub
       - RUN_ENV=remote
     volumes:
-      - /c/autotest_v1/empire:/app/Empire
-      - .:/app
-      - ./empire:/app/empire
       - ./allure-results:/app/allure-results
-    command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun1.xml
+#    command: mvn test -DsuiteXmlFile=src/test/java/resources/testng.xml && ls -la /app/allure-results
+    command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun1.xml && ls -la /app/allure-results
 
   allure:
     image: frankescobar/allure-docker-service:latest
@@ -32,5 +29,7 @@ services:
       - "172.24.48.1:5050:5050"
     volumes:
       - ./allure-results:/app/allure-results
-    command: allure serve /app/allure-results
+    command: sh -c "allure generate /app/allure-results --clean -o /app/allure-report && tail -f /dev/null"
+#volumes:
+#  jenkins_home:
 

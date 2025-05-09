@@ -4,22 +4,20 @@
     <test name="test package">
         <packages>
 <!--                <package name="web.bigTruck.loadBoard"/>-->
-<!--                <package name="web.bigTruck.owners"/>-->
-<!--                <package name="web.bigTruck.trucks"/>-->
-<!--                <package name="web.bigTruck.trailers"/>-->
-<!--                <package name="web.bigTruck.shippersReceivers"/>-->
+
+
         </packages>
     </test>
     <test name="test1">
         <classes>
-            <class name="web.bigTruck.owners.BigTruckTestCase1Owners"/>
-<!--            <class name="web.bigTruck.trailers.BigTruckTestCase2Trailers"/>-->
+
+
         </classes>
     </test>
     <test name="test2">
         <classes>
-            <class name="web.bigTruck.owners.BigTruckTestCase1Owners"/>
-<!--            <class name="web.bigTruck.trailers.BigTruckTestCase4Trailers"/>-->
+
+
         </classes>
     </test>
 
