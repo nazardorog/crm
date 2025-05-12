@@ -37,7 +37,7 @@ public class WEF019_FileOpenAll {
             executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
         }
 
-        //brocker
+        //broker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker2");

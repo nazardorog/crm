@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -48,6 +49,14 @@ public class WEF006_LoadTwoShipperReceiver {
                 .findBy(text("Auto test shipper 1"))
                 .click();
 
+        //calendar Origin Shippers Date from 1
+        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        Calendar.setDateTime(1);
+
+        //calendar Origin Shippers Date to 1
+        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        Calendar.setDateTime(2);
+
         //pallets shippers 1
         $("#loadspickuplocations-0-pallets").setValue("1");
         $("#loadspickuplocations-0-weight").setValue("1");
@@ -59,14 +68,6 @@ public class WEF006_LoadTwoShipperReceiver {
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 2"))
                 .click();
-
-        //calendar Origin Shippers Date from 1
-        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").shouldBe(clickable).click();
-        Calendar.setDateTime(1);
-
-        //calendar Origin Shippers Date to 1
-        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").shouldBe(clickable).click();
-        Calendar.setDateTime(2);
 
         //calendar Origin Shippers Date from 2
         $("#loadspickuplocations-1-date_from-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
@@ -88,6 +89,14 @@ public class WEF006_LoadTwoShipperReceiver {
                 .findBy(text("Auto test shipper 3"))
                 .click();
 
+        //calendar Destination Shippers Date from 1
+        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        Calendar.setDateTime(3);
+
+        //calendar Destination Shippers Date to 1
+        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
+        Calendar.setDateTime(4);
+
         //pallets shippers destination 1
         $("#loadsdeliverylocations-0-pallets").setValue("1");
         $("#loadsdeliverylocations-0-weight").setValue("1");
@@ -99,14 +108,6 @@ public class WEF006_LoadTwoShipperReceiver {
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 4"))
                 .click();
-
-        //calendar Destination Shippers Date from 1
-        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").shouldBe(clickable, Duration.ofSeconds(5)).click();
-        Calendar.setDateTime(3);
-
-        //calendar Destination Shippers Date to 1
-        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();
-        Calendar.setDateTime(4);
 
         //calendar Destination Shippers Date from 2
         $("#loadsdeliverylocations-1-date_from-datetime .kv-datetime-picker").shouldBe(enabled, Duration.ofSeconds(5)).click();

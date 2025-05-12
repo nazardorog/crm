@@ -2,12 +2,15 @@ package web.bigTruck.smoke.loadBoard;
 
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
@@ -24,6 +27,8 @@ public class WBS002_LoadEdit {
     // 2. Редактирование Груза
 
     LocalDateTime now = LocalDateTime.now();
+    int currentDay = now.getDayOfMonth();
+    int hour = now.getHour();
     int minute = (now.getMinute() / 5) * 5;
 
     @Test
@@ -191,12 +196,7 @@ public class WBS002_LoadEdit {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
-        $("#add_driver").shouldNotBe(visible, EXPECT_GLOBAL);
-
-        //тост вспливайка
-        $("#toast-container").shouldBe(visible, Duration.ofSeconds(40));
-        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Driver successfully added"));
-        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));

@@ -2,12 +2,17 @@ package web.bigTruck.smoke.truck;
 
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -184,11 +189,11 @@ public class WBS026_TruckEdit {
 
         //редагування календар Registration Expiration
         $("#trucks-registration_expiration-kvdate .kv-date-picker").click();
-        Calendar.setDate(1);
+        Calendar.setDateTime(1);
 
         //редагування календар Annual Vehicle
         $("#trucks-annual_vehicle_expiration-kvdate .kv-date-picker").click();
-        Calendar.setDate(1);
+        Calendar.setDateTime(1);
 
         //редагування поле Note
         $("#trucks-note").setValue(atNoteEdit);

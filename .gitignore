@@ -1,0 +1,25 @@
+# Maven / IntelliJ / Build
+target/
+build/
+.idea/
+
+# Allure reports
+allure-results/
+allure-report/
+.allure/
+
+# Docker / Jenkins
+docker-compose*
+Dockerfile*
+.jenkins_home/
+jenkins_home/
+Jenkinsfile
+.dockerignore
+
+# Системні файли
+*.log
+*.tmp
+.DS_Store
+
+# Bash script
+run-tests.sh

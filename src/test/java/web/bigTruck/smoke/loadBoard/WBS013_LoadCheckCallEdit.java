@@ -2,12 +2,16 @@ package web.bigTruck.smoke.loadBoard;
 
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -26,7 +30,7 @@ public class WBS013_LoadCheckCallEdit {
     String agent = "Auto test agent";
 
     @Test
-    public void checkCallEdit () {
+    public void checkCallEdit () throws InterruptedException {
 
         // Login
         GlobalConfig.OPTION_LOGIN = "big";
@@ -131,9 +135,6 @@ public class WBS013_LoadCheckCallEdit {
 
         // отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
-
-        //клік add Driver
-        $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
 
         //вибирає Carrier
         $("#select2-carrierId-container").click();

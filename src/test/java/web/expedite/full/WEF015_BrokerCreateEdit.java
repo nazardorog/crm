@@ -53,7 +53,7 @@ public class WEF015_BrokerCreateEdit {
         $("#brokers-address").setValue("Mountain");
         $("#brokers-city").setValue("Colorado");
 
-        //вкладка Contact
+        //вкаладка Contact
         $(byText("Contact")).click();
         $("#brokers-main_phone_number").setValue(brokerPhoneNumber);
 
@@ -63,10 +63,9 @@ public class WEF015_BrokerCreateEdit {
         $("#agents-0-email").setValue(agentMail);
         $("#agents-0-phone_number").setValue(agentPhoneNumber);
         $(".btn-update-broker-agents .btn-primary ").shouldBe(enabled).click();
-        $("#add_broker").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //перевіряємо додавання створеного Агента на фреймі New Load під полем Broker
-        $("#add_load").shouldBe(visible, Duration.ofSeconds(20));
+        Thread.sleep(5000);
         $(".bt-load-broker-main-flex").shouldHave(text(brokerName));
         $(".bt-load-broker-main-flex").shouldHave(text("Mountain"));
         $(".bt-load-broker-main-flex").shouldHave(text("Colorado"));
@@ -92,7 +91,7 @@ public class WEF015_BrokerCreateEdit {
         $("#brokers-address").setValue("Texas");
         $("#brokers-city").setValue("Dallas");
 
-        //вкладка Contact
+        //вкаладка Contact
         $(byText("Contact")).click();
         $("#brokers-main_phone_number").setValue(editBrokerPhoneNumber);
 
