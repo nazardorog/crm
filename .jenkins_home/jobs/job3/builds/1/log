@@ -1,7 +1,0 @@
-Started by user [8mha:////4H8fZi4xgCcoz4MUwlkC+M9QVHYqvC8YGwJgLLNhfFWEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
-Running as SYSTEM
-Building in workspace /var/jenkins_home/workspace/job3
-[job3] $ /bin/sh -xe /tmp/jenkins11544508091542074350.sh
-/tmp/jenkins11544508091542074350.sh: 3: Syntax error: newline unexpected
-Build step 'Execute shell' marked build as failure
-Finished: FAILURE
