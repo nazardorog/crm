@@ -1,0 +1,11 @@
+Started by user [8mha:////4H8fZi4xgCcoz4MUwlkC+M9QVHYqvC8YGwJgLLNhfFWEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/job3
+[job3] $ /bin/sh -xe /tmp/jenkins10161553584872996929.sh
++ cd /var/jenkins_home/workspace/job1
++ ls -la
+total 0
+drwxr-xr-x 1 jenkins jenkins 4096 May  1 13:27 .
+drwxr-xr-x 1 jenkins jenkins 4096 May  1 13:25 ..
+drwxr-xr-x 1 root    root    4096 May  1 13:27 allure-report
+Finished: SUCCESS

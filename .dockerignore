@@ -1,0 +1,8 @@
+.allure/
+.idea/
+.jenkins_home/
+allure-report/
+allure-results/
+jenkins_home/
+target/
+test-reports/

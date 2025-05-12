@@ -1,0 +1,20 @@
+Started by user [8mha:////4H8fZi4xgCcoz4MUwlkC+M9QVHYqvC8YGwJgLLNhfFWEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
+Running as SYSTEM
+Building in workspace /var/jenkins_home/workspace/Job1
+[Job1] $ /bin/sh -xe /tmp/jenkins1219779149323830817.sh
++ docker ps -a
+CONTAINER ID   IMAGE                                       COMMAND                  CREATED              STATUS                          PORTS                                              NAMES
+247fa379a6f6   autotest_v1-tests1                          "/usr/local/bin/mvn-…"   About a minute ago   Created                                                                            autotest_v1-tests1-1
+28e9b8369222   selenium/standalone-chrome:latest           "/opt/bin/entry_poin…"   About a minute ago   Created                                                                            autotest_v1-chrome1-1
+02c769a0e9bc   frankescobar/allure-docker-service:latest   "sh -c 'allure gener…"   About a minute ago   Up About a minute (unhealthy)   4040/tcp, 172.24.48.1:5050->5050/tcp               autotest_v1-allure-1
+8ee766f95759   autotest_v1-jenkins                         "/usr/bin/tini -- /u…"   About a minute ago   Up About a minute               0.0.0.0:8080->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
+f6bcdad08193   app-tests1                                  "/usr/local/bin/mvn-…"   45 minutes ago       Exited (0) 44 minutes ago                                                          app-tests1-1
+acacb04884aa   selenium/standalone-chrome:latest           "/opt/bin/entry_poin…"   5 hours ago          Up 5 hours                      5900/tcp, 9000/tcp, 0.0.0.0:4441->4444/tcp         app-chrome1-1
+5bf6725b49f4   selenium/standalone-chrome:latest           "/opt/bin/entry_poin…"   26 hours ago         Exited (137) 26 hours ago                                                          autotest_v1-chrome-1
+[Job1] $ /var/jenkins_home/tools/ru.yandex.qatools.allure.jenkins.tools.AllureCommandlineInstallation/allure/bin/allure generate -c -o /var/jenkins_home/workspace/Job1/allure-report
+allure-results does not exist
+Report successfully generated to /var/jenkins_home/workspace/Job1/allure-report
+Allure report was successfully generated.
+Creating artifact for the build.
+Artifact was added to the build.
+Finished: SUCCESS
