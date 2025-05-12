@@ -3,7 +3,7 @@
 
     <test name="BigTruck">
         <classes>
-            <class name="web.expedite.ui.WEU001_LoadBoard"/>
+            <class name="web.bigTruck.smoke.broker.WBS018_BrokerCreate"/>
         </classes>
     </test>
 </suite>

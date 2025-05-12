@@ -1,12 +1,10 @@
 package web.expedite.full.loadBoard;
 
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.GlobalConfig;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
@@ -14,12 +12,10 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -164,8 +160,8 @@ public class WEF013_DispatchAssignUser {
             //видаляємо Auto Test user1
             $(".table-assigned-users .delete_user_assignment").click();
             $$(".table-assigned-users tr").findBy(text("Auto Test user1")).should(exist);
-                    $("#dispatch_load_send").click();
-        $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(10));
+            $("#dispatch_load_send").click();
+            $("#load_dispatch").shouldNotBe(visible, Duration.ofSeconds(20));
 
             //перевірка в лоад борд через Load assigned чи заасайнився юзер до грузу
             $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();

@@ -19,6 +19,7 @@ services:
       - SELENIUM_REMOTE_URL=http://chrome1:4444/wd/hub
       - RUN_ENV=remote
     volumes:
+      - .:/app
       - ./allure-results:/app/allure-results
 #    command: mvn test -DsuiteXmlFile=src/test/java/resources/testng.xml && ls -la /app/allure-results
     command: mvn test -DsuiteXmlFile=src/test/java/resources/testngRun1.xml && ls -la /app/allure-results
@@ -30,6 +31,6 @@ services:
     volumes:
       - ./allure-results:/app/allure-results
     command: sh -c "allure generate /app/allure-results --clean -o /app/allure-report && tail -f /dev/null"
-#volumes:
-#  jenkins_home:
+volumes:
+  jenkins_home:
 

@@ -111,10 +111,10 @@ public class WBS021_BrokerDnuDell {
 
         // Закриває фрейм New load
         $(".modal-new-load-bigtrucks .close").click();
-        $(".modal-new-load-bigtrucks").shouldNotBe(visible, Duration.ofSeconds(10));
+        $(".modal-new-load-bigtrucks").shouldNotBe(visible, EXPECT_GLOBAL);
 
         // Переходить на список брокерів
-        $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
+        $(".brokers-user").shouldBe(visible, EXPECT_GLOBAL).hover();
         $(".brokers-user").click();
         $("body").click();
 
@@ -136,16 +136,16 @@ public class WBS021_BrokerDnuDell {
         // Фрейм DNU встановлює DNU для брокера
         $("#broker_dnu_modal .bootstrap-dialog-title").shouldBe(visible);
         $("#category-dropdown").selectOption("4 - Dry Van Only");
-        $("#category-dropdown").getSelectedOption().shouldHave(Condition.text("4 - Dry Van Only"), Duration.ofSeconds(10));
-        $("#brokers-comment").shouldBe(visible, Duration.ofSeconds(20));
-        $("#brokers-comment").shouldBe(enabled, Duration.ofSeconds(20));
+        $("#category-dropdown").getSelectedOption().shouldHave(Condition.text("4 - Dry Van Only"), EXPECT_GLOBAL);
+        $("#brokers-comment").shouldBe(visible, EXPECT_GLOBAL);
+        $("#brokers-comment").shouldBe(enabled, EXPECT_GLOBAL);
         sleep(5000);
-        $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, Duration.ofSeconds(10)).pressEnter();
-        $("#brokers-comment").shouldHave(value("DNU reason massage"), Duration.ofSeconds(10));
+        $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, EXPECT_GLOBAL).pressEnter();
+        $("#brokers-comment").shouldHave(value("DNU reason massage"), EXPECT_GLOBAL);
 
         // Закриває фрейм DNU
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#brokers-blacklist-form").shouldNotBe(visible, EXPECT_GLOBAL);
 
         // Перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
@@ -155,10 +155,10 @@ public class WBS021_BrokerDnuDell {
         $(".remove_broker_dnu").shouldBe(visible, enabled).click();
 
         // Фрейм DNU вводить Reason
-        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(30));
+        $("#brokers-blacklist-form").shouldBe(visible, EXPECT_GLOBAL);
         $("#note").setValue("DNU delete reason massage");
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible);
+        $("#brokers-blacklist-form").shouldNotBe(visible, EXPECT_GLOBAL);
 
         // Перевіряє що DNU не встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("Active"));

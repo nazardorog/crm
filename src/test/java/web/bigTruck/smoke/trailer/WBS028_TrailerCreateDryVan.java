@@ -2,7 +2,6 @@ package web.bigTruck.smoke.trailer;
 
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
@@ -11,7 +10,6 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -26,9 +24,7 @@ public class WBS028_TrailerCreateDryVan {
     // 1. Создание трейлера Dry van
 
     LocalDateTime now = LocalDateTime.now();
-    int currentDay = now.getDayOfMonth();
     String globalName = GlobalGenerateName.globalName();
-    String globalMail = GlobalGenerateName.globalMail();
 
     @Test
     public void createDryVan() {
@@ -113,7 +109,8 @@ public class WBS028_TrailerCreateDryVan {
         Selenide.sleep(5000);
 
         //клік по кнопці Submit фрейму Add trailer
-        $("#add_trailer_send").shouldBe(clickable).click();
+        $("#add_trailer_send").shouldBe(clickable, Duration.ofSeconds(20)).click();
+        $("#add_trailer").shouldNotBe(visible, Duration.ofSeconds(20));
 
         //тост вспливайка
         $("#toast-container").shouldBe(visible, Duration.ofSeconds(40));

@@ -4,8 +4,8 @@ WORKDIR /app
 
 # Копіюємо файли pom.xml та src
 WORKDIR /app
-#COPY pom.xml .
-#COPY src ./src
+COPY pom.xml .
+COPY src ./src
 
 # Встановлюємо залежності
 RUN mvn dependency:go-offline
