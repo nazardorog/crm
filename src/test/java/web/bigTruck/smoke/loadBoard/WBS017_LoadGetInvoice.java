@@ -13,8 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Optional;
 import java.util.Random;
 
@@ -186,7 +184,12 @@ public class WBS017_LoadGetInvoice {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
-        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#add_driver").shouldNotBe(visible, EXPECT_GLOBAL);
+
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, Duration.ofSeconds(40));
+        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Driver successfully added"));
+        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
 
         //закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));

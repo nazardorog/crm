@@ -24,7 +24,7 @@ public class WBS001_LoadCreate {
     // Click Up:
     // CRM SEMI Truck
     // Load board
-    // 1. Создание груза
+    // 1. Создание груза!
 
     LocalDateTime now = LocalDateTime.now();
     int currentDay = now.getDayOfMonth();

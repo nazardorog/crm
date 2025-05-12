@@ -3,14 +3,11 @@ package web.bigTruck.smoke.loadBoard;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -38,8 +35,8 @@ public class WBS009_LoadDriverAddDell {
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();
 
-        //brocker
-        $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
+        //broker
+        $("#loads-form-create").shouldBe(visible, EXPECT_GLOBAL);
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").shouldBe(visible).setValue("Auto test broker");
         $$(".select2-results__options")
@@ -175,11 +172,15 @@ public class WBS009_LoadDriverAddDell {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
-        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#add_driver").shouldNotBe(visible, EXPECT_GLOBAL);
+
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Driver successfully added"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         //закриває модальне вікно Dispatch Load
-        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $(".load-info-modal-dialog .close").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //перевіряє що вантаж відображається на Loads en Route
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
@@ -245,6 +246,11 @@ public class WBS009_LoadDriverAddDell {
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
 
+        //тост вспливайка
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Driver successfully added"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
+
         //селектори водія та доданого водія на фрейм dispatch
         ElementsCollection drivers = $$("tr td a.view_driver");
         ElementsCollection owner = $$("tr td a.text-muted");
@@ -266,8 +272,8 @@ public class WBS009_LoadDriverAddDell {
         trailer.get(1).shouldHave(text("AutoTest Trailer2"));
 
         //закриває модальне вікно Dispatch Load
-        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
+
+        $(".load-info-modal-dialog .close").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //перевіряє дані водія після редагування Load Board вкладка Loads en Route
         //перевіряє першого водія
@@ -286,17 +292,18 @@ public class WBS009_LoadDriverAddDell {
         $("#main-loads-grid button.view_load").click();
 
         //перевіряє другого водія фрейм dispatch
+        $("#view_load").shouldBe(visible, EXPECT_GLOBAL);
         truck.get(1).shouldHave(text("0306"));
 
-        //видаляє другого водія shouldNotHave
+        //видаляє другого водія
         $("#loadDriversContent span.glyphicon-minus").click();
 
         //перевіряє що другий водій видалений фрейм dispatch
         truck.get(1).shouldNotHave(visible);
 
         //закриває модальне вікно Dispatch Load
-        $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $("#toast-container").shouldNotBe(visible, EXPECT_GLOBAL);
+        $(".load-info-modal-dialog .close").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //перевіряє що другий водій видалений та перший відображається Load Board вкладка Loads en Route
         //перевіряє першого водія
