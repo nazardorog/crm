@@ -1,8 +1,0 @@
-Started by user [8mha:////4H8fZi4xgCcoz4MUwlkC+M9QVHYqvC8YGwJgLLNhfFWEAAAAlx+LCAAAAAAAAP9b85aBtbiIQTGjNKU4P08vOT+vOD8nVc83PyU1x6OyILUoJzMv2y+/JJUBAhiZGBgqihhk0NSjKDWzXb3RdlLBUSYGJk8GtpzUvPSSDB8G5tKinBIGIZ+sxLJE/ZzEvHT94JKizLx0a6BxUmjGOUNodHsLgAzWEgZu/dLi1CL9xJTczDwAj6GcLcAAAAA=[0mNazar
-Running as SYSTEM
-Building in workspace /var/jenkins_home/workspace/Job1
-[Job1] $ /bin/sh -xe /tmp/jenkins10359868322385459365.sh
-+ docker compose -f docker-compose.yml up --build tests1
-open /var/jenkins_home/workspace/Job1/docker-compose.yml: no such file or directory
-Build step 'Execute shell' marked build as failure
-Finished: FAILURE
