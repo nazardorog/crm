@@ -44,7 +44,7 @@ public class WES015_LoadAddSecondTruck {
         $$("li.select2-results__option").findBy(Condition.text("0304")).click();
 
         // Remove help block
-        boolean helpBlock = $(".help-block").isDisplayed();
+        boolean helpBlock = $(".help-block").shouldBe(visible, EXPECT_GLOBAL).isDisplayed();
         if (helpBlock){
             executeJavaScript("arguments[0].style.display='none';", $(".help-block"));
         }
