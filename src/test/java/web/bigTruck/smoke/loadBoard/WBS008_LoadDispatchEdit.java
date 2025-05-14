@@ -34,8 +34,7 @@ public class WBS008_LoadDispatchEdit {
         LoginHelper.login();
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));

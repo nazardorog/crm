@@ -32,8 +32,7 @@ public class WBS009_LoadDriverAddDell {
         LoginHelper.login();
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //broker
         $("#loads-form-create").shouldBe(visible, EXPECT_GLOBAL);

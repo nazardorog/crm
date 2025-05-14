@@ -40,10 +40,9 @@ public class WBS001_LoadCreate {
         LoginHelper.login();
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
-        //brocker
+        //broker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").shouldBe(visible).setValue("Auto test broker");
