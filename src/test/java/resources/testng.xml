@@ -68,6 +68,8 @@
             <class name="web.expedite.smoke.loadBoard.WES010_DispatchAddTruckByTeamDriver"/>
             <class name="web.expedite.smoke.loadBoard.WES011_DispatchAssignUser"/>
             <class name="web.expedite.smoke.loadBoard.WES012_DispatchCalculate"/>
+            <class name="web.expedite.smoke.WES013_FileOpenAll"/>
+            <class name="web.expedite.smoke.WES014_LoadEdit"/>
         </classes>
     </test>
     <test name="web.expedite.full" preserve-order="true">

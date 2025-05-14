@@ -1,12 +1,10 @@
 package web.expedite.full;
 
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.GlobalConfig;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
@@ -14,7 +12,6 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -46,7 +43,7 @@ public class WEF020_LoadEdit {
             executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
         }
 
-        //brocker
+        //broker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker");
@@ -127,7 +124,7 @@ public class WEF020_LoadEdit {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
         $("#add_load_send_old").click();
 
-    //dispatch board
+        //dispatch board
         $("#select2-load_truck_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(20))
                 .click();
@@ -168,21 +165,16 @@ public class WEF020_LoadEdit {
         $(".view_delivery_location").shouldHave(text("New York, NY 10002"));
         $("span.small-txt.big-truck-none-bold").shouldHave(text("Wt 1 Plt 1 Pcs 1"));
 
-
-//        $(".col_check_call span.pull-right").shouldHave(text("03/25 08:20"));
-
         //редагування вантажу
         $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(enabled, Duration.ofSeconds(10)).click();
-//        $$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
 
-        //вводить нові дані Broker, Agent, Origin Shippers, Distanation Shippers
+        //вводить нові дані Broker, Agent, Origin Shippers, Destination Shippers
         $("#delete_load_broker").click();
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").setValue("Auto test broker10");
         $(".select2-results__options").shouldHave(text("Auto test broker10")).click();
         $$("select#loads-agent_id option").findBy(text("Auto test agent39")).click();
-
 
         //Origin Shippers
         $("#shippers-origin-sortable .delete_load_shipper").click();
