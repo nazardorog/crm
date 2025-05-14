@@ -1,4 +1,4 @@
-package web.expedite.smoke.loadBoard;
+package web.expedite.smoke;
 
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.*;
