@@ -51,7 +51,7 @@ public class WES013_FileOpenAll {
         final String atReferenceNumber = "10000000";
         final String atCustomersRate = "100000";
         final String atCarrierDriverRate = "80000";
-        String atTruck = "0303";
+        final String atTruck = "0303";
 
         // Broker
         $("#loads-form-create").shouldBe(visible, EXPECT_GLOBAL);
@@ -104,14 +104,13 @@ public class WES013_FileOpenAll {
         $("#loads-carrier_rate-disp").setValue(atCarrierDriverRate).pressEnter();
 
         // Download file
-        $("#add_load").find(".modal-footer-button .fa-files-o").click();
-        $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
-
-        // Файли для завантаження
         File file1 = new File(downloadsFolder + "/1pdf.pdf");
         File file2 = new File(downloadsFolder + "/2pdf.pdf");
         File file3 = new File(downloadsFolder + "/3pdf.pdf");
         File file4 = new File(downloadsFolder + "/4jpeg.jpg");
+
+        $("#add_load").find(".modal-footer-button .fa-files-o").click();
+        $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
 
         // Завантажує чотири файли з різним типом
         // Файл pdf, тип BOL

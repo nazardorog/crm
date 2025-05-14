@@ -17,8 +17,12 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static utilsWeb.configWeb.GlobalGenerateName.globalName;
+import static utilsWeb.configWeb.GlobalGenerateName.globalNameLettersDigits;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS026_TruckEdit {
 
@@ -26,6 +30,9 @@ public class WBS026_TruckEdit {
     // CRM SEMI Truck
     // Trucks
     // 2. Редактирование трака
+
+    String globalNameLettersDigits = globalNameLettersDigits();
+    String globalName = globalName();
 
     @Test
     public void edit() throws InterruptedException {
@@ -35,28 +42,29 @@ public class WBS026_TruckEdit {
         WebDriverConfig.setup();
         LoginHelper.login();
 
-        //переходить до списку Truck
+        // Переходить до списку Truck
         $(".trucks-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".trucks-user").click();
         $("body").click();
 
-        //клік по New Truck
+        // Переходить до списку Truck
+        $(".trucks-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
+        $(".trucks-user").click();
+        $("body").click();
+
+        // Клік New Truck
         $("#new_truck").click();
 
-        // *** Вкладка General фрейму Add truck ***
-
-        Random random = new Random();
-        String randomNumber = String.format("%3d", random.nextInt(1000));
-
-        // *** Вкладка General фрейму Add truck ***
-        String atTruckNumber = "Truck Number auto test 1" + randomNumber;
-        String atVinNumber = "VIN12345678999" + randomNumber;
-        String atPlateNumber = "Plate auto test 1" + randomNumber;
+        // Дані для створення Truck
+        String fileName = "1pdf.pdf";
+        String atTruckNumber = globalName + "Truck Number 1";
+        String atVinNumber = globalNameLettersDigits + "123456789";
+        String atPlateNumber = globalName + "Plate Number 1";
         String atPlateState = "PL";
-        String atModel = "Volvo auto test 1";
-        String atColor = "Green auto test 1";
+        String atModel = globalName + "Volvo 1";
+        String atColor = globalName + "Green 1";
         String atYear = "2025";
-        String atMake = "Make truck auto test 1";
+        String atMake = globalName + "Make 1";
         String atZip = "30318";
         String atCity = "Atlanta";
         String atState = "GA";
@@ -64,6 +72,7 @@ public class WBS026_TruckEdit {
         String atNote = "Note truck 1";
         String atStatus = "Available";
 
+        // Вводить дані вкладка General
         $("#trucks-truck_number").setValue(atTruckNumber);
         $("#trucks-vin_number").setValue(atVinNumber);
         $("#trucks-plate_number").setValue(atPlateNumber);
@@ -74,7 +83,7 @@ public class WBS026_TruckEdit {
         $("#trucks-make").setValue(atMake);
         $("#trucks-type_truck").selectOption("Semi truck");
 
-        //календар Date When Will Be There
+        // Календар Date When Will Be There
         $(".kv-datetime-picker").click();
         Calendar.setDateTime(0);
 
@@ -82,47 +91,47 @@ public class WBS026_TruckEdit {
         $("#trucks-title_status").selectOption("Clean");
         $("#trucks-cab_type").selectOption("Sleeper");
 
-        //пошук по Zip коду
+        // Пошук по Zip коду
         $("#trucks-last_zip").setValue(atZip);
         $("#zipFillBtn").click();
         $("#trucks-last_city").shouldHave(value(atCity));
         $("#trucks-last_state").shouldHave(value(atState));
 
-        //поле Owner
+        // Поле Owner
         $("#select2-owner_id-create-container").click();
         $(".select2-search__field").setValue("AutoTestOwner");
         $$("li.select2-results__option")
                 .findBy(text(atOwner))
                 .click();
 
-        //календар Registration Expiration
+        // Календар Registration Expiration
         $("#trucks-registration_expiration-kvdate .kv-date-picker").click();
         Calendar.setDate(0);
 
-        //календар Annual Vehicle
+        // Календар Annual Vehicle
         $("#trucks-annual_vehicle_expiration-kvdate .kv-date-picker").click();
         Calendar.setDate(0);
 
-        //поле Note
+        // Поле Note
         $("#trucks-note").setValue(atNote);
 
         // *** Вкладка Documents фрейму Add truck ***
         $("a[href='#documents']").shouldBe(visible).click();
         $(".add-document").shouldBe(visible).click();
 
-        //завантажує файл
-        File file = new File("C:/Empire/pdf1.pdf");
+        // Завантажує файл
+        File file = new File(downloadsFolder + fileName);
         $("#truckdocuments-0-file").uploadFile(file);
 
-        //клік по кнопці Submit фрейму Add truck
+        // Клік по кнопці Submit фрейму Add truck
         $("#add_truck_send").click();
 
-        //тост вспливайка
-        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
-        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Truck successfully added"));
-        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+        // Тост вспливайка
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Truck successfully added"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
-        //перевіряє створений Truck в списку
+        // Перевіряє створений Truck в списку
         $("input[name='TrucksSearch[truck_number]']").shouldBe(visible).setValue(atTruckNumber).pressEnter();
 
         SelenideElement truckNumber = $$("table.color-table-bigtruck tbody tr")
@@ -141,14 +150,13 @@ public class WBS026_TruckEdit {
         // *** Редагування Truck вкладка General фрейму Add truck ***
         truckNumber.$(".glyphicon-pencil").click();
 
-        //редагування дані редагування вкладка General
-        String atVinNumberEdit = "VIN99345678999" + randomNumber;
-        String atPlateNumberEdit = "Plate auto test 2" + randomNumber;
+        // Редагування дані редагування вкладка General
+        String atPlateNumberEdit = globalName + "Plate Number 2";
         String atPlateStateEdit = "PL";
-        String atModelEdit = "Volvo auto test 2";
-        String atColorEdit = "Green auto test 2";
-        String atYearEdit = "2022";
-        String atMakeEdit = "Make truck auto test 2";
+        String atModelEdit = globalName + "Volvo 2";
+        String atColorEdit = globalName + "Green 2";
+        String atYearEdit = "2024";
+        String atMakeEdit = globalName + "Make 1";
         String atZipEdit = "76827";
         String atCityEdit = "Brookesmith";
         String atStateEdit = "TX";
@@ -156,9 +164,22 @@ public class WBS026_TruckEdit {
         String atNoteEdit = "Note truck 2";
         String atStatusEdit = "Available On";
 
-        //вводить дані редагування
+//        String atPlateNumberEdit = "Plate auto test 2" + randomNumber;
+//        String atPlateStateEdit = "PL";
+//        String atModelEdit = "Volvo auto test 2";
+//        String atColorEdit = "Green auto test 2";
+//        String atYearEdit = "2022";
+//        String atMakeEdit = "Make truck auto test 2";
+//        String atZipEdit = "76827";
+//        String atCityEdit = "Brookesmith";
+//        String atStateEdit = "TX";
+//        String atOwnerEdit = "AutoTestOwner2 INC";
+//        String atNoteEdit = "Note truck 2";
+//        String atStatusEdit = "Available On";
+
+        // Вводить дані редагування
         $(".bootstrap-dialog-title").shouldHave(text("Update truck"), Duration.ofSeconds(20));
-        $("#trucks-vin_number").setValue(atVinNumberEdit);
+        $("#trucks-vin_number").setValue(atVinNumber);
         $("#trucks-plate_number").setValue(atPlateNumberEdit);
         $("#trucks-plate_state").setValue(atPlateStateEdit);
         $("#trucks-model").setValue(atModelEdit);
@@ -166,7 +187,7 @@ public class WBS026_TruckEdit {
         $("#trucks-year").setValue(atYearEdit);
         $("#trucks-make").setValue(atMakeEdit);
 
-        //редагування календар Date When Will Be There
+        // Редагування календар Date When Will Be There
         $(".kv-datetime-picker").click();
         Calendar.setDateTime(1);
 
@@ -174,37 +195,37 @@ public class WBS026_TruckEdit {
         $("#trucks-title_status").selectOption("Salvage");
         $("#trucks-cab_type").selectOption("Day cab");
 
-        //редагування пошук по Zip коду
+        // Редагування пошук по Zip коду
         $("#trucks-last_zip").setValue(atZipEdit);
         $("#zipFillBtn").click();
         $("#trucks-last_city").shouldHave(value(atCityEdit));
         $("#trucks-last_state").shouldHave(value(atStateEdit));
 
-        //редагування поле Owner
+        // Редагування поле Owner
         $("#select2-owner_id-update-container").click();
         $(".select2-search__field").setValue("AutoTestOwner");
         $$("li.select2-results__option")
                 .findBy(text(atOwnerEdit))
                 .click();
 
-        //редагування календар Registration Expiration
+        // Редагування календар Registration Expiration
         $("#trucks-registration_expiration-kvdate .kv-date-picker").click();
-        Calendar.setDateTime(1);
+        Calendar.setDate(1);
 
-        //редагування календар Annual Vehicle
+        // Редагування календар Annual Vehicle
         $("#trucks-annual_vehicle_expiration-kvdate .kv-date-picker").click();
-        Calendar.setDateTime(1);
+        Calendar.setDate(1);
 
-        //редагування поле Note
+        // Редагування поле Note
         $("#trucks-note").setValue(atNoteEdit);
 
-        //редагування Submit фрейм Update truck
+        // Редагування Submit фрейм Update truck
         $("#update_truck_send").click();
 
-        //тост вспливайка
-        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
-        $(".toast-message").shouldHave(visible, Duration.ofSeconds(10)).shouldHave(text("Truck sucessfully updated"));
-        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+        // Тост вспливайка
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Truck sucessfully updated"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         // *** Перевіряє відредаговані дані Truck в списку ***
         $("input[name='TrucksSearch[truck_number]']").shouldBe(visible).setValue(atTruckNumber).pressEnter();
@@ -214,7 +235,7 @@ public class WBS026_TruckEdit {
                 .shouldHave(text(atTruckNumber));
 
         rowTruck.shouldHave(text(atTruckNumber));
-        rowTruck.shouldHave(text(atVinNumberEdit));
+        rowTruck.shouldHave(text(atVinNumber));
         rowTruck.shouldHave(text(atPlateNumberEdit));
         rowTruck.shouldHave(text(atStatusEdit));
         rowTruck.shouldHave(text(atMakeEdit));
@@ -224,13 +245,13 @@ public class WBS026_TruckEdit {
 
         // *** Перевіряє відредаговані дані Truck фрейм Truck owner ***
 
-        //клік по кнопці око
+        // Клік по кнопці око
         rowTruck.$(".glyphicon-eye-open").click();
-        $("#view_truck").shouldBe(visible, Duration.ofSeconds(10));
+        $("#view_truck").shouldBe(visible, EXPECT_GLOBAL);
 
-        //перевіряє відредаговані дані Truck в View truck
+        // Перевіряє відредаговані дані Truck в View truck
         $("table#w0").$$("tr").findBy(text("Vin Number"))
-                .$$("td").first().shouldHave(text(atVinNumberEdit));
+                .$$("td").first().shouldHave(text(atVinNumber));
 
         $("table#w0").$$("tr").findBy(text("Plate Number"))
                 .$$("td").first().shouldHave(text(atPlateNumberEdit));
@@ -255,7 +276,7 @@ public class WBS026_TruckEdit {
 
         //закриває фрейм View truck
         $("#view_truck button.close").click();
-        $("#view_truck").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#view_truck").shouldNotBe(visible, EXPECT_GLOBAL);
     }
 
     @AfterMethod(alwaysRun = true)

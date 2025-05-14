@@ -133,6 +133,7 @@ public class WBS002_LoadEdit {
 
         // клік по кнопці "Submit & Dispatch" на фрейм New Load
         $("#add_load_send_dispatch").click();
+        $("#add_load").shouldNotBe(visible, EXPECT_GLOBAL);
 
         //dispatch board
         $("#view_load").shouldBe(visible, EXPECT_GLOBAL);

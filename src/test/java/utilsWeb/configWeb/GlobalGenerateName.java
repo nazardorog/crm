@@ -15,6 +15,15 @@ public class GlobalGenerateName {
         return GLOBAL_PREFIX + fourNumber + "_";
     }
 
+    // 8 digits only letters and digits.
+    public static String globalNameLettersDigits() {
+
+        int randomNumber = (int) (Math.random() * 10000);
+        String fourNumber = String.format("%04d", randomNumber);
+
+        return GLOBAL_PREFIX + fourNumber;
+    }
+
     // 7 digits
     public static String globalMC() {
 

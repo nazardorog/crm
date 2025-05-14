@@ -2,11 +2,9 @@ package web.expedite.full.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import utilsWeb.commonWeb.Calendar;
-import utilsWeb.commonWeb.LoginHelper;
-import utilsWeb.commonWeb.Scrolling;
-import utilsWeb.commonWeb.WebDriverConfig;
+import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.GlobalConfig;
 
 import java.io.File;
@@ -157,5 +155,10 @@ public class WEF010_DispatchAddTruckByTruck {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        CloseWebDriver.tearDown();
     }
 }
