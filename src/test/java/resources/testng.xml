@@ -3,7 +3,7 @@
     <listeners>
         <listener class-name="utilsWeb.commonWeb.Listener"/>
     </listeners>
-    <test name="web.bigTruck.smoke">
+    <test name="WBS">
         <classes>
             <!-- bigTruck.smoke -->
             <class name="web.bigTruck.smoke.loadBoard.WBS001_LoadCreate"/>
@@ -53,7 +53,7 @@
         </classes>
     </test>
 
-    <test name="web.expedite.smoke" preserve-order="true">
+    <test name="WES" preserve-order="true">
         <classes>
             <!-- expedite.smoke.loadBoard -->
             <class name="web.expedite.smoke.loadBoard.WES001_LoadCreateBol"/>
@@ -70,9 +70,10 @@
             <class name="web.expedite.smoke.loadBoard.WES012_DispatchCalculate"/>
             <class name="web.expedite.smoke.WES013_FileOpenAll"/>
             <class name="web.expedite.smoke.WES014_LoadEdit"/>
+            <class name="web.expedite.smoke.WES015_LoadAddSecondTruck"/>
         </classes>
     </test>
-    <test name="web.expedite.full" preserve-order="true">
+    <test name="WEF" preserve-order="true">
     <classes>
         <!-- expedite.full -->
         <class name="web.expedite.full.loadBoard.WEF001_LoadLogin"/>
@@ -97,7 +98,7 @@
         <class name="web.expedite.full.WEF020_LoadEdit"/>
     </classes>
     </test>
-    <test name="web.expedite.ui" preserve-order="true">
+    <test name="WEU" preserve-order="true">
     <classes>
         <!-- expedite.ui -->
         <class name="web.expedite.ui.WEU001_LoadBoard"/>
