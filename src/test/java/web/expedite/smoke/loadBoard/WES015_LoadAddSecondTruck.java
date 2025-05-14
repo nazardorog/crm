@@ -1,0 +1,69 @@
+package web.expedite.smoke.loadBoard;
+
+import org.testng.annotations.Test;
+import utilsWeb.commonWeb.*;
+import utilsWeb.configWeb.*;
+import org.testng.annotations.AfterMethod;
+import com.codeborne.selenide.Condition;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
+
+
+import utilsWeb.commonWeb.NewLoad;
+
+public class WES015_LoadAddSecondTruck {
+    // https://app.clickup.com/t/8698wg0cm
+    // Добавление второго трака на груз
+
+    @Test
+    public void addSecondTruck () throws InterruptedException {
+
+        GlobalConfig.OPTION_LOGIN = "expedite_disp";
+        WebDriverConfig.setup();
+        LoginHelper.login();
+        
+        $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
+
+        String pro_number = NewLoad.expedite();
+
+        // Поиск груза
+        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible, EXPECT_GLOBAL).setValue(pro_number).pressEnter();
+        $("button.view_load.btn.btn-xs").click();
+
+        // Dispatch добавление второго трака
+        $(".updated-tabs-panel.active").shouldBe(visible, EXPECT_GLOBAL);
+        $$("a[onclick^='showDriverModal']").findBy(text("Drivers")).click();
+        $("#add_driver").shouldBe(visible, EXPECT_GLOBAL);
+        $("#loads-dispatch-add-driver .field-trucks-template .selection span").click();
+        $("body span.select2-search--dropdown input").setValue("0304");
+        $$("li.select2-results__option").findBy(Condition.text("0304")).click();
+
+        // Remove help block
+        boolean helpBlock = $(".help-block").isDisplayed();
+        if (helpBlock){
+            executeJavaScript("arguments[0].style.display='none';", $(".help-block"));
+        }
+
+        // Добавление в чат
+        $("#loadexpenses-is_add_users_to_load_chat").shouldBe(visible, EXPECT_10).click();
+        $("#loadexpenses-is_add_users_to_load_chat").shouldBe(Condition.selected);
+        $("#loadexpenses-add_users_to_load_chat_option > label:nth-child(2) > input[type=radio]").shouldBe(visible).click();
+        $("#update_load_driver_send").click();
+        $("#add_driver").shouldNotBe(visible, EXPECT_GLOBAL);
+        
+        // Проверка наличия добавленного трака в Dispatch и на Load Board
+        $("#loadDriversContent").shouldHave(text("0304"), EXPECT_GLOBAL);
+        $("#view_load > div > div > div.modal-header > button").click();
+        $$(".truck_trailer span").findBy(text("0304")).shouldBe(visible, EXPECT_10);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        CloseWebDriver.tearDown();
+    }
+}

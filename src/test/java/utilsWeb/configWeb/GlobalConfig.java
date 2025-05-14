@@ -13,13 +13,18 @@ public class GlobalConfig {
 
     public static void setCredentials() {
         switch (OPTION_LOGIN.toLowerCase()) {  // використовується toLowerCase() для уникнення помилки
-            case "big":  // маленькими літерами
+            case "big": // маленькими літерами
                 USERNAME = dotenv.get("BIG_USERNAME1", "defaultBigTruckUser");
                 PASSWORD = dotenv.get("BIG_PASSWORD1", "defaultBigTruckPass");
                 break;
-            case "expedite":  // маленькими літерами
-                USERNAME = dotenv.get("EXP_USERNAME1", "defaultExpediteUser");
-                PASSWORD = dotenv.get("EXP_PASSWORD1", "defaultExpeditePass");
+            case "expedite_disp": // маленькими літерами
+            case "expedite":
+                USERNAME = dotenv.get("EXP_DISP_USERNAME1", "defaultExpediteUser");
+                PASSWORD = dotenv.get("EXP_DISP_PASSWORD1", "defaultExpeditePass");
+                break;
+            case "expedite_tracker": // маленькими літерами
+                USERNAME = dotenv.get("EXP_TRACKER_USERNAME1", "defaultExpediteUser");
+                PASSWORD = dotenv.get("EXP_TRACKER_PASSWORD1", "defaultExpeditePass");
                 break;
             default:
                 throw new IllegalArgumentException("Unknown suite: " + OPTION_LOGIN);

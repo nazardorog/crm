@@ -24,7 +24,9 @@ public class WebDriverConfig {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
         Configuration.browserCapabilities = capabilities;
-        Configuration.downloadsFolder = System.getProperty("downloads.folder", "C:/Empire/");
+        Configuration.downloadsFolder = System.getProperty("downloads.folder", "C:/Empire");
+        // Configuration.downloadsFolder = System.getProperty("downloads.folder", "C:/Users/User217/Documents/auto_test/crm-test/empire");
+        // Configuration.downloadsFolder = System.getProperty("downloads.folder", "/Users/admin/Documents/Work/crm-test/empire");
 
         if (runEnv.equals("remote")) {
             Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub");
