@@ -3,8 +3,10 @@ package web.expedite.smoke;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.Calendar;
+import utilsWeb.commonWeb.CloseWebDriver;
 import utilsWeb.commonWeb.LoginHelper;
 import utilsWeb.commonWeb.WebDriverConfig;
 import utilsWeb.configWeb.GlobalConfig;
@@ -224,6 +226,10 @@ public class WES023_LoadEditDispatch {
 
         $("#dispatch_load_send").click();
         $("#load_dispatch").shouldNotBe(visible, EXPECT_GLOBAL);
+    }
 
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        CloseWebDriver.tearDown();
     }
 }
