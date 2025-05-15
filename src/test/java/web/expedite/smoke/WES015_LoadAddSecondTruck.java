@@ -1,28 +1,31 @@
 package web.expedite.smoke;
 
-import org.testng.annotations.Test;
-import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+
 import com.codeborne.selenide.Condition;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
-import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
-import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 
-
+import utilsWeb.commonWeb.CloseWebDriver;
+import utilsWeb.commonWeb.LoginHelper;
 import utilsWeb.commonWeb.NewLoad;
+import utilsWeb.commonWeb.WebDriverConfig;
+import utilsWeb.configWeb.GlobalConfig;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WES015_LoadAddSecondTruck {
     // https://app.clickup.com/t/8698wg0cm
     // Добавление второго трака на груз
 
     @Test
-    public void addSecondTruck () throws InterruptedException {
+    public void addSecondTruck () {
 
+        // Login
         GlobalConfig.OPTION_LOGIN = "expedite_disp";
         WebDriverConfig.setup();
         LoginHelper.login();
@@ -39,7 +42,7 @@ public class WES015_LoadAddSecondTruck {
         $(".updated-tabs-panel.active").shouldBe(visible, EXPECT_GLOBAL);
         $$("a[onclick^='showDriverModal']").findBy(text("Drivers")).click();
         $("#add_driver").shouldBe(visible, EXPECT_GLOBAL);
-        $("#loads-dispatch-add-driver .field-trucks-template .selection span").click();
+        $(".field-trucks-template .select2-selection").click();
         $("body span.select2-search--dropdown input").setValue("0304");
         $$("li.select2-results__option").findBy(Condition.text("0304")).click();
 
@@ -52,13 +55,13 @@ public class WES015_LoadAddSecondTruck {
         // Добавление в чат
         $("#loadexpenses-is_add_users_to_load_chat").shouldBe(visible, EXPECT_10).click();
         $("#loadexpenses-is_add_users_to_load_chat").shouldBe(Condition.selected);
-        $("#loadexpenses-add_users_to_load_chat_option > label:nth-child(2) > input[type=radio]").shouldBe(visible).click();
+        $("input[type='radio'][value='3']").shouldBe(visible).click();
         $("#update_load_driver_send").click();
         $("#add_driver").shouldNotBe(visible, EXPECT_GLOBAL);
         
         // Проверка наличия добавленного трака в Dispatch и на Load Board
         $("#loadDriversContent").shouldHave(text("0304"), EXPECT_GLOBAL);
-        $("#view_load > div > div > div.modal-header > button").click();
+        $("button.close").click();
         $$(".truck_trailer span").findBy(text("0304")).shouldBe(visible, EXPECT_10);
     }
 
