@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -197,10 +198,6 @@ public class WBS016_LoadGetBol {
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        //очищає папку перед завантаженням
-        String folderPath = Configuration.downloadsFolder;
-        clearDownloadFolder(folderPath);
-
         //*** Відкриває меню і вибирає Get load confirmation ***
         Thread.sleep(1000);
         $("#trucks_en_route .dropdown-toggle").shouldBe(enabled).click();
@@ -217,21 +214,52 @@ public class WBS016_LoadGetBol {
         $("input[name ='DeliveryLocation[street1]']").shouldHave(value("Cherry st"));
         $("input[name ='DeliveryLocation[city_state_zip]']").shouldHave(value("New York, NY 10002"));
 
-        //завантажує файл
+        // Чекає завантаження файлу 10 секунд
+        downloadFile();
+    }
+
+    private static void downloadFile() throws IOException {
+
+        // Папка завантаження
+        String downFolder = Configuration.downloadsFolder;
+        String downFolderAfter = Configuration.downloadsFolder + "test-download/";
+        String fileNameTo = "dompdf_out.pdf";
+        String fileNameAfter = "WBS016.pdf";
+
+        // Перевіряє перед завантаженням наявність файлу, якщо є видаляє його
+        Path filePath = Paths.get(downFolderAfter + fileNameAfter);
+        if (Files.exists(filePath)) {
+            Files.delete(filePath);
+        }
+
+        // Завантажує файл
         $("#get_pdf").shouldBe(visible,enabled).click();
 
-        // чекає завантаження файлу 10 секунд
         File downloadedPdf = null;
         int attempts = 0;
         int maxAttempts = 20; // 20 * 500мс = 10 секунд
         while (attempts < maxAttempts) {
             try {
-                Optional<Path> found = Files.walk(Paths.get(folderPath))
-                        .filter(p -> p.getFileName().toString().equals("dompdf_out.pdf"))
+                Optional<Path> found = Files.walk(Paths.get(downFolder)) // Пошук завантаженого файлу
+                        .filter(p -> p.toString().endsWith(fileNameTo))
                         .findFirst();
 
                 if (found.isPresent()) {
-                    downloadedPdf = found.get().toFile();
+                    Path source = found.get(); // Шлях файлу
+                    Path tempFolder = source.getParent(); // Шлях тимчасової папки
+                    Path toDir = Paths.get(downFolderAfter); // Шлях папки для переміщення
+                    Path file = toDir.resolve(fileNameAfter); // Нове ім"я файлу
+
+                    // Створюємо папку, якщо не існує
+                    Files.createDirectories(toDir);
+
+                    // Переміщуємо файл
+                    Files.move(source, file, StandardCopyOption.REPLACE_EXISTING);
+
+                    // Видаляє тимчасову папку
+                    Files.delete(tempFolder);
+
+                    downloadedPdf = file.toFile();
                     break;
                 }
             } catch (IOException e) {
@@ -243,11 +271,11 @@ public class WBS016_LoadGetBol {
         }
 
         if (downloadedPdf == null) {
-            throw new FileNotFoundException("Файл Bol не був завантажений за 10 секунд");
+            throw new FileNotFoundException("Файл Load confirmation не був завантажений за 10 секунд");
         }
         else {
             assertThat(downloadedPdf.length()).isGreaterThan(0);
-            System.out.println("Файл Bol успішно завантажений");
+            System.out.println("Файл Load confirmation успішно завантажений");
         }
     }
 

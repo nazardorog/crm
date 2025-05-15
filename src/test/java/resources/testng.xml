@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="web" parallel="classes" thread-count="4">
+<suite name="web" parallel="classes" thread-count="1">
     <listeners>
         <listener class-name="utilsWeb.commonWeb.Listener"/>
     </listeners>
@@ -9,7 +9,7 @@
             <class name="web.bigTruck.smoke.loadBoard.WBS001_LoadCreate"/>
             <class name="web.bigTruck.smoke.loadBoard.WBS002_LoadEdit"/>
             <class name="web.bigTruck.smoke.loadBoard.WBS003_LoadAvailableToEnRout"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS004_LoadEnRoutToDelivered"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS004_LoadEnRouteToDelivered"/>
             <class name="web.bigTruck.smoke.loadBoard.WBS005_LoadDeliveredToInvoiced"/>
             <class name="web.bigTruck.smoke.loadBoard.WBS006_LoadInvoicedToPaid"/>
             <class name="web.bigTruck.smoke.loadBoard.WBS007_LoadDeliveredToEnRout"/>
@@ -89,7 +89,7 @@
         <class name="web.expedite.full.loadBoard.WEF011_DispatchAddTruckByDriver"/>
         <class name="web.expedite.full.loadBoard.WEF012_DispatchAddTruckByTeamDriver"/>
         <class name="web.expedite.full.loadBoard.WEF013_DispatchAssignUser"/>
-        <class name="web.expedite.full.loadBoard.WEF014_DispatchCalculate"/>
+        <class name="web.expedite.full.loadBoard.WEmvn F014_DispatchCalculate"/>
         <class name="web.expedite.full.WEF015_BrokerCreateEdit"/>
         <class name="web.expedite.full.WEF016_ShipperReceiverCreateEdit"/>
         <class name="web.expedite.full.WEF017_ShipperCoordinateNotSet"/>

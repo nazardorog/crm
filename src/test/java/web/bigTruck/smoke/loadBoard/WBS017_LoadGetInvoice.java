@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.Random;
@@ -251,10 +252,6 @@ public class WBS017_LoadGetInvoice {
         $("#invoiced input[name='LoadsSearch[our_pro_number]']").shouldBe(enabled).setValue(loadNumber).pressEnter();
         $("#invoice-loads-grid a.view_load").shouldHave(text(loadNumber));
 
-        //очищає папку перед завантаженням
-        String folderPath = Configuration.downloadsFolder;
-        clearDownloadFolder(folderPath);
-
         //*** Відкриває меню і вибирає Get invoice ***
         $("#invoiced .dropdown-toggle").shouldBe(enabled, Duration.ofSeconds(5)).click();
         $$("#invoiced .dropdown-menu-right li").findBy(text("Get invoice")).shouldBe(enabled, Duration.ofSeconds(5)).click();
@@ -265,21 +262,52 @@ public class WBS017_LoadGetInvoice {
         $(".pick").shouldHave(text("Kansas City, MO 64110"));
         $("td.drop span").shouldHave(text("New York, NY 10002"));
 
-        //завантажує файл
+        // Чекає завантаження файлу 10 секунд
+        downloadFile();
+    }
+
+    private static void downloadFile() throws IOException {
+
+        // Папка завантаження
+        String downFolder = Configuration.downloadsFolder;
+        String downFolderAfter = Configuration.downloadsFolder + "test-download/";
+        String fileNameTo = "invoice-pdf.pdf";
+        String fileNameAfter = "WBS017.pdf";
+
+        // Перевіряє перед завантаженням наявність файлу, якщо є видаляє його
+        Path filePath = Paths.get(downFolderAfter + fileNameAfter);
+        if (Files.exists(filePath)) {
+            Files.delete(filePath);
+        }
+
+        // Завантажує файл
         $("#get_pdf").shouldBe(visible,enabled).click();
 
-        // чекає завантаження файлу 10 секунд
         File downloadedPdf = null;
         int attempts = 0;
         int maxAttempts = 20; // 20 * 500мс = 10 секунд
         while (attempts < maxAttempts) {
             try {
-                Optional<Path> found = Files.walk(Paths.get(folderPath))
-                        .filter(p -> p.getFileName().toString().equals("invoice-pdf.pdf"))
+                Optional<Path> found = Files.walk(Paths.get(downFolder)) // Пошук завантаженого файлу
+                        .filter(p -> p.toString().endsWith(fileNameTo))
                         .findFirst();
 
                 if (found.isPresent()) {
-                    downloadedPdf = found.get().toFile();
+                    Path source = found.get(); // Шлях файлу
+                    Path tempFolder = source.getParent(); // Шлях тимчасової папки
+                    Path toDir = Paths.get(downFolderAfter); // Шлях папки для переміщення
+                    Path file = toDir.resolve(fileNameAfter); // Нове ім"я файлу
+
+                    // Створюємо папку, якщо не існує
+                    Files.createDirectories(toDir);
+
+                    // Переміщуємо файл
+                    Files.move(source, file, StandardCopyOption.REPLACE_EXISTING);
+
+                    // Видаляє тимчасову папку
+                    Files.delete(tempFolder);
+
+                    downloadedPdf = file.toFile();
                     break;
                 }
             } catch (IOException e) {
@@ -291,11 +319,11 @@ public class WBS017_LoadGetInvoice {
         }
 
         if (downloadedPdf == null) {
-            throw new FileNotFoundException("Файл Invoice не був завантажений за 10 секунд");
+            throw new FileNotFoundException("Файл Load confirmation не був завантажений за 10 секунд");
         }
         else {
             assertThat(downloadedPdf.length()).isGreaterThan(0);
-            System.out.println("Файл Invoice успішно завантажений");
+            System.out.println("Файл Load confirmation успішно завантажений");
         }
     }
 
