@@ -28,9 +28,8 @@ public class WES023_LoadEditDispatch {
         WebDriverConfig.setup();
         LoginHelper.login();
 
-        // Відкриває New Load
-        $(".logo-mini-icon").shouldBe(enabled, EXPECT_GLOBAL);
-        $("#new_load").shouldBe(enabled).click();
+        // Great new load
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Remove chat widget
         boolean chatWidget = $(".chat-widget").isDisplayed();

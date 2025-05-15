@@ -180,6 +180,11 @@ public class WBS014_LoadCheckCallDell {
         $("#update_load_driver_send").click();
         $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
+        // Тост вспливайка
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Driver successfully added"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
+
         //закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
