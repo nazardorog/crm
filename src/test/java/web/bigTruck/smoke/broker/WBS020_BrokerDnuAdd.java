@@ -134,7 +134,7 @@ public class WBS020_BrokerDnuAdd {
 
         //закриває фрейм DNU
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#brokers-blacklist-form").shouldNotBe(visible, EXPECT_GLOBAL);
 
         //перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));

@@ -56,8 +56,7 @@ public class WBS021_BrokerDnuDell {
         final String agentCellPhone = globalPhoneNumber + "02";
 
         // Great new load
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Відкриває створення брокера, клац по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
@@ -145,7 +144,7 @@ public class WBS021_BrokerDnuDell {
 
         // Закриває фрейм DNU
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#brokers-blacklist-form").shouldNotBe(visible, EXPECT_GLOBAL);
 
         // Перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
