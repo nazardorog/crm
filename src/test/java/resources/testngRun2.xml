@@ -3,14 +3,7 @@
 
     <test name="BigTruck">
         <classes>
-            <class name="web.bigTruck.smoke.loadBoard.WBS009_LoadDriverAddDell"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS010_LoadWareHousesAddDell"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS011_LoadExpensesAddDell"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS012_LoadCheckCallAdd"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS013_LoadCheckCallEdit"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS014_LoadCheckCallDell"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS015_LoadConfirmation"/>
-            <class name="web.bigTruck.smoke.loadBoard.WBS016_LoadGetBol"/>
+            <class name="web.expedite.full.loadBoard.WEF001_LoadLogin"/>
         </classes>
     </test>
 </suite>

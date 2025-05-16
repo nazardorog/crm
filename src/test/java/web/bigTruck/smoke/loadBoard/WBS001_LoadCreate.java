@@ -40,10 +40,9 @@ public class WBS001_LoadCreate {
         LoginHelper.login();
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
-        //brocker
+        //broker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").shouldBe(visible).setValue("Auto test broker");
@@ -196,14 +195,14 @@ public class WBS001_LoadCreate {
 
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
-        $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
+        $("#add_driver").shouldNotBe(visible, EXPECT_GLOBAL);
 
         //закриває модальне вікно Dispatch Load
-        $(".toast-message").shouldNotBe(visible, Duration.ofSeconds(10));
-        $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $(".toast-message").shouldNotBe(visible, EXPECT_GLOBAL);
+        $(".load-info-modal-dialog .close").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        $(".logo-mini-icon").shouldBe(enabled, EXPECT_GLOBAL).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("td a.view_load").shouldHave(text(loadNumber));

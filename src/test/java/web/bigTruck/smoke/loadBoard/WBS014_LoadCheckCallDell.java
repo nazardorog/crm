@@ -39,8 +39,7 @@ public class WBS014_LoadCheckCallDell {
         LoginHelper.login();
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
@@ -180,6 +179,11 @@ public class WBS014_LoadCheckCallDell {
         //клік по Submit фрейм Add driver
         $("#update_load_driver_send").click();
         $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
+
+        // Тост вспливайка
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Driver successfully added"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         //закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));

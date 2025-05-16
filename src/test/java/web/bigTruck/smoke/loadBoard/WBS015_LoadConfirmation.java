@@ -1,5 +1,6 @@
 package web.bigTruck.smoke.loadBoard;
 
+import com.codeborne.selenide.SelenideElement;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.Configuration;
@@ -14,11 +15,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
@@ -44,11 +47,10 @@ public class WBS015_LoadConfirmation {
         WebDriverConfig.setup();
         LoginHelper.login();
 
-        //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        // Створює новий вантаж
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
-        //brocker
+        // Broker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").shouldBe(visible).setValue("Auto test broker");
@@ -61,7 +63,7 @@ public class WBS015_LoadConfirmation {
                 .findBy(text("Auto test agent"))
                 .click();
 
-        //input other data
+        // Input other data
         Random random = new Random();
         String reference = String.format("%3d", random.nextInt(10000000));
         String commodity = String.format("%3d", random.nextInt(10000000));
@@ -74,7 +76,7 @@ public class WBS015_LoadConfirmation {
         $$("#loads-local_type label").findBy(text("Local")).click();
         $$("#loads-load_type label").findBy(text("Board")).click();
 
-        //load file
+        // Load file
         $(".load_documents_counter-flex").click();
         $("#select2-loaddocuments-0-type-container").click();
         $$(".select2-results__option").findBy(text("Rate confirmation")).click();
@@ -83,148 +85,175 @@ public class WBS015_LoadConfirmation {
         if (new File("/.dockerenv").exists()) {
             filePath = "/app/Empire/1pdf.pdf";  // для Docker
         } else {
-            filePath = "C:\\Empire\\1pdf.pdf";  // для локально
+            filePath = Configuration.downloadsFolder + "1pdf.pdf";  // для локально
         }
         File file = new File(filePath);
 
         $("#loaddocuments-0-file").uploadFile(file);
         $("#load_documents_modal_pseudo_submit").click();
 
-        //вкладка Origin & Destination
+        // Вкладка Origin & Destination
         $("#origin-destination-tab").click();
 
-        //Origin Shippers
+        // Origin Shippers
         $("#select2-shippers-receiver-origin-container").shouldBe(enabled).click();
         $(".select2-search__field").setValue("Auto test shipper 1");
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 1"))
                 .click();
 
-        //Destination Shippers
+        // Destination Shippers
         $("#select2-shippers-receiver-destination-container").shouldBe(enabled).click();
         $(".select2-search__field").setValue("Auto test shipper 2");
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 2"))
                 .click();
 
-        //calendar Origin Shippers Date from
+        // Calendar Origin Shippers Date from
         $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
         Calendar.setDateTime(1);
 
-        //calendar Origin Shippers Date to
+        // Calendar Origin Shippers Date to
         $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
         Calendar.setDateTime(2);
 
-        //calendar Destination Shippers Date from
+        // Calendar Destination Shippers Date from
         $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
         Calendar.setDateTime(3);
 
-        //calendar Destination Shippers Date to
+        // Calendar Destination Shippers Date to
         $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
         Calendar.setDateTime(4);
 
-        //pallets Origin Shippers
+        // Pallets Origin Shippers
         $("#loadspickuplocations-0-pallets").setValue("1");
         $("#loadspickuplocations-0-weight").setValue("1");
         $("#loadspickuplocations-0-pcs").setValue("1");
 
-        //pallets Destination Shippers
+        // Pallets Destination Shippers
         $("#loadsdeliverylocations-0-pallets").setValue("1");
         $("#loadsdeliverylocations-0-weight").setValue("1");
         $("#loadsdeliverylocations-0-pcs").setValue("1");
 
-        // клік по кнопці "Submit & Dispatch" на фрейм New Load
+        // Click по кнопці "Submit & Dispatch" на фрейм New Load
         $("#add_load_send_dispatch").click();
 
-        //dispatch board
+        // Dispatch board
         $("#view_load").shouldBe(visible, EXPECT_GLOBAL);
         $("#view_load").shouldBe(text("Dispatch #"));
 
-        // отримує номер вантажу
+        // Отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
 
-        //клік add Driver
+        // Click add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
 
-        //вибирає Carrier
+        // Вибирає Carrier
         $("#select2-carrierId-container").click();
         $$(".select2-results__option").findBy(text("AutoTestOwner1 INC")).click();
         $("#select2-carrierId-container").shouldHave(text("AutoTestOwner1 INC"));
 
-        //вибирає Truck
+        // Вибирає Truck
         $("#select2-trucks-template-container").click();
         $(".select2-search__field").setValue("0305");
         $$(".select2-results__option").findBy(text("0305 (AutoTestOwner1 INC)")).click();
         $("#select2-trucks-template-container").shouldHave(text("0305 (AutoTestOwner1 INC)"));
 
-        //вибирає Driver
+        // Вибирає Driver
         $("#select2-load_driver_id-container").click();
         $(".select2-search__field").setValue("Auto");
         $$(".select2-results__option").findBy(text("Auto Test Driver3 Big Truck")).click();
         $("#select2-load_driver_id-container").shouldHave(text("Auto Test Driver3 Big Truck"));
 
-        //вибирає Team Driver
+        // Вибирає Team Driver
         $("#select2-load_team_driver_id-container").click();
         $(".select2-search__field").setValue("Auto");
         $$(".select2-results__option").findBy(text("Auto Test Driver4 Big Truck")).click();
         $("#select2-load_team_driver_id-container").shouldHave(text("Auto Test Driver4 Big Truck"));
 
-        //вибирає Trailer
+        // Вибирає Trailer
         $("#select2-trailer_id-create-container").click();
         $(".select2-search__field").setValue("Auto");
         $$(".select2-results__option").findBy(text("AutoTest Trailer1")).click();
         $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer1"));
 
-        //вибирає Location From вводить Location To
+        // Вибирає Location From вводить Location To
         $("#loadexpenses-location").selectOption("Kansas City, MO 64110");
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
-        //вибирає Start Date
+        // Вибирає Start Date
         $(".kv-datetime-picker").click();
         Calendar.setDateTime(0);
 
-        //клік по Submit фрейм Add driver
+        // Click по Submit фрейм Add driver
         $("#update_load_driver_send").click();
         $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
 
-        //закриває модальне вікно Dispatch Load
+        // Закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-        //перевіряє що вантаж відображається на Loads en Route
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
+        // Перевіряє що вантаж відображається на Loads en Route
+        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30));
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
 
-        //очищає папку перед завантаженням
-        String folderPath = Configuration.downloadsFolder;
-        clearDownloadFolder(folderPath);
-
-        //*** Відкриває меню і вибирає Get load confirmation ***
+        // Відкриває меню і вибирає Get load confirmation
         Thread.sleep(1000);
         $("#trucks_en_route .dropdown-toggle").shouldBe(enabled).click();
         $$(".dropdown-menu-right li").findBy(text("Get load confirmation")).shouldBe(enabled, Duration.ofSeconds(10)).click();
 
-        //Перевіряє прев"ю
+        // Перевіряє прев"ю
         $(".modal-view-pdf .bootstrap-dialog-title").shouldHave(text("Load confirmation Trip#" + loadNumber));
         $(".Sheet").shouldHave(text("Empire National Inc 4600 Hendersonville Rd St. D_1 FLETCHER, NC 28732_1"));
 
-        //завантажує файл
+        // Чекає завантаження файлу 10 секунд
+        downloadFile();
+    }
+
+    private static void downloadFile() throws IOException {
+
+        // Папка завантаження
+        String downFolder = Configuration.downloadsFolder;
+        String downFolderAfter = Configuration.downloadsFolder + "test-download/";
+        String fileNameTo = "dompdf_out.pdf";
+        String fileNameAfter = "WBS015.pdf";
+
+        // Перевіряє перед завантаженням наявність файлу, якщо є видаляє його
+        Path filePath = Paths.get(downFolderAfter + fileNameAfter);
+        if (Files.exists(filePath)) {
+            Files.delete(filePath);
+        }
+
+        // Завантажує файл
         $("#get_pdf").shouldBe(visible,enabled).click();
 
-        // чекає завантаження файлу 10 секунд
         File downloadedPdf = null;
         int attempts = 0;
         int maxAttempts = 20; // 20 * 500мс = 10 секунд
         while (attempts < maxAttempts) {
             try {
-                Optional<Path> found = Files.walk(Paths.get(folderPath))
-                        .filter(p -> p.toString().endsWith("dompdf_out.pdf"))
+                Optional<Path> found = Files.walk(Paths.get(downFolder)) // Пошук завантаженого файлу
+                        .filter(p -> p.toString().endsWith(fileNameTo))
                         .findFirst();
 
                 if (found.isPresent()) {
-                    downloadedPdf = found.get().toFile();
+                    Path source = found.get(); // Шлях файлу
+                    Path tempFolder = source.getParent(); // Шлях тимчасової папки
+                    Path toDir = Paths.get(downFolderAfter); // Шлях папки для переміщення
+                    Path file = toDir.resolve(fileNameAfter); // Нове ім"я файлу
+
+                    // Створюємо папку, якщо не існує
+                    Files.createDirectories(toDir);
+
+                    // Переміщуємо файл
+                    Files.move(source, file, StandardCopyOption.REPLACE_EXISTING);
+
+                    // Видаляє тимчасову папку
+                    Files.delete(tempFolder);
+
+                    downloadedPdf = file.toFile();
                     break;
                 }
             } catch (IOException e) {

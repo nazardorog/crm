@@ -4,15 +4,11 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
@@ -21,7 +17,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-public class WBS004_LoadEnRoutToDelivered {
+public class WBS004_LoadEnRouteToDelivered {
 
     // Click Up:
     // CRM SEMI Truck
@@ -38,8 +34,7 @@ public class WBS004_LoadEnRoutToDelivered {
         LoginHelper.login();
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //brocker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));

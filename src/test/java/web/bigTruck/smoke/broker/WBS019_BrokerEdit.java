@@ -71,8 +71,7 @@ public class WBS019_BrokerEdit {
         final String agentCellPhone = globalPhoneNumber + "02";
 
         // Great new load
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Відкриває створення брокера, клац по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();

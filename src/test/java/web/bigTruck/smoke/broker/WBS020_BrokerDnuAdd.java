@@ -46,8 +46,7 @@ public class WBS020_BrokerDnuAdd {
         generateDataNewBroker(randomNumber, randomNumberMc);
 
         //створює новий вантаж
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         //відкриває створення брокера, клац по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
@@ -135,7 +134,7 @@ public class WBS020_BrokerDnuAdd {
 
         //закриває фрейм DNU
         $("#broker_from_dnu_send").click();
-        $("#brokers-blacklist-form").shouldNotBe(visible, Duration.ofSeconds(10));
+        $("#brokers-blacklist-form").shouldNotBe(visible, EXPECT_GLOBAL);
 
         //перевіряє що DNU встановлено для брокера
         rowBroker.$("td", 8).shouldHave(text("DNU"));
