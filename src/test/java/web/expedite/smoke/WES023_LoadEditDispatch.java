@@ -1,7 +1,6 @@
 package web.expedite.smoke;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -12,7 +11,6 @@ import utilsWeb.commonWeb.WebDriverConfig;
 import utilsWeb.configWeb.GlobalConfig;
 
 import java.io.File;
-import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
