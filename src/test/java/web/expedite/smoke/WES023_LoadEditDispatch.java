@@ -252,7 +252,7 @@ public class WES023_LoadEditDispatch {
         rowLoadEdit.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
         rowLoadEdit.$$(".dropdown-menu-right li").findBy(text("Edit Dispatch")).click();
 
-        // Edit Dispatch load checkData
+        // Edit Dispatch load check data. Close frame Dispatch load
         $("#load_dispatch").shouldBe(visible, EXPECT_GLOBAL);
         $("#select2-load_truck_id-0-container").shouldHave(text(atTruckEdit));
         $("#select2-load_driver_id-0-container").shouldHave(text(atDriverEdit));
