@@ -97,6 +97,9 @@ public class WES024_DispatchDriverAddDell {
         // Видаляє Driver2 і перевіряє що видалений
         rowDriver2.$(".icon-close-dispatch-name").click();
         rowDriver2.shouldNotBe(visible, EXPECT_5);
+
+        // Перевіряє Load Expenses після видалення водія
+        rate.get(2).shouldHave(text("$800.00"));
     }
 
     @AfterMethod(alwaysRun = true)
