@@ -1,4 +1,4 @@
-package web.expedite.smoke;
+package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
