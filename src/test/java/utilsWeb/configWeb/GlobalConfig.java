@@ -26,6 +26,10 @@ public class GlobalConfig {
                 USERNAME = dotenv.get("EXP_TRACKER_USERNAME1", "defaultExpediteUser");
                 PASSWORD = dotenv.get("EXP_TRACKER_PASSWORD1", "defaultExpeditePass");
                 break;
+            case "expedite_acc":  // маленькими літерами
+                USERNAME = dotenv.get("EXP_ACC_USERNAME1", "defaultExpediteUser");
+                PASSWORD = dotenv.get("EXP_ACC_PASSWORD1", "defaultExpeditePass");
+                break;
             default:
                 throw new IllegalArgumentException("Unknown suite: " + OPTION_LOGIN);
         }

@@ -26,7 +26,7 @@ public class LoginHelper {
                     $(".btn.btn-primary.btn-block.btn-flat").click());
 
             Allure.step("Перевіряє закриття фрейм Login", () ->
-                    $(".login-page").shouldNotBe(visible, EXPECT_5));
+                    $(".login-page").shouldNotBe(visible, EXPECT_GLOBAL));
         });
     }
 }
