@@ -1,7 +1,6 @@
 package web.expedite.smoke;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -12,7 +11,6 @@ import utilsWeb.commonWeb.WebDriverConfig;
 import utilsWeb.configWeb.GlobalConfig;
 
 import java.io.File;
-import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
@@ -22,6 +20,10 @@ import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WES023_LoadEditDispatch {
 
+    // Click Up:
+    // CRM EXPEDITE - Smoke - Loadboard
+    // 12. Actions / Edit Dispatch
+
     @Test
     public void editDispatch() {
 
@@ -30,7 +32,7 @@ public class WES023_LoadEditDispatch {
         WebDriverConfig.setup();
         LoginHelper.login();
 
-        // Great new load
+        // Create new load
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Remove chat widget
@@ -147,7 +149,7 @@ public class WES023_LoadEditDispatch {
         $(".content-header").shouldHave(text("Load Board"));
         $("#main-loads-grid-filters").shouldBe(visible, EXPECT_GLOBAL);
 
-        // Перевіряє створений Load в списку
+        // Перевіряє створений Load в таблиці
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0).shouldHave(text(loadNumber));
         rowLoad.$("td a.view_load").shouldHave(text(loadNumber));
@@ -240,6 +242,7 @@ public class WES023_LoadEditDispatch {
 
         $("#load_dispatch").shouldNotBe(visible, EXPECT_GLOBAL);
 
+        // Edit check data Load board
         $("input[name='LoadsSearch[our_pro_number]']").shouldHave(value(loadNumber));
         SelenideElement rowLoadEdit = $$("table.table-striped tbody tr").get(0).shouldHave(text(loadNumber));
         rowLoadEdit.$("td a.view_load").shouldHave(text(loadNumber));
@@ -247,7 +250,7 @@ public class WES023_LoadEditDispatch {
         rowLoadEdit.$$("td a.view_driver").get(0).shouldHave(text(atDriverEdit));
         $(".edited-model-field").shouldHave(text(atNotesPublicEdit));
 
-        // Редагування вантажу через Dispatch
+        // Edit load Dispatch load
         rowLoadEdit.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).click();
         rowLoadEdit.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
         rowLoadEdit.$$(".dropdown-menu-right li").findBy(text("Edit Dispatch")).click();
