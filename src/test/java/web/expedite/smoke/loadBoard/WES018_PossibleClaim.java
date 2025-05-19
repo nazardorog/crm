@@ -1,4 +1,4 @@
-package web.expedite.smoke;
+package web.expedite.smoke.loadBoard;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;

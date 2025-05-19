@@ -1,8 +1,7 @@
-package web.expedite.smoke;
+package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.Calendar;
@@ -14,25 +13,27 @@ import utilsWeb.configWeb.GlobalConfig;
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-public class WES014_LoadEdit {
+public class WES023_LoadEditDispatch {
+
+    // Click Up:
+    // CRM EXPEDITE - Smoke - Loadboard
+    // 12. Actions / Edit Dispatch
 
     @Test
-    public void edit() throws InterruptedException {
+    public void editDispatch() {
 
         // Login
         GlobalConfig.OPTION_LOGIN = "expedite";
         WebDriverConfig.setup();
         LoginHelper.login();
 
-        // Відкриває New Load
-        $(".logo-mini-icon").shouldBe(enabled, EXPECT_GLOBAL);
-        $("#new_load").shouldBe(enabled).click();
+        // Create new load
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Remove chat widget
         boolean chatWidget = $(".chat-widget").isDisplayed();
@@ -134,6 +135,7 @@ public class WES014_LoadEdit {
             executeJavaScript("arguments[0].style.display='none';", $(".help-block"));
         }
 
+        // Dispatch Load Type. Close frame Dispatch
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
         $("#dispatch_load_send").click();
         $("#load_dispatch").shouldNotBe(visible, EXPECT_GLOBAL);
@@ -147,9 +149,8 @@ public class WES014_LoadEdit {
         $(".content-header").shouldHave(text("Load Board"));
         $("#main-loads-grid-filters").shouldBe(visible, EXPECT_GLOBAL);
 
-        // Перевіряє створений Load в списку
+        // Перевіряє створений Load в таблиці
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
-
         SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0).shouldHave(text(loadNumber));
         rowLoad.$("td a.view_load").shouldHave(text(loadNumber));
         rowLoad.$("td a.view_truck").shouldHave(text(atTruck));
@@ -162,89 +163,108 @@ public class WES014_LoadEdit {
         rowLoad.$("td a.view_delivery_location").shouldHave(text("New York, NY 10002"));
         rowLoad.$$(".loads-locations").get(1).shouldHave(text("Wt 1 Plt 1 Pcs 1"));
 
-        // Редагування вантажу
-        rowLoad.$("button.dropdown-toggle").shouldBe(clickable).click();
-        rowLoad.$(".dropdown-menu-right").shouldBe(visible, EXPECT_GLOBAL);
-        rowLoad.$$(".dropdown-menu-right li").findBy(text("Edit Load")).click();
+        // Редагування вантажу через Dispatch
+        rowLoad.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).click();
+        rowLoad.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
+        rowLoad.$$(".dropdown-menu-right li").findBy(text("Edit Dispatch")).click();
 
-        // Data for Edit a Load
-        final String atBrokerEdit = "at_Broker2";
-        final String atBrokerAgentEdit = "Auto test agent2";
-        final String atShippersOriginEdit = "Auto test shipper7";
-        final String atShippersDistEdit = "Auto test shipper8";
+        // Data for edit a Load
+        final String atTruckEdit = "0304";
+        final String atDriverEdit = "AutoTest Driver2";
+        final String atBookedWithEdit = "Auto Test Disp 2";
+        final String atLoadTypeEdit = "Warm";
+        final String atNotesPublicEdit = "Notes Public 2";
+        final String atUser1Edit = "auto test tracker 1";
+        final String atUser2Edit = "Auto Test user2";
+        final String atTeamDriverEdit = "Auto Test2";
 
-        // Перевіряє відкриття фрейм Update Load
-        $("#update_load").shouldBe(visible, EXPECT_GLOBAL);
-        $("#broker_block").shouldBe(visible, EXPECT_GLOBAL);
+        // Edit Dispatch load
+        $("#load_dispatch").shouldBe(visible, EXPECT_GLOBAL);
 
-        // Edit Broker
-        $("#delete_load_broker").click();
-        $("#select2-broker_search-container").shouldBe(clickable).click();
-        $(".select2-search__field").setValue(atBrokerEdit);
-        $$(".select2-results__options").findBy(text(atBrokerEdit)).click();
-        $$("select#loads-agent_id option").findBy(exactText(atBrokerAgentEdit)).click();
+        // Edit Dispatch водить Truck
+        $("#select2-load_truck_id-0-container").shouldBe(visible, EXPECT_GLOBAL).click();
+        $(".select2-search__field").setValue(atTruckEdit);
+        $$("li.select2-results__option").findBy(text(atTruckEdit)).click();
+        $("#select2-load_truck_id-0-container").shouldHave(text(atTruckEdit), EXPECT_GLOBAL);
 
-        // Edit Origin Shippers
-        $("#shippers-origin-sortable .delete_load_shipper").click();
-        $("#select2-shippers-receiver-origin-container").click();
-        $(".select2-search__field").setValue(atShippersOriginEdit);
-        $$("li.select2-results__option").findBy(text(atShippersOriginEdit)).click();
+        // Edit Dispatch Remove help block
+        boolean helpBlockEdit = $(".help-block").shouldBe(visible, EXPECT_5).isDisplayed();
+        if (helpBlockEdit){
+            executeJavaScript("arguments[0].style.display='none';", $(".help-block"));
+        }
 
-        // Edit Destination Shippers
-        $("#shippers-destination-sortable .delete_load_shipper").click();
-        $("#select2-shippers-receiver-destination-container").click();
-        $(".select2-search__field").setValue(atShippersDistEdit);
-        $$("li.select2-results__option").findBy(text(atShippersDistEdit)).click();
+        // Edit Dispatch перевіряє Driver
+        $("#select2-load_driver_id-0-container").shouldHave(Condition.text(atDriverEdit));
 
-        // Edit calendar Origin Shippers Date from
-        $("#loadspickuplocations-0-date_from-datetime .kv-datetime-picker").click();
-        Calendar.setDateTime(2);
+        // Edit Dispatch Booked With
+        $("#loads-booked_with").selectOption(atBookedWithEdit);
+        $("#loads-booked_with").getSelectedOption().shouldHave(text(atBookedWithEdit));
 
-        // Edit calendar Origin Shippers Date to
-        $("#loadspickuplocations-0-date_to-datetime .kv-datetime-picker").click();
-        Calendar.setDateTime(3);
+        // Edit Dispatch Load Type
+        $("#loads-load_type input[value='1']").shouldBe(Condition.selected);
+        $$("#loads-load_type label").findBy(Condition.text(atLoadTypeEdit)).click();
+        $("#loads-load_type input[value='2']").shouldBe(Condition.selected);
 
-        // Edit calendar Destination Shippers Date from
-        $("#loadsdeliverylocations-0-date_from-datetime .kv-datetime-picker").click();
-        Calendar.setDateTime(4);
+        // Edit Dispatch Notes Public
+        $("#loadsdetail-notes_public").setValue(atNotesPublicEdit);
 
-        // Edit calendar Destination Shippers Date to
-        $("#loadsdeliverylocations-0-date_to-datetime .kv-datetime-picker").click();
-        Calendar.setDateTime(5);
+        // Edit Assign user add two
+        $("#loadassignedusers-user_id").selectOption("Auto Test user2");
+        $("#loadassignedusers-user_id").getSelectedOption().shouldHave(text("Auto Test user2"));
+        $("#load_assigned_users_send").click();
+        $$("table.table-assigned-users tbody tr").get(2).shouldHave(text("Auto Test user2"));
 
-        // Edit pallets Origin Shippers
-        $("#loadspickuplocations-0-pallets").setValue("2");
-        $("#loadspickuplocations-0-weight").setValue("2");
-        $("#loadspickuplocations-0-pcs").setValue("2");
+        // Click Submit frame Dispatch load
+        $("#dispatch_load_send").click();
 
-        // Edit pallets Destination Shippers
-        $("#loadsdeliverylocations-0-pallets").setValue("2");
-        $("#loadsdeliverylocations-0-weight").setValue("2");
-        $("#loadsdeliverylocations-0-pcs").setValue("2");
+        // Driver automatic status change to Available On
+        boolean statusDriver = $("#set-automatic-status-link").shouldBe(visible, EXPECT_5).isDisplayed();
+        if (statusDriver){
+            $("#set-automatic-status-link").shouldHave(text("please set the automatic status change to Available On")).click();
+            $("#automatic-status-modal").shouldBe(visible, EXPECT_GLOBAL);
+            $(".text-set-status-link").shouldHave(matchText("Please note that the pick-up for this load is scheduled for\\s+.*\\. As a result, the truck's status will automatically change to 'Available On' in the delivery city at 12:01 AM on the pick-up day\\."));
+            $("#automatic_status_send").click();
 
-        // Click Submit frame Update Load
-        $("#update_load_send").shouldBe(clickable, EXPECT_GLOBAL).click();
-        $("#update_load").shouldNotBe(visible, EXPECT_GLOBAL);
+            // Toast massage
+            $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+            $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Status will be automatically change."));
+            $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
-        // Load board знаходить створений вантаж
-        refresh();
-        $("#main-loads-grid-filters").shouldBe(visible, EXPECT_GLOBAL);
-        $(".logo-mini-icon").shouldBe(enabled, EXPECT_GLOBAL);
-        $(".content-header").shouldHave(text("Load Board"));
-        $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
+            // Close frame Dispatch load
+            $("#load_dispatch").shouldBe(visible, EXPECT_GLOBAL);
+            $("#dispatch_load_send").click();
 
-        // Перевіряє відредаговані дані
+            // Toast massage
+            $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+            $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Load dispatch sucessfully added"));
+            $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
+        }
+
+        $("#load_dispatch").shouldNotBe(visible, EXPECT_GLOBAL);
+
+        // Edit check data Load board
+        $("input[name='LoadsSearch[our_pro_number]']").shouldHave(value(loadNumber));
         SelenideElement rowLoadEdit = $$("table.table-striped tbody tr").get(0).shouldHave(text(loadNumber));
         rowLoadEdit.$("td a.view_load").shouldHave(text(loadNumber));
-        rowLoadEdit.$("td a.view_truck").shouldHave(text(atTruck));
-        rowLoadEdit.$$("td a.view_driver").get(0).shouldHave(text("Auto Test"));
-        rowLoadEdit.$$("td a.view_driver").get(1).shouldHave(text("Auto Test2"));
-        rowLoadEdit.$("td a.view_owner").shouldHave(text(atOwner));
-        rowLoadEdit.$("td a.view_broker").shouldHave(text(atBrokerEdit));
-        rowLoadEdit.$("td a.view_pick_up_location").shouldHave(text("Washington, DC 20016"));
-        rowLoadEdit.$$(".loads-locations").get(0).shouldHave(text("Wt 2 Plt 2 Pcs 2"));
-        rowLoadEdit.$("td a.view_delivery_location").shouldHave(text("Monroeville, PA 15146"));
-        rowLoadEdit.$$(".loads-locations").get(1).shouldHave(text("Wt 2 Plt 2 Pcs 2"));
+        rowLoadEdit.$("td a.view_truck").shouldHave(text(atTruckEdit));
+        rowLoadEdit.$$("td a.view_driver").get(0).shouldHave(text(atDriverEdit));
+        $(".edited-model-field").shouldHave(text(atNotesPublicEdit));
+
+        // Edit load Dispatch load
+        rowLoadEdit.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).click();
+        rowLoadEdit.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
+        rowLoadEdit.$$(".dropdown-menu-right li").findBy(text("Edit Dispatch")).click();
+
+        // Edit Dispatch load check data. Close frame Dispatch load
+        $("#load_dispatch").shouldBe(visible, EXPECT_GLOBAL);
+        $("#select2-load_truck_id-0-container").shouldHave(text(atTruckEdit));
+        $("#select2-load_driver_id-0-container").shouldHave(text(atDriverEdit));
+        $("#loads-booked_with").shouldHave(text(atBookedWithEdit));
+        $$("label").findBy(text("Warm")).$("input").shouldBe(Condition.selected);
+        $("#loads-load_type input[value='2']").shouldBe(Condition.selected);
+        $$("table.table-assigned-users tbody tr").get(1).shouldHave(text(atUser1Edit));
+        $$("table.table-assigned-users tbody tr").get(2).shouldHave(text(atUser2Edit));
+        $("#load_dispatch button.close").click();
     }
 
     @AfterMethod(alwaysRun = true)

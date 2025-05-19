@@ -68,15 +68,15 @@
             <class name="web.expedite.smoke.loadBoard.WES010_DispatchAddTruckByTeamDriver"/>
             <class name="web.expedite.smoke.loadBoard.WES011_DispatchAssignUser"/>
             <class name="web.expedite.smoke.loadBoard.WES012_DispatchCalculate"/>
-            <class name="web.expedite.smoke.WES013_FileOpenAll"/>
-            <class name="web.expedite.smoke.WES014_LoadEdit"/>
-            <class name="web.expedite.smoke.WES015_LoadAddSecondTruck"/>
-            <class name="web.expedite.smoke.WES016_LoadChangeTruck"/>
-            <class name="web.expedite.smoke.WES017_LoadEnRouteToDelivered"/>
-            <class name="web.expedite.smoke.WES018_PossibleClaim"/>
-            <class name="web.expedite.smoke.WES019_LoadMarkAsInvoiced"/>
-            <class name="web.expedite.smoke.WES023_LoadEditDispatch"/>
-            <class name="web.expedite.smoke.WES024_DispatchDriverAddDell"/>
+            <class name="web.expedite.smoke.loadBoard.WES013_FileOpenAll"/>
+            <class name="web.expedite.smoke.loadBoard.WES014_LoadEdit"/>
+            <class name="web.expedite.smoke.loadBoard.WES015_LoadAddSecondTruck"/>
+            <class name="web.expedite.smoke.loadBoard.WES016_LoadChangeTruck"/>
+            <class name="web.expedite.smoke.loadBoard.WES017_LoadEnRouteToDelivered"/>
+            <class name="web.expedite.smoke.loadBoard.WES018_PossibleClaim"/>
+            <class name="web.expedite.smoke.loadBoard.WES019_LoadMarkAsInvoiced"/>
+            <class name="web.expedite.smoke.loadBoard.WES023_LoadEditDispatch"/>
+            <class name="web.expedite.smoke.loadBoard.WES024_DispatchDriverAddDell"/>
         </classes>
     </test>
     <test name="WEF" preserve-order="true">
