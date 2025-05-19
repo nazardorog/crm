@@ -94,7 +94,7 @@ public class WES024_DispatchDriverAddDell {
         // Перевіряє Load Expenses після додавання Driver2
         rate.get(3).shouldHave(text("$900.00"));
 
-        // Видаляє Driver2 і перевіряє що видалений
+        // Видаляє Driver2 перевіряє що видалений
         rowDriver2.$(".icon-close-dispatch-name").click();
         rowDriver2.shouldNotBe(visible, EXPECT_5);
 
