@@ -77,6 +77,7 @@
             <class name="web.expedite.smoke.loadBoard.WES019_LoadMarkAsInvoiced"/>
             <class name="web.expedite.smoke.loadBoard.WES023_LoadEditDispatch"/>
             <class name="web.expedite.smoke.loadBoard.WES024_DispatchDriverAddDell"/>
+            <class name="web.expedite.smoke.loadBoard.WES025_DispatchWarehouseAddDell"/>
         </classes>
     </test>
     <test name="WEF" preserve-order="true">
