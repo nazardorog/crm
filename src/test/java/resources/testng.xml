@@ -71,6 +71,7 @@
             <class name="web.expedite.smoke.WES013_FileOpenAll"/>
             <class name="web.expedite.smoke.WES014_LoadEdit"/>
             <class name="web.expedite.smoke.WES015_LoadAddSecondTruck"/>
+            <class name="web.expedite.smoke.WES016_LoadChangeTruck"/>
             <class name="web.expedite.smoke.WES023_LoadEditDispatch"/>
             <class name="web.expedite.smoke.WES024_DispatchDriverAddDell"/>
         </classes>
