@@ -2,11 +2,9 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import utilsWeb.commonWeb.Calendar;
-import utilsWeb.commonWeb.LoginHelper;
-import utilsWeb.commonWeb.NewLoadExpedite;
-import utilsWeb.commonWeb.WebDriverConfig;
+import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.GlobalConfig;
 
 import static com.codeborne.selenide.Condition.*;
@@ -91,5 +89,10 @@ public class WES025_DispatchWarehouseAddDell {
         // Перевіряє після видалення Load Expenses
         expenses.get(2).shouldHave(text("$800.00"));
         expenses.get(3).$(".broker-rate-sum").shouldHave(exactText(""));
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeWebDriver() {
+        CloseWebDriver.tearDown();
     }
 }
