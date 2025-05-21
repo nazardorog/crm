@@ -14,12 +14,13 @@ Dockerfile*
 .jenkins_home/
 jenkins_home/
 Jenkinsfile
-.dockerignore
+
 
 # Системні файли
 *.log
 *.tmp
 .DS_Store
+.vscode
 .env
 
 # Bash script
