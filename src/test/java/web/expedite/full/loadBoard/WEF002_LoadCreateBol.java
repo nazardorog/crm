@@ -3,11 +3,12 @@ package web.expedite.full.loadBoard;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 import java.time.Duration;
@@ -16,6 +17,7 @@ import java.time.YearMonth;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static utilsWeb.configWeb.GlobalLogin.uploadFolder;
 
 public class WEF002_LoadCreateBol {
 
@@ -23,9 +25,7 @@ public class WEF002_LoadCreateBol {
     public void createBol() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").shouldBe(enabled).click();
@@ -96,7 +96,7 @@ public class WEF002_LoadCreateBol {
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        File file = new File("C:/Empire/pdf1.pdf");
+        File file = new File(uploadFolder() + "/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
         if (!$("#loaddocuments-0-type").isDisplayed()){ //scroll

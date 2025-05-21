@@ -5,7 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 import java.time.Duration;
@@ -25,9 +26,7 @@ public class WEF010_DispatchAddTruckByTruck {
     public void addTruckByTruck() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Data for creating a load
         String atBroker = "at_Broker1";

@@ -8,7 +8,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-import utilsWeb.configWeb.GlobalConfig;
+
+import utilsWeb.configWeb.GlobalLogin;
 
 import static utilsWeb.configWeb.GlobalTimePeriods.*;
 
@@ -18,9 +19,7 @@ public class CancelLoadExpedite {
     public void cancelLoad () {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 

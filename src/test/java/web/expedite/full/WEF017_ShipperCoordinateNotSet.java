@@ -23,9 +23,7 @@ public class WEF017_ShipperCoordinateNotSet {
     public void coordinateNotSet() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").shouldBe(enabled).click();

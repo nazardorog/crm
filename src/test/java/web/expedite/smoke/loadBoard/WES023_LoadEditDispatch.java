@@ -6,9 +6,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.Calendar;
 import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.commonWeb.LoginHelper;
-import utilsWeb.commonWeb.WebDriverConfig;
-import utilsWeb.configWeb.GlobalConfig;
+
+
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 
@@ -28,9 +28,7 @@ public class WES023_LoadEditDispatch {
     public void editDispatch() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Create new load
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();

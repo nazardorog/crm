@@ -32,9 +32,7 @@ public class WBS007_LoadDeliveredToEnRout {
     public void deliveredToEnRout() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         //створює новий вантаж
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();

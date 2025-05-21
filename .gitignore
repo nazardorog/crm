@@ -20,6 +20,7 @@ Jenkinsfile
 *.log
 *.tmp
 .DS_Store
+.env
 
 # Bash script
 run-tests.sh

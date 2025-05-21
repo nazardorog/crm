@@ -25,9 +25,7 @@ public class WBS033_ShipperReceiverEdit {
     public void edit() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         //переходить до списку Shippers Receivers
         $(".shippers-receivers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();

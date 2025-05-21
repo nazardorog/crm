@@ -2,8 +2,9 @@ package web.expedite.ui;
 
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.time.Duration;
 
@@ -17,9 +18,7 @@ public class WEU002_Broker {
     public void broker() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 

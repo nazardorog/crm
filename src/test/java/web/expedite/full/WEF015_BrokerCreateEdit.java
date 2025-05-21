@@ -20,9 +20,7 @@ public class WEF015_BrokerCreateEdit {
     public void create() throws InterruptedException{
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Remove chat widget
         boolean chatWidget = $(".chat-widget").isDisplayed();

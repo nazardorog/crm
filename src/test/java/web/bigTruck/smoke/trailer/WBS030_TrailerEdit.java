@@ -33,9 +33,7 @@ public class WBS030_TrailerEdit {
     public void edit() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         //переходить до списку Trailers
         $(".trailers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();

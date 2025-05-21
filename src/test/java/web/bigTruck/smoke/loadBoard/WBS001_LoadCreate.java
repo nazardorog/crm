@@ -1,5 +1,6 @@
 package web.bigTruck.smoke.loadBoard;
 
+import com.codeborne.selenide.Configuration;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.ElementsCollection;
@@ -8,6 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
@@ -35,9 +38,7 @@ public class WBS001_LoadCreate {
     public void create() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         //створює новий вантаж
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
@@ -73,15 +74,9 @@ public class WBS001_LoadCreate {
         $("#select2-loaddocuments-0-type-container").click();
         $$(".select2-results__option").findBy(text("Rate confirmation")).click();
 
-        String filePath;
-        if (new File("/.dockerenv").exists()) {
-            filePath = "/app/Empire/1pdf.pdf";  // для Docker
-        } else {
-            filePath = "C:\\Empire\\1pdf.pdf";  // для локально
-        }
-        File file = new File(filePath);
+        File filePathUp = new File(Configuration.downloadsFolder + "1pdf.pdf");
 
-        $("#loaddocuments-0-file").uploadFile(file);
+        $("#loaddocuments-0-file").uploadFile(filePathUp);
         $("#load_documents_modal_pseudo_submit").click();
 
         //вкладка Origin & Destination

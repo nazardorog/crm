@@ -3,13 +3,14 @@ package web.expedite.full.loadBoard;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 import java.time.Duration;
@@ -28,10 +29,8 @@ public class WEF013_DispatchAssignUser {
         @Test
         public void assignUser() throws InterruptedException {
 
-            // Login
-            GlobalConfig.OPTION_LOGIN = "expedite";
-            WebDriverConfig.setup();
-            LoginHelper.login();
+        // Login
+        GlobalLogin.login("exp_disp1");
 
             $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30));
             $("#new_load").shouldBe(enabled).click();

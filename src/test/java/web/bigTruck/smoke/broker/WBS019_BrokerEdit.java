@@ -47,9 +47,7 @@ public class WBS019_BrokerEdit {
     public void edit() throws InterruptedException{
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         // Data for creating a Broker
         final String mcNumber = globalMC;

@@ -11,10 +11,11 @@ import static com.codeborne.selenide.Selenide.$$;
 import com.codeborne.selenide.SelenideElement;
 
 import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.commonWeb.LoginHelper;
 import utilsWeb.commonWeb.NewLoad;
-import utilsWeb.commonWeb.WebDriverConfig;
-import utilsWeb.configWeb.GlobalConfig;
+
+
+import utilsWeb.configWeb.GlobalLogin;
+
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -27,9 +28,7 @@ public class WES018_PossibleClaim {
     public void possibleClaim() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite_disp";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         String pro_number = NewLoad.expedite();
         

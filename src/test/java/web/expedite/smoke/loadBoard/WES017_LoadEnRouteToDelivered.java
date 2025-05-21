@@ -13,10 +13,11 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.switchTo;
 
 import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.commonWeb.LoginHelper;
 import utilsWeb.commonWeb.NewLoad;
-import utilsWeb.commonWeb.WebDriverConfig;
-import utilsWeb.configWeb.GlobalConfig;
+
+
+import utilsWeb.configWeb.GlobalLogin;
+
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
@@ -30,9 +31,7 @@ public class WES017_LoadEnRouteToDelivered {
     public void markAsDelivered () {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite_disp";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         String pro_number = NewLoad.expedite();
 
@@ -41,9 +40,7 @@ public class WES017_LoadEnRouteToDelivered {
         $(".exit-user-block").shouldBe(visible).click();
 
         // Логин под трекером
-        GlobalConfig.OPTION_LOGIN = "expedite_tracker";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("expedite_tracker");
 
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 

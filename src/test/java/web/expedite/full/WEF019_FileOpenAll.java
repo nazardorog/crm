@@ -3,10 +3,11 @@ package web.expedite.full;
 import com.codeborne.selenide.*;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 import java.time.Duration;
@@ -24,9 +25,7 @@ public class WEF019_FileOpenAll {
     public void openAll() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#new_load").shouldBe(enabled).click();

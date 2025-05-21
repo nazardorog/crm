@@ -25,9 +25,7 @@ public class WES008_DispatchAddTruckByTruck {
     public void addTruckByTruck() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Data for creating a load
         String atBroker = "at_Broker1";

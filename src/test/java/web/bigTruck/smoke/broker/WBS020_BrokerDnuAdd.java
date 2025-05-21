@@ -36,9 +36,7 @@ public class WBS020_BrokerDnuAdd {
     public void dnuAdd() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         Random random = new Random();
         int randomNumber = random.nextInt(1000);

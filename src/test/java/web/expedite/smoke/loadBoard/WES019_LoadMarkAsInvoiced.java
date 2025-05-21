@@ -12,10 +12,11 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.switchTo;
 
 import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.commonWeb.LoginHelper;
 import utilsWeb.commonWeb.NewLoad;
-import utilsWeb.commonWeb.WebDriverConfig;
-import utilsWeb.configWeb.GlobalConfig;
+
+
+import utilsWeb.configWeb.GlobalLogin;
+
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
@@ -27,9 +28,7 @@ public class WES019_LoadMarkAsInvoiced {
     public void markAsInvoiced () {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite_disp";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         String pro_number = NewLoad.expedite();
 
@@ -38,9 +37,7 @@ public class WES019_LoadMarkAsInvoiced {
         $(".exit-user-block").shouldBe(visible).click();
 
         // Логин под аккаунтингом
-        GlobalConfig.OPTION_LOGIN = "expedite_acc";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("expedite_acc");
 
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 

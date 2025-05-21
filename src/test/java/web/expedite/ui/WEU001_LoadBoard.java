@@ -23,9 +23,7 @@ public class WEU001_LoadBoard {//{
     public void loadBoard() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $("#show_my_loads").setSelected(true);

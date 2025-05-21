@@ -2,7 +2,7 @@ package utilsWeb.commonWeb;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import utilsWeb.configWeb.GlobalConfig;
+
 
 import java.io.File;
 
@@ -88,7 +88,7 @@ public class NewLoadExpedite {
         $("#loads-carrier_rate-disp").setValue(atCarrierDriverRate).pressEnter();
 
         // Download file
-        File file = new File(downloadsFolder + "/1pdf.pdf");
+        File file = new File(downloadsFolder + "1pdf.pdf");
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
         $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
 
