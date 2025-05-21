@@ -22,12 +22,8 @@ public class NewLoadExpedite {
 
         // Remove chat widget
         boolean chatWidget = $(".chat-widget").isDisplayed();
-        boolean smsNotification = $("#sms-notifications-movement-body").isDisplayed();
         if (chatWidget){
             executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-        }
-        if (smsNotification){
-            executeJavaScript("document.querySelector('.sms-notifications-wrapper').style.display='none'");
         }
 
         // Data for creating a Load
