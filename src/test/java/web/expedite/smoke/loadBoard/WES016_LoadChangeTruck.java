@@ -11,12 +11,8 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 import utilsWeb.commonWeb.CloseWebDriver;
-//import utilsWeb.commonWeb.login.LoginHelper;
 import utilsWeb.commonWeb.NewLoad;
-
-
 import utilsWeb.configWeb.GlobalLogin;
-
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -34,10 +30,10 @@ public class WES016_LoadChangeTruck {
 
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 
-        String pro_number = NewLoad.expedite();
+        String proNumber = NewLoad.expedite();
 
         // Поиск груза
-        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible, EXPECT_GLOBAL).setValue(pro_number).pressEnter();
+        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible, EXPECT_GLOBAL).setValue(proNumber).pressEnter();
         $("button.view_load.btn.btn-xs").click();
 
         // Изменение трака через Dispatch
