@@ -30,9 +30,7 @@ public class WBS025_TruckCreate {
     public void create() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         // Переходить до списку Truck
         $(".trucks-user").shouldBe(visible, EXPECT_GLOBAL).hover();

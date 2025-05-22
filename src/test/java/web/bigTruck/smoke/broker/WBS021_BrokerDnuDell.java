@@ -32,9 +32,7 @@ public class WBS021_BrokerDnuDell {
     public void dnuDell() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         // Data for creating a Broker
         final String mcNumber = globalMC;

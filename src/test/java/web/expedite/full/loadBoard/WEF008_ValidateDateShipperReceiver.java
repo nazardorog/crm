@@ -2,11 +2,12 @@ package web.expedite.full.loadBoard;
 
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,9 +22,7 @@ public class WEF008_ValidateDateShipperReceiver {
     public void dateShipperReceiver(){
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
         $("#new_load").shouldBe(enabled).click();

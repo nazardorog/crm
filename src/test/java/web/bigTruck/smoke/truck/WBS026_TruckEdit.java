@@ -38,9 +38,7 @@ public class WBS026_TruckEdit {
     public void edit() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         // Переходить до списку Truck
         $(".trucks-user").shouldBe(visible, Duration.ofSeconds(10)).hover();

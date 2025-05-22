@@ -31,9 +31,7 @@ public class WBS018_BrokerCreate {
     public void create() throws InterruptedException{
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         // Data for creating a Broker
         final String mcNumber = globalMC;

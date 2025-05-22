@@ -5,7 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
+import utilsWeb.configWeb.GlobalLogin;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
@@ -23,9 +24,7 @@ public class WES024_DispatchDriverAddDell {
     public void driverAddDell() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Create new load expedite
         String loadNumber = NewLoadExpedite.loadExpedite();

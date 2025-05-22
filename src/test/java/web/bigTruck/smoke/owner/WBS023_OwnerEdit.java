@@ -27,9 +27,7 @@ public class WBS023_OwnerEdit {
     public void edit() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "big";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("bt_disp1");
 
         //переходить до списку Owners
         $(".owners-user").shouldBe(visible, Duration.ofSeconds(10)).hover();

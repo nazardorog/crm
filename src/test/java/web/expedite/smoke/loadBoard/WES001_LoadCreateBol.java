@@ -26,9 +26,7 @@ public class WES001_LoadCreateBol {
     public void createBol() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Data for creating a load
         String atBroker = "at_Broker1";

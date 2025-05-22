@@ -2,10 +2,11 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 
@@ -24,9 +25,7 @@ public class WES011_DispatchAssignUser {
     public void assignUser() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Data for creating a load
         String atBroker = "at_Broker1";

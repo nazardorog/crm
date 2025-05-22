@@ -11,10 +11,12 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.commonWeb.LoginHelper;
+
 import utilsWeb.commonWeb.NewLoad;
-import utilsWeb.commonWeb.WebDriverConfig;
-import utilsWeb.configWeb.GlobalConfig;
+
+
+import utilsWeb.configWeb.GlobalLogin;
+
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -26,9 +28,7 @@ public class WES015_LoadAddSecondTruck {
     public void addSecondTruck () {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite_disp";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
         
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 

@@ -2,10 +2,11 @@ package web.expedite.full;
 
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.GlobalConfig;
+
 
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.time.Duration;
 import java.util.Random;
@@ -19,9 +20,7 @@ public class WEF016_ShipperReceiverCreateEdit {
     public void createEdit() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         // Remove chat widget
         boolean chatWidget = $(".chat-widget").isDisplayed();

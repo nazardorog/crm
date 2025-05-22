@@ -37,9 +37,7 @@ public class WEF018_DriverAvailableOnAuto {
     public void availableOnAuto() throws InterruptedException {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         //перед тестом ставить драйверу Not Available
         $(".expedite-fleet-user").shouldBe(visible, Duration.ofSeconds(10)).hover();

@@ -7,9 +7,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.commonWeb.Calendar;
 import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.commonWeb.LoginHelper;
-import utilsWeb.commonWeb.WebDriverConfig;
-import utilsWeb.configWeb.GlobalConfig;
+
+
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 
@@ -30,9 +30,7 @@ public class WES013_FileOpenAll {
     public void openAll() {
 
         // Login
-        GlobalConfig.OPTION_LOGIN = "expedite";
-        WebDriverConfig.setup();
-        LoginHelper.login();
+        GlobalLogin.login("exp_disp1");
 
         $(".logo-mini-icon").shouldBe(enabled, EXPECT_GLOBAL);
         $("#new_load").shouldBe(enabled).click();
