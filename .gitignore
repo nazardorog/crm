@@ -28,3 +28,4 @@ run-tests.sh
 
 # Локальна папка
 /src/test/java/local/
+src/test/java/resources
