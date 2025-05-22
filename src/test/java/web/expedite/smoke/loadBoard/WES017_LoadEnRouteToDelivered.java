@@ -40,7 +40,7 @@ public class WES017_LoadEnRouteToDelivered {
         $(".exit-user-block").shouldBe(visible).click();
 
         // Логин под трекером
-        GlobalLogin.login("expedite_tracker");
+        GlobalLogin.login("exp_tracker1");
 
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 
