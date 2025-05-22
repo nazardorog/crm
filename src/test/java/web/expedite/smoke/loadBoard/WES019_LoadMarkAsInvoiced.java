@@ -37,7 +37,7 @@ public class WES019_LoadMarkAsInvoiced {
         $(".exit-user-block").shouldBe(visible).click();
 
         // Логин под аккаунтингом
-        GlobalLogin.login("expedite_acc");
+        GlobalLogin.login("exp_accounting1");
 
         $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL);
 
@@ -56,23 +56,22 @@ public class WES019_LoadMarkAsInvoiced {
         // Перевод груза в Loads Delivered
         $$("tbody tr").findBy(text("Load Delivered")).shouldBe(visible);
         $(".btn.dropdown-toggle.btn-xs").shouldBe(visible, EXPECT_5).click();
-        $$(".mark_delivered").findBy(Condition.visible).shouldBe(visible, EXPECT_5).click();
+        $(".mark_delivered").shouldBe(visible, EXPECT_5).click();
 
         // Подтверждение перевода груза в Loads Delivered
         String popapText = switchTo().alert().getText();
         assertThat(popapText).isEqualTo("Are you sure you want to Mark as delivered this load?");
         switchTo().alert().accept();
 
-        // Переход в Loads Delivered и поиск груза
-        $(".li-tabs-home.li-tabs-delivered.tab-next-li").shouldBe(visible, EXPECT_GLOBAL).click();
-        $$("input[name='LoadsSearch[our_pro_number]']").findBy(Condition.visible).setValue(pro_number).pressEnter();
+        // Переход в Loads Delivered
+        $(".li-tabs-home.li-tabs-delivered.tab-next-li").shouldBe(visible, EXPECT_10).click();
 
         // Проверка наличия груза в Loads Delivered
         $("td.our_pro_number").shouldHave(text(pro_number), EXPECT_10);
 
         // Перевод груза в Loads Invoiced
         $(".btn.dropdown-toggle.btn-xs").shouldBe(visible, EXPECT_5).click();
-        $$(".mark_invoiced").findBy(Condition.visible).shouldBe(visible, EXPECT_5).click();
+        $(".mark_invoiced").shouldBe(visible, EXPECT_5).click();
         $("#mark_as_invoiced_apply").shouldBe(visible, EXPECT_10).click();
         $(".modal-dialog.modal-lg.modal-approve-canceled-load").shouldNotBe(visible, EXPECT_GLOBAL);
 
