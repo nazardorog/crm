@@ -12,10 +12,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import utilsWeb.commonWeb.CloseWebDriver;
 import utilsWeb.commonWeb.NewLoad;
-
-
 import utilsWeb.configWeb.GlobalLogin;
-
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -30,10 +27,10 @@ public class WES018_PossibleClaim {
         // Login
         GlobalLogin.login("exp_disp1");
 
-        String pro_number = NewLoad.expedite();
+        String proNumber = NewLoad.expedite();
         
         // Поиск груза
-        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible, EXPECT_GLOBAL).setValue(pro_number).pressEnter();
+        $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible, EXPECT_GLOBAL).setValue(proNumber).pressEnter();
 
         String[] optionValues = {"1", "2", "3", "4"};
         String[] expectedTexts = {"Load damaged", "Stolen truck", "Shortage", "Accidents"};
@@ -52,7 +49,7 @@ public class WES018_PossibleClaim {
 
             // Переход на вкладку Loads Issue
             $(".li-tabs-home.li-tabs-issue").shouldBe(visible, EXPECT_5).click();
-            $("td.our_pro_number").shouldHave(text(pro_number));
+            $("td.our_pro_number").shouldHave(text(proNumber));
 
             // Проверка наличия выбранной опции
             $$("tbody tr").findBy(text(expectedText)).shouldBe(visible);
@@ -65,7 +62,7 @@ public class WES018_PossibleClaim {
 
             // Переход на вкладку Loads en Route и проверка наличия груза
             $(".li-tabs-home.li-tabs-route").shouldBe(visible).click();
-            $("td.our_pro_number").shouldBe(visible, EXPECT_5).shouldHave(text(pro_number));
+            $("td.our_pro_number").shouldBe(visible, EXPECT_5).shouldHave(text(proNumber));
         }
     }
 
