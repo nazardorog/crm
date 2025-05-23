@@ -1,23 +1,19 @@
 package web.expedite.full.loadBoard;
 
-import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.Test;
 import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
-import static utilsWeb.configWeb.GlobalLogin.uploadFolder;
 
 public class WEF002_LoadCreateBol {
 
@@ -89,14 +85,14 @@ public class WEF002_LoadCreateBol {
         $("#loads-rate-disp").setValue("100000").pressEnter();
         $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
 
-    //load file
+        //load file
         Thread.sleep(4000);
         SelenideElement modal = $("#add_load");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        File file = new File(uploadFolder() + "/pdf1.pdf");
+        File file = new File(downloadsFolder + "/pdf1.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
         if (!$("#loaddocuments-0-type").isDisplayed()){ //scroll
@@ -112,7 +108,7 @@ public class WEF002_LoadCreateBol {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal); //scroll
         $("#add_load_send_old").click();
 
-    //dispatch board
+        //dispatch board
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
         $("#select2-load_truck_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(30))
@@ -143,8 +139,6 @@ public class WEF002_LoadCreateBol {
             $("#dispatch_load_send").click();
         }
     }
-
-
 
     public void scrollDown(SelenideElement modal, SelenideElement target) {
 
