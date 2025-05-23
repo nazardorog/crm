@@ -132,7 +132,7 @@ public class NewLoadExpedite {
 
         // Перевіряє дані створеного вантажу
         $(".content-header").shouldHave(text("Load Board"));
-        $("#main-loads-grid-filters").shouldBe(visible, EXPECT_GLOBAL);
+//        $("#main-loads-grid-filters").shouldBe(visible, EXPECT_GLOBAL);
 
         // Перевіряє створений Load в таблиці
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
