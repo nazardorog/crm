@@ -1,17 +1,18 @@
 package utilsWeb.commonWeb;
 
+import java.io.File;
 import java.time.Duration;
 
 import com.codeborne.selenide.Condition;
-import java.io.File;
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
+
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
-import static com.codeborne.selenide.Configuration.*;
 
 public class NewLoad {
 
@@ -22,7 +23,7 @@ public class NewLoad {
         String atTeamDriver = "Auto Test2";
         
         
-        $("#new_load").shouldBe(enabled).click();
+        $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Remove chat widget
         boolean chatWidget = $(".chat-widget").isDisplayed();
@@ -90,8 +91,11 @@ public class NewLoad {
         $("#add_load_send_old").click();
 
         // Dispatch load
+        $("#load_dispatch").shouldBe(visible, EXPECT_GLOBAL);
         $("#select2-load_truck_id-0-container").shouldBe(visible, EXPECT_GLOBAL).click();
-        String pro_number = $("#load_dispatch > div > div > div.modal-header > h4").text().split("#")[1];
+        String dispatchLoad = $("#load_dispatch .modal-title").getText();
+        String proNumber = dispatchLoad.substring(dispatchLoad.lastIndexOf("#") + 1).trim();
+
         $(".select2-search__field").shouldBe(enabled).setValue(atTruck);
         $(".select2-results__option--highlighted").shouldHave(text(atTruck)).click();
         $("#select2-load_driver_id-0-container").shouldHave(Condition.text(atDriver));
@@ -110,6 +114,11 @@ public class NewLoad {
         $("#dispatch_load_send").click();
         $("#load_dispatch").shouldNotBe(visible,EXPECT_GLOBAL);
 
-        return pro_number;
+        // Toast massage
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Load dispatch sucessfully added"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
+
+        return proNumber;
     }
 }
