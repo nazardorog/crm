@@ -34,7 +34,7 @@ public class WBS015_LoadGetConfirmation {
     String agent = "Auto test agent";
 
     @Test
-    public void confirmation() throws InterruptedException, IOException {
+    public void getConfirmation() throws InterruptedException, IOException {
 
         // Login
         GlobalLogin.login("bt_disp1");
