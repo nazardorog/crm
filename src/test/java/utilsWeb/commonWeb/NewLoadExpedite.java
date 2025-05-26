@@ -26,6 +26,12 @@ public class NewLoadExpedite {
             executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
         }
 
+        // Remove sms notifications
+        boolean notifications = $("#sms-notifications-movement-body").isDisplayed();
+        if (notifications){
+            executeJavaScript("document.querySelector('#sms-notifications-movement-body').style.display='none'");
+        }
+
         // Data for creating a Load
         final String atBroker = "at_Broker1";
         final String atBrokerAgent = "Auto test agent ";
@@ -118,6 +124,16 @@ public class NewLoadExpedite {
         boolean helpBlock = $(".help-block").shouldBe(visible, EXPECT_5).isDisplayed();
         if (helpBlock){
             executeJavaScript("arguments[0].style.display='none';", $(".help-block"));
+        }
+
+        // Remove chat widget
+        if (chatWidget){
+            executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
+        }
+
+        // Remove sms notifications;
+        if (notifications){
+            executeJavaScript("document.querySelector('#sms-notifications-movement-body').style.display='none'");
         }
 
         // Dispatch Load Type. Close frame Dispatch
