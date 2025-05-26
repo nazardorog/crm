@@ -1,10 +1,8 @@
 package web.bigTruck.smoke.loadBoard;
 
-import com.codeborne.selenide.SelenideElement;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -17,20 +15,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
-import static web.expedite.full.WEF019_FileOpenAll.clearDownloadFolder;
 
-public class WBS015_LoadConfirmation {
+public class WBS015_LoadGetConfirmation {
 
     // Click Up:
     // CRM SEMI Truck
@@ -40,7 +34,7 @@ public class WBS015_LoadConfirmation {
     String agent = "Auto test agent";
 
     @Test
-    public void confirmation() throws InterruptedException, IOException {
+    public void getConfirmation() throws InterruptedException, IOException {
 
         // Login
         GlobalLogin.login("bt_disp1");

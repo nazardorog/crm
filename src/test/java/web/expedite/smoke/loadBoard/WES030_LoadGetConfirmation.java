@@ -13,14 +13,14 @@ import static com.codeborne.selenide.Selenide.*;
 import utilsWeb.commonWeb.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.*;
 
-public class WES030_LoadConfirmation {
+public class WES030_LoadGetConfirmation {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Loadboard
     // 19. Actions - Get Loads Confirmation
 
     @Test
-    public void confirmation() throws IOException {
+    public void getConfirmation() throws IOException {
 
         // Login. Create new load expedite
         GlobalLogin.login("exp_disp1");

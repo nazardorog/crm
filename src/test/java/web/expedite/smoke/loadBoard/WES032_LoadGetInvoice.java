@@ -13,19 +13,20 @@ import utilsWeb.configWeb.GlobalLogin;
 import java.io.IOException;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static utilsWeb.configWeb.GlobalTimePeriods.*;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-public class WES031_LoadGetBol {
+public class WES032_LoadGetInvoice {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Loadboard
-    // 20. Actions - Get BOL
+    // 21. Actions - Get Invoice
 
     @Test
-    public void getBol() throws IOException {
+    public void getInvoice() throws IOException {
 
         // Login. Create new load expedite
         GlobalLogin.login("exp_disp1");
