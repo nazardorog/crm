@@ -34,7 +34,7 @@ public class WES031_LoadGetBol {
         // Data for test
         final String atFileName = "dompdf_out.pdf";
 
-        // По номеру вантажу в меню вибирає Get load confirmation
+        // По номеру вантажу в меню вибирає Get BOL
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         SelenideElement rowFind = $$("table.table-striped tbody tr").get(0).shouldHave(text(loadNumber));
         ElementsCollection dropdown = rowFind.$$(".dropdown-menu-right li");
