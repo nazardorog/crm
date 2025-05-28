@@ -13,8 +13,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
 
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.webdriver;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class GlobalLogin {
 
@@ -69,7 +72,18 @@ public class GlobalLogin {
 
             Allure.step("Клік по кнопці Submit", () ->
                     $(".btn.btn-primary.btn-block.btn-flat").click());
+
+            Allure.step("Очікує відкриття Load board", () ->
+                    $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL));
         });
+    }
+
+    @Description("Вихід з акаунта")
+    public static void logout () {
+
+        $(".user-image-profile").shouldBe(clickable).click();
+        $(".user-menu").shouldHave(cssClass("open"), EXPECT_GLOBAL);
+        $(".exit-user-block").shouldBe(visible, EXPECT_GLOBAL).click();
     }
 
     public static void credentials() {

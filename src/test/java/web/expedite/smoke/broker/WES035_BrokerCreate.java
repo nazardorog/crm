@@ -25,7 +25,7 @@ public class WES035_BrokerCreate {
     @Test
     public void create() {
 
-        // Login. Create new load expedite
+        // Login
         GlobalLogin.login("exp_disp1");
 
         // Data for creating a Broker
