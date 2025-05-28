@@ -17,7 +17,7 @@ public class NewLoadExpedite {
 
     public static String loadExpedite() {
 
-        // Great new load
+        // Create new load
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Remove chat widget

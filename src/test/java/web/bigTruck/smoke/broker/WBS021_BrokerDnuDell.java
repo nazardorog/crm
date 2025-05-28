@@ -53,7 +53,7 @@ public class WBS021_BrokerDnuDell {
         final String agentPhoneNumber = globalPhoneNumber + "01";
         final String agentCellPhone = globalPhoneNumber + "02";
 
-        // Great new load
+        // Create new load
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
         // Відкриває створення брокера, клац по "+" біля поля Broker
