@@ -93,7 +93,6 @@ public class WES035_BrokerCreate {
         $(".bt-load-broker-main-flex").shouldHave(text(atDbaName));
         $(".bt-load-broker-main-flex").shouldHave(text(atCity));
         $(".bt-load-broker-main-flex").shouldHave(text(atAddress));
-        $(".bt-load-broker-main-flex").shouldHave(text(atCity));
         $(".bt-load-broker-main-flex").shouldHave(text(atMainPhoneNumber));
 
         // Фрейм New load вибирає Агента в полі Select Agent
