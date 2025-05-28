@@ -3,7 +3,7 @@ package utilsWeb.configWeb;
 import java.util.Random;
 
 public class GlobalGenerateName {
-    public static final String GLOBAL_PREFIX = "AT01";
+    public static final String GLOBAL_PREFIX = "AT01_";
     public static final String GLOBAL_DOMAIN = "@gmail";
 
 
