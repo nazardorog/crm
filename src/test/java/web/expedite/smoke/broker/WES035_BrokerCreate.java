@@ -53,10 +53,9 @@ public class WES035_BrokerCreate {
         // Відкриває створення Broker з New load
         $("#new_broker").shouldBe(visible, EXPECT_GLOBAL).click();
         $("#add_broker").shouldBe(visible, EXPECT_GLOBAL);
-        $("div.tab-pane.active").shouldBe(visible, EXPECT_GLOBAL);
 
         // Фрейм Add Broker вкладка General
-        $("#brokers-mc_number").setValue(atMcNumber);
+        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber);
         $("#brokers-dba_name").setValue(atDbaName);
         $("#brokers-name").setValue(atLegalName);
         $("#brokers-entity_type").selectOption(atEntityType);
@@ -93,11 +92,11 @@ public class WES035_BrokerCreate {
         $(".bt-load-broker-main-flex").shouldHave(text(atDbaName));
         $(".bt-load-broker-main-flex").shouldHave(text(atCity));
         $(".bt-load-broker-main-flex").shouldHave(text(atAddress));
-        $(".bt-load-broker-main-flex").shouldHave(text(atCity));
         $(".bt-load-broker-main-flex").shouldHave(text(atMainPhoneNumber));
 
         // Фрейм New load вибирає Агента в полі Select Agent
         $$("select#loads-agent_id option").findBy(text(atAgentName)).click();
+        $("#loads-agent_id").shouldHave(text(atAgentName + " " + atAgentLastName));
     }
 
     @AfterMethod(alwaysRun = true)
