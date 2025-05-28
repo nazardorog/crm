@@ -29,20 +29,6 @@ public class WBS019_BrokerEdit {
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
 
-//    Random random = new Random();
-//    int randomNumber;
-//    int randomNumberMc;
-//
-//    String brokerMcNumberBigTruck;
-//    String ffMcNumberBigTruck;
-//    String brokerNameBigTruck;
-//    String brokerDbaNameBigTruck;
-//    String brokerPhoneNumberBigTruck;
-//    String agentNameBigTruck;
-//    String agentMailBigTruck;
-//    String agentPhoneNumberBigTruck;
-//    boolean dataOptionEdit = false;
-
     @Test
     public void edit() throws InterruptedException{
 
@@ -73,12 +59,6 @@ public class WBS019_BrokerEdit {
 
         // Відкриває створення брокера, клац по "+" біля поля Broker
         $("#new_broker").shouldBe(visible, Duration.ofSeconds(30)).click();
-
-//        //генерує дані та вводить, створює Брокера
-//        randomNumber = random.nextInt(1000);
-//        randomNumberMc = random.nextInt(10000);
-//        generateDataNewBroker(randomNumber, randomNumberMc);
-//        inputDateBroker();
 
         // Фрейм Add Broker вкладка General
         $("#brokers-mc_number")
@@ -158,11 +138,11 @@ public class WBS019_BrokerEdit {
 
         rowBroker.shouldHave(text(legalName));
 
-        //вибирає редагування брокера
+        // Вибирає редагування брокера
         rowBroker.$(".btn-action-more").click();
         $(".dropdown-profile-style .update_broker_main").click();
 
-        //перевіряє дані в редагуванні Broker
+        // Перевіряє дані в редагуванні Broker
         $("#update_broker").shouldBe(visible, Duration.ofSeconds(20));
         $("#brokers-mc_number").shouldHave(value(mcNumber));
         $("#brokers-name").shouldHave(value(legalName));
@@ -174,13 +154,13 @@ public class WBS019_BrokerEdit {
         $("#brokers-custom_limit").shouldHave(value(setCreditLimit));
         $("#brokers-note").shouldHave(text(note));
 
-        //вкладка Contact перевіряє дані брокера перед редагуванням фрейм Add Broker
+        // Вкладка Contact перевіряє дані брокера перед редагуванням фрейм Add Broker
         $(byText("Contact")).click();
         $("#brokers-main_name").shouldHave(value (mainName));
         $("#brokers-main_phone_number").shouldHave(value(mainPhoneNumber));
         $("#brokers-main_email").shouldHave(value(mail));
 
-        //вкладка Agents перевіряє дані брокера перед редагуванням фрейм Add Broker
+        // Вкладка Agents перевіряє дані брокера перед редагуванням фрейм Add Broker
         $(byText("Agents")).click();
         $("#agents-0-name").shouldHave(value(agentName));
         $("#agents-0-last_name").shouldHave(value(agentLastName));
@@ -189,8 +169,8 @@ public class WBS019_BrokerEdit {
 
         $(byText("General")).click();
 
+        // Data for Edit a Broker
         GlobalGenerateName.globalName();
-        // Data for creating a Broker
         final String mcNumberEdit = globalMC;
         final String dbaNameEdit = globalName + "DBA Name 2";
         final String legalNameEdit = globalName + "Legal Name 2";
@@ -236,14 +216,6 @@ public class WBS019_BrokerEdit {
         // Edit фрейм Add Broker приховуємо warning блок
         executeJavaScript("arguments[0].style.display='none';", warningBlock);
 
-//        //генерує дані для редагування та вводить
-//        dataOptionEdit = true;
-//        randomNumber = random.nextInt(1000);
-//        randomNumberMc = random.nextInt(10000);
-//        generateDataNewBroker(randomNumber, randomNumberMc);
-//        $(byText("General")).click();
-//        inputDateBroker();
-
         //закриває фрейм Update Broker
         SelenideElement updateModal = $("#update_broker");
         $("#update_broker_send").shouldBe(visible, enabled).click();
@@ -281,95 +253,6 @@ public class WBS019_BrokerEdit {
         $("#brokers-main_name").shouldHave(value(mainNameEdit));
         $("#brokers-main_phone_number").shouldHave(value(mainPhoneNumberEdit));
         $("#brokers-main_email").shouldHave(value(mailEdit));
-//
-//        //перевіряє відредаговані дані брокера
-//        validationDataBroker();
-
-
-    }
-
-//    void generateDataNewBroker(int randomNumber, int randomNumberMc){
-//
-//        //генеруємо дані для створення брокера
-//        if (!dataOptionEdit){
-//            brokerMcNumberBigTruck = "" + randomNumberMc + randomNumber;
-//        }
-//        ffMcNumberBigTruck = "FF" + brokerMcNumberBigTruck;
-//        brokerNameBigTruck = globalName + "BrokerBigTruck";
-//        brokerDbaNameBigTruck = globalName + "BrokerBigTruckDba";
-//        brokerPhoneNumberBigTruck = globalPhoneNumber;
-//        agentNameBigTruck = globalName + "Agent";
-//        agentMailBigTruck = globalMail;
-//        agentPhoneNumberBigTruck = globalPhoneNumber;
-//    }
-
-    void inputDateBroker(){
-
-//        //фрейм Add Broker вкладка General
-//        $("#brokers-mc_number")
-//                .shouldBe(visible, Duration.ofSeconds(30))
-//                .shouldBe(enabled);
-//
-//        if (!dataOptionEdit){
-//            $("#brokers-mc_number")
-//                    .setValue(brokerMcNumberBigTruck);
-//        }
-//
-//        $("#brokers-dba_name").setValue(brokerDbaNameBigTruck);
-//        $("#brokers-name").setValue(brokerNameBigTruck);
-//        $("#brokers-entity_type").shouldBe(visible).selectOption("BROKER");
-//        $("#brokers-address").setValue("Mountain");
-//        $("#brokers-second_mc_number").setValue(ffMcNumberBigTruck);
-//        $("#brokers-city").setValue("Colorado");
-//        $("#brokers-custom_limit").setValue("" + randomNumber);
-//        $("#brokers-note").setValue("AutoTestBrockersNote");
-
-//        //фрейм Add Broker вкладка Contact
-//        $(byText("Contact")).click();
-//        $("#brokers-main_name").shouldBe(visible).setValue("Broker contact main Name");
-//        $("#brokers-main_phone_number").setValue(brokerPhoneNumberBigTruck);
-//        $("#brokers-main_email").setValue(globalMail);
-
-//        //фрейм Add Broker вкладка Agents
-//        $(byText("Agents")).click();
-
-//        if (dataOptionEdit){
-//            $(".edit_agent_btn").click();
-//        }
-
-//        $("#agents-0-name").setValue(agentNameBigTruck);
-//        $("#agents-0-last_name").setValue(agentNameBigTruck + "Agent Last Name");
-//        $("#agents-0-email").setValue(agentMailBigTruck);
-//        $("#agents-0-phone_number").setValue(agentPhoneNumberBigTruck);
-//        $("#agent-cell_phone-update0").setValue(brokerPhoneNumberBigTruck + "01");
-//    }
-
-//    public void validationDataBroker (){
-//
-//        //вкладка General перевіряє дані брокера перед редагуванням фрейм Add Broker
-//        $("#update_broker").shouldBe(visible, Duration.ofSeconds(20));
-//        $("#brokers-mc_number").shouldHave(value(brokerMcNumberBigTruck));
-//        $("#brokers-name").shouldHave(value(brokerNameBigTruck));
-//        $("#brokers-dba_name").shouldHave(value(brokerDbaNameBigTruck));
-//        $("#brokers-entity_type").getSelectedOption().shouldHave(Condition.text("BROKER"));
-//        $("#brokers-address").shouldHave(value("Mountain"));
-//        $("#brokers-second_mc_number").shouldHave(value(ffMcNumberBigTruck));
-//        $("#brokers-city").shouldHave(value("Colorado"));
-//        $("#brokers-custom_limit").shouldHave(value("" + randomNumber));
-//        $("#brokers-note").shouldHave(text("AutoTestBrockersNote"));
-//
-//        //вкладка Contact перевіряє дані брокера перед редагуванням фрейм Add Broker
-//        $(byText("Contact")).click();
-//        $("#brokers-main_name").shouldHave(value ("Broker contact main Name"));
-//        $("#brokers-main_phone_number").shouldHave(value(brokerPhoneNumberBigTruck));
-//        $("#brokers-main_email").shouldHave(value("BrokerContact" + randomNumber + "@mail.com"));
-//
-//        //вкладка Agents перевіряє дані брокера перед редагуванням фрейм Add Broker
-//        $(byText("Agents")).click();
-//        $("#agents-0-name").shouldHave(value(agentNameBigTruck));
-//        $("#agents-0-last_name").shouldHave(value("Agent Last Name" + randomNumber));
-//        $("#agents-0-phone_number").shouldHave(value(agentPhoneNumberBigTruck + " ex _"));
-//        $("#agent-cell_phone-update0").shouldHave(value(brokerPhoneNumberBigTruck + " ex _"));
     }
 
     @AfterMethod(alwaysRun = true)
