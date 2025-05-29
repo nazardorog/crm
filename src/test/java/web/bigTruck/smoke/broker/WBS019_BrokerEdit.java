@@ -8,7 +8,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
-import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
@@ -24,7 +23,7 @@ public class WBS019_BrokerEdit {
     // 2. Редактирование брокера
 
     // Global data
-    String globalMC = GlobalGenerateName.globalMC();
+    String globalMC = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();

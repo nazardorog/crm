@@ -11,6 +11,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class Calendar {
@@ -78,9 +79,9 @@ public class Calendar {
         }
 
         // Вибирає дату
-        activeCalendar.$$(".datepicker-days .day:not(.old):not(.new)")
-                .findBy(exactText(String.valueOf(targetDay)))
-                .click();
+        activeCalendar.$$(".datepicker-days .day:not(.old):not(.new)").findBy(exactText(String.valueOf(targetDay))).click();
+
+        $("body").click();
     }
 
     public static void setDateTimeMexico (int introductionDay){

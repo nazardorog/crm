@@ -17,7 +17,7 @@ public class WES035_BrokerCreate {
     // 1. Создание Брокера
 
     // Global data
-    String globalMC = GlobalGenerateName.globalMC(); //7 digit
+    String globalMC = GlobalGenerateName.globalNumberSeven(); //7 digit
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();

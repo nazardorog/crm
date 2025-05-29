@@ -20,7 +20,7 @@ public class WES037_BrokerDnuAdd {
     // 3. Change DNU category
 
     // Global data
-    String globalMC = GlobalGenerateName.globalMC();
+    String globalMC = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
