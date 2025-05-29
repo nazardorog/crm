@@ -14,7 +14,6 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.$;
 import static utilsWeb.configWeb.GlobalTimePeriods.*;
 
 public class WES036_BrokerEdit {
@@ -111,7 +110,7 @@ public class WES036_BrokerEdit {
         $(".brokers-user").click();
         $("body").click();
 
-        // [Main Broker] edit Broker
+        // [Main Broker] table. Edit Broker
         $("#brokerssearch-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber).pressEnter();
         SelenideElement rowBroker = $$("table.table-hover tbody tr").get(0).shouldHave(text(atMcNumber));
         rowBroker.shouldHave(text(atMcNumber));
@@ -196,7 +195,7 @@ public class WES036_BrokerEdit {
         $("#update_broker_send").shouldBe(visible, enabled).click();
         updateModal.shouldNotBe(visible, EXPECT_GLOBAL);
 
-        // [Main Broker] edit Broker
+        // [Main Broker] table. Edit Broker
         $("#brokerssearch-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber).pressEnter();
         SelenideElement rowBrokerEdit = $$("table.table-hover tbody tr").get(0).shouldHave(text(atMcNumber));
         rowBrokerEdit.shouldHave(text(atMcNumber));
