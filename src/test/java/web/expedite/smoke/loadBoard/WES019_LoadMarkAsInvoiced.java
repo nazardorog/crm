@@ -45,7 +45,6 @@ public class WES019_LoadMarkAsInvoiced {
         $("#view_item .loads-delivery-view").shouldBe(visible, EXPECT_5);
 
         // Установка даты доставки
-        // Scrolling.scrollDown($("#view_item"), $("#loadsdeliverylocations-date_delivery-datetime"));
         $("#loadsdeliverylocations-date_delivery-datetime .kv-datetime-picker").shouldBe(visible, EXPECT_5).click();
         $$("div.datetimepicker-days tfoot tr th").findBy(text("Today")).shouldBe(visible, EXPECT_5).click();
         $("#view_item .modal-header button.close").click();
@@ -62,7 +61,6 @@ public class WES019_LoadMarkAsInvoiced {
 
         // Переход в Loads Delivered и поиск груза
         $(".li-tabs-home.li-tabs-delivered.tab-next-li").shouldBe(visible, EXPECT_GLOBAL).click();
-        $("input[name='LoadsSearch[our_pro_number]']").setValue(proNumber).pressEnter();
 
         // Проверка наличия груза в Loads Delivered
         $("td.our_pro_number").shouldHave(text(proNumber), EXPECT_10);
