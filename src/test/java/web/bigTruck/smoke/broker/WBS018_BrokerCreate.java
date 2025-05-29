@@ -21,7 +21,7 @@ public class WBS018_BrokerCreate {
     // 1. Создание Брокера
 
     // Global data
-    String globalMC = GlobalGenerateName.globalNumberSeven();
+    String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
@@ -33,13 +33,13 @@ public class WBS018_BrokerCreate {
         GlobalLogin.login("bt_disp1");
 
         // Data for creating a Broker
-        final String mcNumber = globalMC;
+        final String mcNumber = globalNumberSeven;
         final String dbaName = globalName + "DBA Name";
         final String legalName = globalName + "Legal Name";
         final String entityType = "BROKER";
         final String address = "Mountain";
         final String city = "Colorado";
-        final String setCreditLimit = globalMC;
+        final String setCreditLimit = globalNumberSeven;
         final String note = globalName + "Note";
         final String mainName = globalName + "Main Name";
         final String mail = globalMail;

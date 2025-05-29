@@ -17,7 +17,7 @@ public class WES035_BrokerCreate {
     // 1. Создание Брокера
 
     // Global data
-    String globalMC = GlobalGenerateName.globalNumberSeven(); //7 digit
+    String globalNumberSeven = GlobalGenerateName.globalNumberSeven(); //7 digit
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
@@ -29,7 +29,7 @@ public class WES035_BrokerCreate {
         GlobalLogin.login("exp_disp1");
 
         // Data for creating a Broker
-        final String atMcNumber = globalMC;
+        final String atMcNumber = globalNumberSeven;
         final String atDbaName = globalName + "DBA Name";
         final String atLegalName = globalName + "Legal Name";
         final String atEntityType = "BROKER";
