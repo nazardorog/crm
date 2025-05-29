@@ -18,7 +18,7 @@ public class WES038_BrokerDnuDell {
     // 4. Remove from DNU
 
     // Global data
-    String globalMC = GlobalGenerateName.globalMC();
+    String globalMC = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();

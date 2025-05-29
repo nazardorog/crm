@@ -23,7 +23,7 @@ public class WES036_BrokerEdit {
     // 2. Редактирование брокера
 
     // Global data
-    String globalMC = GlobalGenerateName.globalMC();
+    String globalMC = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
