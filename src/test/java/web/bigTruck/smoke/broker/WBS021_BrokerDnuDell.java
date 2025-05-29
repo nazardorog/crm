@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS021_BrokerDnuDell {
@@ -134,9 +135,7 @@ public class WBS021_BrokerDnuDell {
         $("#broker_dnu_modal .bootstrap-dialog-title").shouldBe(visible);
         $("#category-dropdown").selectOption("4 - Dry Van Only");
         $("#category-dropdown").getSelectedOption().shouldHave(Condition.text("4 - Dry Van Only"), Duration.ofSeconds(10));
-        $("#brokers-comment").shouldBe(visible, Duration.ofSeconds(20));
-        $("#brokers-comment").shouldBe(enabled, Duration.ofSeconds(20));
-        sleep(5000);
+        $("#brokers-comment").shouldBe(visible, EXPECT_5).hover();
         $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, Duration.ofSeconds(10)).pressEnter();
         $("#brokers-comment").shouldHave(value("DNU reason massage"), Duration.ofSeconds(10));
 
