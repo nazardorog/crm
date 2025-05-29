@@ -148,7 +148,8 @@ public class WES038_BrokerDnuDell {
         $("#brokers-blacklist-form").shouldNotBe(visible);
 
         // [Main Broker] table. Check broker no Dnu
-        rowBroker.shouldHave(text("Active"));
+        $("#brokerssearch-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber).pressEnter();
+        rowBroker.shouldHave(text(atMcNumber));
     }
 
     @AfterMethod(alwaysRun = true)
