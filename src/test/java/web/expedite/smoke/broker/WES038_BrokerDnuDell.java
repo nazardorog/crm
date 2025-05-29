@@ -18,7 +18,7 @@ public class WES038_BrokerDnuDell {
     // 4. Remove from DNU
 
     // Global data
-    String globalMC = GlobalGenerateName.globalNumberSeven();
+    String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
@@ -30,7 +30,7 @@ public class WES038_BrokerDnuDell {
         GlobalLogin.login("exp_disp1");
 
         // Data for creating a Broker
-        final String atMcNumber = globalMC;
+        final String atMcNumber = globalNumberSeven;
         final String atDbaName = globalName + "DBA Name";
         final String atLegalName = globalName + "Legal Name";
         final String atEntityType = "BROKER";

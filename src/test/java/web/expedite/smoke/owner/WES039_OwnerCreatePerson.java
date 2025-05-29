@@ -20,7 +20,7 @@ public class WES039_OwnerCreatePerson {
     // 1. Создание owner (type person)
 
     // Global data
-    String globalMC = GlobalGenerateName.globalNumberSeven();
+    String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
     String globalNumberNine = GlobalGenerateName.globalNumberNine();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
@@ -36,8 +36,8 @@ public class WES039_OwnerCreatePerson {
         final String atType = "Person";
         final String atFirstName = globalName + "First Name";
         final String atLastName = globalName + "Last Name";
-        final String atStreet1 = globalName + "Street 1";
-        final String atStreet2 = globalName + "Street 2";
+        final String atStreet1 = globalName + "Street 11";
+        final String atStreet2 = globalName + "Street 21";
         final String atCity = "Philadelphia";
         final String atState = "PA";
         final String atZip = "19143";
@@ -47,8 +47,8 @@ public class WES039_OwnerCreatePerson {
         final String atAdditionalEmails = globalMail;
         final String atFile = "jpeg1.jpg";
         final String atHrAgent = "Jack Sparrow";
-        final String atCargoPolicy = globalMC;
-        final String atLiabilityPolicy = globalMC;
+        final String atCargoPolicy = globalNumberSeven;
+        final String atLiabilityPolicy = globalNumberSeven;
         final String atCargoCoverage = "10000000";
         final String atLiabilityCoverage = "100000000";
         final String atSsn = globalNumberNine;

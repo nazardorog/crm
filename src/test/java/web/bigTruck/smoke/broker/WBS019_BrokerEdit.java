@@ -23,7 +23,7 @@ public class WBS019_BrokerEdit {
     // 2. Редактирование брокера
 
     // Global data
-    String globalMC = GlobalGenerateName.globalNumberSeven();
+    String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
@@ -35,7 +35,7 @@ public class WBS019_BrokerEdit {
         GlobalLogin.login("bt_disp1");
 
         // Data for creating a Broker
-        final String mcNumber = globalMC;
+        final String mcNumber = globalNumberSeven;
         final String dbaName = globalName + "DBA Name 1";
         final String legalName = globalName + "Legal Name 1";
         final String entityType = "BROKER";
@@ -170,7 +170,7 @@ public class WBS019_BrokerEdit {
 
         // Data for Edit a Broker
         GlobalGenerateName.globalName();
-        final String mcNumberEdit = globalMC;
+        final String mcNumberEdit = globalNumberSeven;
         final String dbaNameEdit = globalName + "DBA Name 2";
         final String legalNameEdit = globalName + "Legal Name 2";
         final String entityTypeEdit = "BROKER";
