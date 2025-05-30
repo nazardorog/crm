@@ -1,22 +1,28 @@
 package web.expedite.smoke.owner;
 
+import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.*;
-import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import utilsWeb.commonWeb.Calendar;
+import utilsWeb.commonWeb.CloseWebDriver;
+import utilsWeb.configWeb.GlobalGenerateName;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-public class WES039_OwnerCreatePerson {
+public class WES040_OwnerCreateCompany {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Brokers
-    // 1. Создание owner (type person)
+    // 2. Создание owner (type company)
 
     // Global data
     String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
@@ -32,9 +38,9 @@ public class WES039_OwnerCreatePerson {
         GlobalLogin.login("exp_disp1");
 
         // Data for creating a Broker
-        final String atType = "Person";
-        final String atFirstName = globalName + "First Name";
-        final String atLastName = globalName + "Last Name";
+        final String atType = "Company";
+        final String atCompanyName = globalName + "Company Name INC";
+        final String atOwnerName = globalName + "Owner Name";
         final String atStreet1 = globalName + "Street 11";
         final String atStreet2 = globalName + "Street 21";
         final String atCity = "Philadelphia";
@@ -50,6 +56,7 @@ public class WES039_OwnerCreatePerson {
         final String atLiabilityPolicy = globalNumberSeven;
         final String atCargoCoverage = "10000000";
         final String atLiabilityCoverage = "100000000";
+        final String atEin = globalNumberSeven;
         final String atSsn = globalNumberNine;
         final String atBankName = globalName + "Bank Name";
         final String atRoutingNumber = globalNumberNine;
@@ -70,8 +77,8 @@ public class WES039_OwnerCreatePerson {
         // [Add Owners] Tab General. Input data
         $$("#owners-type label").findBy(text(atType)).click();
         $$("#owners-type label").findBy(text(atType)).$("input[type='radio']").shouldBe(checked);
-        $("#owners-first_name").setValue(atFirstName);
-        $("#owners-last_name").setValue(atLastName);
+        $("#owners-company_name").setValue(atCompanyName);
+        $("#owners-owner_name").setValue(atOwnerName);
         $("#owners-street1").setValue(atStreet1);
         $("#owners-street2").setValue(atStreet2);
         $("#owners-zip").setValue(atZip);
@@ -88,6 +95,7 @@ public class WES039_OwnerCreatePerson {
         $("#owners-liability_policy").setValue(atLiabilityPolicy);
         $("#owners-cargo_insurance_amount-disp").setValue(atCargoCoverage);
         $("#owners-liability_insurance_amount-disp").setValue(atLiabilityCoverage);
+        $("#owners-tax_id_number").setValue(atEin);
         $("#owners-ssn").setValue(atSsn);
 
         // [Add Owners] Tab General. Calendar Birthday
@@ -126,19 +134,19 @@ public class WES039_OwnerCreatePerson {
         $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Owner sucessfully added. And driver sucessfully added"));
         $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
-        // [Main Owners] Table. Input Name. Select Owners Unit-"Without Unit". Select Type-"Person"
-        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName);
+        // [Main Owners] Table. Input Name. Select Owners Unit-"Without Unit". Select-"Type Company"
+        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atCompanyName);
         $("#ownerssearch-owners_asset").selectOption("All");
         $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("All"));
-        SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
+        SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0).shouldHave(text(atCompanyName), EXPECT_GLOBAL);
         $("#ownerssearch-owners_asset").selectOption("Without Unit");
         $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("Without Unit"));
-        $("#ownerssearch-type").selectOption("Person");
+        $("#ownerssearch-type").selectOption("Company");
 
         // [Main Owners] Table. Check new Owners
         rowLoad.shouldHave(text(atType));
-        rowLoad.shouldHave(text(atFirstName));
-        rowLoad.shouldHave(text(atLastName));
+        rowLoad.shouldHave(text(atCompanyName));
+        rowLoad.shouldHave(text(atCompanyName));
         rowLoad.shouldHave(text(atHrAgent));
     }
 
