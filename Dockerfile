@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
     gnupg \
     libgtk-3-0 \
     libxss1 \
-    libasound2 \
     libnss3 \
     libx11-xcb1 \
     libxcomposite1 \
