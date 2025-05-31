@@ -1,32 +1,5 @@
-# Maven / IntelliJ / Build
-target/
-build/
-.idea/
-
-# Allure reports
-allure-results/
-allure-report/
-.allure/
-
-# Docker / Jenkins
-docker-compose*
-Dockerfile*
-.jenkins_home/
-jenkins_home/
-Jenkinsfile
-
-
-# Системні файли
-*.log
-*.tmp
-.DS_Store
-.vscode
 .env
+.idea/
+allure-results/
+target/
 
-# Bash script
-run-tests.sh
-
-# Локальна папка
-/src/test/java/local/
-src/test/java/resources/*
-!src/test/java/resources/
