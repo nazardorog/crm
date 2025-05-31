@@ -2,25 +2,21 @@ version: '3.8'
 
 services:
   selenide-tests:
-    build: .
-    container_name: selenide-chrome-tests
+    build:
+      context: .
+      dockerfile: Dockerfile.minimal
+    container_name: selenide-chrome-tests-minimal
     volumes:
       - ./src:/app/src
       - ./test-results:/app/test-results
       - ./logs:/app/logs
     environment:
-      - DISPLAY=:99
-      - CHROME_BIN=/usr/bin/google-chrome
       - SELENIDE_BROWSER=chrome
       - SELENIDE_HEADLESS=true
       - SELENIDE_BROWSER_SIZE=1920x1080
+      - DISPLAY=:99
     working_dir: /app
-    command: >
-      sh -c "
-        Xvfb :99 -screen 0 1920x1080x24 &
-        sleep 2 &&
-        ./gradlew test --info
-      "
+    shm_size: 2gb
     networks:
       - selenide-network
 

@@ -1,46 +1,15 @@
-# Базовий образ Ubuntu 24.04.2 LTS
-FROM ubuntu:24.04
+# Альтернативний мінімальний Dockerfile
+FROM selenium/standalone-chrome:latest
 
-# Встановлення змінних середовища
-ENV DEBIAN_FRONTEND=noninteractive
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-ENV PATH=$PATH:$JAVA_HOME/bin
-ENV DISPLAY=:99
+# Встановити як root для встановлення пакетів
+USER root
 
-# Оновлення системи та встановлення базових пакетів
-RUN apt-get update && apt-get install -y \
-    wget \
-    curl \
-    gnupg \
-    software-properties-common \
-    apt-transport-https \
-    ca-certificates \
-    unzip \
-    xvfb \
-    x11vnc \
-    fluxbox \
-    && rm -rf /var/lib/apt/lists/*
-
-# Встановлення Java 11
+# Встановлення Java та Gradle
 RUN apt-get update && apt-get install -y \
     openjdk-11-jdk \
+    wget \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
-
-# Встановлення Google Chrome
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable \
-    && rm -rf /var/lib/apt/lists/*
-
-# Встановлення ChromeDriver
-RUN CHROME_VERSION=$(google-chrome --version | cut -d " " -f3 | cut -d "." -f1) \
-    && CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION") \
-    && wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
-    && unzip /tmp/chromedriver.zip -d /tmp/ \
-    && mv /tmp/chromedriver /usr/local/bin/chromedriver \
-    && chmod +x /usr/local/bin/chromedriver \
-    && rm /tmp/chromedriver.zip
 
 # Встановлення Gradle
 RUN wget -O /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.5-bin.zip \
@@ -49,17 +18,28 @@ RUN wget -O /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.5
     && ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle \
     && rm /tmp/gradle.zip
 
+# Встановлення змінних середовища
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH=$PATH:$JAVA_HOME/bin
+
 # Створення робочої директорії
 WORKDIR /app
 
+# Створення користувача для тестів
+RUN useradd -m -s /bin/bash testuser \
+    && chown -R testuser:testuser /app
+
 # Копіювання файлів проекту
-COPY build.gradle .
-COPY gradle/ gradle/
-COPY gradlew .
-COPY gradlew.bat .
+COPY --chown=testuser:testuser build.gradle .
+COPY --chown=testuser:testuser gradle/ gradle/
+COPY --chown=testuser:testuser gradlew .
+COPY --chown=testuser:testuser gradlew.bat .
 
 # Надання прав на виконання gradlew
 RUN chmod +x gradlew
+
+# Перехід на користувача testuser
+USER testuser
 
 # Завантаження залежностей Gradle
 RUN ./gradlew build --no-daemon || true
@@ -67,14 +47,8 @@ RUN ./gradlew build --no-daemon || true
 # Створення директорій для результатів тестів та логів
 RUN mkdir -p test-results logs
 
-# Копіювання сирцевого коду (буде перезаписано volume в docker-compose)
-COPY src/ src/
-
-# Встановлення прав доступу
-RUN useradd -m -s /bin/bash testuser \
-    && chown -R testuser:testuser /app
-
-USER testuser
+# Копіювання сирцевого коду
+COPY --chown=testuser:testuser src/ src/
 
 # Команда за замовчуванням
-CMD ["sh", "-c", "Xvfb :99 -screen 0 1920x1080x24 & sleep 2 && ./gradlew test --info"]
+CMD ["./gradlew", "test", "--info"]
