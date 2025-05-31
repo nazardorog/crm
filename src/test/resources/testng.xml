@@ -1,13 +1,8 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 <suite name="FullRegression" parallel="false">
-    <test name="BigTruckSmokeTests">
+    <test name="BrokerCreate">
         <packages>
-            <package name="web.bigTruck.smoke"/>
-        </packages>
-    </test>
-    <test name="ExpediteSmokeTests">
-        <packages>
-            <package name="web.expedite.smoke"/>
+            <package name="web.expedite.smoke.broker.WES035_BrokerCreate"/>
         </packages>
     </test>
 </suite>
