@@ -35,7 +35,7 @@ RUN wget -q -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-
     rm /tmp/google-chrome.deb
 
 # Встановлюємо ChromeDriver (версію потрібно узгодити з версією Chrome)
-ARG CHROMEDRIVER_VERSION=116.0.5845.96
+ARG CHROMEDRIVER_VERSION=137.0.7151.55
 RUN wget -q -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip && \
     unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
     rm /tmp/chromedriver.zip && \
