@@ -1,4 +1,5 @@
 .idea/
 allure-results/
 target/
+surefire-reports/
 
