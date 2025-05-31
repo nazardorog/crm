@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     xvfb \
+    curl \
+    gnupg \
     libgtk-3-0 \
     libxss1 \
     libasound2 \
@@ -55,4 +57,4 @@ ENV DISPLAY=:99
 ENV JAVA_OPTS="-Djava.awt.headless=true"
 
 # Запуск Xvfb і тестів
-CMD Xvfb :99 & mvn clean test
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1920x1080x24 & mvn clean test"]

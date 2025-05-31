@@ -9,6 +9,8 @@ services:
       - allure-results:/usr/src/app/allure-results
     working_dir: /usr/src/app
     command: mvn clean test
+    security_opt:
+      - seccomp:unconfined
     environment:
       - DISPLAY=:99
       - JAVA_OPTS=-Djava.awt.headless=true
