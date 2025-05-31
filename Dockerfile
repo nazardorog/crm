@@ -1,59 +1,80 @@
-# Базовий образ — OpenJDK 17 + Maven
-FROM maven:3.9-eclipse-temurin-17
+# Базовий образ Ubuntu 24.04.2 LTS
+FROM ubuntu:24.04
 
-# Оновлюємо та встановлюємо залежності, зокрема Chrome і ChromeDriver
+# Встановлення змінних середовища
+ENV DEBIAN_FRONTEND=noninteractive
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV PATH=$PATH:$JAVA_HOME/bin
+ENV DISPLAY=:99
+
+# Оновлення системи та встановлення базових пакетів
 RUN apt-get update && apt-get install -y \
     wget \
-    unzip \
-    xvfb \
     curl \
     gnupg \
-    libgtk-3-0 \
-    libxss1 \
-    libnss3 \
-    libx11-xcb1 \
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxi6 \
-    libxtst6 \
-    libappindicator3-1 \
-    libatk-bridge2.0-0 \
-    libatk1.0-0 \
-    libcups2 \
-    libdrm2 \
-    libgbm1 \
-    libpango-1.0-0 \
-    libpangocairo-1.0-0 \
-    libxrandr2 \
-    fonts-liberation \
+    software-properties-common \
+    apt-transport-https \
+    ca-certificates \
+    unzip \
+    xvfb \
+    x11vnc \
+    fluxbox \
     && rm -rf /var/lib/apt/lists/*
 
-# Встановлюємо Google Chrome
-RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
-    apt-get update && apt-get install -y google-chrome-stable && rm -rf /var/lib/apt/lists/*
+# Встановлення Java 11
+RUN apt-get update && apt-get install -y \
+    openjdk-11-jdk \
+    && rm -rf /var/lib/apt/lists/*
 
-# Визначаємо версію Chrome та автоматично завантажуємо відповідний ChromeDriver
-RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+') && \
-    DRIVER_VERSION=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json \
-        | jq -r --arg ver "$CHROME_VERSION" '.channels.Stable.version') && \
-    curl -sSL https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$DRIVER_VERSION/linux64/chromedriver-linux64.zip \
-        -o /tmp/chromedriver.zip && \
-    unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
-    mv /usr/local/bin/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver && \
-    chmod +x /usr/local/bin/chromedriver && \
-    rm -rf /tmp/chromedriver.zip /usr/local/bin/chromedriver-linux64
+# Встановлення Google Chrome
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable \
+    && rm -rf /var/lib/apt/lists/*
 
-# Встановлюємо робочу директорію
-WORKDIR /usr/src/app
+# Встановлення ChromeDriver
+RUN CHROME_VERSION=$(google-chrome --version | cut -d " " -f3 | cut -d "." -f1) \
+    && CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION") \
+    && wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip" \
+    && unzip /tmp/chromedriver.zip -d /tmp/ \
+    && mv /tmp/chromedriver /usr/local/bin/chromedriver \
+    && chmod +x /usr/local/bin/chromedriver \
+    && rm /tmp/chromedriver.zip
 
-# Копіюємо всі файли проекту в контейнер
-COPY . .
+# Встановлення Gradle
+RUN wget -O /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.5-bin.zip \
+    && unzip /tmp/gradle.zip -d /opt/ \
+    && mv /opt/gradle-8.5 /opt/gradle \
+    && ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle \
+    && rm /tmp/gradle.zip
 
-# Вказуємо змінні середовища, щоб запускати Chrome в headless режимі без GUI
-ENV DISPLAY=:99
-ENV JAVA_OPTS="-Djava.awt.headless=true"
+# Створення робочої директорії
+WORKDIR /app
 
-# Запуск Xvfb і тестів
-CMD ["sh", "-c", "Xvfb :99 -screen 0 1920x1080x24 & mvn clean test"]
+# Копіювання файлів проекту
+COPY build.gradle .
+COPY gradle/ gradle/
+COPY gradlew .
+COPY gradlew.bat .
+
+# Надання прав на виконання gradlew
+RUN chmod +x gradlew
+
+# Завантаження залежностей Gradle
+RUN ./gradlew build --no-daemon || true
+
+# Створення директорій для результатів тестів та логів
+RUN mkdir -p test-results logs
+
+# Копіювання сирцевого коду (буде перезаписано volume в docker-compose)
+COPY src/ src/
+
+# Встановлення прав доступу
+RUN useradd -m -s /bin/bash testuser \
+    && chown -R testuser:testuser /app
+
+USER testuser
+
+# Команда за замовчуванням
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1920x1080x24 & sleep 2 && ./gradlew test --info"]

@@ -1,35 +1,29 @@
 version: '3.8'
 
 services:
-  tests:
-    image: maven:3.9-eclipse-temurin-17
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: autotest
+  selenide-tests:
+    build: .
+    container_name: selenide-chrome-tests
     volumes:
-      - .:/usr/src/app
-      - allure-results:/usr/src/app/allure-results
-    working_dir: /usr/src/app
-    command: mvn clean test
-    security_opt:
-      - seccomp:unconfined
+      - ./src:/app/src
+      - ./test-results:/app/test-results
+      - ./logs:/app/logs
     environment:
       - DISPLAY=:99
-      - JAVA_OPTS=-Djava.awt.headless=true
+      - CHROME_BIN=/usr/bin/google-chrome
+      - SELENIDE_BROWSER=chrome
+      - SELENIDE_HEADLESS=true
+      - SELENIDE_BROWSER_SIZE=1920x1080
+    working_dir: /app
+    command: >
+      sh -c "
+        Xvfb :99 -screen 0 1920x1080x24 &
+        sleep 2 &&
+        ./gradlew test --info
+      "
+    networks:
+      - selenide-network
 
-  allure:
-    image: frankescobar/allure-docker-service
-    container_name: autotest-allure
-    ports:
-      - "5050:5050"
-    volumes:
-      - allure-results:/app/allure-results
-      - allure-reports:/app/allure-reports
-    environment:
-      CHECK_RESULTS_EVERY_SECONDS: 5
-      KEEP_HISTORY: 1
-
-volumes:
-  allure-results:
-  allure-reports:
+networks:
+  selenide-network:
+    driver: bridge
