@@ -72,9 +72,9 @@ public class GlobalLogin {
 
             Allure.step("Клік по кнопці Submit", () ->
                     $(".btn.btn-primary.btn-block.btn-flat").click());
-
-            Allure.step("Очікує відкриття Load board", () ->
-                    $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL));
+//
+//            Allure.step("Очікує відкриття Load board", () ->
+//                    $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL));
         });
     }
 

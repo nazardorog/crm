@@ -2,7 +2,7 @@
 <suite name="FullRegression" parallel="false">
     <test name="BrokerCreate">
         <classes>
-            <class name="web.expedite.smoke.broker.WES035_BrokerCreate"/>
+            <class name="web.expedite.full.loadBoard.WEF001_LoadLogin"/>
         </classes>
     </test>
 </suite>
