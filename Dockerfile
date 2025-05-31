@@ -28,20 +28,21 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation \
     && rm -rf /var/lib/apt/lists/*
 
-# Встановлюємо Google Chrome Stable (підходить для роботи з ChromeDriver)
-RUN wget -q -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    apt-get update && \
-    apt-get install -y /tmp/google-chrome.deb && \
-    rm /tmp/google-chrome.deb
+# Встановлюємо Google Chrome
+RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && apt-get install -y google-chrome-stable && rm -rf /var/lib/apt/lists/*
 
-# Автоматично завантажуємо ChromeDriver, який відповідає встановленій версії Chrome
+# Визначаємо версію Chrome та автоматично завантажуємо відповідний ChromeDriver
 RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+') && \
-    CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}") && \
-    echo "Chrome version: $CHROME_VERSION -> ChromeDriver version: $CHROMEDRIVER_VERSION" && \
-    wget -q -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip && \
+    DRIVER_VERSION=$(curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json \
+        | jq -r --arg ver "$CHROME_VERSION" '.channels.Stable.version') && \
+    curl -sSL https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$DRIVER_VERSION/linux64/chromedriver-linux64.zip \
+        -o /tmp/chromedriver.zip && \
     unzip /tmp/chromedriver.zip -d /usr/local/bin/ && \
-    rm /tmp/chromedriver.zip && \
-    chmod +x /usr/local/bin/chromedriver
+    mv /usr/local/bin/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver && \
+    chmod +x /usr/local/bin/chromedriver && \
+    rm -rf /tmp/chromedriver.zip /usr/local/bin/chromedriver-linux64
 
 # Встановлюємо робочу директорію
 WORKDIR /usr/src/app
