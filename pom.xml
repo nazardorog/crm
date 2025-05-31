@@ -7,50 +7,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>io.qameta.allure</groupId>
-                <artifactId>allure-maven</artifactId>
-                <version>2.15.2</version>
-                <configuration>
-                    <reportVersion>2.30.0</reportVersion>
-                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>
                 <configuration>
                     <suiteXmlFiles>
-<!--                        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>-->
-<!--                        <suiteXmlFile>src/test/java/resources/testngRun.xml</suiteXmlFile>-->
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <systemPropertyVariables>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <run.env>${run.env}</run.env>
-                    </systemPropertyVariables>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                </configuration>
-            </plugin>
-            <!-- Плагін для автоматичного запуску Allure -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>allure</executable>
-                    <arguments>
-                        <argument>serve</argument>
-                        <argument>allure-results</argument>
-                    </arguments>
                 </configuration>
             </plugin>
 <!--            запуск автоматично allure docker-->
@@ -69,12 +33,13 @@
                             <executable>bash</executable>
                             <arguments>
                                 <argument>-c</argument>
-                                <argument>start http://localhost:5050/projects/default/reports/latest/index.html</argument>
+                                <argument>xdg-open http://localhost:5050/projects/default/reports/latest/index.html || open http://localhost:5050/projects/default/reports/latest/index.html</argument>
                             </arguments>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <!-- Очищення allure-results перед тестами -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -88,10 +53,17 @@
                                 <include>**/*</include>
                             </includes>
                         </fileset>
+                        <fileset>
+                            <directory>${project.build.directory}/surefire-reports</directory>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </fileset>
                     </filesets>
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 
     <groupId>org.example</groupId>
@@ -102,7 +74,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>
     </properties>
     <dependencies>
         <dependency>
@@ -119,11 +90,6 @@
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
             <version>7.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-install-plugin</artifactId>
-            <version>3.1.2</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
