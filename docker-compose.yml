@@ -4,8 +4,8 @@ services:
   selenide-tests:
     build:
       context: .
-      dockerfile: Dockerfile.minimal
-    container_name: selenide-chrome-tests-minimal
+      dockerfile: Dockerfile
+    container_name: selenide-chrome
     volumes:
       - ./src:/app/src
       - ./test-results:/app/test-results
