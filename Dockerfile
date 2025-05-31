@@ -54,5 +54,5 @@ COPY . .
 ENV DISPLAY=:99
 ENV JAVA_OPTS="-Djava.awt.headless=true"
 
-# Запуск тестів
-CMD ["mvn", "clean", "test"]
+# Запуск Xvfb і тестів
+CMD Xvfb :99 & mvn clean test
