@@ -8,6 +8,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -34,21 +35,15 @@ public class GlobalLogin {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
         Configuration.browserCapabilities = capabilities;
+        Configuration.browserSize = "1920x1080";
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");
-
-        if (runEnv.equals("remote")) {
-            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub");
-            Configuration.headless = true; // без GUI
-        } else {
-            Configuration.headless = false; // для дебагу
-        }
 
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(Configuration.baseUrl));
 
         WebDriver driver = webdriver().driver().getWebDriver();
-        driver.manage().window().maximize();
+
     }
 
     @Description("Авторизація користувача в системі")
