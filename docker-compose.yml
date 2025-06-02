@@ -15,7 +15,6 @@ services:
     shm_size: 2gb
     networks:
       - selenide-network
-
 networks:
   selenide-network:
     driver: bridge
