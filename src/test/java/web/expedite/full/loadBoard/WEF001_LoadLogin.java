@@ -23,6 +23,7 @@ public class WEF001_LoadLogin {
         // Login
         System.out.println("Test start");
         GlobalLogin.login("exp_disp1");
+        System.out.println("Test finish");
 
 //        $(".content-header").shouldBe(visible, EXPECT_GLOBAL);
 //        $(".content-header").shouldBe(text("Load Board"));
