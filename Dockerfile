@@ -6,12 +6,12 @@ USER root
 
 # Встановлення Java та Maven
 RUN apt-get update && apt-get install -y \
-    openjdk-11-jdk \
+    openjdk-17-jdk \
     maven \
     && rm -rf /var/lib/apt/lists/*
 
 # Встановлення змінних середовища
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH=$PATH:$JAVA_HOME/bin
 
 # Робоча директорія
