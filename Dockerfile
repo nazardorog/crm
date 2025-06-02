@@ -1,54 +1,38 @@
-# Альтернативний мінімальний Dockerfile
+# Базовий образ із Chrome і WebDriver
 FROM selenium/standalone-chrome:latest
 
-# Встановити як root для встановлення пакетів
+# Встановити як root для додавання пакетів
 USER root
 
-# Встановлення Java та Gradle
+# Встановлення Java та Maven
 RUN apt-get update && apt-get install -y \
     openjdk-11-jdk \
-    wget \
-    unzip \
+    maven \
     && rm -rf /var/lib/apt/lists/*
-
-# Встановлення Gradle
-RUN wget -O /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.5-bin.zip \
-    && unzip /tmp/gradle.zip -d /opt/ \
-    && mv /opt/gradle-8.5 /opt/gradle \
-    && ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle \
-    && rm /tmp/gradle.zip
 
 # Встановлення змінних середовища
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 ENV PATH=$PATH:$JAVA_HOME/bin
 
-# Створення робочої директорії
+# Робоча директорія
 WORKDIR /app
 
 # Створення користувача для тестів
 RUN useradd -m -s /bin/bash testuser \
     && chown -R testuser:testuser /app
 
-# Копіювання файлів проекту
-COPY --chown=testuser:testuser build.gradle .
-COPY --chown=testuser:testuser gradle/ gradle/
-COPY --chown=testuser:testuser gradlew .
-COPY --chown=testuser:testuser gradlew.bat .
+# Копіюємо pom.xml і завантажуємо залежності Maven
+COPY --chown=testuser:testuser pom.xml .
+RUN mvn dependency:go-offline
 
-# Надання прав на виконання gradlew
-RUN chmod +x gradlew
+# Копіюємо весь проект
+COPY --chown=testuser:testuser . .
 
-# Перехід на користувача testuser
+# Переходимо на користувача
 USER testuser
 
-# Завантаження залежностей Gradle
-RUN ./gradlew build --no-daemon || true
-
-# Створення директорій для результатів тестів та логів
+# Створюємо директорії для результатів (опціонально)
 RUN mkdir -p test-results logs
 
-# Копіювання сирцевого коду
-COPY --chown=testuser:testuser src/ src/
-
-# Команда за замовчуванням
-CMD ["./gradlew", "test", "--info"]
+# Команда за замовчуванням — запуск тестів
+CMD ["mvn", "test"]
