@@ -5,11 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: selenide-chrome
+    container_name: chrome
     volumes:
       - ./src:/app/src
-      - ./test-results:/app/test-results
-      - ./logs:/app/logs
     environment:
       - SELENIDE_BROWSER=chrome
       - SELENIDE_HEADLESS=true
