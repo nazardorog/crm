@@ -21,6 +21,7 @@ public class WEF001_LoadLogin {
     public void login() {
 
         // Login
+        System.out.println("Test start");
         GlobalLogin.login("exp_disp1");
 
 //        $(".content-header").shouldBe(visible, EXPECT_GLOBAL);
