@@ -39,6 +39,13 @@ public class GlobalLogin {
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");
 
+        if (runEnv.equals("remote")) {
+            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub");
+            Configuration.headless = true; // без GUI
+        } else {
+            Configuration.headless = false; // для дебагу
+        }
+
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(Configuration.baseUrl));
 
