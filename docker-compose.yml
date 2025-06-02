@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: standalone-chrome
+    container_name: test1
     volumes:
       - ./src:/app/src
     environment:
