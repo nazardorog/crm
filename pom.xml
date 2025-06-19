@@ -40,6 +40,12 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.11.2</version>
+            </plugin>
+
             <!-- Очищення allure-results перед тестами -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
