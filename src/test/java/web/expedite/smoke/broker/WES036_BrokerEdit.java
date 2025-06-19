@@ -31,6 +31,8 @@ public class WES036_BrokerEdit {
     @Test
     public void edit() {
 
+        System.out.println("Погнав тест WES036");
+
         // Login
         GlobalLogin.login("exp_disp1");
 

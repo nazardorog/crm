@@ -27,6 +27,7 @@ public class WES037_BrokerDnuAdd {
 
     @Test
     public void dnuAdd() {
+        System.out.println("Погнав тест WES037");
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -137,6 +138,8 @@ public class WES037_BrokerDnuAdd {
         // [Main Broker] table. Check broker Dnu
         $("#brokers-grid-view").shouldBe(visible, EXPECT_GLOBAL);
         rowBroker.shouldHave(text("DNU"));
+
+        System.out.println("пр... кобилка тест WES037");
     }
 
     @AfterMethod(alwaysRun = true)
