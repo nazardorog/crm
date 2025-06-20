@@ -60,7 +60,7 @@ public class GlobalLogin {
             Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
             Configuration.headless = true; // без GUI
         } else {
-            Configuration.headless = false; // для дебагу
+            Configuration.headless = true; // для дебагу
         }
 
         Allure.step("Відкриває браузер", () ->
