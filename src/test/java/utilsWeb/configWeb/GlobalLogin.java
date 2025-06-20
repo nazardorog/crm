@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
@@ -28,16 +29,33 @@ public class GlobalLogin {
 
         String runEnv = System.getenv().getOrDefault("RUN_ENV", "local");
 
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "chrome");
+
+
+
+        ChromeOptions options = new ChromeOptions();
+
+        String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
+        options.addArguments("--user-data-dir=" + userDataDir);
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--headless");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-plugins");
+        options.addArguments("--window-size=1920,1080");
+
+        Configuration.browserCapabilities = new DesiredCapabilities();
+        Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browser = "chrome";
         Configuration.headless = true;
         Configuration.reportsFolder = "allure-results";
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "chrome");
-        Configuration.browserCapabilities = capabilities;
+//        Configuration.browserCapabilities = capabilities;
         Configuration.browserSize = "1920x1080";
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
         if (runEnv.equals("remote")) {
             Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
