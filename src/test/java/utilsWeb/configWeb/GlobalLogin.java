@@ -51,7 +51,6 @@ public class GlobalLogin {
         Configuration.browser = "chrome";
         Configuration.headless = true;
         Configuration.reportsFolder = "allure-results";
-//        Configuration.browserCapabilities = capabilities;
         Configuration.browserSize = "1920x1080";
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");

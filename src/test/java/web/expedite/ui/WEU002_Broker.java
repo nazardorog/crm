@@ -17,6 +17,8 @@ public class WEU002_Broker {
     @Test
     public void broker() {
 
+        System.out.println("Давай наярівай");
+
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -30,6 +32,8 @@ public class WEU002_Broker {
 
         $$(".breadcrumb li").findBy(text("Home")).shouldBe(visible);
         $$(".breadcrumb li").findBy(text("Brokers")).shouldBe(visible);
+
+        System.out.println("Прилетіли");
     }
 
     @AfterMethod(alwaysRun = true)
