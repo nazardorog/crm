@@ -25,6 +25,7 @@ public class WEU002_Broker {
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
+        $$("th").findBy(text("Make")).shouldBe(visible);
         $(".brokers-user").click();
         $("body").click();
         $("#OTR").shouldHave(text("OTR"));
