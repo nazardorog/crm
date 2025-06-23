@@ -32,8 +32,6 @@ public class GlobalLogin {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
 
-
-
         ChromeOptions options = new ChromeOptions();
 
         String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
@@ -41,7 +39,6 @@ public class GlobalLogin {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
-        options.addArguments("--headless");
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-plugins");
         options.addArguments("--window-size=1920,1080");
@@ -49,7 +46,6 @@ public class GlobalLogin {
         Configuration.browserCapabilities = new DesiredCapabilities();
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browser = "chrome";
-        Configuration.headless = true;
         Configuration.reportsFolder = "allure-results";
         Configuration.browserSize = "1920x1080";
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
@@ -57,17 +53,16 @@ public class GlobalLogin {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
         if (runEnv.equals("remote")) {
-            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
+//            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
             Configuration.headless = true; // без GUI
         } else {
-            Configuration.headless = true; // для дебагу
+            Configuration.headless = false; // для дебагу
         }
 
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(Configuration.baseUrl));
 
         WebDriver driver = webdriver().driver().getWebDriver();
-
     }
 
     @Description("Авторизація користувача в системі")
