@@ -60,6 +60,7 @@ public class GlobalLogin {
             Configuration.headless = false; // для дебагу
         }
 
+        System.out.println("Allure reports will be saved 1: " + Configuration.reportsFolder);
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(Configuration.baseUrl));
 

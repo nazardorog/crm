@@ -19,12 +19,13 @@ public class WEU002_Broker {
     public void broker() {
 
         System.out.println("Давай наярівай");
-        String runEnv = System.getenv("RUN_ENV");
-        System.out.println("RUN_ENV = " + runEnv);
-        System.out.println("Allure reports will be saved to: " + Configuration.reportsFolder);
 
         // Login
         GlobalLogin.login("exp_disp1");
+
+        String runEnv = System.getenv("RUN_ENV");
+        System.out.println("RUN_ENV = " + runEnv);
+        System.out.println("Allure reports will be saved 2: " + Configuration.reportsFolder);
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
