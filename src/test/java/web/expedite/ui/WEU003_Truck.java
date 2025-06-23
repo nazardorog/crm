@@ -22,6 +22,9 @@ public class WEU003_Truck {
         // Login
         GlobalLogin.login("exp_disp1");
 
+        String runEnv = System.getenv("RUN_ENV");
+        System.out.println("RUN_ENV = " + runEnv);
+
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
         $(".trucks-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
