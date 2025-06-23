@@ -44,6 +44,7 @@ public class WEU002_Broker {
         $(".brokers-user").shouldBe(visible, Duration.ofSeconds(10)).hover();
         $(".brokers-user").click();
         $("body").click();
+        $(".col-md-2.trucks-head-block-search .control-label").shouldHave(text("Truck Number Length"));
         System.out.println("Половинка тесту юхуу");
         $("#OTR").shouldHave(text("OTR"));
         $(".content-header").shouldHave(text("Brokers"));
