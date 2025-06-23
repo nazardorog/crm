@@ -54,7 +54,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>${project.basedir}/allure-results</directory>
+                            <directory>${project.basedir}/target/allure-results</directory>
                             <includes>
                                 <include>**/*</include>
                             </includes>
