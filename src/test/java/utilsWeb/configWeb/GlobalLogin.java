@@ -46,7 +46,8 @@ public class GlobalLogin {
         Configuration.browserCapabilities = new DesiredCapabilities();
         Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browser = "chrome";
-        Configuration.reportsFolder = "allure-results";
+        Configuration.reportsFolder = "target/allure-results";
+//        Configuration.reportsFolder = "allure-results";
         Configuration.browserSize = "1920x1080";
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");

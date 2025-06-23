@@ -1,5 +1,6 @@
 package web.expedite.ui;
 
+import com.codeborne.selenide.Configuration;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 
@@ -24,6 +25,7 @@ public class WEU003_Truck {
 
         String runEnv = System.getenv("RUN_ENV");
         System.out.println("RUN_ENV = " + runEnv);
+        System.out.println("Allure reports will be saved to: " + Configuration.reportsFolder);
 
         $(".logo-mini-icon").shouldBe(visible, Duration.ofSeconds(30));
 
