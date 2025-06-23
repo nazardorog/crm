@@ -7,6 +7,7 @@ import utilsWeb.commonWeb.*;
 import org.testng.annotations.Test;
 import utilsWeb.configWeb.GlobalLogin;
 
+import java.io.File;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.text;
@@ -39,6 +40,7 @@ public class WEU002_Broker {
         $$(".breadcrumb li").findBy(text("Home")).shouldBe(visible);
         $$(".breadcrumb li").findBy(text("Brokers")).shouldBe(visible);
 
+        System.out.println("Allure report path: " + new File(Configuration.reportsFolder).getAbsolutePath());
         System.out.println("Прилетіли");
     }
 
