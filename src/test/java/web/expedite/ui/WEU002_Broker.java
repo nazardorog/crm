@@ -1,5 +1,6 @@
 package web.expedite.ui;
 
+import com.codeborne.selenide.Configuration;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 
@@ -18,6 +19,9 @@ public class WEU002_Broker {
     public void broker() {
 
         System.out.println("Давай наярівай");
+        String runEnv = System.getenv("RUN_ENV");
+        System.out.println("RUN_ENV = " + runEnv);
+        System.out.println("Allure reports will be saved to: " + Configuration.reportsFolder);
 
         // Login
         GlobalLogin.login("exp_disp1");
