@@ -37,7 +37,7 @@ public class GlobalLogin {
         if (runEnv.equals("jenkins")) {
             System.out.println("тест зайшов у дженкінс блок");
             String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
-            options.addArguments("--user-data-dir=" + userDataDir);
+//            options.addArguments("--user-data-dir=" + userDataDir);
         }
 
         options.addArguments("--no-sandbox");
