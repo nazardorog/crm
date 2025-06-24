@@ -15,6 +15,11 @@
                     <systemPropertyVariables>
                         <allure.results.directory>target/allure-results</allure.results.directory>
                     </systemPropertyVariables>
+                    <suiteXmlFiles>
+                        <!--                        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>-->
+                        <!--                        <suiteXmlFile>src/test/java/resources/testngRun.xml</suiteXmlFile>-->
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
 <!--            запуск автоматично allure docker-->
@@ -80,6 +85,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>
     </properties>
     <dependencies>
         <dependency>
