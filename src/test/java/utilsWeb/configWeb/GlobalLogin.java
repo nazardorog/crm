@@ -34,10 +34,10 @@ public class GlobalLogin {
 
         ChromeOptions options = new ChromeOptions();
 
-//        if (!runEnv.equals("remote")) {
+        if (runEnv.equals("jenkins")) {
             String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
             options.addArguments("--user-data-dir=" + userDataDir);
-//        }
+        }
 
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
