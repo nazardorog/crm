@@ -3,8 +3,8 @@ FROM eclipse-temurin:17-jdk
 # Встановити Maven
 RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
-## Робоча директорія
-#WORKDIR /app
+# Робоча директорія
+WORKDIR /app
 
 # Копіюємо pom.xml і завантажуємо залежності
 COPY pom.xml .
