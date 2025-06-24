@@ -61,8 +61,8 @@ services:
       KEEP_HISTORY: 1
       GENERATE_REPORT_ON_REQUEST: 0
     volumes:
-      - ./target/allure-results:/app/target/allure-results
-      - ./target/allure-report:/app/target/allure-reports
+      - ./target/allure-results:/app/allure-results
+      - ./target/allure-report:/app/default-reports
     networks:
       - selenide-network
     depends_on:
