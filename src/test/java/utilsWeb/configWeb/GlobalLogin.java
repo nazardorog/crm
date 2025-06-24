@@ -32,13 +32,13 @@ public class GlobalLogin {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
 
-//        if (runEnv.equals("jenkins")) {
-//            System.out.println("тест зайшов у дженкінс блок");
-//            String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
-//            options.addArguments("--user-data-dir=" + userDataDir);
-//        }
-
         ChromeOptions options = new ChromeOptions();
+        if (runEnv.equals("jenkins")) {
+            System.out.println("тест зайшов у jenkins блок");
+            String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
+            options.addArguments("--user-data-dir=" + userDataDir);
+        }
+
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
@@ -56,6 +56,7 @@ public class GlobalLogin {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
         if (runEnv.equals("docker")) {
+            System.out.println("тест зайшов у docker блок");
             Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
             Configuration.headless = true; // без GUI
         }
