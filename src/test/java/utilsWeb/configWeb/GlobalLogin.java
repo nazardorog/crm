@@ -55,10 +55,14 @@ public class GlobalLogin {
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
 
-        if (runEnv.equals("remote")) {
-//            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
+        if (runEnv.equals("docker")) {
+            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
             Configuration.headless = true; // без GUI
-        } else {
+        }
+        else if (runEnv.equals("jenkins")) {
+            Configuration.headless = true; // без GUI
+        }
+        else {
             Configuration.headless = false; // для дебагу
         }
 
