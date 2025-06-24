@@ -40,7 +40,7 @@ services:
       dockerfile: Dockerfile
     container_name: selenide-tests
     environment:
-      - RUN_ENV=remote
+      - RUN_ENV=docker
       - SELENIUM_REMOTE_URL=http://selenium-hub:4444/wd/hub
     volumes:
       - ./src:/app/src

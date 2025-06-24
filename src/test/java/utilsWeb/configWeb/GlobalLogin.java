@@ -64,7 +64,7 @@ public class GlobalLogin {
             Configuration.headless = true; // без GUI
         }
         else {
-            Configuration.headless = true; // для дебагу
+            Configuration.headless = false; // для дебагу
         }
 
         System.out.println("Allure reports will be saved 1: " + Configuration.reportsFolder);
