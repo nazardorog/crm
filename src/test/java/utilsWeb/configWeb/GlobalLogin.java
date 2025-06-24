@@ -34,8 +34,11 @@ public class GlobalLogin {
 
         ChromeOptions options = new ChromeOptions();
 
-        String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
-        options.addArguments("--user-data-dir=" + userDataDir);
+        if (!runEnv.equals("remote")) {
+            String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
+            options.addArguments("--user-data-dir=" + userDataDir);
+        }
+
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
