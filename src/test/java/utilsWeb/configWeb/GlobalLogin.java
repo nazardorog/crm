@@ -32,14 +32,14 @@ public class GlobalLogin {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
 
-        ChromeOptions options = new ChromeOptions();
+
 
 //        if (runEnv.equals("jenkins")) {
 //            System.out.println("тест зайшов у дженкінс блок");
 //            String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
 ////            options.addArguments("--user-data-dir=" + userDataDir);
 //        }
-
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
@@ -64,7 +64,7 @@ public class GlobalLogin {
             Configuration.headless = true; // без GUI
         }
         else {
-            Configuration.headless = false; // для дебагу
+            Configuration.headless = true; // для дебагу
         }
 
         System.out.println("Allure reports will be saved 1: " + Configuration.reportsFolder);
