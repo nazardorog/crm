@@ -46,7 +46,7 @@ services:
       - ./src:/app/src
       - ./target/allure-results:/app/target/allure-results
     working_dir: /app
-    user: "${UID}:${GID}"
+#    user: "${UID}:${GID}"
     depends_on:
       - selenium-hub
     networks:
