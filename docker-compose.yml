@@ -45,10 +45,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./target/allure-results:/app/target/allure-results
-#      - ./target/allure-report:/app/target/allure-report
-#      - ./run-tests.sh:/app/run-tests.sh
     working_dir: /app
-#    user: "${UID}:${GID}"
     depends_on:
       - selenium-hub
     networks:
