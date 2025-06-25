@@ -45,8 +45,8 @@ COPY . .
 ## Утримуємо контейнер активним\n\
 #tail -f /dev/null' > /app/run-tests.sh
 
-# Надаємо права на виконання скрипта
-RUN chmod +x /app/run-tests.sh
+## Надаємо права на виконання скрипта
+#RUN chmod +x /app/run-tests.sh
 
 # Команда за замовчуванням
 CMD ["mvn", "test"]
