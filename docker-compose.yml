@@ -45,6 +45,8 @@ services:
     volumes:
       - ./src:/app/src
       - ./target/allure-results:/app/target/allure-results
+#      - ./target/allure-report:/app/target/allure-report
+#      - ./run-tests.sh:/app/run-tests.sh
     working_dir: /app
 #    user: "${UID}:${GID}"
     depends_on:
@@ -58,6 +60,8 @@ services:
     environment:
       CHECK_RESULTS_EVERY_SECONDS: 5
       KEEP_HISTORY: 1
+      PUID: 1000
+      PGID: 1000
     ports:
       - "5050:5050"
     volumes:
