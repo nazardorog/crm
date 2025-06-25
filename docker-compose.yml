@@ -52,25 +52,6 @@ services:
     networks:
       - network
 
-  allure-ui:
-    image: frankescobar/allure-docker-service
-    container_name: allure-ui
-    ports:
-      - "5050:5050"
-    environment:
-      CHECK_RESULTS_EVERY_SECONDS: 5
-      KEEP_HISTORY: 1
-      GENERATE_REPORT_ON_REQUEST: 0
-      ALLURE_UID: ${UID}
-      ALLURE_GID: ${GID}
-    volumes:
-      - ./target/allure-results:/app/allure-results
-      - ./target/allure-report:/app/default-reports
-    depends_on:
-      - selenide-tests
-    networks:
-      - network
-
 networks:
   network:
     driver: bridge
