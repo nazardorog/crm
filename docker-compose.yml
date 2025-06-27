@@ -51,21 +51,21 @@ services:
     networks:
       - network
 
-  allure-service:
-    image: frankescobar/allure-docker-service:2.13.8
-    container_name: allure-service
-    environment:
-      CHECK_RESULTS_EVERY_SECONDS: 5
-      KEEP_HISTORY: 1
-      PUID: 1000
-      PGID: 1000
-    ports:
-      - "5050:5050"
-    volumes:
-      - ./target/allure-results:/app/allure-results
-      - ./target/allure-report:/app/default-reports
-    networks:
-      - network
+#  allure-service:
+#    image: frankescobar/allure-docker-service:2.13.8
+#    container_name: allure-service
+#    environment:
+#      CHECK_RESULTS_EVERY_SECONDS: 5
+#      KEEP_HISTORY: 1
+#      PUID: 1000
+#      PGID: 1000
+#    ports:
+#      - "5050:5050"
+#    volumes:
+#      - ./target/allure-results:/app/allure-results
+#      - ./target/allure-report:/app/default-reports
+#    networks:
+#      - network
 
 networks:
   network:
