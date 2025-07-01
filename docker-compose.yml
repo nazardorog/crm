@@ -8,7 +8,8 @@ services:
       - "4443:4443"
       - "4444:4444"
     networks:
-      - network
+#      - network
+      - shared_network
 
   chrome1:
     image: selenium/node-chrome:4.21.0
@@ -20,7 +21,8 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     networks:
-      - network
+#      - network
+      - shared_network
 
   chrome2:
     image: selenium/node-chrome:4.21.0
@@ -32,7 +34,8 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     networks:
-      - network
+#      - network
+      - shared_network
 
   selenide-tests:
     build:
@@ -49,7 +52,8 @@ services:
     depends_on:
       - selenium-hub
     networks:
-      - network
+#      - network
+      - shared_network
 
   allure-service:
     image: frankescobar/allure-docker-service:2.13.8
@@ -65,8 +69,10 @@ services:
       - ./target/allure-results:/app/allure-results
       - ./target/allure-report:/app/default-reports
     networks:
-      - network
+#      - network
+      - shared_network
 
 networks:
-  network:
-    driver: bridge
+  shared_network:
+#    driver: bridge
+    external: true
