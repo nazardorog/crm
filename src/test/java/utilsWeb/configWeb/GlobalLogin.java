@@ -61,6 +61,8 @@ public class GlobalLogin {
             Configuration.headless = true; // без GUI
         }
         else if (runEnv.equals("jenkins")) {
+            System.out.println("тест зайшов у jenkins блок");
+            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
             Configuration.headless = true; // без GUI
         }
         else {
