@@ -50,6 +50,9 @@ public class WEU003_Truck {
         $$("th").findBy(text("Driver Support")).shouldBe(visible);
         $$("th").findBy(text("Hr Content")).shouldBe(visible);
 
+        System.out.println("має впасти тест");
+        $("#brokers-name").setValue("atLegalName");
+
         System.out.println("Прилетіли");
     }
 
