@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: test
-    user: administrator
+    user: root
     environment:
       - RUN_ENV=docker
       - SELENIUM_REMOTE_URL=http://selenium-hub:4444/wd/hub
