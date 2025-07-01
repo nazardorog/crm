@@ -14,4 +14,5 @@ RUN mvn dependency:go-offline
 COPY . .
 
 # Команда за замовчуванням
-CMD ["mvn", "test"]
+#CMD ["mvn", "test"]
+CMD ["tail", "-f", "/dev/null"]
