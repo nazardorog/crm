@@ -19,6 +19,7 @@ public class WEU003_Truck {
 
     @Test
     public void truck() {
+        System.out.println("Давай наярівай");
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -48,6 +49,8 @@ public class WEU003_Truck {
         $$("th").findBy(text("Year")).shouldBe(visible);
         $$("th").findBy(text("Driver Support")).shouldBe(visible);
         $$("th").findBy(text("Hr Content")).shouldBe(visible);
+
+        System.out.println("Прилетіли");
     }
 
     @AfterMethod(alwaysRun = true)
