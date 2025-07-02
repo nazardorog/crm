@@ -1,8 +1,18 @@
 pipeline {
     agent any
 
+//     parameters {
+//         string(name: 'TEST_CLASS', defaultValue: 'web.expedite.ui.WEU003_Truck', description: 'Повне ім’я класу тесту')
+//     }
+
     parameters {
-        string(name: 'TEST_CLASS', defaultValue: 'web.expedite.ui.WEU003_Truck', description: 'Повне ім’я класу тесту')
+        // Вибір кількох класів тестів через checkbox
+        choice(name: 'TESTS', choices: [
+            'web.expedite.ui.WEU001_LoadBoard',
+            'web.expedite.ui.WEU002_Broker',
+            'web.expedite.ui.WEU003_Truck',
+            'web.expedite.ui.WEU004_ExpediteFleet'
+        ].join('\n'), description: 'Оберіть клас тесту (тільки один наразі)')
     }
 
     stages {
