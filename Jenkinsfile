@@ -32,14 +32,7 @@ pipeline {
         stage('Run Test in Docker') {
             steps {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
-
-                sh '''
-                docker run --rm \\
-                  -v ${WORKSPACE}:/app \\
-                  -w /app \\
-                  maven:3.8-openjdk-17 \\
-                  mvn test -Dtest=${TEST_CLASS} -DfailIfNoTests=false
-                '''
+                sh 'docker run --rm -v ${WORKSPACE}:/app -w /app maven:3.8-openjdk-17 mvn test -Dtest=${TEST_CLASS} -DfailIfNoTests=false'
             }
         }
     }
