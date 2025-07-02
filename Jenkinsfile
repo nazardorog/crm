@@ -1,22 +1,37 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'TEST_CLASS', defaultValue: 'web.expedite.ui.WEU003_Truck', description: 'Повне ім’я класу тесту')
+    }
+
     stages {
-        stage('Hello') {
+        stage('Checkout') {
             steps {
-                echo 'Привіт! Це тестовий пайплайн.'
+                git branch: 'master',
+                    credentialsId: 'your-git-credentials-id',
+                    url: 'https://github.com/nazardorog/crm.git/'
             }
         }
-        stage('Run a shell command') {
+
+        stage('Run Test in Docker') {
             steps {
-                sh 'echo "Цей простий shell командний крок виконується"'
+                echo "Запускаємо тест: ${params.TEST_CLASS}"
+
+                sh '''
+                docker run --rm \\
+                  -v ${WORKSPACE}:/app \\
+                  -w /app \\
+                  maven:3.8.6-openjdk-17 \\
+                  mvn test -Dtest=${TEST_CLASS} -DfailIfNoTests=false
+                '''
             }
         }
     }
 
     post {
         always {
-            echo 'Пайплайн завершився.'
+            echo 'Pipeline завершено.'
         }
     }
 }
