@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         // Вибір кількох класів тестів через checkbox
-        choice(name: 'TESTS', choices: [
+        choice(name: 'TEST_CLASS', choices: [
             'web.expedite.ui.WEU001_LoadBoard',
             'web.expedite.ui.WEU002_Broker',
             'web.expedite.ui.WEU003_Truck',
@@ -37,7 +37,9 @@ pipeline {
                             -w /app \
                             -e RUN_ENV=jenkins \
                             maven:3.8-openjdk-17 \
-                            mvn test -Dtest=${params.TEST_CLASS} -DfailIfNoTests=false
+                            mvn test \
+                                -Dtest=${params.TEST_CLASS}
+                                -DfailIfNoTests=false
                     """
                 }
             }
