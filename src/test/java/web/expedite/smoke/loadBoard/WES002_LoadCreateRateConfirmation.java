@@ -12,6 +12,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -35,6 +36,7 @@ public class WES002_LoadCreateRateConfirmation {
         String atTruck = "0303";
         String atDriver = "Auto Test";
         String atTeamDriver = "Auto Test2";
+        String fileName = "1pdf.pdf";
 
         // Add load creation
         $("#new_load").shouldBe(enabled, Duration.ofSeconds(20)).click();
@@ -99,9 +101,9 @@ public class WES002_LoadCreateRateConfirmation {
         // Load file
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
         $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
-        File file = new File("C:/Empire/pdf1.pdf");
+        File file = new File(downloadsFolder + fileName);
         $("#loaddocuments-0-file").uploadFile(file);
-        $("#loaddocuments-0-type").selectOption("Rate confirmation");
+        $("#loaddocuments-0-type").selectOption("BOL");
 
         // Scrolling form Load file
         if (!$("#load_documents_modal_pseudo_submit").isDisplayed()){
