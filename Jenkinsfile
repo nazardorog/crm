@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(
-            name: 'TEST_CLASS',
-            defaultValue: 'web.expedite.ui.WEU003_Truck',
-            description: 'Введи повне ім’я тестового класу, який потрібно запустити'
-        )
+        string(name: 'TEST_CLASS', defaultValue: 'web.expedite.ui.WEU003_Truck', description: 'Повне ім’я класу тесту')
     }
 
     stages {
@@ -18,25 +14,16 @@ pipeline {
             }
         }
 
-        stage('Run Test') {
+        stage('Run Test in Docker') {
             steps {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
 
-                sh """
-                    docker run --rm \\
-                      -v \$(pwd):/app \\
-                      -w /app \\
-                      your-docker-image \\
-                      mvn test -Dtest=${params.TEST_CLASS} -DfailIfNoTests=false
-                """
-            }
-        }
-
-        stage('Show Allure Results') {
-            steps {
                 sh '''
-                    echo "Вміст папки з Allure результатами:"
-                    ls -la target/allure-results || echo "Папка target/allure-results відсутня"
+                docker run --rm \\
+                  -v ${WORKSPACE}:/app \\
+                  -w /app \\
+                  maven:3.8.6-openjdk-17 \\
+                  mvn test -Dtest=${TEST_CLASS} -DfailIfNoTests=false
                 '''
             }
         }
@@ -44,7 +31,7 @@ pipeline {
 
     post {
         always {
-            echo "Pipeline завершено"
+            echo 'Pipeline завершено.'
         }
     }
 }
