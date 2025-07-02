@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-//     parameters {
-//         string(name: 'TEST_CLASS', defaultValue: 'web.expedite.ui.WEU003_Truck', description: 'Повне ім’я класу тесту')
-//     }
-
     parameters {
         extendedChoice(
             name: 'TEST_CLASS',
@@ -43,6 +39,24 @@ pipeline {
                                 -DfailIfNoTests=false
                     """
                 }
+            }
+        }
+
+        stage('Allure results merge') {
+            steps {
+                sh """
+                  mkdir -p target/allure-results
+                  find target/allure-results/* -type d -exec cp -r {}/* target/allure-results/ \\;
+                """
+            }
+        }
+
+        stage('Allure Report') {
+            steps {
+                allure([
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+                ])
             }
         }
     }
