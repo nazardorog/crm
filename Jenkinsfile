@@ -22,7 +22,7 @@ pipeline {
                 docker run --rm \\
                   -v ${WORKSPACE}:/app \\
                   -w /app \\
-                  maven:3.8.6-openjdk-17 \\
+                  maven:3.8.6-openjdk-17-slim \\
                   mvn test -Dtest=${TEST_CLASS} -DfailIfNoTests=false
                 '''
             }
