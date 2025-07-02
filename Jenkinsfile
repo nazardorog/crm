@@ -29,6 +29,19 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                sh '''
+                    echo "=== Поточна директорія Jenkins ==="
+                    pwd
+                    echo "=== Вміст поточної директорії ==="
+                    ls -la
+                    echo "=== TEST_CLASS parameter ==="
+                    echo "${TEST_CLASS}"
+                '''
+            }
+        }
+
         stage('Run Test in Docker') {
             steps {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
