@@ -22,7 +22,9 @@ pipeline {
 
                     for (testClass in tests) {
                         echo "Запускаємо тест: ${testClass}"
-                        sh """
+                        script {
+                            def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
+                            sh """
                             docker run --rm \
                                 --network shared_network \
                                 -v "${env.WORKSPACE}":/app \
@@ -30,7 +32,8 @@ pipeline {
                                 -e RUN_ENV=jenkins \
                                 maven:3.8-openjdk-17 \
                                 mvn test -Dtest=${testClass} -DfailIfNoTests=false
-                        """
+                            """
+                        }
                     }
 
                     def duration = (System.currentTimeMillis() - startTime) / 1000
