@@ -39,7 +39,7 @@ pipeline {
                             -e RUN_ENV=jenkins \
                             maven:3.8-openjdk-17 \
                             mvn test \
-                                -Dtest=${params.TEST_CLASS}
+                                -Dtest=${params.TEST_CLASS} \
                                 -DfailIfNoTests=false
                     """
                 }
