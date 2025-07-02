@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         extendedChoice(
-            name: 'TEST_CLASSES',
+            name: 'TEST_CLASS',
             type: 'PT_CHECKBOX',
             multiSelectDelimiter: ',',
             defaultValue: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker',
