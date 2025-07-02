@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('Debug') {
+        stage('Debug1') {
             steps {
                 sh '''
                     echo "=== Поточна директорія Jenkins ==="
@@ -29,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Debug') {
+        stage('Debug2') {
             steps {
                 sh '''
                     echo "=== Поточна директорія Jenkins ==="
