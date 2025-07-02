@@ -18,16 +18,6 @@ services:
       - selenium-hub
     networks:
       - shared_network
-    command: >
-      bash -c "
-        echo 'Checking mount points...' &&
-        ls -la /app/target/ &&
-        echo 'Running tests...' &&
-        mvn clean test &&
-        echo 'After tests - checking results...' &&
-        ls -la /app/target/allure-results/ &&
-        echo 'Test completed'
-      "
 
 networks:
   shared_network:
