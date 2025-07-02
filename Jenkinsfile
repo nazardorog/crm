@@ -27,6 +27,21 @@ pipeline {
                 '''
             }
         }
+
+        stage('Debug') {
+            steps {
+                sh '''
+                    echo "=== Поточна директорія Jenkins ==="
+                    pwd
+                    echo "=== Вміст поточної директорії ==="
+                    ls -la
+                    echo "=== Пошук pom.xml ==="
+                    find . -name "pom.xml" -type f
+                    echo "=== Структура проекту ==="
+                    tree -L 3 || ls -R | head -50
+                '''
+            }
+        }
     }
 
     post {
