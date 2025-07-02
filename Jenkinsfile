@@ -45,8 +45,16 @@ pipeline {
         stage('Run Test in Docker') {
             steps {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
-                def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
-                sh 'docker run --rm -v ${WORKSPACE}:/app -w /app maven:3.8-openjdk-17 mvn test -Dtest=${TEST_CLASS} -DfailIfNoTests=false'
+                script {
+                    def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
+                    sh """
+                        docker run --rm \
+                            -v "${hostWorkspace}":/app \
+                            -w /app \
+                            maven:3.8-openjdk-17 \
+                            mvn test -Dtest=${params.TEST_CLASS} -DfailIfNoTests=false
+                    """
+                }
             }
         }
     }
