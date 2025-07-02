@@ -6,13 +6,14 @@ pipeline {
 //     }
 
     parameters {
-        // Вибір кількох класів тестів через checkbox
-        choice(name: 'TEST_CLASS', choices: [
-            'web.expedite.ui.WEU001_LoadBoard',
-            'web.expedite.ui.WEU002_Broker',
-            'web.expedite.ui.WEU003_Truck',
-            'web.expedite.ui.WEU004_ExpediteFleet'
-        ].join('\n'), description: 'Оберіть клас тесту (тільки один наразі)')
+        extendedChoice(
+            name: 'TEST_CLASSES',
+            type: 'PT_CHECKBOX',
+            multiSelectDelimiter: ',',
+            defaultValue: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker',
+            description: 'Оберіть тести для запуску',
+            value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet'
+        )
     }
 
     stages {
