@@ -28,6 +28,7 @@ pipeline {
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
                     sh """
+                        rm -rf target/allure-results || true
                         docker run --rm \
                             --network shared_network \
                             -v "${hostWorkspace}":/app \
