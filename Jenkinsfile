@@ -8,7 +8,7 @@ pipeline {
             multiSelectDelimiter: ',',
             defaultValue: '',
             description: 'Оберіть тести для запуску',
-            value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet,web.expedite.smoke.broker.WES035_BrokerCreate, web.expedite.smoke.broker.WES037_BrokerDnuAdd'
+            value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet,web.expedite.smoke.broker.WES035_BrokerCreate,web.expedite.smoke.broker.WES037_BrokerDnuAdd'
         )
     }
 
