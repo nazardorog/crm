@@ -20,19 +20,19 @@ services:
 #      - TZ=Europe/Kyiv
 #    networks:
 #      - shared_network
-#
-#  nginx:
-#    image: nginx:stable
-#    container_name: nginx
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - /data/nginx/conf.d:/etc/nginx/conf.d:ro
-#      - /data/nginx/html:/usr/share/nginx/html:ro
-#      - /data/nginx/logs:/var/log/nginx
-#    restart: unless-stopped
-#    networks:
-#      - shared_network
+
+  nginx:
+    image: nginx:stable
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - /data/nginx/conf.d:/etc/nginx/conf.d:ro
+      - /data/nginx/html:/usr/share/nginx/html:ro
+      - /data/nginx/logs:/var/log/nginx
+    restart: unless-stopped
+    networks:
+      - shared_network
 
   selenium-hub:
     image: selenium/hub:4.21.0
