@@ -51,19 +51,19 @@ pipeline {
                 """
             }
         }
-
-        stage('Allure Report') {
-            steps {
-                allure([
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target/allure-results']]
-                ])
-            }
-        }
     }
 
     post {
         always {
+            stage('Allure Report') {
+                steps {
+                    allure([
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: 'target/allure-results']]
+                    ])
+                }
+            }
+
             echo 'Pipeline завершено.'
         }
     }
