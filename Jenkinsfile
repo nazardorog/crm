@@ -27,18 +27,26 @@ pipeline {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
-                    sh """
-                        rm -rf target/allure-results || true
-                        docker run --rm \
-                            --network shared_network \
-                            -v "${hostWorkspace}":/app \
-                            -w /app \
-                            -e RUN_ENV=jenkins \
-                            maven:3.8-openjdk-17 \
-                            mvn test \
-                                -Dtest=${params.TEST_CLASS} \
-                                -DfailIfNoTests=false
-                    """
+
+                    def tests = params.TEST_CLASS.split(',')
+
+                    def parallelStages = tests.collectEntries { testClass ->
+                        ["${testClass}": {
+                            sh """
+                                rm -rf target/allure-results || true
+                                echo "==> Запускаємо тест: ${testClass}"
+                                docker run --rm \
+                                    --network shared_network \
+                                    -v "${hostWorkspace}":/app \
+                                    -w /app \
+                                    -e RUN_ENV=jenkins \
+                                    maven:3.8-openjdk-17 \
+                                    mvn test \
+                                        -Dtest=${params.TEST_CLASS} \
+                                        -DfailIfNoTests=false
+                            """
+                        }]
+                    }
                 }
             }
         }
