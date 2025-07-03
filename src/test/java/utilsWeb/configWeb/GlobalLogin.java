@@ -28,13 +28,13 @@ public class GlobalLogin {
     public static void openWeb(String user) {
 
         String runEnv = System.getenv().getOrDefault("RUN_ENV", "local");
+        System.out.println("RUN_ENV = " + runEnv);
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
 
         ChromeOptions options = new ChromeOptions();
         if (runEnv.equals("jenkins")) {
-            System.out.println("тест зайшов у jenkins блок");
             String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
             options.addArguments("--user-data-dir=" + userDataDir);
         }
@@ -57,7 +57,7 @@ public class GlobalLogin {
 
         if (runEnv.equals("docker")) {
             System.out.println("тест зайшов у docker блок");
-            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
+            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub");
             Configuration.headless = true; // без GUI
         }
         else if (runEnv.equals("jenkins")) {
