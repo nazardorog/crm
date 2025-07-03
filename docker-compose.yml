@@ -1,25 +1,25 @@
 version: '3.8'
 
 services:
-#  jenkins:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile.jenkins
-#    container_name: jenkins
-#    user: root
-#    ports:
-#      - "8080:8080"
-#      - "50000:50000"
-#    volumes:
-#      - /data/jenkins/jenkins_home:/var/jenkins_home
-#      - /data/crm:/var/jenkins_home/workspace
-#      - /var/run/docker.sock:/var/run/docker.sock
-#    restart: unless-stopped
-#    environment:
-#      - JENKINS_OPTS=--prefix=/jenkins
-#      - TZ=Europe/Kyiv
-#    networks:
-#      - shared_network
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    container_name: jenkins
+    user: jenkins
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /data/jenkins/jenkins_home:/var/jenkins_home
+      - /data/crm:/var/jenkins_home/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    environment:
+      - JENKINS_OPTS=--prefix=/jenkins
+      - TZ=Europe/Kyiv
+    networks:
+      - shared_network
 
   nginx:
     image: nginx:stable
