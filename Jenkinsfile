@@ -55,12 +55,9 @@ pipeline {
 
     post {
         always {
-            stage('Allure Report') {
-                    allure([
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'target/allure-results']]
-                    ])
-            }
+            allure([
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'target/allure-results']]
 
             echo 'Pipeline завершено.'
         }
