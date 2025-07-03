@@ -33,7 +33,6 @@ pipeline {
                     def parallelStages = tests.collectEntries { testClass ->
                         ["${testClass}": {
                             sh """
-                                rm -rf target/allure-results || true
                                 echo "==> Запускаємо тест: ${testClass}"
                                 docker run --rm \
                                     --network shared_network \
@@ -47,6 +46,8 @@ pipeline {
                             """
                         }]
                     }
+
+                    parallel parallelStages
                 }
             }
         }
@@ -67,7 +68,7 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [[path: 'target/allure-results']]
             ])
-            echo 'Pipeline завершено.'
+            echo "Тест завершено: ${params.TEST_CLASS}"
         }
     }
 }
