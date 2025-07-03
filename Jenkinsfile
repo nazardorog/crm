@@ -58,7 +58,7 @@ pipeline {
             allure([
                 reportBuildPolicy: 'ALWAYS',
                 results: [[path: 'target/allure-results']]
-
+            ])
             echo 'Pipeline завершено.'
         }
     }
