@@ -25,8 +25,12 @@ pipeline {
         stage('Run Test in Docker') {
             steps {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
+                rm -rf target/allure-results || true
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
+
+                    // Очищаємо старі результати Allure
+                    sh 'rm -rf target/allure-results || true'
 
                     def tests = params.TEST_CLASS.split(',')
 
