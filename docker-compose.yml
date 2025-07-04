@@ -27,10 +27,12 @@ services:
     container_name: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - /data/nginx/conf.d:/etc/nginx/conf.d:ro
       - /data/nginx/html:/usr/share/nginx/html:ro
       - /data/nginx/logs:/var/log/nginx
+      - /data/nginx/certs:/etc/nginx/certs:ro
     restart: unless-stopped
     networks:
       - shared_network
