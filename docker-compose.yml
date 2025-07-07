@@ -26,8 +26,8 @@ services:
     image: nginx:stable
     container_name: nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - "30080:80"
+      - "30443:443"
     volumes:
       - /data/nginx/conf.d:/etc/nginx/conf.d:ro
       - /data/nginx/html:/usr/share/nginx/html:ro
