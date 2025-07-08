@@ -8,9 +8,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
@@ -28,52 +26,30 @@ public class GlobalLogin {
     public static void openWeb(String user) {
 
         String runEnv = System.getenv().getOrDefault("RUN_ENV", "local");
-        System.out.println("RUN_ENV = " + runEnv);
 
+        Configuration.browser = "chrome";
+        Configuration.headless = true;
+        Configuration.reportsFolder = "allure-results";
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "chrome");
-
-        ChromeOptions options = new ChromeOptions();
-        if (runEnv.equals("jenkins")) {
-            String userDataDir = System.getProperty("chrome.user.data.dir","/tmp/chrome-user-data-" + System.currentTimeMillis());
-            options.addArguments("--user-data-dir=" + userDataDir);
-        }
-
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-plugins");
-        options.addArguments("--window-size=1920,1080");
-
-        Configuration.browserCapabilities = new DesiredCapabilities();
-        Configuration.browserCapabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        Configuration.browser = "chrome";
-        Configuration.reportsFolder = "target/allure-results";
-        Configuration.browserSize = "1920x1080";
+        Configuration.browserCapabilities = capabilities;
         Configuration.downloadsFolder = GlobalConfig.dotenv.get("FILES_PATH");
         Configuration.baseUrl = GlobalConfig.dotenv.get("WEB_SITE");
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(true));
+        Configuration.timeout = 5000; // 5сек
 
-        if (runEnv.equals("docker")) {
-            System.out.println("тест зайшов у docker блок");
+        if (runEnv.equals("remote")) {
             Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://localhost:4444/wd/hub");
             Configuration.headless = true; // без GUI
-        }
-        else if (runEnv.equals("jenkins")) {
-            System.out.println("тест зайшов у jenkins блок");
-            Configuration.remote = System.getenv().getOrDefault("SELENIUM_REMOTE_URL", "http://selenium-hub:4444/wd/hub");
-            Configuration.headless = true; // без GUI
-        }
-        else {
+        } else {
             Configuration.headless = false; // для дебагу
         }
 
-        System.out.println("Allure reports will be saved 1: " + Configuration.reportsFolder);
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(Configuration.baseUrl));
 
         WebDriver driver = webdriver().driver().getWebDriver();
+        driver.manage().window().maximize();
     }
 
     @Description("Авторизація користувача в системі")
@@ -97,9 +73,9 @@ public class GlobalLogin {
 
             Allure.step("Клік по кнопці Submit", () ->
                     $(".btn.btn-primary.btn-block.btn-flat").click());
-//
-//            Allure.step("Очікує відкриття Load board", () ->
-//                    $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL));
+
+            Allure.step("Очікує відкриття Load board", () ->
+                    $(".logo-mini-icon").shouldBe(visible, EXPECT_GLOBAL));
         });
     }
 

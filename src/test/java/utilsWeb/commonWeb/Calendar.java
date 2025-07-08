@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Condition.visible;
 
 public class Calendar {
 
@@ -126,5 +127,54 @@ public class Calendar {
         activeCalendar.$$(".datetimepicker-minutes .minute")
                 .findBy(exactText(String.format("%d:%02d", hour, minute)))
                 .click();
+    }
+
+    public static void setPreviousDateTime (int introductionDay){
+        LocalDateTime now = LocalDateTime.now();
+        int currentDay = now.getDayOfMonth();
+        int hour = now.getHour();
+        int minute = (now.getMinute() / 5) * 5;
+
+        int targetDay = currentDay - introductionDay;
+        boolean switchMonth = false;
+
+        // Если день меньше 1, переключаемся на предыдущий месяц
+        if (targetDay < 1) {
+            // Получаем количество дней в предыдущем месяце
+            YearMonth previousMonth = YearMonth.of(now.getYear(), now.getMonth()).minusMonths(1);
+            int daysInPreviousMonth = previousMonth.lengthOfMonth();
+            // Вычисляем день в предыдущем месяце
+            targetDay = daysInPreviousMonth + targetDay;
+            switchMonth = true;
+        }
+
+        // календар що зараз відкритий
+        SelenideElement activeCalendar = $$(".datetimepicker").filter(visible).get(0); // перший видимий
+
+        // Перемикає місяць
+        if (switchMonth) {
+            activeCalendar.$(".datetimepicker-days .prev").click();
+        }
+
+        // Вибирає дату
+        activeCalendar.$$(".datetimepicker-days .day:not(.old):not(.new)")
+                .findBy(exactText(String.valueOf(targetDay)))
+                .click();
+
+        // Вибирає час
+        activeCalendar.$$(".datetimepicker-hours .hour")
+                .findBy(exactText(hour + ":00"))
+                .click();
+        // Вибирає хвилину
+        activeCalendar.$$(".datetimepicker-minutes .minute")
+                .findBy(exactText(String.format("%d:%02d", hour, minute)))
+                .click();
+    }
+
+    public static void setDateToday(){
+
+        // календар що зараз відкритий. today
+        SelenideElement activeCalendar = $$(".datetimepicker").filter(visible).get(0);
+        activeCalendar.$(".datetimepicker-days .today").click();
     }
 }
