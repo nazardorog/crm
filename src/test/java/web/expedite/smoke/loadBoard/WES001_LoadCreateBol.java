@@ -12,6 +12,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
@@ -100,7 +101,8 @@ public class WES001_LoadCreateBol {
         // Load file
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
         $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
-        File file = new File("empire/1pdf.pdf");
+        String fileName = "1pdf.pdf";
+        File file = new File(downloadsFolder + fileName);
         $("#loaddocuments-0-file").uploadFile(file);
         $("#loaddocuments-0-type").selectOption("BOL");
 
