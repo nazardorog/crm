@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     parameters {
-        extendedChoice(
-            name: 'TEST_CLASS',
-            type: 'PT_CHECKBOX',
-            multiSelectDelimiter: ',',
-            defaultValue: '',
-            description: 'Оберіть тести для запуску',
-            value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet,web.expedite.smoke.broker.WES035_BrokerCreate,web.expedite.smoke.broker.WES037_BrokerDnuAdd'
-        )
+      choice name: 'MODULE', choices: ['bigTruck','expedite'], description: 'Вибери модуль'
+      choice name: 'PACKAGE', choices: [
+        'bigTruck.smoke.broker',
+        'bigTruck.loadBoard',
+        'expedite.full',
+        'expedite.smoke'
+      ], description: 'Вибери пакет тестів'
+      string name: 'CLASSES', defaultValue: '*', description: 'Використай * або конкретні класи'
     }
 
     stages {
