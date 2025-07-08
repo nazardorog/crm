@@ -12,11 +12,11 @@ pipeline {
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
             value: '''Group:SmokeExpedite,
-Логин на веб=web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
-Рейт конфірмайшен=web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
+web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
+web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
 Group:SmokeBigTruck,
-добавление трака на груз через поле тим драйвер=web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
-Создание New Load тип документа (все 4 кейса)=web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
+web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
+web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
 
             visibleItemCount: 15, // Відображати 15 елементів без прокрутки
         )
@@ -55,6 +55,8 @@ Group:SmokeBigTruck,
                         }
                         def selected = params.TEST_CLASSES_TO_RUN.split(',')
                         selected.each { item ->
+                            def actualValueToProcess // Змінна для зберігання фактичного значення тесту
+
                             if (item.startsWith('Group:')) {
                                 def groupName = item.substring('Group:'.length())
                                 echo "Розширюємо групу: ${groupName}"
