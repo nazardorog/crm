@@ -16,7 +16,7 @@ pipeline {
 Рейт конфірмайшен=web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
 Group:SmokeBigTruck,
 добавление трака на груз через поле тим драйвер=web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
-web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
+Создание New Load тип документа (все 4 кейса)=web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
 
             visibleItemCount: 15, // Відображати 15 елементів без прокрутки
         )
