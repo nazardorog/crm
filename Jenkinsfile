@@ -11,7 +11,7 @@ pipeline {
             defaultValue: '',
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
-            value: '''Group:SmokeExpedite,
+            value: '''Group:BrokerTests,
             web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
             web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
             web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
