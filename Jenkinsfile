@@ -12,8 +12,8 @@ pipeline {
 //         )
 //     }
 
-properties([
-    parameters([
+    parameters {
+        // Groovy script to зчитати список тестів
         [$class: 'CascadeChoiceParameter',
             choiceType: 'PT_CHECKBOX',
             filterLength: 1,
@@ -32,8 +32,7 @@ properties([
                 '''
             ]
         ]
-    ])
-])
+    }
 
     stages {
 
@@ -47,17 +46,16 @@ properties([
 
         stage('Run Test in Docker') {
             steps {
-                echo "Запускаємо тест: ${params.TEST_CLASS}"
+                echo "Запускаємо тести: ${params.TEST_CLASS}"
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
-
-                    // Очищаємо старі результати Allure
                     sh 'rm -rf target/allure-results || true'
 
-                    def tests = params.TEST_CLASS.split(',')
-                    def testCommand = testClass.contains('*') ? "-Dtest=${testClass}" : "-Dtest=${testClass}"
+                    def tests = params.TEST_CLASS.tokenize(',')
 
                     def parallelStages = tests.collectEntries { testClass ->
+                        def testArg = testClass.contains('*') ? "-Dtest=${testClass}" : "-Dtest=${testClass}"
+
                         ["${testClass}": {
                             sh """
                                 echo "==> Запускаємо тест: ${testClass}"
@@ -67,7 +65,7 @@ properties([
                                     -w /app \
                                     -e RUN_ENV=jenkins \
                                     maven:3.8-openjdk-17 \
-                                    mvn test ${testCommand} -DfailIfNoTests=false
+                                    mvn test ${testArg} -DfailIfNoTests=false
                             """
                         }]
                     }
