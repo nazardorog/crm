@@ -12,11 +12,11 @@ pipeline {
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
             value: '''Group:SmokeExpedite,
-            Логин на веб=web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
-            Рейт конфірмайшен=web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
-            Group:SmokeBigTruck,
-            web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
-            web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
+Логин на веб=web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
+Рейт конфірмайшен=web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
+Group:SmokeBigTruck,
+web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
+web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
 
             visibleItemCount: 15, // Відображати 15 елементів без прокрутки
         )
@@ -37,7 +37,6 @@ pipeline {
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
                     def testsToExecute = [] // Остаточний список тестів для запуску
-
 
                     if (params.TEST_SCOPE == 'all') {
                         echo "Запускаємо всі тести..."
