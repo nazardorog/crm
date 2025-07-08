@@ -7,6 +7,7 @@
     <test name="WEU" preserve-order="true">
     <classes>
         <class name="web.expedite.ui.WEU002_Broker"/>
+        <class name="web.expedite.ui.WEU003_Truck"/>
     </classes>
     </test>
 </suite>

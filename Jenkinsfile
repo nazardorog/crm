@@ -3,15 +3,16 @@ pipeline {
 
     parameters {
         choice(name: 'TEST_SCOPE', choices: ['all', 'folder', 'selected_classes'], description: 'Виберіть область запуску тестів')
-        string(name: 'TEST_FOLDER', defaultValue: '', description: 'Вкажіть шлях до папки з тестами (наприклад, web/expedite/ui). Залишіть пустим, якщо обрано "all" або "selected_classes".')
+        string(name: 'TEST_FOLDER', defaultValue: '', description: 'Вкажіть шлях до папки з тестами (наприклад, web/expedite/ui). Залишіть пустим, якщо обрано "all" або "selected_classes_or_groups".')
         extendedChoice(
-            name: 'TEST_CLASSES_TO_RUN', // Змінив назву параметра, щоб не конфліктувало
+            name: 'TEST_CLASSES_TO_RUN',
             type: 'PT_CHECKBOX',
             multiSelectDelimiter: ',',
             defaultValue: '',
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
-            value: '''web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
+            value: '''Group:SmokeExpedite,
+            web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
             web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
             web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
             web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'''
@@ -52,14 +53,31 @@ pipeline {
                         // Або використовувати find для генерації списку файлів, якщо тести - це окремі класи
                         // Припустимо, що TEST_FOLDER відповідає пакету Maven
                         testsToRun << "${params.TEST_FOLDER}.*"
-                    } else if (params.TEST_SCOPE == 'selected_classes') {
+                    } else if (params.TEST_SCOPE == 'selected_classes_or_groups') {
                         if (!params.TEST_CLASSES_TO_RUN) {
-                            error "Будь ласка, оберіть TEST_CLASSES_TO_RUN, якщо обрано 'selected_classes'."
+                            error "Будь ласка, оберіть TEST_CLASSES_TO_RUN, якщо обрано 'selected_classes_or_groups'."
                         }
-                        echo "Запускаємо обрані тести: ${params.TEST_CLASSES_TO_RUN}"
-                        testsToRun = params.TEST_CLASSES_TO_RUN.split(',')
+                        def selected = params.TEST_CLASSES_TO_RUN.split(',')
+                        selected.each { item ->
+                            if (item.startsWith('Group:')) {
+                                def groupName = item.substring('Group:'.length())
+                                echo "Розширюємо групу: ${groupName}"
+                                // Тут потрібно прописати логіку розширення групи
+                                if (groupName == 'Smoke Expedite') {
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java'
+                                }
+                                // Додавай інші групи тут за допомогою else if
+                                // else if (groupName == 'AnotherGroup') { ... }
+                            } else {
+                                testsToExecute << item // Додаємо окремий тест
+                            }
+                        }
+                        // Видаляємо дублікати на випадок, якщо тест обраний і як частина групи, і окремо
+                        testsToExecute = testsToExecute.unique()
+                        echo "Остаточний список тестів для виконання: ${testsToExecute}"
                     } else {
-                        error "Невірний TEST_SCOPE. Оберіть 'all', 'folder' або 'selected_classes'."
+                        error "Невірний TEST_SCOPE. Оберіть 'all', 'folder' або 'selected_classes_or_groups'."
                     }
 
                     def parallelStages = [:]
@@ -81,6 +99,8 @@ pipeline {
                     } else {
                         // Запуск обраних тестів паралельно
                         testsToRun.each { testClass ->
+                            // Перетворюємо шлях до файлу (web/expedite/...) на повне ім'я класу (web.expedite. ...)
+                            def testClassName = testClassFile.replace('/', '.').replace('.java', '')
                             parallelStages["${testClass}"] = {
                                 sh """
                                     docker run --rm \\
