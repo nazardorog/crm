@@ -22,37 +22,18 @@ pipeline {
             }
         }
 
-        stage('Run Test in Docker') {
-            steps {
-                echo "Запускаємо тест: ${params.TEST_CLASS}"
-                script {
-                    def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
-
-                    // Очищаємо старі результати Allure
-                    sh 'rm -rf target/allure-results || true'
-
-                    def tests = params.TEST_CLASS.split(',')
-
-                    def parallelStages = tests.collectEntries { testClass ->
-                        ["${testClass}": {
-                            sh """
-                                echo "==> Запускаємо тест: ${testClass}"
-                                docker run --rm \
-                                    --network shared_network \
-                                    -v "${hostWorkspace}":/app \
-                                    -w /app \
-                                    -e RUN_ENV=jenkins \
-                                    maven:3.8-openjdk-17 \
-                                    mvn test \
-                                        -Dtest=${params.TEST_CLASS} \
-                                        -DfailIfNoTests=false
-                            """
-                        }]
-                    }
-
-                    parallel parallelStages
-                }
-            }
+        stages {
+            stage('Checkout') {
+                steps { checkout scm }
+        }
+        stage('Run tests') {
+          steps {
+            sh """
+              mvn clean test \
+                -Dtest=${PACKAGE}.${CLASSES} \
+                -Dsurefire.useFile=false
+            """
+          }
         }
 
         stage('Allure results merge') {
