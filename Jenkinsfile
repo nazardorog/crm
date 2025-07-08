@@ -22,6 +22,35 @@ pipeline {
             }
         }
 
+        stage('Find all tests') {
+          steps {
+            script {
+              def testClasses = []
+              def testDir = new File("${env.WORKSPACE}/src/test/java/web")
+
+              if (testDir.exists()) {
+                testDir.eachFileRecurse { file ->
+                  if (file.name.endsWith('.java')) {
+                    def className = file.path
+                      .replace("${env.WORKSPACE}/src/test/java/", "")
+                      .replace(".java", "")
+                      .replace(File.separator, ".")
+                    testClasses << className
+                  }
+                }
+
+                echo "Found ${testClasses.size()} test classes"
+                testClasses.each { echo it }
+
+                // збережемо в env-перемінну (через JSON або пропускаємо далі)
+                env.TEST_LIST = testClasses.join(",")
+              } else {
+                error "Test directory not found: ${testDir}"
+              }
+            }
+          }
+        }
+
         stage('Run Test in Docker') {
             steps {
                 echo "Запускаємо тест: ${params.TEST_CLASS}"
