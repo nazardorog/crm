@@ -11,9 +11,10 @@ pipeline {
             defaultValue: '',
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
-            value: '''Group:BrokerTests,
+            value: '''Group:SmokeExpedite,
             web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
             web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
+            Group:SmokeBigTruck,
             web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
             web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'''
         )
@@ -57,10 +58,15 @@ pipeline {
                                 def groupName = item.substring('Group:'.length())
                                 echo "Розширюємо групу: ${groupName}"
                                 // Тут потрібно прописати логіку розширення групи
-                                if (groupName == 'BrokerTests') {
+                                if (groupName == 'SmokeExpedite') {
                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java'
                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java'
                                 }
+                                if (groupName == 'SmokeBigTruck') {
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'
+                                }
+
                                 // Додавай інші групи тут за допомогою else if
                                 // else if (groupName == 'AnotherGroup') { ... }
                             } else {
