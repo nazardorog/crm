@@ -82,7 +82,7 @@ pipeline {
             web/bigTruck/smoke/shipperReceiver/WBS033_ShipperReceiverEdit.java,
             web/bigTruck/smoke/shipperReceiver/WBS034_ShipperReceiverDell.java''',
 
-            visibleItemCount: 15, // Відображати 15 елементів без прокрутки
+            visibleItemCount: 30, // Відображати 30 елементів без прокрутки
         )
     }
 
