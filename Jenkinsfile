@@ -1,16 +1,39 @@
 pipeline {
     agent any
 
-    parameters {
-        extendedChoice(
+//     parameters {
+//         extendedChoice(
+//             name: 'TEST_CLASS',
+//             type: 'PT_CHECKBOX',
+//             multiSelectDelimiter: ',',
+//             defaultValue: '',
+//             description: 'Оберіть тести для запуску',
+//             value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet,web.expedite.smoke.broker.WES035_BrokerCreate,web.expedite.smoke.broker.WES037_BrokerDnuAdd'
+//         )
+//     }
+
+properties([
+    parameters([
+        [$class: 'CascadeChoiceParameter',
+            choiceType: 'PT_CHECKBOX',
+            filterLength: 1,
+            filterable: true,
             name: 'TEST_CLASS',
-            type: 'PT_CHECKBOX',
-            multiSelectDelimiter: ',',
-            defaultValue: '',
-            description: 'Оберіть тести для запуску',
-            value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet,web.expedite.smoke.broker.WES035_BrokerCreate,web.expedite.smoke.broker.WES037_BrokerDnuAdd'
-        )
-    }
+            description: 'Оберіть тести або папки',
+            referencedParameters: '',
+            script: [
+                $class: 'GroovyScript',
+                sandbox: false,
+                script: '''
+                    def output = []
+                    def proc = "bash scripts/list_tests.sh".execute()
+                    proc.in.eachLine { output << it }
+                    return output
+                '''
+            ]
+        ]
+    ])
+])
 
     stages {
 
@@ -32,6 +55,7 @@ pipeline {
                     sh 'rm -rf target/allure-results || true'
 
                     def tests = params.TEST_CLASS.split(',')
+                    def testCommand = testClass.contains('*') ? "-Dtest=${testClass}" : "-Dtest=${testClass}"
 
                     def parallelStages = tests.collectEntries { testClass ->
                         ["${testClass}": {
@@ -43,9 +67,7 @@ pipeline {
                                     -w /app \
                                     -e RUN_ENV=jenkins \
                                     maven:3.8-openjdk-17 \
-                                    mvn test \
-                                        -Dtest=${params.TEST_CLASS} \
-                                        -DfailIfNoTests=false
+                                    mvn test ${testCommand} -DfailIfNoTests=false
                             """
                         }]
                     }
