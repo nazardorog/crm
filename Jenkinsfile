@@ -6,7 +6,7 @@ pipeline {
         string(name: 'TEST_FOLDER', defaultValue: '', description: 'Вкажіть шлях до папки з тестами (наприклад, web/expedite/ui). Залишіть пустим, якщо обрано "all" або "selected_classes_or_groups".')
         extendedChoice(
             name: 'TEST_CLASSES_TO_RUN',
-            type: 'PT_MULTI_SELECT',
+            type: 'PT_CHECKBOX',
             multiSelectDelimiter: ',',
             defaultValue: '',
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
