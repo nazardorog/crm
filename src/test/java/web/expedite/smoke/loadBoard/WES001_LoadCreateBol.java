@@ -28,6 +28,7 @@ public class WES001_LoadCreateBol {
 
         // Login
         GlobalLogin.login("exp_disp1");
+        System.out.println("Test start - WES001_LoadCreateBol");
 
         // Data for creating a load
         String atBroker = "at_Broker1";
@@ -156,6 +157,8 @@ public class WES001_LoadCreateBol {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
+
+        System.out.println("Test finish - WES001_LoadCreateBol");
     }
 
     @AfterMethod(alwaysRun = true)
