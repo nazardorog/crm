@@ -117,7 +117,7 @@ public class WES010_DispatchAddTruckByTeamDriver {
         $("#load_dispatch").shouldBe(visible, EXPECT_GLOBAL);
         $("#select2-load_team_driver_id-0-container").shouldBe(visible, EXPECT_GLOBAL).click();
         $(".select2-search__field").shouldBe(enabled).setValue("Auto");
-        $("#select2-load_team_driver_id-0-results").shouldHave(text(atTeamDriver)).click();
+        $$("#select2-load_team_driver_id-0-results .col-sm-5").findBy(exactText(atTeamDriver)).click();
         $("#select2-load_truck_id-0-container").shouldHave(Condition.text(atTruck));
         $("#select2-load_driver_id-0-container").shouldHave(Condition.text(atDriver));
         $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text(atTeamDriver));

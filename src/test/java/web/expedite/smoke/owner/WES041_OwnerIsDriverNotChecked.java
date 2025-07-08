@@ -2,21 +2,25 @@ package web.expedite.smoke.owner;
 
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.*;
-import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.*;
+import utilsWeb.commonWeb.Calendar;
+import utilsWeb.commonWeb.CloseWebDriver;
+import utilsWeb.configWeb.GlobalGenerateName;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-public class WES039_OwnerCreatePerson {
+public class WES041_OwnerIsDriverNotChecked {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Owners
-    // 1. Создание owner (type person)
+    // 3. Создание овнера без галочки "Is Driver"
 
     // Global data
     String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
@@ -26,7 +30,7 @@ public class WES039_OwnerCreatePerson {
     String globalMail = GlobalGenerateName.globalMail();
 
     @Test
-    public void createPerson() {
+    public void isDriverNotChecked() {
 
         // Login
         GlobalLogin.login("exp_hr");
@@ -90,6 +94,10 @@ public class WES039_OwnerCreatePerson {
         $("#owners-liability_insurance_amount-disp").setValue(atLiabilityCoverage);
         $("#owners-ssn").setValue(atSsn);
 
+        // [Add Owners] Tab General. Remove the checkbox Is driver. Check checkbox is removed
+        $("#owners-driver").click();
+        $("#owners-driver").shouldNotBe(selected);
+
         // [Add Owners] Tab General. Calendar Birthday
         $("#owners-birthday-kvdate .kv-date-picker").click();
         Calendar.setDate(0);
@@ -119,23 +127,19 @@ public class WES039_OwnerCreatePerson {
         $$("#companies").findBy(text("Empire National Inc")).$("input[type='checkbox']").shouldBe(checked);
 
         // [Add Owners] Button Submit
-        $("#add_owner_send").shouldBe(clickable).click();
+        $("#add_owner_send").click();
 
         // Toast massage
         $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
-        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Owner sucessfully added. And driver sucessfully added"));
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(exactText("Owner sucessfully added"));
         $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         // [Main Owners] Table. Input Name. Select Owners Unit-"Without Unit". Select Type-"Person"
-        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName);
+        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName).pressEnter();
         $("#ownerssearch-owners_asset").selectOption("All");
-        $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("All"));
-        SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
-        $("#ownerssearch-owners_asset").selectOption("Without Unit");
-        $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("Without Unit"));
-        $("#ownerssearch-type").selectOption("Person");
 
         // [Main Owners] Table. Check new Owners
+        SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
         rowTable.shouldHave(text(atType));
         rowTable.shouldHave(text(atFirstName));
         rowTable.shouldHave(text(atLastName));
@@ -146,16 +150,14 @@ public class WES039_OwnerCreatePerson {
         $(".drivers-user").click();
         $("body").click();
 
-        // [Main Drivers] Table. Input Name. Select Drivers Unit-"Without Unit"
+        // [Main Drivers] Table. Input Name. Check driver not created
         $("input[name='DriversSearch[name]']").shouldBe(visible).setValue(atFirstName);
-        $("#driverssearch-is_driver_has_truck").selectOption("Without Unit");
-        $("#driverssearch-is_driver_has_truck").getSelectedOption().shouldHave(text("Without Unit"));
-        SelenideElement rowTableDriver = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
+        $("#driverssearch-is_driver_has_truck").selectOption("All");
+        $("#driverssearch-is_driver_has_truck").getSelectedOption().shouldHave(text("All"));
+        SelenideElement rowTableDriver = $$("table.table-striped tbody tr").get(0);
 
-        // [Main Drivers] Table. Check driver created
-        rowTableDriver.shouldHave(text(atFirstName));
-        rowTableDriver.shouldHave(text(atLastName));
-        rowTableDriver.shouldHave(text(atHrAgent));
+        // [Main Drivers] Table. Check new Drivers
+        rowTableDriver.shouldHave(text("No results found."));
     }
 
     @AfterMethod(alwaysRun = true)

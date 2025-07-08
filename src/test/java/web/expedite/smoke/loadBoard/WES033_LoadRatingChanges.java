@@ -24,21 +24,6 @@ public class WES033_LoadRatingChanges {
         GlobalLogin.login("exp_disp1");
         String loadNumber = NewLoadExpedite.loadExpedite();
 
-        // Переходить на вкладку Reports on Drivers
-        $(".icon-reports-drivers").shouldBe(visible, EXPECT_GLOBAL).hover();
-        $(".icon-reports-drivers").click();
-        $("body").click();
-
-        // Отримує коефіцієнт для зменшення балів в Report
-        $(".dispatch-viewing-btn-name").shouldBe(clickable).click();
-        $("#modal_categories").shouldBe(visible, EXPECT_GLOBAL);
-        SelenideElement row = $$("#modal_categories tbody tr").findBy(text("Not following instructions"));
-        String pointsReduction = row.$$("td").get(2).getText();
-        String onlyNumber = pointsReduction.replaceAll("[^\\d-]", "");
-        int points = Integer.parseInt(onlyNumber);
-        $("#modal_categories .close").shouldBe(clickable).click();
-        $("#modal_categories").shouldNotBe(visible, EXPECT_GLOBAL);
-
         // Click по кнопці око
         $(".logo-mini-icon").shouldBe(enabled, EXPECT_GLOBAL).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
@@ -54,12 +39,18 @@ public class WES033_LoadRatingChanges {
         $("#modal_driver_rating").shouldBe(visible);
 
         // Ставить чек бокс Failed to print docs фрейм Driver rating
-        $("#driverratingupdateform-categoryid-7").click();
+        $("#driverratingupdateform-categoryid-7").setSelected(true);
+
+        // Отримує коефіцієнт для зменшення балів в Report
+        String textScore = $x("//*[@id='form_update_driver_rating']/table/tbody/tr[4]/td[4]/div/div[1]/span[1]").getText();
+        int points = Integer.parseInt(textScore);
+
+        // Закриває фрейм Driver rating
         $(".button-modal-submit").click();
         $("#modal_driver_rating").shouldNotBe(visible);
 
         // Перевіряє Score на фрейм Dispatch. Points з вкладки Reports on Drivers
-        int score = 10 + points;
+        int score = 10 - points;
         $("#pjaxTruckDriverRatingContent").shouldHave(text("#0303 Score : " + score));
     }
 

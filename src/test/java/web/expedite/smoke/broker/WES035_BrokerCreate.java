@@ -55,7 +55,7 @@ public class WES035_BrokerCreate {
         $("#add_broker").shouldBe(visible, EXPECT_GLOBAL);
 
         // Фрейм Add Broker вкладка General
-        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber);
+        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).hover().setValue(atMcNumber);
         $("#brokers-dba_name").setValue(atDbaName);
         $("#brokers-name").setValue(atLegalName);
         $("#brokers-entity_type").selectOption(atEntityType);

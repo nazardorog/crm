@@ -57,7 +57,7 @@ public class WES038_BrokerDnuDell {
 
         // [Add Broker] tab General
         $(byText("General")).parent().shouldHave(cssClass("active"));
-        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber);
+        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).hover().setValue(atMcNumber);
         $("#brokers-dba_name").setValue(atDbaName);
         $("#brokers-name").setValue(atLegalName);
         $("#brokers-entity_type").selectOption(atEntityType);

@@ -1,13 +1,9 @@
 package web.expedite.smoke.owner;
 
-import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.SelenideElement;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
-import utilsWeb.commonWeb.Calendar;
-import utilsWeb.commonWeb.CloseWebDriver;
-import utilsWeb.configWeb.GlobalGenerateName;
-import utilsWeb.configWeb.GlobalLogin;
+import org.testng.annotations.*;
+import utilsWeb.commonWeb.*;
+import utilsWeb.configWeb.*;
 
 import java.io.File;
 
@@ -21,7 +17,7 @@ import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 public class WES040_OwnerCreateCompany {
 
     // Click Up:
-    // CRM EXPEDITE - Smoke - Brokers
+    // CRM EXPEDITE - Smoke - Owners
     // 2. Создание owner (type company)
 
     // Global data
@@ -35,9 +31,9 @@ public class WES040_OwnerCreateCompany {
     public void createCompany() {
 
         // Login
-        GlobalLogin.login("exp_disp1");
+        GlobalLogin.login("exp_hr");
 
-        // Data for creating a Broker
+        // Data for creating a Owner
         final String atType = "Company";
         final String atCompanyName = globalName + "Company Name INC";
         final String atOwnerName = globalName + "Owner Name";
@@ -138,16 +134,16 @@ public class WES040_OwnerCreateCompany {
         $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atCompanyName);
         $("#ownerssearch-owners_asset").selectOption("All");
         $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("All"));
-        SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0).shouldHave(text(atCompanyName), EXPECT_GLOBAL);
+        SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atCompanyName), EXPECT_GLOBAL);
         $("#ownerssearch-owners_asset").selectOption("Without Unit");
         $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("Without Unit"));
         $("#ownerssearch-type").selectOption("Company");
 
         // [Main Owners] Table. Check new Owners
-        rowLoad.shouldHave(text(atType));
-        rowLoad.shouldHave(text(atCompanyName));
-        rowLoad.shouldHave(text(atCompanyName));
-        rowLoad.shouldHave(text(atHrAgent));
+        rowTable.shouldHave(text(atType));
+        rowTable.shouldHave(text(atCompanyName));
+        rowTable.shouldHave(text(atCompanyName));
+        rowTable.shouldHave(text(atHrAgent));
     }
 
     @AfterMethod(alwaysRun = true)

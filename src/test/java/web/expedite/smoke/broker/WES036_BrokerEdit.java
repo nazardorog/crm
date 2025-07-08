@@ -31,8 +31,6 @@ public class WES036_BrokerEdit {
     @Test
     public void edit() {
 
-        System.out.println("Погнав тест WES036");
-
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -64,7 +62,7 @@ public class WES036_BrokerEdit {
 
         // [Add Broker] tab General
         $(byText("General")).parent().shouldHave(cssClass("active"));
-        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber);
+        $("#brokers-mc_number").shouldBe(visible, EXPECT_GLOBAL).hover().setValue(atMcNumber);
         $("#brokers-dba_name").setValue(atDbaName);
         $("#brokers-name").setValue(atLegalName);
         $("#brokers-entity_type").selectOption(atEntityType);
@@ -116,13 +114,13 @@ public class WES036_BrokerEdit {
         $("#brokerssearch-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber).pressEnter();
         SelenideElement rowBroker = $$("table.table-hover tbody tr").get(0).shouldHave(text(atMcNumber));
         rowBroker.shouldHave(text(atMcNumber));
-        rowBroker.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).click();
+        rowBroker.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).hover().click();
         rowBroker.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
         ElementsCollection dropDownBroker = rowBroker.$$(".dropdown-menu-right li");
         dropDownBroker.findBy(exactText("Update  Profile")).click();
 
         // [Update Broker] tab General. Check Broker after creation
-        $("#update_broker").shouldBe(visible, Duration.ofSeconds(20));
+        $("#update_broker").shouldBe(visible, EXPECT_GLOBAL);
         $("#brokers-mc_number").shouldHave(value(atMcNumber));
         $("#brokers-dba_name").shouldHave(value(atDbaName));
         $("#brokers-name").shouldHave(value(atLegalName));
@@ -204,7 +202,7 @@ public class WES036_BrokerEdit {
         rowBrokerEdit.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).click();
         rowBrokerEdit.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
         ElementsCollection dropDownBrokerEdit = rowBrokerEdit.$$(".dropdown-menu-right li");
-        dropDownBroker.findBy(exactText("Update  Profile")).click();
+        dropDownBrokerEdit.findBy(exactText("Update  Profile")).click();
 
         // Toast massage
         $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);

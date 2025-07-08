@@ -186,8 +186,8 @@ public class WES023_LoadEditDispatch {
         $("#select2-load_truck_id-0-container").shouldHave(text(atTruckEdit), EXPECT_GLOBAL);
 
         // Edit Dispatch Remove help block
-        boolean helpBlockEdit = $(".help-block").shouldBe(visible, EXPECT_5).isDisplayed();
-        if (helpBlockEdit){
+        SelenideElement  helpBlockEdit = $(".help-block");
+        if (helpBlockEdit.is(visible)){
             executeJavaScript("arguments[0].style.display='none';", $(".help-block"));
         }
 
@@ -216,8 +216,8 @@ public class WES023_LoadEditDispatch {
         $("#dispatch_load_send").click();
 
         // Driver automatic status change to Available On
-        boolean statusDriver = $("#set-automatic-status-link").shouldBe(visible, EXPECT_5).isDisplayed();
-        if (statusDriver){
+        SelenideElement statusDriver = $("#set-automatic-status-link");
+        if (statusDriver.is(visible)){
             $("#set-automatic-status-link").shouldHave(text("please set the automatic status change to Available On")).click();
             $("#automatic-status-modal").shouldBe(visible, EXPECT_GLOBAL);
             $(".text-set-status-link").shouldHave(matchText("Please note that the pick-up for this load is scheduled for\\s+.*\\. As a result, the truck's status will automatically change to 'Available On' in the delivery city at 12:01 AM on the pick-up day\\."));

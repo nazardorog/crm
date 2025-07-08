@@ -1,22 +1,25 @@
 package web.expedite.smoke.owner;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
-import utilsWeb.configWeb.*;
+import utilsWeb.configWeb.GlobalGenerateName;
+import utilsWeb.configWeb.GlobalLogin;
 
 import java.io.File;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
-import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
+import static org.assertj.core.api.Assertions.assertThat;
+import static utilsWeb.configWeb.GlobalTimePeriods.*;
 
-public class WES039_OwnerCreatePerson {
+public class WES043_OwnerDell {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Owners
-    // 1. Создание owner (type person)
+    // 5. Удаление owner(admin only)
 
     // Global data
     String globalNumberSeven = GlobalGenerateName.globalNumberSeven();
@@ -26,7 +29,7 @@ public class WES039_OwnerCreatePerson {
     String globalMail = GlobalGenerateName.globalMail();
 
     @Test
-    public void createPerson() {
+    public void dell() {
 
         // Login
         GlobalLogin.login("exp_hr");
@@ -127,35 +130,32 @@ public class WES039_OwnerCreatePerson {
         $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         // [Main Owners] Table. Input Name. Select Owners Unit-"Without Unit". Select Type-"Person"
-        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName);
+        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName).pressEnter();
         $("#ownerssearch-owners_asset").selectOption("All");
-        $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("All"));
-        SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
-        $("#ownerssearch-owners_asset").selectOption("Without Unit");
-        $("#ownerssearch-owners_asset").getSelectedOption().shouldHave(text("Without Unit"));
-        $("#ownerssearch-type").selectOption("Person");
 
         // [Main Owners] Table. Check new Owners
+        SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
         rowTable.shouldHave(text(atType));
         rowTable.shouldHave(text(atFirstName));
         rowTable.shouldHave(text(atLastName));
         rowTable.shouldHave(text(atHrAgent));
 
-        // [Sidebar] Go to Main Drivers
-        $(".drivers-user").shouldBe(visible, EXPECT_GLOBAL).hover();
-        $(".drivers-user").click();
-        $("body").click();
+        // [Main Owners] Table. Delete Owners
+        rowTable.$("button.dropdown-toggle").shouldBe(visible, EXPECT_GLOBAL).shouldBe(clickable, EXPECT_GLOBAL).hover().click();
+        rowTable.$(".btn-group").shouldHave(cssClass("open"),EXPECT_GLOBAL);
+        ElementsCollection dropDownBroker = rowTable.$$(".dropdown-menu-right li");
+        dropDownBroker.findBy(exactText("Delete")).click();
 
-        // [Main Drivers] Table. Input Name. Select Drivers Unit-"Without Unit"
-        $("input[name='DriversSearch[name]']").shouldBe(visible).setValue(atFirstName);
-        $("#driverssearch-is_driver_has_truck").selectOption("Without Unit");
-        $("#driverssearch-is_driver_has_truck").getSelectedOption().shouldHave(text("Without Unit"));
-        SelenideElement rowTableDriver = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
+        // [Alert] message delete
+        String popapText = switchTo().alert().getText();
+        assertThat(popapText).isEqualTo("Are you sure you want to delete this item?");
+        switchTo().alert().accept();
 
-        // [Main Drivers] Table. Check driver created
-        rowTableDriver.shouldHave(text(atFirstName));
-        rowTableDriver.shouldHave(text(atLastName));
-        rowTableDriver.shouldHave(text(atHrAgent));
+        // [Main Owners] Table. Check Owners after dell
+        $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName).pressEnter();
+        $("#ownerssearch-owners_asset").selectOption("All");
+        SelenideElement rowTableAfter = $$("table.table-striped tbody tr").get(0);
+        rowTableAfter.shouldHave(text("No results found."));
     }
 
     @AfterMethod(alwaysRun = true)
