@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'TEST_SCOPE', choices: ['all', 'folder', 'selected_classes'], description: 'Виберіть область запуску тестів')
+        choice(name: 'TEST_SCOPE', choices: ['all', 'folder', 'selected_classes_or_groups'], description: 'Виберіть область запуску тестів')
         string(name: 'TEST_FOLDER', defaultValue: '', description: 'Вкажіть шлях до папки з тестами (наприклад, web/expedite/ui). Залишіть пустим, якщо обрано "all" або "selected_classes_or_groups".')
         extendedChoice(
             name: 'TEST_CLASSES_TO_RUN',
@@ -34,6 +34,7 @@ pipeline {
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
                     def testsToExecute = [] // Остаточний список тестів для запуску
+
 
                     if (params.TEST_SCOPE == 'all') {
                         echo "Запускаємо всі тести..."
