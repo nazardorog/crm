@@ -12,8 +12,8 @@ pipeline {
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
             value: '''Group:SmokeExpedite,
-            1. Логин на веб,
-            web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
+            Логин на веб=web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
+            Рейт конфірмайшен=web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
             Group:SmokeBigTruck,
             web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
             web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
