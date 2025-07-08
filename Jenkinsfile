@@ -1,17 +1,6 @@
 pipeline {
     agent any
 
-//     parameters {
-//         extendedChoice(
-//             name: 'TEST_CLASS',
-//             type: 'PT_CHECKBOX',
-//             multiSelectDelimiter: ',',
-//             defaultValue: '',
-//             description: 'Оберіть тести для запуску',
-//             value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.ui.WEU004_ExpediteFleet,web.expedite.smoke.broker.WES035_BrokerCreate,web.expedite.smoke.broker.WES037_BrokerDnuAdd'
-//         )
-//     }
-
     parameters {
         choice(name: 'TEST_SCOPE', choices: ['all', 'folder', 'selected_classes'], description: 'Виберіть область запуску тестів')
         string(name: 'TEST_FOLDER', defaultValue: '', description: 'Вкажіть шлях до папки з тестами (наприклад, web/expedite/ui). Залишіть пустим, якщо обрано "all" або "selected_classes".')
@@ -22,7 +11,11 @@ pipeline {
             defaultValue: '',
             description: 'Оберіть конкретні класи тестів для запуску (повне ім\'я класу, наприклад, web.expedite.ui.WEU001_LoadBoard). Залишіть пустим, якщо обрано "all" або "folder".',
             // Це значення буде динамічним, або може бути заповнене вручну для початку
-            value: 'web.expedite.ui.WEU001_LoadBoard,web.expedite.ui.WEU002_Broker,web.expedite.ui.WEU003_Truck,web.expedite.smoke.broker.WES035_BrokerCreate'
+            value: '''web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
+            web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
+            web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
+            web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
+            web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'''
         )
     }
 
