@@ -15,7 +15,7 @@ pipeline {
 Логин на веб=web/expedite/smoke/loadBoard/WES001_LoadCreateBol.java,
 Рейт конфірмайшен=web/expedite/smoke/loadBoard/WES002_LoadCreateRateConfirmation.java,
 Group:SmokeBigTruck,
-web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
+добавление трака на груз через поле тим драйвер=web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
 web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java''',
 
             visibleItemCount: 15, // Відображати 15 елементів без прокрутки
