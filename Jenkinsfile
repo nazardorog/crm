@@ -199,7 +199,7 @@ pipeline {
                                     testsToExecute << 'web/bigTruck/smoke/trailer/WBS031_TrailerDell.java'
                                     testsToExecute << 'web/bigTruck/smoke/shipperReceiver/WBS032_ShipperReceiverCreate.java'
                                     testsToExecute << 'web/bigTruck/smoke/shipperReceiver/WBS033_ShipperReceiverEdit.java'
-                                    testsToExecute << 'web/bigTruck/smoke/shipperReceiver/WBS034_ShipperReceiverDell.java
+                                    testsToExecute << 'web/bigTruck/smoke/shipperReceiver/WBS034_ShipperReceiverDell.java'
                                 }
 
                                 // Додавай інші групи тут за допомогою else if
