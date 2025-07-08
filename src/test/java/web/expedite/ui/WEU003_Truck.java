@@ -19,7 +19,6 @@ public class WEU003_Truck {
 
     @Test
     public void truck() {
-        System.out.println("Давай наярівай");
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -53,7 +52,6 @@ public class WEU003_Truck {
         System.out.println("має впасти тест");
         $("#brokers-name").setValue("atLegalName");
 
-        System.out.println("Прилетіли");
     }
 
     @AfterMethod(alwaysRun = true)
