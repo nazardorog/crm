@@ -17,6 +17,9 @@ pipeline {
             Group:SmokeBigTruck,
             web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java,
             web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'''
+
+            visibleItemCount: 15, // Відображати 15 елементів без прокрутки
+            numberOfColumns: 2   // Розбити чекбокси на 2 колонки
         )
     }
 
