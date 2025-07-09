@@ -85,7 +85,7 @@ pipeline {
             visibleItemCount: 30, // Відображати 30 елементів без прокрутки
         )
             // >>> кількість потоків <<<
-            string(name: 'PARALLEL_THREADS', defaultValue: '5', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
+            string(name: 'PARALLEL_THREADS', defaultValue: '4', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
     }
 
     stages {
@@ -259,12 +259,7 @@ pipeline {
                     }
 //                     parallel parallelStages
 
-                    parallel (
-                        parallelStages + [
-                            failFast: false,
-                            maxConcurrency: maxConcurrentBuilds
-                        ]
-                    )
+                    parallel parallelStages, failFast: false, maxConcurrency: maxConcurrentBuilds
 
                     if (overallStatus == 'FAILURE') {
                         currentBuild.result = 'UNSTABLE'
