@@ -44,7 +44,7 @@ public class WES039_OwnerCreatePerson {
         final String atAdditionalPhones = globalPhoneNumber;
         final String atEmail = globalMail;
         final String atAdditionalEmails = globalMail;
-        final String atFile = "jpeg1.jpg";
+        final String atFile = "1pdf.pdf";
         final String atHrAgent = "Jack Sparrow";
         final String atCargoPolicy = globalNumberSeven;
         final String atLiabilityPolicy = globalNumberSeven;

@@ -47,7 +47,7 @@ public class WES044_TruckCreate {
         final String atZip = "66105";
         final String atStatus = "Available On";
         final String atNote = globalName + "Note";
-        final String atFile = "jpeg1.jpg";
+        final String atFile = "4jpeg.jpg";
         final String atDescription = "Description";
 
         // [Sidebar] Go to Main Trucks
