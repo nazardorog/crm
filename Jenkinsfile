@@ -259,10 +259,12 @@ pipeline {
                     }
 //                     parallel parallelStages
 
-                    // >>> ВИКОРИСТОВУЄМО maxConcurrentBuilds ТУТ <<<
-                    parallel parallelStages, failFast: false, maxConcurrency: maxConcurrentBuilds
-                    // failFast: false - ЦЕ ВАЖЛИВО! Воно вже є і забезпечує, що інші гілки продовжують виконуватися.
-                    // maxConcurrency: maxConcurrentBuilds - обмежує кількість одночасних гілок.
+                    parallel (
+                        parallelStages + [
+                            failFast: false,
+                            maxConcurrency: maxConcurrentBuilds
+                        ]
+                    )
 
                     if (overallStatus == 'FAILURE') {
                         currentBuild.result = 'UNSTABLE'
