@@ -22,6 +22,10 @@ public class WBS034_ShipperReceiverDell {
     // Shippers-receivers
     // 3. Удаление Shippers Receivers
 
+    // Global data
+    String globalName = GlobalGenerateName.globalName();
+    String globalMail = GlobalGenerateName.globalMail();
+
     @Test
     public void dell() {
 
@@ -39,20 +43,16 @@ public class WBS034_ShipperReceiverDell {
         //фрейм Add shippers receivers
         $("#add_shippers-receiver").shouldBe(visible, Duration.ofSeconds(10));
 
-        //дані для Shippers Receivers
-        Random random = new Random();
-        int randomNumber = random.nextInt(1000);
-
-        String atShippersName = "Shippers Name auto test 1" + randomNumber;
-        String atStreet1 = "Street auto test 11_" + randomNumber;
-        String atStreet2 = "Street auto test 12_" + randomNumber;
+        String atShippersName = globalName + "Shipper Receiver Name";
+        String atStreet1 = "Street 11";
+        String atStreet2 = "Street 21";
         String atCountry = "US";
         String atLocation = "New York, NY 10001";
-        String atEmail = "EmailShippers" + randomNumber + "@mail.com";
-        String atContactPersonName = "Contact Person Name auto test 1_" + randomNumber;
-        String atContactPersonPhoneNumber = "010888-1111;";
-        String atContactCellNumber = "010888-1112;";
-        String atNote = "Note shippers auto test 1_" + randomNumber;
+        String atEmail = globalMail;
+        String atContactPersonName = "Contact Person Name1";
+        String atContactPersonPhoneNumber = "010888-1111";
+        String atContactCellNumber = "010888-1112";
+        String atNote = "Note1";
         String atLat = "40.7537";
         String atLng = "-73.9992";
 

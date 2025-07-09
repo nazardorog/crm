@@ -23,8 +23,6 @@ public class WES006_ValidateDateShipperReceiver {
     @Test
     public void dateShipperReceiver() {
 
-        System.out.println("Тест старт WES006_ValidateDateShipperReceiver");
-
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -97,7 +95,11 @@ public class WES006_ValidateDateShipperReceiver {
         $("#loads-rate-disp").setValue("100000").pressEnter();
         $("#loads-carrier_rate-disp").setValue("80000").pressEnter();
 
-
+        // Load file
+        $("#add_load").find(".modal-footer-button .fa-files-o").click();
+        $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
+        File file = new File("C:/Empire/pdf1.pdf");
+        $("#loaddocuments-0-file").uploadFile(file);
         $("#loaddocuments-0-type").selectOption("BOL");
 
         // Scrolling form Load file
@@ -233,8 +235,6 @@ public class WES006_ValidateDateShipperReceiver {
                 .shouldNotBe(Condition.visible);
 
         $("#add_load .close").click();
-
-        System.out.println("Тест фініш WES006_ValidateDateShipperReceiver");
     }
 
     @AfterMethod(alwaysRun = true)

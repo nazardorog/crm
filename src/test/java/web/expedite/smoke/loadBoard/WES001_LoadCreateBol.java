@@ -26,8 +26,6 @@ public class WES001_LoadCreateBol {
     @Test
     public void createBol() {
 
-        System.out.println("Тест старт WES001_LoadCreateBol");
-
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -158,8 +156,6 @@ public class WES001_LoadCreateBol {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
-
-        System.out.println("Тест фініш WES001_LoadCreateBol");
     }
 
     @AfterMethod(alwaysRun = true)

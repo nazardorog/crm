@@ -28,6 +28,8 @@ public class WBS027_TruckDell {
     // Trucks
     // 3. Удаление трака
 
+    String globalNumberSeventeen = "1234567890" + GlobalGenerateName.globalNumberSeven();
+
     @Test
     public void dell() {
 
@@ -49,7 +51,7 @@ public class WBS027_TruckDell {
 
         // *** Вкладка General фрейму Add owner ***
         String atTruckNumber = "Truck Number auto test 1" + randomNumber;
-        String atVinNumber = "VIN12345678999" + randomNumber;
+        final String atVinNumber = globalNumberSeventeen;
         String atPlateNumber = "Plate auto test 1" + randomNumber;
         String atPlateState = "PL";
         String atModel = "Volvo auto test 1";

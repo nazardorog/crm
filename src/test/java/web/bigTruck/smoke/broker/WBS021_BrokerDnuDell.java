@@ -132,12 +132,14 @@ public class WBS021_BrokerDnuDell {
         $$(".dropdown-menu-right a").findBy(text("Add to DNU")).shouldBe(visible, enabled).click();
 
         // Фрейм DNU встановлює DNU для брокера
-        $("#broker_dnu_modal .bootstrap-dialog-title").shouldBe(visible);
+        $("#broker_dnu_modal").shouldBe(visible, EXPECT_GLOBAL);
+        $("#brokers-blacklist-form").shouldBe(visible, EXPECT_GLOBAL);
         $("#category-dropdown").selectOption("4 - Dry Van Only");
-        $("#category-dropdown").getSelectedOption().shouldHave(Condition.text("4 - Dry Van Only"), Duration.ofSeconds(10));
+        $("#category-dropdown").getSelectedOption().shouldHave(Condition.text("4 - Dry Van Only"), EXPECT_GLOBAL);
+        sleep(5000);
         $("#brokers-comment").shouldBe(visible, EXPECT_5).hover();
-        $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, Duration.ofSeconds(10)).pressEnter();
-        $("#brokers-comment").shouldHave(value("DNU reason massage"), Duration.ofSeconds(10));
+        $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, EXPECT_GLOBAL);
+        $("#brokers-comment").shouldHave(value("DNU reason massage"), EXPECT_GLOBAL);
 
         // Закриває фрейм DNU
         $("#broker_from_dnu_send").click();
@@ -151,7 +153,8 @@ public class WBS021_BrokerDnuDell {
         $(".remove_broker_dnu").shouldBe(visible, enabled).click();
 
         // Фрейм DNU вводить Reason
-        $("#brokers-blacklist-form").shouldBe(visible, Duration.ofSeconds(30));
+        $("#broker_dnu_modal").shouldBe(visible, EXPECT_GLOBAL);
+        $("#brokers-blacklist-form").shouldBe(visible, EXPECT_GLOBAL);
         $("#note").setValue("DNU delete reason massage");
         $("#broker_from_dnu_send").click();
         $("#brokers-blacklist-form").shouldNotBe(visible);

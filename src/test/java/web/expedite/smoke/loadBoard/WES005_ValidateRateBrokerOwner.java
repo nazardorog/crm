@@ -25,8 +25,6 @@ public class WES005_ValidateRateBrokerOwner {
     @Test
     public void rateBrokerOwner() {
 
-        System.out.println("Тест старт WES005_ValidateRateBrokerOwner");
-
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -189,8 +187,6 @@ public class WES005_ValidateRateBrokerOwner {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
-
-        System.out.println("Тест фініш WES005_ValidateRateBrokerOwner");
     }
 
     @AfterMethod(alwaysRun = true)

@@ -25,8 +25,6 @@ public class WES004_LoadCreateOther {
     @Test
     public void createOther() {
 
-        System.out.println("Тест старт WES004_LoadCreateOther");
-
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -157,8 +155,6 @@ public class WES004_LoadCreateOther {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
-
-        System.out.println("Тест фініш WES004_LoadCreateOther");
     }
 
     @AfterMethod(alwaysRun = true)

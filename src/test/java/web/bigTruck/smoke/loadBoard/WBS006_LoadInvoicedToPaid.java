@@ -202,6 +202,7 @@ public class WBS006_LoadInvoicedToPaid {
          //клік редагування вантажу клік "Mark as delivered"
         SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0);
         rowLoad.shouldHave(text(loadNumber));
+        Selenide.sleep(2000);
         rowLoad.$("button.dropdown-toggle").shouldBe(clickable).click();
         rowLoad.$(".btn-group").shouldHave(Condition.cssClass("open"), Duration.ofSeconds(20));
         rowLoad.$$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled).click();

@@ -133,6 +133,9 @@ public class WBS013_LoadCheckCallEdit {
         // отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
 
+        //клік add Driver
+        $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
+
         //вибирає Carrier
         $("#select2-carrierId-container").click();
         $$(".select2-results__option").findBy(text("AutoTestOwner1 INC")).click();

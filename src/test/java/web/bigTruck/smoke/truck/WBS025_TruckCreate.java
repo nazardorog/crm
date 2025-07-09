@@ -23,8 +23,8 @@ public class WBS025_TruckCreate {
     // Trucks
     // 1. Создание New truck
 
-    String globalNameLettersDigits = globalNameLettersDigits();
     String globalName = globalName();
+    String globalNumberSeventeen = "1234567890" + GlobalGenerateName.globalNumberSeven();
 
     @Test
     public void create() throws InterruptedException {
@@ -43,7 +43,7 @@ public class WBS025_TruckCreate {
         // Дані для створення Truck
         String fileName = "1pdf.pdf";
         String atTruckNumber = globalName + "Truck Number 1";
-        String atVinNumber = globalNameLettersDigits + "123456789";
+        final String atVinNumber = globalNumberSeventeen;
         String atPlateNumber = globalName + "Plate Number 1";
         String atPlateState = "PL";
         String atModel = globalName + "Volvo 1";

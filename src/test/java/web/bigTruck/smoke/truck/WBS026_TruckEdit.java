@@ -18,8 +18,7 @@ import java.util.Random;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalGenerateName.globalName;
 import static utilsWeb.configWeb.GlobalGenerateName.globalNameLettersDigits;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
@@ -31,8 +30,8 @@ public class WBS026_TruckEdit {
     // Trucks
     // 2. Редактирование трака
 
-    String globalNameLettersDigits = globalNameLettersDigits();
     String globalName = globalName();
+    String globalNumberSeventeen = "1234567890" + GlobalGenerateName.globalNumberSeven();
 
     @Test
     public void edit() throws InterruptedException {
@@ -56,7 +55,7 @@ public class WBS026_TruckEdit {
         // Дані для створення Truck
         String fileName = "1pdf.pdf";
         String atTruckNumber = globalName + "Truck Number 1";
-        String atVinNumber = globalNameLettersDigits + "123456789";
+        final String atVinNumber = globalNumberSeventeen;
         String atPlateNumber = globalName + "Plate Number 1";
         String atPlateState = "PL";
         String atModel = globalName + "Volvo 1";
@@ -122,6 +121,7 @@ public class WBS026_TruckEdit {
         $("#truckdocuments-0-file").uploadFile(file);
 
         // Клік по кнопці Submit фрейму Add truck
+        sleep(5000);
         $("#add_truck_send").click();
 
         // Тост вспливайка

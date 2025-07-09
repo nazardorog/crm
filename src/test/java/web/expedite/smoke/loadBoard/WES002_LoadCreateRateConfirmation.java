@@ -25,8 +25,6 @@ public class WES002_LoadCreateRateConfirmation {
     @Test
     public void createRateConfirmation() {
 
-        System.out.println("Тест старт WES002_LoadCreateRateConfirmation");
-
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -157,8 +155,6 @@ public class WES002_LoadCreateRateConfirmation {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
-
-        System.out.println("Тест фініш WES002_LoadCreateRateConfirmation");
     }
 
     @AfterMethod(alwaysRun = true)

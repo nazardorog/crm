@@ -14,7 +14,6 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
-import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WES003_LoadCreatePod {
@@ -25,8 +24,6 @@ public class WES003_LoadCreatePod {
 
     @Test
     public void createPod() {
-
-        System.out.println("Тест старт WES003_LoadCreatePod");
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -137,14 +134,11 @@ public class WES003_LoadCreatePod {
         String dispatchLoad = $("#load_dispatch .modal-title").getText();
         String loadNumber = dispatchLoad.substring(dispatchLoad.lastIndexOf("#") + 1).trim();
 
-        System.out.println("Тест має сфейлитись WES003_LoadCreatePod");
         $$("#loads-load_type label").findBy(Condition.text("Board")).click();
 
         // Close Dispatch board
         $("#dispatch_load_send").click();
         $("#load_dispatch").shouldNotBe(visible,EXPECT_GLOBAL);
-
-        $("#loadexpenses-is_add_users_to_load_chat").shouldBe(visible, EXPECT_10).click();
 
         // Toast massage
         $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
@@ -161,8 +155,6 @@ public class WES003_LoadCreatePod {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
-
-        System.out.println("Тест фініш WES003_LoadCreatePod");
     }
 
     @AfterMethod(alwaysRun = true)

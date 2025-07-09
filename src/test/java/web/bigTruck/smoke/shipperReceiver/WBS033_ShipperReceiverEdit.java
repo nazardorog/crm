@@ -13,13 +13,18 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS033_ShipperReceiverEdit {
 
     // Click Up:
     // CRM SEMI Truck
     // Shippers-receivers
-    // 1. Создание Shippers Receivers
+    // 2. Редактирование Shippers Receivers
+
+    // Global data
+    String globalName = GlobalGenerateName.globalName();
+    String globalMail = GlobalGenerateName.globalMail();
 
     @Test (priority = 1)
     public void edit() {
@@ -39,19 +44,16 @@ public class WBS033_ShipperReceiverEdit {
         $("#add_shippers-receiver").shouldBe(visible, Duration.ofSeconds(10));
 
         //дані для Shippers Receivers
-        Random random = new Random();
-        int randomNumber = random.nextInt(1000);
-
-        String atShippersName = "Shippers Name auto test 1" + randomNumber;
-        String atStreet1 = "Street auto test 11_" + randomNumber;
-        String atStreet2 = "Street auto test 12_" + randomNumber;
+        String atShippersName = globalName + "Shipper Receiver Name";
+        String atStreet1 = "Street 11";
+        String atStreet2 = "Street 21";
         String atCountry = "US";
         String atLocation = "New York, NY 10001";
-        String atEmail = "EmailShippers1" + randomNumber + "@mail.com";
-        String atContactPersonName = "Contact Person Name auto test 1_" + randomNumber;
-        String atContactPersonPhoneNumber = "010888-1111;";
-        String atContactCellNumber = "010888-1112;";
-        String atNote = "Note shippers auto test 1_" + randomNumber;
+        String atEmail = globalMail;
+        String atContactPersonName = "Contact Person Name1";
+        String atContactPersonPhoneNumber = "010888-1111";
+        String atContactCellNumber = "010888-1112";
+        String atNote = "Note1";
         String atLat = "40.7537";
         String atLng = "-73.9992";
 
@@ -99,15 +101,15 @@ public class WBS033_ShipperReceiverEdit {
         rowShippers.$(".glyphicon-pencil").click();
 
         //редагування дані
-        String atStreet1Edit = "Street auto test 21_" + randomNumber;
-        String atStreet2Edit = "Street auto test 22_" + randomNumber;
+        String atStreet1Edit = "Street 12";
+        String atStreet2Edit = "Street 22";
         String atCountryEdit = "MX";
         String atLocationEdit = "Mexico, NY 13114";
-        String atEmailEdit = "EmailShippers2_" + randomNumber + "@mail.com";
-        String atContactPersonNameEdit = "Contact Person Name auto test 2_" + randomNumber;
+        String atEmailEdit = globalMail;
+        String atContactPersonNameEdit = "Contact Person Name2";
         String atContactPersonPhoneNumberEdit = "(910) 888-1111";
         String atContactCellNumberEdit = "910888-1112";
-        String atNoteEdit = "Note shippers auto test 2_" + randomNumber;
+        String atNoteEdit = "Note2";
         String atLatEdit = "43.46";
         String atLngEdit = "-76.23";
 
@@ -151,44 +153,20 @@ public class WBS033_ShipperReceiverEdit {
         rowShippersEdit.shouldHave(text(atLngEdit));
 
         // *** Перевіряє відредаговані дані Shippers через Око ***
-
         //клік по кнопці око
         rowShippersEdit.$(".glyphicon-eye-open").click();
-        $("#view_shippers-receiver").shouldBe(visible, Duration.ofSeconds(10));
-
-        //перевіряє відредаговані дані Truck в View truck
-        $("table#w0").$$("tr").findBy(text("Name"))
-                .$$("td").first().shouldHave(text(atShippersName));
-
-        $("table#w0").$$("tr").findBy(text("Street 1"))
-                .$$("td").first().shouldHave(text(atStreet1Edit));
-
-        $("table#w0").$$("tr").findBy(text("Street 2"))
-                .$$("td").first().shouldHave(text(atStreet2Edit));
-
-        $("table#w0").$$("tr").findBy(text("City"))
-                .$$("td").first().shouldHave(text("Mexico"));
-
-        $("table#w0").$$("tr").findBy(text("State"))
-                .$$("td").first().shouldHave(text("NY"));
-
-        $("table#w0").$$("tr").findBy(text("Zip"))
-                .$$("td").first().shouldHave(text("13114"));
-
-        $("table#w0").$$("tr").findBy(text("Location"))
-                .$$("td").first().shouldHave(text(atLocationEdit));
-
-        $("table#w0").$$("tr").findBy(text("Lat"))
-                .$$("td").first().shouldHave(text(atLatEdit));
-
-        $("table#w0").$$("tr").findBy(text("Lng"))
-                .$$("td").first().shouldHave(text(atLngEdit));
-
-        $("table#w0").$$("tr").findBy(text("Contact Person Name"))
-                .$$("td").first().shouldHave(text(atContactPersonNameEdit));
-
-        $("table#w0").$$("tr").findBy(text("Contact Person Phone Number"))
-                .$$("td").first().shouldHave(text(atContactPersonPhoneNumberEdit));
+        $("#view_shippers-receiver").shouldBe(visible, EXPECT_GLOBAL);
+        $$("table#w0 tr").findBy(text("Name"))                          .$$("td").first().shouldHave(text(atShippersName));
+        $$("table#w0 tr").findBy(text("Street 1"))                      .$$("td").first().shouldHave(text(atStreet1Edit));
+        $$("table#w0 tr").findBy(text("Street 2"))                      .$$("td").first().shouldHave(text(atStreet2Edit));
+        $$("table#w0 tr").findBy(text("City"))                          .$$("td").first().shouldHave(text("Mexico"));
+        $$("table#w0 tr").findBy(text("State"))                         .$$("td").first().shouldHave(text("NY"));
+        $$("table#w0 tr").findBy(text("Zip"))                           .$$("td").first().shouldHave(text("13114"));
+        $$("table#w0 tr").findBy(text("Location"))                      .$$("td").first().shouldHave(text(atLocationEdit));
+        $$("table#w0 tr").findBy(text("Lat"))                           .$$("td").first().shouldHave(text(atLatEdit));
+        $$("table#w0 tr").findBy(text("Lng"))                           .$$("td").first().shouldHave(text(atLngEdit));
+        $$("table#w0 tr").findBy(text("Contact Person Name"))           .$$("td").first().shouldHave(text(atContactPersonNameEdit));
+        $$("table#w0 tr").findBy(text("Contact Person Phone Number"))   .$$("td").first().shouldHave(text(atContactPersonPhoneNumberEdit));
 
         //закриває фрейм View shippers receivers
         $("#view_shippers-receiver button.close").click();

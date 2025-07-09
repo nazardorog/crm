@@ -1,6 +1,5 @@
 package web.expedite.ui;
 
-import com.codeborne.selenide.Configuration;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 
@@ -48,10 +47,6 @@ public class WEU003_Truck {
         $$("th").findBy(text("Year")).shouldBe(visible);
         $$("th").findBy(text("Driver Support")).shouldBe(visible);
         $$("th").findBy(text("Hr Content")).shouldBe(visible);
-
-        System.out.println("має впасти тест");
-        $("#brokers-name").setValue("atLegalName");
-
     }
 
     @AfterMethod(alwaysRun = true)

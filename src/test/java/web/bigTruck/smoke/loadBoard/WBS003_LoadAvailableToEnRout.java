@@ -17,6 +17,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
+import static java.lang.Thread.sleep;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS003_LoadAvailableToEnRout {
@@ -180,6 +181,7 @@ public class WBS003_LoadAvailableToEnRout {
         $("#select2-trailer_id-create-container").shouldHave(text("AutoTest Trailer1"));
 
         //вибирає Location From вводить Location To
+        Selenide.sleep(2000);
         $("#loadexpenses-location").shouldBe(visible).selectOption("Kansas City, MO 64110");
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
