@@ -33,7 +33,7 @@ public class WES001_LoadCreateBol {
     @Epic("Expedite")
     @Feature("LoadBoard")
     @Story("Bol creation")
-
+    @Description("Нова дискріпшн")
     public void createBol() {
 
         // Login
