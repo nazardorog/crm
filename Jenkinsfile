@@ -257,17 +257,17 @@ pipeline {
                             }
                         }
                     }
-//                     parallel parallelStages
+                    parallel parallelStages
 
-                    def parallelOptions = [
-                        failFast: false,
-                        maxConcurrency: maxConcurrentBuilds
-                    ]
-                    parallel(parallelStages, parallelOptions)
-
-                    if (overallStatus == 'FAILURE') {
-                        currentBuild.result = 'UNSTABLE'
-                    }
+//                     def parallelOptions = [
+//                         failFast: false,
+//                         maxConcurrency: maxConcurrentBuilds
+//                     ]
+//                     parallel(parallelStages, parallelOptions)
+//
+//                     if (overallStatus == 'FAILURE') {
+//                         currentBuild.result = 'UNSTABLE'
+//                     }
                 }
             }
         }
