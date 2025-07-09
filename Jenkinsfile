@@ -86,8 +86,6 @@ pipeline {
         )
             // >>> кількість потоків <<<
             string(name: 'PARALLEL_THREADS', defaultValue: '5', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
-
-        )
     }
 
     stages {
