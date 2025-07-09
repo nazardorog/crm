@@ -46,6 +46,34 @@ pipeline {
             web/expedite/smoke/loadBoard/WES032_LoadGetInvoice.java,
             web/expedite/smoke/loadBoard/WES033_LoadRatingChanges.java,
             web/expedite/smoke/loadBoard/WES034_LoadReportAdd.java,
+            web/expedite/smoke/broker/WES035_BrokerCreate.java,
+            web/expedite/smoke/broker/WES036_BrokerEdit.java,
+            web/expedite/smoke/broker/WES037_BrokerDnuAdd.java,
+            web/expedite/smoke/broker/WES038_BrokerDnuDell.java,
+            web/expedite/smoke/owner/WES039_OwnerCreatePerson.java,
+            web/expedite/smoke/owner/WES040_OwnerCreateCompany.java,
+            web/expedite/smoke/owner/WES041_OwnerIsDriverNotChecked.java,
+            web/expedite/smoke/owner/WES042_OwnerEdit.java,
+            web/expedite/smoke/owner/WES043_OwnerDell.java,
+            web/expedite/smoke/truck/WES044_TruckCreate.java,
+            web/expedite/smoke/truck/WES045_TruckEdit.java,
+            web/expedite/smoke/truck/WES046_TruckDell.java,
+            web/expedite/smoke/truck/WES047_TruckReplacementListCreate.java,
+            web/expedite/smoke/truck/WES048_TruckReplacementListView.java,
+            web/expedite/smoke/truck/WES049_TruckReplacementListEdit.java,
+            web/expedite/smoke/truck/WES050_TruckReplacementListDell.java,
+            web/expedite/smoke/offers/WES051_FindTruckFilters.java,
+            web/expedite/smoke/offers/WES052_OfferCreate.java,
+            web/expedite/smoke/offers/WES053_OfferHold.java,
+            web/expedite/smoke/driver/WES054_DriverCreate.java,
+            web/expedite/smoke/driver/WES055_DriverEdit.java,
+            web/expedite/smoke/driver/WES056_DriverDell.java,
+            web/expedite/smoke/shipperReceiver/WES057_SRCreate.java,
+            web/expedite/smoke/shipperReceiver/WES058_SRCreateLocationDropdown.java,
+            web/expedite/smoke/shipperReceiver/WES059_SREdit.java,
+            web/expedite/smoke/shipperReceiver/WES060_SRDell.java,
+            web/expedite/smoke/loads/WES061_LoadsFilterOperation.java,
+            web/expedite/smoke/loads/WES062_LoadsDispatchCheck.java,
             Group:SmokeBigTruck,
             web/bigTruck/smoke/loadBoard/WBS001_LoadCreate.java,
             web/bigTruck/smoke/loadBoard/WBS002_LoadEdit.java,
@@ -135,34 +163,62 @@ pipeline {
                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'
                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES005_ValidateRateBrokerOwner.java'
                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES006_ValidateDateShipperReceiver.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES007_ValidatePltWtPcs.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES008_DispatchAddTruckByTruck.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES009_DispatchAddTruckByDriver.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES010_DispatchAddTruckByTeamDriver.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES011_DispatchAssignUser.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES012_DispatchCalculate.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES013_FileOpenAll.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES014_LoadEdit.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES015_LoadAddSecondTruck.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES016_LoadChangeTruck.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES017_LoadEnRouteToDelivered.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES018_PossibleClaim.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES019_LoadMarkAsInvoiced.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES020_LoadPaid.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES021_LoadBounceToEnRoute.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES022_ShowMyLoads.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES023_LoadEditDispatch.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES024_DispatchDriverAddDell.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES025_DispatchWarehouseAddDell.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES026_LoadExpensesAddDell.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES027_LoadCheckCallAdd.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES028_LoadCheckCallEdit.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES029_LoadCheckCallDelete.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES030_LoadGetConfirmation.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES031_LoadGetBol.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES032_LoadGetInvoice.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES033_LoadRatingChanges.java'
-//                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES034_LoadReportAdd.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES007_ValidatePltWtPcs.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES008_DispatchAddTruckByTruck.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES009_DispatchAddTruckByDriver.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES010_DispatchAddTruckByTeamDriver.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES011_DispatchAssignUser.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES012_DispatchCalculate.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES013_FileOpenAll.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES014_LoadEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES015_LoadAddSecondTruck.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES016_LoadChangeTruck.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES017_LoadEnRouteToDelivered.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES018_PossibleClaim.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES019_LoadMarkAsInvoiced.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES020_LoadPaid.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES021_LoadBounceToEnRoute.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES022_ShowMyLoads.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES023_LoadEditDispatch.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES024_DispatchDriverAddDell.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES025_DispatchWarehouseAddDell.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES026_LoadExpensesAddDell.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES027_LoadCheckCallAdd.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES028_LoadCheckCallEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES029_LoadCheckCallDelete.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES030_LoadGetConfirmation.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES031_LoadGetBol.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES032_LoadGetInvoice.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES033_LoadRatingChanges.java'
+                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES034_LoadReportAdd.java'
+                                    testsToExecute << 'web/expedite/smoke/broker/WES035_BrokerCreate.java'
+                                    testsToExecute << 'web/expedite/smoke/broker/WES036_BrokerEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/broker/WES037_BrokerDnuAdd.java'
+                                    testsToExecute << 'web/expedite/smoke/broker/WES038_BrokerDnuDell.java'
+                                    testsToExecute << 'web/expedite/smoke/owner/WES039_OwnerCreatePerson.java'
+                                    testsToExecute << 'web/expedite/smoke/owner/WES040_OwnerCreateCompany.java'
+                                    testsToExecute << 'web/expedite/smoke/owner/WES041_OwnerIsDriverNotChecked.java'
+                                    testsToExecute << 'web/expedite/smoke/owner/WES042_OwnerEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/owner/WES043_OwnerDell.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES044_TruckCreate.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES045_TruckEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES046_TruckDell.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES047_TruckReplacementListCreate.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES048_TruckReplacementListView.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES049_TruckReplacementListEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/truck/WES050_TruckReplacementListDell.java'
+                                    testsToExecute << 'web/expedite/smoke/offers/WES051_FindTruckFilters.java'
+                                    testsToExecute << 'web/expedite/smoke/offers/WES052_OfferCreate.java'
+                                    testsToExecute << 'web/expedite/smoke/offers/WES053_OfferHold.java'
+                                    testsToExecute << 'web/expedite/smoke/driver/WES054_DriverCreate.java'
+                                    testsToExecute << 'web/expedite/smoke/driver/WES055_DriverEdit.java'
+                                    testsToExecute << 'web/expedite/smoke/driver/WES056_DriverDell.java'
+                                    testsToExecute << 'web/expedite/smoke/shipperReceiver/WES057_SRCreate.java'
+                                    testsToExecute << 'web/expedite/smoke/shipperReceiver/WES058_SRCreateLocationDropdown.java'
+                                    testsToExecute << 'web/expedite/smoke/shipperReceiver/WES059_SREdit.java'
+                                    testsToExecute << 'web/expedite/smoke/shipperReceiver/WES060_SRDell.java'
+                                    testsToExecute << 'web/expedite/smoke/loads/WES061_LoadsFilterOperation.java'
+                                    testsToExecute << 'web/expedite/smoke/loads/WES062_LoadsDispatchCheck.java'
                                 }
                                 if (groupName == 'SmokeBigTruck') {
                                     testsToExecute << 'web/bigTruck/smoke/loadBoard/WBS001_LoadCreate.java'
