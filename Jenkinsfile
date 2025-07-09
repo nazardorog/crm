@@ -259,7 +259,11 @@ pipeline {
                     }
 //                     parallel parallelStages
 
-                    parallel parallelStages, failFast: false, maxConcurrency: maxConcurrentBuilds
+                    def parallelOptions = [
+                        failFast: false,
+                        maxConcurrency: maxConcurrentBuilds
+                    ]
+                    parallel(parallelStages, parallelOptions)
 
                     if (overallStatus == 'FAILURE') {
                         currentBuild.result = 'UNSTABLE'
