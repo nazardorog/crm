@@ -268,6 +268,7 @@ pipeline {
 
                     if (overallStatus == 'FAILURE') {
                         currentBuild.result = 'UNSTABLE'
+                    }
                 }
             }
         }
