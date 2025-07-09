@@ -81,7 +81,7 @@ services:
 
   chrome3:
     image: selenium/node-chrome:4.21.0
-    container_name: chrome2
+    container_name: chrome3
     user: root
     shm_size: 2gb
     depends_on:
@@ -96,7 +96,7 @@ services:
 
   chrome4:
     image: selenium/node-chrome:4.21.0
-    container_name: chrome2
+    container_name: chrome4
     user: root
     shm_size: 2gb
     depends_on:
