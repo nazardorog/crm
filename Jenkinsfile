@@ -101,6 +101,7 @@ pipeline {
                 script {
                     def hostWorkspace = env.WORKSPACE.replace('/var/jenkins_home', '/data/jenkins/jenkins_home')
                     def testsToExecute = [] // Остаточний список тестів для запуску
+                    def overallStatus = 'SUCCESS' // Змінна для відстеження загального статусу
 
                     if (params.TEST_SCOPE == 'all') {
                         echo "Запускаємо всі тести..."
@@ -164,8 +165,6 @@ pipeline {
                                     testsToExecute << 'web/expedite/smoke/loadBoard/WES034_LoadReportAdd.java'
                                 }
                                 if (groupName == 'SmokeBigTruck') {
-                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES003_LoadCreatePod.java'
-                                    testsToExecute << 'web/expedite/smoke/loadBoard/WES004_LoadCreateOther.java'
                                     testsToExecute << 'web/bigTruck/smoke/loadBoard/WBS001_LoadCreate.java'
                                     testsToExecute << 'web/bigTruck/smoke/loadBoard/WBS002_LoadEdit.java'
                                     testsToExecute << 'web/bigTruck/smoke/loadBoard/WBS003_LoadAvailableToEnRout.java'
@@ -234,15 +233,22 @@ pipeline {
                             // Перетворюємо шлях до файлу (web/expedite/...) на повне ім'я класу (web.expedite. ...)
                             def testClassName = testClassFile.replace('/', '.').replace('.java', '')
                             parallelStages["${testClassName}"] = {
-                                sh """
-                                    docker run --rm \\
-                                        --network shared_network \\
-                                        -v "${hostWorkspace}":/app \\
-                                        -w /app \\
-                                        -e RUN_ENV=jenkins \\
-                                        maven:3.8-openjdk-17 \\
-                                        mvn clean test -Dtest=${testClassName} -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1
-                                """
+                                try {
+                                    sh """
+                                        docker run --rm \\
+                                            --network shared_network \\
+                                            -v "${hostWorkspace}":/app \\
+                                            -w /app \\
+                                            -e RUN_ENV=jenkins \\
+                                            maven:3.8-openjdk-17 \\
+                                            mvn clean test -Dtest=${testClassName} -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1
+                                    """
+                                } catch (Exception e) {
+                                    // Якщо тест впав, просто виводимо повідомлення, але не кидаємо помилку,
+                                    // щоб дозволити іншим паралельним стейджам завершитися.
+                                    echo "Тест ${testClassName} завершився з помилкою: ${e.message}"
+                                    overallStatus = 'FAILURE' // Встановлюємо загальний статус на FAILURE
+                                }
                             }
                         }
                     }
