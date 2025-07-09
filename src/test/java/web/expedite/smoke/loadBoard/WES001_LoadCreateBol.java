@@ -30,10 +30,7 @@ public class WES001_LoadCreateBol {
     // 4. Создание New Load
 
     @Test
-    @Epic("Expedite")
-    @Feature("LoadBoard")
-    @Story("Bol creation")
-    @Description("Нова дискріпшн")
+    @Description("Цей тест перевіряє процес створення Bol при додаванні нового вантажу в LoadBoard.")
     public void createBol() {
 
         // Login
