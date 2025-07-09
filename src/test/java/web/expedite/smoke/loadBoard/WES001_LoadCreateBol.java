@@ -29,7 +29,7 @@ public class WES001_LoadCreateBol {
     // CRM EXPEDITE - Smoke - Loadboard
     // 4. Создание New Load
 
-    @Test
+    @Test(testName = "Перевірка додавання BOL")
     @Description("Цей тест перевіряє процес створення Bol при додаванні нового вантажу в LoadBoard.")
     public void createBol() {
 
