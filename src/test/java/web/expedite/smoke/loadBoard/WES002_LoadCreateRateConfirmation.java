@@ -27,9 +27,10 @@ public class WES002_LoadCreateRateConfirmation {
 
         System.out.println("Тест старт WES002_LoadCreateRateConfirmation");
 
-//        // Login
-//        GlobalLogin.login("exp_disp1");
-//
+        // Login
+        GlobalLogin.login("exp_disp1");
+        System.out.println("Тест фініш WES002_LoadCreateRateConfirmation");
+
 //        // Data for creating a load
 //        String atBroker = "at_Broker1";
 //        String atAgent = "Auto test agent ";

@@ -25,11 +25,13 @@ public class WES004_LoadCreateOther {
     @Test
     public void createOther() {
 
-        System.out.println("Тест старт WES003_LoadCreatePod");
+        System.out.println("Тест старт WES004_LoadCreateOther");
 
         // Login
-//        GlobalLogin.login("exp_disp1");
-//
+        GlobalLogin.login("exp_disp1");
+
+        System.out.println("Тест фініш WES004_LoadCreateOther");
+
 //        // Data for creating a load
 //        String atBroker = "at_Broker1";
 //        String atAgent = "Auto test agent ";

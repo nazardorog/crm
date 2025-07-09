@@ -27,9 +27,11 @@ public class WES003_LoadCreatePod {
 
         System.out.println("Тест старт WES003_LoadCreatePod");
 
-//        // Login
-//        GlobalLogin.login("exp_disp1");
-//
+        // Login
+        GlobalLogin.login("exp_disp1");
+
+        System.out.println("Тест фініш WES003_LoadCreatePod");
+
 //        // Data for creating a load
 //        String atBroker = "at_Broker1";
 //        String atAgent = "Auto test agent ";

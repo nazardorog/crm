@@ -27,11 +27,12 @@ public class WES001_LoadCreateBol {
     public void createBol() {
 
         System.out.println("Тест старт WES001_LoadCreateBol");
+
+        // Login
+        GlobalLogin.login("exp_disp1");
+
         System.out.println("Тест має впасти WES001_LoadCreateBol");
         $("#loads-form-create").shouldBe(visible, EXPECT_GLOBAL);
-
-//        // Login
-//        GlobalLogin.login("exp_disp1");
 //
 //        // Data for creating a load
 //        String atBroker = "at_Broker1";
