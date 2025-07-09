@@ -111,7 +111,8 @@ public class WEF020_LoadEdit {
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
 
         //файл pdf, тип POD
-        File file = new File("C:/Empire/pdf1.pdf");
+        String fileName = "1pdf.pdf";
+        File file = new File(downloadsFolder + fileName);
         $("#loaddocuments-0-file").uploadFile(file);
         $("#loaddocuments-0-type").selectOption("POD");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);

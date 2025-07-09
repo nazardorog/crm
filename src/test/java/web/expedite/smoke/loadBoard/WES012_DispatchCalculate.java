@@ -98,7 +98,8 @@ public class WES012_DispatchCalculate {
         // Load file
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
         $("#load_documents_modal").shouldBe(visible, EXPECT_GLOBAL);
-        File file = new File("C:/Empire/pdf1.pdf");
+        String fileName = "1pdf.pdf";
+        File file = new File(downloadsFolder + fileName);
         $("#loaddocuments-0-file").uploadFile(file);
         $("#loaddocuments-0-type").selectOption("BOL");
 
