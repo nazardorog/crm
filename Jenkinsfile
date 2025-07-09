@@ -83,7 +83,7 @@ pipeline {
             web/bigTruck/smoke/shipperReceiver/WBS034_ShipperReceiverDell.java''',
 
             visibleItemCount: 30, // Відображати 30 елементів без прокрутки
-
+        )
             // >>> кількість потоків <<<
             string(name: 'PARALLEL_THREADS', defaultValue: '5', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
 
