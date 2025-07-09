@@ -30,6 +30,7 @@ public class WES001_LoadCreateBol {
 
         // Login
         GlobalLogin.login("exp_disp1");
+        System.out.println("Тест фініш WES001_LoadCreateBol");
 
 //        // Data for creating a load
 //        String atBroker = "at_Broker1";
