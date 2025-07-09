@@ -17,6 +17,7 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.sleep;
 

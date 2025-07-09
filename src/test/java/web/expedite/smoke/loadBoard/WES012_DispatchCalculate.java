@@ -11,6 +11,7 @@ import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
