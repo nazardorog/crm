@@ -23,6 +23,8 @@ public class WES006_ValidateDateShipperReceiver {
     @Test
     public void dateShipperReceiver() {
 
+        System.out.println("Тест старт WES006_ValidateDateShipperReceiver");
+
         // Login
         GlobalLogin.login("exp_disp1");
 
@@ -231,6 +233,8 @@ public class WES006_ValidateDateShipperReceiver {
                 .shouldNotBe(Condition.visible);
 
         $("#add_load .close").click();
+
+        System.out.println("Тест фініш WES006_ValidateDateShipperReceiver");
     }
 
     @AfterMethod(alwaysRun = true)
