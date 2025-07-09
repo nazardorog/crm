@@ -83,6 +83,10 @@ pipeline {
             web/bigTruck/smoke/shipperReceiver/WBS034_ShipperReceiverDell.java''',
 
             visibleItemCount: 30, // Відображати 30 елементів без прокрутки
+
+            // >>> кількість потоків <<<
+            string(name: 'PARALLEL_THREADS', defaultValue: '5', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
+
         )
     }
 
@@ -216,6 +220,9 @@ pipeline {
 
                     def parallelStages = [:]
 
+                    // Перетворюємо PARALLEL_THREADS на ціле число
+                    def maxConcurrentBuilds = params.PARALLEL_THREADS as Integer
+
                     if (testsToExecute.contains("all")) {
                         parallelStages['Run_All_Tests'] = {
                             sh """
@@ -252,7 +259,15 @@ pipeline {
                             }
                         }
                     }
-                    parallel parallelStages
+//                     parallel parallelStages
+
+                    // >>> ВИКОРИСТОВУЄМО maxConcurrentBuilds ТУТ <<<
+                    parallel parallelStages, failFast: false, maxConcurrency: maxConcurrentBuilds
+                    // failFast: false - ЦЕ ВАЖЛИВО! Воно вже є і забезпечує, що інші гілки продовжують виконуватися.
+                    // maxConcurrency: maxConcurrentBuilds - обмежує кількість одночасних гілок.
+
+                    if (overallStatus == 'FAILURE') {
+                        currentBuild.result = 'UNSTABLE'
                 }
             }
         }
