@@ -20,23 +20,23 @@ import static com.codeborne.selenide.Selenide.$;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 @Listeners(utilsWeb.commonWeb.Listener.class)
-@Epic("Логістика")
-@Feature("Створення вантажу з файлом BOL")
+@Epic("WEB")
+@Feature("Expedite")
 public class WES001_LoadCreateBol {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Loadboard
     // 4. Создание New Load
 
-    @Test(description = "Створення вантажу з файлом BOL - основний сценарій")
-    @Story("Основний сценарій створення")
-    @Description("Тестування функціональності створення вантажу з BOL файлом")
+    @Test(description = "тест в description")
+    @Story("Smoke")
+    @Description("дескріпшн WES001_LoadCreateBol")
     @Severity(SeverityLevel.CRITICAL)
     public void createBol() {
 
         // Встановлюємо кастомну назву для тесту
         Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание New Load файл Bol");
+            testResult.setName("Создание New Load с типом файла Bol");
         });
 
         // Login
