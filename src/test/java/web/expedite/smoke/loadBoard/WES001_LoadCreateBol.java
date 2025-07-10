@@ -2,9 +2,7 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -21,7 +19,6 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-
 @Listeners(utilsWeb.commonWeb.Listener.class)
 @Epic("Логістика")
 @Feature("Створення вантажу з файлом BOL")
@@ -31,9 +28,16 @@ public class WES001_LoadCreateBol {
     // CRM EXPEDITE - Smoke - Loadboard
     // 4. Создание New Load
 
-    @Test
+    @Test(description = "Створення вантажу з файлом BOL - основний сценарій")
     @Story("Основний сценарій створення")
+    @Description("Тестування функціональності створення вантажу з BOL файлом")
+    @Severity(SeverityLevel.CRITICAL)
     public void createBol() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Створення вантажу з файлом BOL");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
