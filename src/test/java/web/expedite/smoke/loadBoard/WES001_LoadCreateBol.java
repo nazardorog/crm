@@ -36,7 +36,7 @@ public class WES001_LoadCreateBol {
 
         // Встановлюємо кастомну назву для тесту
         Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Створення вантажу з файлом BOL");
+            testResult.setName("Создание New Load файл Bol");
         });
 
         // Login
