@@ -2,6 +2,8 @@ package web.bigTruck.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.*;
+import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
@@ -17,6 +19,9 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("SEMI Truck")
+@Feature("Smoke")
 public class WBS004_LoadEnRouteToDelivered {
 
     // Click Up:
@@ -24,9 +29,16 @@ public class WBS004_LoadEnRouteToDelivered {
     // Load board
     // 4. Перевод груза с еn routе в dеlivеrеd
 
-    @Test
+    @Test(description = "тест в description3")
+    @Story("Load board")
+    @Description("дескріпшн WBS001_LoadCreate")
+    @Severity(SeverityLevel.CRITICAL)
     public void enRoutToDelivered() {
 
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("");
+        });
 
         // Login
         GlobalLogin.login("bt_disp1");

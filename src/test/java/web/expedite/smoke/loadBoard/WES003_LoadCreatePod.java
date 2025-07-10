@@ -35,7 +35,7 @@ public class WES003_LoadCreatePod {
 
         // Встановлюємо кастомну назву для тесту
         Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание New Load с типом файла RateConfirmation");
+            testResult.setName("Создание New Load с типом файла Pod");
         });
 
         // Login

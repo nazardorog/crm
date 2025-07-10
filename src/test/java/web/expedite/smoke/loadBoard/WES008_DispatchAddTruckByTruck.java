@@ -2,6 +2,8 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.*;
+import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
@@ -16,14 +18,25 @@ import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES008_DispatchAddTruckByTruck {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - LoadBoard
     // 10. Создание New Load / dispatch load \ assign user
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Load board")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void addTruckByTruck() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Создание New Load / dispatch load \\ добавление трака на груз через поле трак");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
