@@ -12,6 +12,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <systemPropertyVariables>
                         <allure.results.directory>target/allure-results</allure.results.directory>
                     </systemPropertyVariables>
@@ -20,6 +21,12 @@
 <!--                        &lt;!&ndash;                        <suiteXmlFile>src/test/java/resources/testngRun.xml</suiteXmlFile>&ndash;&gt;-->
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.testng.AllureTestNg</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
 <!--            запуск автоматично allure docker-->

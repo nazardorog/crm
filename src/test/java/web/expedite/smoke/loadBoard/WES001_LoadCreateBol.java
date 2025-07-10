@@ -2,10 +2,6 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
-import io.qameta.allure.Description;
 import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -22,6 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+
 @Listeners(utilsWeb.commonWeb.Listener.class)
 public class WES001_LoadCreateBol {
 
@@ -30,7 +27,7 @@ public class WES001_LoadCreateBol {
     // 4. Создание New Load
 
     @Test(testName = "Перевірка додавання BOL")
-    @Description("Цей тест перевіряє процес створення Bol при додаванні нового вантажу в LoadBoard.")
+//    @Description("Цей тест перевіряє процес створення Bol при додаванні нового вантажу в LoadBoard.")
     public void createBol() {
 
         // Login
