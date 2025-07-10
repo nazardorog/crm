@@ -6,8 +6,8 @@
 
     <test name="Web Expedite Smoke" preserve-order="true">
     <classes>
-        <class name="web.expedite.ui.WEU002_Broker"/>
-        <class name="web.expedite.ui.WEU003_Truck"/>
+        <class name="web.expedite.smoke.loadBoard.WES001_LoadCreateBol"/>
+        <class name="web.expedite.smoke.loadBoard.WES002_LoadCreateRateConfirmation"/>
     </classes>
     </test>
 </suite>
