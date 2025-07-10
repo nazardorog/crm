@@ -113,7 +113,7 @@ pipeline {
             visibleItemCount: 30, // Відображати 30 елементів без прокрутки
         )
             // >>> кількість потоків <<<
-            string(name: 'PARALLEL_THREADS', defaultValue: '4', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
+            string(name: 'PARALLEL_THREADS', defaultValue: '2', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
     }
 
     stages {

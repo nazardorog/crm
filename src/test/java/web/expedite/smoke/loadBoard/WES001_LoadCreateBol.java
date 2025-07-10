@@ -42,6 +42,8 @@ public class WES001_LoadCreateBol {
         // Login
         GlobalLogin.login("exp_disp1");
 
+        $("#loadsdeliverylocations-0-weight").setValue("1");
+
 //        // Data for creating a load
 //        String atBroker = "at_Broker1";
 //        String atAgent = "Auto test agent ";
