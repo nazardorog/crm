@@ -4,7 +4,7 @@
         <listener class-name="utilsWeb.commonWeb.Listener"/>
     </listeners>
 
-    <test name="WEU" preserve-order="true">
+    <test name="Web Expedite Smoke" preserve-order="true">
     <classes>
         <class name="web.expedite.ui.WEU002_Broker"/>
         <class name="web.expedite.ui.WEU003_Truck"/>
