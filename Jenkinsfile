@@ -285,7 +285,7 @@ pipeline {
                                         -w /app \\
                                         -e RUN_ENV=jenkins \\
                                         maven:3.8-openjdk-17 \\
-                                        mvn clean test -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1
+                                        mvn clean test -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1 -Dsurefire.threadCount=${params.PARALLEL_THREADS} -Dsurefire.parallel=classes
                                 """
                             } catch (Exception e) {
                                 // Якщо тест впав, просто виводимо повідомлення, але не кидаємо помилку,
