@@ -1,7 +1,10 @@
 package web.expedite.smoke.loadBoard;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -17,10 +20,21 @@ import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES019_LoadMarkAsInvoiced {
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Load board")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void markAsInvoiced () {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Перевод груза с dеlivеrеd в load invoicеd");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");

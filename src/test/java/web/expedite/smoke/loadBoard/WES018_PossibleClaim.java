@@ -1,7 +1,9 @@
 package web.expedite.smoke.loadBoard;
 
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -16,13 +18,23 @@ import utilsWeb.configWeb.GlobalLogin;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES018_PossibleClaim {
     // https://app.clickup.com/t/86990x7m0
     // Possible Claim / перевод трака в load issue
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Load board")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void possibleClaim() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Possible Claim / перевод трака в load issue");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
