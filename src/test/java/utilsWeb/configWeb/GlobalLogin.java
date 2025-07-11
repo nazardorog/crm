@@ -78,6 +78,14 @@ public class GlobalLogin {
     @Description("Авторизація користувача в системі")
     public static void login(String user) {
 
+        // закриття зависших сессій
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println(">>> JVM is shutting down, closing WebDriver...");
+            try {
+                com.codeborne.selenide.WebDriverRunner.closeWebDriver();
+            } catch (Exception ignored) {}
+        }));
+
         // Відкрити браузер
         credentials();
         openWeb(user);
