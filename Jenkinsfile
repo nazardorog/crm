@@ -113,7 +113,7 @@ pipeline {
             visibleItemCount: 30, // Відображати 30 елементів без прокрутки
         )
             // >>> кількість потоків <<<
-            string(name: 'PARALLEL_THREADS', defaultValue: '2', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
+            string(name: 'PARALLEL_THREADS', defaultValue: '4', description: 'Кількість одночасних потоків для запуску тестів. Введіть число.')
     }
 
     stages {
@@ -284,7 +284,7 @@ pipeline {
                                     -w /app \\
                                     -e RUN_ENV=jenkins \\
                                     maven:3.8-openjdk-17 \\
-                                    mvn clean test -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1 -Dsurefire.threadCount=${params.PARALLEL_THREADS} -Dsurefire.parallel=classes
+                                    mvn clean test -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1
                             """
                         }
                     } else {
