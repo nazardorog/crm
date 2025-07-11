@@ -30,6 +30,11 @@ public class WES007_ValidatePltWtPcs {
     @Severity(SeverityLevel.CRITICAL)
     public void pltWtPcs() {
 
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Создание New Load / валидация поле подсчета plts \\ wght \\ pcs");
+        });
+
         // Login
         GlobalLogin.login("exp_disp1");
 
