@@ -277,22 +277,15 @@ pipeline {
 
                     if (testsToExecute.contains("all")) {
                         parallelStages['Run_All_Tests'] = {
-                            try {
-                                sh """
-                                    docker run --rm \\
-                                        --network shared_network \\
-                                        -v "${hostWorkspace}":/app \\
-                                        -w /app \\
-                                        -e RUN_ENV=jenkins \\
-                                        maven:3.8-openjdk-17 \\
-                                        mvn clean test -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1 -Dsurefire.threadCount=${params.PARALLEL_THREADS} -Dsurefire.parallel=classes
-                                """
-                            } catch (Exception e) {
-                                // Якщо тест впав, просто виводимо повідомлення, але не кидаємо помилку,
-                                // щоб дозволити іншим паралельним стейджам завершитися.
-                                echo "Тест ${testClassName} завершився з помилкою: ${e.message}"
-                                overallStatus = 'FAILURE' // Встановлюємо загальний статус на FAILURE
-                            }
+                            sh """
+                                docker run --rm \\
+                                    --network shared_network \\
+                                    -v "${hostWorkspace}":/app \\
+                                    -w /app \\
+                                    -e RUN_ENV=jenkins \\
+                                    maven:3.8-openjdk-17 \\
+                                    mvn clean test -DfailIfNoTests=false -Dsurefire.rerunFailingTestsCount=1 -Dsurefire.threadCount=${params.PARALLEL_THREADS} -Dsurefire.parallel=classes
+                            """
                         }
                     } else {
                         testsToExecute.each { testClassFile ->
