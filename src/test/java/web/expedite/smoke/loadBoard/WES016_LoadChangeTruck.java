@@ -1,6 +1,8 @@
 package web.expedite.smoke.loadBoard;
 
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.codeborne.selenide.Condition;
@@ -16,14 +18,25 @@ import utilsWeb.configWeb.GlobalLogin;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES016_LoadChangeTruck {
     // https://app.clickup.com/t/8698wrhrf
     // Замена одного трака на другой в активном грузе
     // Case 1 - замена через Dispatch
     // Case 2 - замена через Edit Dispatch
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Load board")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void changeTruck () {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Замена одного трака на другой в активном грузе");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");

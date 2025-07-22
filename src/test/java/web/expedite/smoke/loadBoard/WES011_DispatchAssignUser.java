@@ -1,6 +1,8 @@
 package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.*;
+import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 
 import org.openqa.selenium.Keys;
@@ -16,14 +18,25 @@ import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES011_DispatchAssignUser {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - LoadBoard
     // 10. Создание New Load / dispatch load \ assign user
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Load board")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void assignUser() throws InterruptedException {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Создание New Load / dispatch load \\ assign user");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -189,7 +202,7 @@ public class WES011_DispatchAssignUser {
 
         $$("td").findBy(Condition.text(atUserAssign2))
                 .shouldHave(Condition.text(atUserAssign2), EXPECT_GLOBAL);
-//        $$("td").findBy(text(currentTime)).shouldBe(visible); з ним якісь проблеми завжди або допрацювать логіку округлення хвилин
+        $$("td").findBy(text(currentTime)).shouldBe(visible);
 
         $(".modal-view-item .close").click();
     }

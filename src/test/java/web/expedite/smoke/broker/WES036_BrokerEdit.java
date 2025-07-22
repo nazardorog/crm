@@ -3,6 +3,7 @@ package web.expedite.smoke.broker;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.*;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.CloseWebDriver;
 import utilsWeb.configWeb.GlobalGenerateName;
@@ -16,6 +17,9 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.*;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES036_BrokerEdit {
 
     // Click Up:
@@ -28,8 +32,16 @@ public class WES036_BrokerEdit {
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Broker")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void edit() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Редактирование брокера");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -195,11 +207,6 @@ public class WES036_BrokerEdit {
         $("#update_broker_send").shouldBe(visible, enabled).click();
         updateModal.shouldNotBe(visible, EXPECT_GLOBAL);
 
-        // Toast massage
-        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
-        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Broker successfully updated"));
-        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
-
         // [Main Broker] table. Edit Broker
         $("#brokerssearch-mc_number").shouldBe(visible, EXPECT_GLOBAL).setValue(atMcNumber).pressEnter();
         SelenideElement rowBrokerEdit = $$("table.table-hover tbody tr").get(0).shouldHave(text(atMcNumber));
@@ -208,6 +215,11 @@ public class WES036_BrokerEdit {
         rowBrokerEdit.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
         ElementsCollection dropDownBrokerEdit = rowBrokerEdit.$$(".dropdown-menu-right li");
         dropDownBrokerEdit.findBy(exactText("Update  Profile")).click();
+
+        // Toast massage
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Broker successfully updated"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         // [Update Broker] tab General. Check Broker after edit
         $("#update_broker").shouldBe(visible, Duration.ofSeconds(20));

@@ -1,7 +1,10 @@
 package web.expedite.smoke.loadBoard;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -18,12 +21,23 @@ import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES017_LoadEnRouteToDelivered {
     // https://app.clickup.com/t/8698xwfx1
     // Перевод груза с еn routе в dеlivеrеd
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Load board")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void markAsDelivered () {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Перевод груза с еn routе в dеlivеrеd");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -57,11 +71,6 @@ public class WES017_LoadEnRouteToDelivered {
         $("#loadsdeliverylocations-date_delivery-datetime .kv-datetime-picker").click();
         $$("div.datetimepicker-days tfoot tr th").findBy(text("Today")).shouldBe(visible, EXPECT_5).click();
         $("#view_item .modal-header button.close").click();
-
-        // Закриває модальне вікно Load Delivered for Trip#
-        $("#load_delivered").shouldBe(visible, EXPECT_GLOBAL);
-        $("#load_delivered .close").click();
-        $("#load_delivered").shouldNotBe(visible, EXPECT_GLOBAL);
 
         // Перевод груза в Loads Delivered
         $$("tbody tr").findBy(text("Load Delivered")).shouldBe(visible, EXPECT_5);

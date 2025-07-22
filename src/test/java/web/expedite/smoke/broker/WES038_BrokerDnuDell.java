@@ -2,6 +2,7 @@ package web.expedite.smoke.broker;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.*;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.CloseWebDriver;
 import utilsWeb.configWeb.*;
@@ -11,6 +12,9 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.*;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES038_BrokerDnuDell {
 
     // Click Up:
@@ -23,8 +27,16 @@ public class WES038_BrokerDnuDell {
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test
-    public void dnuDell() throws InterruptedException {
+    @Test(description = "тест в description")
+    @Story("Broker")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
+    public void dnuDell() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Remove from DNU");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
@@ -125,7 +137,6 @@ public class WES038_BrokerDnuDell {
         $("#category-dropdown").selectOption("4 - Dry Van Only");
         $("#category-dropdown").getSelectedOption().shouldHave(text("4 - Dry Van Only"),EXPECT_GLOBAL);
         $("#brokers-comment").shouldBe(visible, EXPECT_5).hover();
-        Thread.sleep(5000);
         $("#brokers-comment").setValue("DNU reason massage").shouldHave(enabled, EXPECT_GLOBAL).pressEnter();
         $("#brokers-comment").shouldHave(value("DNU reason massage"), EXPECT_GLOBAL);
 
@@ -138,7 +149,6 @@ public class WES038_BrokerDnuDell {
         rowBroker.shouldHave(text("DNU"));
 
         // [Main Broker] table. Remove Dnu
-        sleep(5000);
         rowBroker.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).click();
         rowBroker.$(".btn-group").shouldHave(cssClass("open"),EXPECT_GLOBAL);
         dropDownBroker.findBy(exactText("Remove from DNU")).click();

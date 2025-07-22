@@ -50,10 +50,10 @@ public class WES054_DriverCreate {
         final String atEmergencyContactName2 = "Emergency Contact Name 2";
         final String atLicenseNumber = globalNumberSeventeen;
         final String atSsn = globalNumberSeventeen;
-        final String atPhoto = "4jpeg.jpg";
+        final String atPhoto = "jpeg1.jpg";
         final String atFile = "1pdf.pdf";
         final String atHiredBy = "Agent003 HR";
-        final String atNotifications = "Location";
+        final String atNotifications = "uxCam";
         final String atImportantInformation = "Other company sticker";
         final String atNotes = "Notes";
         final String atDescription = "Description";

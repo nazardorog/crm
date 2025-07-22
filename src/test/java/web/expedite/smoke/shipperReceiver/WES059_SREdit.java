@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
-import utilsWeb.createDataExp.WCE003_ShipperReceiver;
+import utilsWeb.createDataExp.WCD003_ShipperReceiver;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -20,13 +20,13 @@ public class WES059_SREdit {
     // Global data
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
-    WCE003_ShipperReceiver shipperReceiver = new WCE003_ShipperReceiver();
+    WCD003_ShipperReceiver shipperReceiver = new WCD003_ShipperReceiver();
 
     @Test
     public void edit() {
 
         //Create Shipper Receiver
-        WCE003_ShipperReceiver newShipperReceiver = shipperReceiver.create();
+        WCD003_ShipperReceiver newShipperReceiver = shipperReceiver.create();
 
         // Login
         GlobalLogin.login("exp_disp1");

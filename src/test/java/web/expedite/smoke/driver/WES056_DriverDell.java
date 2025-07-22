@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
-import utilsWeb.createDataExp.WCE001_Driver;
+import utilsWeb.createDataExp.WCD001_Driver;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -19,16 +19,16 @@ public class WES056_DriverDell {
     // 3. Удаление driver
 
     // Global data
-    WCE001_Driver driverCreate = new WCE001_Driver();
+    WCD001_Driver driverCreate = new WCD001_Driver();
 
     @Test
     public void dell() {
 
         //Create Driver
-        WCE001_Driver newDriver = driverCreate.create();
+        WCD001_Driver newDriver = driverCreate.create();
 
         // Login
-        GlobalLogin.login("admin");
+        GlobalLogin.login("exp_hr");
 
         // Data for dell a Driver
         final String atFirstName = newDriver.atFirstName;
@@ -38,29 +38,11 @@ public class WES056_DriverDell {
         $(".drivers-user").click();
         $("body").click();
 
-        // select Department
-        $("#select2-w7-container").click();
-        $(".select2-search__field").setValue("Auto Tests Expedite");
-        $$(".select2-results__options").findBy(text("Auto Tests Expedite")).click();
-        $("#driverssearch-is_driver_has_truck").selectOption("All");
-
         // [Main Drivers] Table. Select driver "Without Unit"
         $("input[name='DriversSearch[name]']").shouldBe(visible).setValue(atFirstName).pressEnter();
         $("#driverssearch-is_driver_has_truck").selectOption("Without Unit");
         $("#driverssearch-is_driver_has_truck").getSelectedOption().shouldHave(text("Without Unit"));
         SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);
-
-        // Remove chat widget
-        boolean chatWidget = $(".chat-widget").isDisplayed();
-        if (chatWidget){
-            executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-        }
-
-        // Remove sms notifications
-        boolean notifications = $("#sms-notifications-movement-body").isDisplayed();
-        if (notifications){
-            executeJavaScript("document.querySelector('#sms-notifications-movement-body').style.display='none'");
-        }
 
         // [Main Drivers] Table. Choose Delete driver
         rowTable.shouldHave(text(atFirstName));

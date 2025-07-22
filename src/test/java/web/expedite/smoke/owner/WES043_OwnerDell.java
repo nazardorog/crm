@@ -29,7 +29,7 @@ public class WES043_OwnerDell {
     String globalMail = GlobalGenerateName.globalMail();
 
     @Test
-    public void dell() throws InterruptedException {
+    public void dell() {
 
         // Login
         GlobalLogin.login("exp_hr");
@@ -129,39 +129,9 @@ public class WES043_OwnerDell {
         $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Owner sucessfully added. And driver sucessfully added"));
         $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
-        // Exit Login
-        GlobalLogin.logout();
-
-        // Login
-        GlobalLogin.login("admin");
-
-        // [Sidebar] Go to Main Owners
-        $(".owners-user").shouldBe(visible, EXPECT_GLOBAL).hover();
-        $(".owners-user").click();
-        $("body").click();
-
-        // Select Department. Select Owner Unit
-        $("#select2-w2-container").click();
-        $(".select2-container--open .select2-search__field").setValue("Auto Tests Expedite");
-        $$(".select2-results__options").findBy(text("Auto Tests Expedite")).click();
-        Thread.sleep(3000);
-        $("#ownerssearch-owners_asset").selectOption("All");
-
-        // Remove chat widget
-        boolean chatWidget = $(".chat-widget").isDisplayed();
-        if (chatWidget){
-            executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
-        }
-
-        // Remove sms notifications
-        boolean notifications = $("#sms-notifications-movement-body").isDisplayed();
-        if (notifications){
-            executeJavaScript("document.querySelector('#sms-notifications-movement-body').style.display='none'");
-        }
-
         // [Main Owners] Table. Input Name. Select Owners Unit-"Without Unit". Select Type-"Person"
-//        $("#ownerssearch-owners_asset").selectOption("All");
         $("input[name='OwnersSearch[name]']").shouldBe(visible).setValue(atFirstName).pressEnter();
+        $("#ownerssearch-owners_asset").selectOption("All");
 
         // [Main Owners] Table. Check new Owners
         SelenideElement rowTable = $$("table.table-striped tbody tr").get(0).shouldHave(text(atFirstName), EXPECT_GLOBAL);

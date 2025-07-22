@@ -162,7 +162,7 @@ public class WES042_OwnerEdit {
         final String atEditAdditionalPhones = globalPhoneNumber;
         final String atEditEmail = globalMail;
         final String atEditAdditionalEmails = globalMail;
-        final String atEditFile = "5jpeg.jpg";
+        final String atEditFile = "jpeg2.jpg";
         final String atEditHrAgent = "Damon Pierce";
         final String atEditCargoPolicy = globalNumberSeven;
         final String atEditLiabilityPolicy = globalNumberSeven;

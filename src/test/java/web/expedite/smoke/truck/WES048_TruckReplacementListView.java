@@ -19,15 +19,15 @@ public class WES048_TruckReplacementListView {
     // 4. Trucks \ replacement list. 2. View
 
     // Global data
-    WCE001_Driver driverCreate = new WCE001_Driver();
-    WCE002_Truck truckCreate = new WCE002_Truck();
+    WCD001_Driver driverCreate = new WCD001_Driver();
+    WCD002_Truck truckCreate = new WCD002_Truck();
 
     @Test
     public void replacementListView() {
 
         //Create Truck. Create Driver
-        WCE001_Driver newDriver = driverCreate.create();
-        WCE002_Truck newTruck = truckCreate.create();
+        WCD001_Driver newDriver = driverCreate.create();
+        WCD002_Truck newTruck = truckCreate.create();
 
         // Login
         GlobalLogin.login("exp_hr");

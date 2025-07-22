@@ -52,11 +52,6 @@ public class WES021_LoadBounceToEnRoute {
         $$("div.datetimepicker-days tfoot tr th").findBy(text("Today")).click();
         $("#view_item .modal-header button.close").click();
 
-        // Закриває модальне вікно Load Delivered for Trip#
-        $("#load_delivered").shouldBe(visible, EXPECT_GLOBAL);
-        $("#load_delivered .close").click();
-        $("#load_delivered").shouldNotBe(visible, EXPECT_GLOBAL);
-
         // Перевод груза в Loads Delivered
         $$("tbody tr").findBy(text("Load Delivered")).shouldBe(visible);
         $(".btn.dropdown-toggle.btn-xs").shouldBe(visible, EXPECT_5).click();

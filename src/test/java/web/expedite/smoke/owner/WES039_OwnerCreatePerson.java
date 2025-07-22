@@ -1,6 +1,7 @@
 package web.expedite.smoke.owner;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.*;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -12,6 +13,9 @@ import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES039_OwnerCreatePerson {
 
     // Click Up:
@@ -25,8 +29,16 @@ public class WES039_OwnerCreatePerson {
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Owner")
+    @Description("дескріпш")
+    @Severity(SeverityLevel.CRITICAL)
     public void createPerson() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Создание Брокера");
+        });
 
         // Login
         GlobalLogin.login("exp_hr");
