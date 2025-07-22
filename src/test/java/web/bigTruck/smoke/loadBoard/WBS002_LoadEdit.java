@@ -37,8 +37,6 @@ public class WBS002_LoadEdit {
         // Login
         GlobalLogin.login("bt_disp1");
 
-        $("#shippersreceivers-name").setValue("Тест має сфейлитись");
-
         //створює новий вантаж
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
@@ -94,6 +92,8 @@ public class WBS002_LoadEdit {
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 1"))
                 .click();
+
+        $("#shippersreceivers-name").setValue("Тест має сфейлитись");
 
         //Destination Shippers
         $("#select2-shippers-receiver-destination-container").shouldBe(enabled).click();
