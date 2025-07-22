@@ -1,8 +1,6 @@
 package web.expedite.smoke.loadBoard;
 
-import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.codeborne.selenide.Condition;
@@ -18,23 +16,12 @@ import utilsWeb.configWeb.GlobalLogin;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-@Listeners(utilsWeb.commonWeb.Listener.class)
-@Epic("Expedite")
-@Feature("Smoke")
 public class WES015_LoadAddSecondTruck {
     // https://app.clickup.com/t/8698wg0cm
     // Добавление второго трака на груз
 
-    @Test(description = "тест в description")
-    @Story("Load board")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void addSecondTruck () {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Добавление 2го трака на груз");
-        });
 
         // Login
         GlobalLogin.login("exp_disp1");

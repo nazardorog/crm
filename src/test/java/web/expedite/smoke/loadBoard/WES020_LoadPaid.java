@@ -1,10 +1,7 @@
 package web.expedite.smoke.loadBoard;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Condition.enabled;
@@ -22,23 +19,12 @@ import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_5;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-@Listeners(utilsWeb.commonWeb.Listener.class)
-@Epic("Expedite")
-@Feature("Smoke")
 public class WES020_LoadPaid {
     // https://app.clickup.com/t/86991ex3a
     // Перевод груза с load invoicеd в loads paid
 
-    @Test(description = "тест в description")
-    @Story("Load board")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void loadPaid () {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Перевод груза с load invoicеd в loads paid");
-        });
 
         // Login
         GlobalLogin.login("exp_disp1");
