@@ -34,7 +34,7 @@ public class WES035_BrokerCreate {
 
         // Встановлюємо кастомну назву для тесту
         Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание Брокера");
+            testResult.setName("1. Создание Брокера");
         });
 
         // Login

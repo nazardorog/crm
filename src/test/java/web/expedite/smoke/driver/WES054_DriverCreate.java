@@ -1,6 +1,7 @@
 package web.expedite.smoke.driver;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Allure;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -27,6 +28,11 @@ public class WES054_DriverCreate {
 
     @Test
     public void create() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("1. Создание New driver");
+        });
 
         // Login
         GlobalLogin.login("exp_hr");

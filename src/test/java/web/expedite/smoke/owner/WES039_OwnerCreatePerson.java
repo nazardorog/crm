@@ -37,7 +37,7 @@ public class WES039_OwnerCreatePerson {
 
         // Встановлюємо кастомну назву для тесту
         Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание Брокера");
+            testResult.setName("1. Создание owner (type person)");
         });
 
         // Login

@@ -1,6 +1,7 @@
 package web.bigTruck.smoke.broker;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Allure;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
@@ -28,6 +29,11 @@ public class WBS018_BrokerCreate {
 
     @Test
     public void create() throws InterruptedException{
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("1. Создание Брокера");
+        });
 
         // Login
         GlobalLogin.login("bt_disp1");

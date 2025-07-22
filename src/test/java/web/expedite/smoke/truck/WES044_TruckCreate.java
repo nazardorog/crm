@@ -1,6 +1,7 @@
 package web.expedite.smoke.truck;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Allure;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -24,6 +25,11 @@ public class WES044_TruckCreate {
 
     @Test
     public void create() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("1. Создание New truck");
+        });
 
         // Login
         GlobalLogin.login("exp_hr");
