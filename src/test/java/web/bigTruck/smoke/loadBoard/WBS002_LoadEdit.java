@@ -37,6 +37,8 @@ public class WBS002_LoadEdit {
         // Login
         GlobalLogin.login("bt_disp1");
 
+        $("#shippersreceivers-name").setValue("Тест має сфейлитись");
+
         //створює новий вантаж
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
