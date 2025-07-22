@@ -1,7 +1,7 @@
 package web.expedite.smoke.driver;
 
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.Allure;
+import io.qameta.allure.*;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -26,7 +26,9 @@ public class WES054_DriverCreate {
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test
+    @Test(description = "тест в description")
+    @Story("Owner")
+    @Description("дескріпш")
     public void create() {
 
         // Встановлюємо кастомну назву для тесту
