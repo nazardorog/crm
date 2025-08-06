@@ -85,7 +85,7 @@ pipeline {
                             try {
                                 // Запуск через Maven (змініть команду під ваш проект)
                                 bat """
-                                    mvn test -Dtest=${test}
+                                    mvn test -Dtest=WES001_LoadCreateBol
                                 """
 
                                 // Або якщо використовуєте Gradle:
