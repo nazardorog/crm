@@ -2,63 +2,126 @@ pipeline {
     agent any
 
     parameters {
-        extendedChoice(
-                name: 'TEST_CLASSES_TO_RUN',
-                type: 'PT_CHECKBOX',
-                multiSelectDelimiter: ',',
-                defaultValue: '',
-                description: 'Оберіть класи тестів для запуску',
-                value: '''
-web.expedite.smoke.loadBoard.WES001_LoadCreateBol,
-web.expedite.smoke.loadBoard.WES002_LoadCreateRateConfirmation,
-web.expedite.smoke.loadBoard.WES003_LoadCreatePod,
-web.expedite.smoke.loadBoard.WES004_LoadCreateOther,
-web.expedite.smoke.loadBoard.WES005_ValidateRateBrokerOwner'''
+        booleanParam(
+                name: 'WES001_LoadCreateBol',
+                defaultValue: false,
+                description: 'Запустити WES001_LoadCreateBol.java'
+        )
+        booleanParam(
+                name: 'WES002_LoadCreateRateConfirmation',
+                defaultValue: false,
+                description: 'Запустити WES002_LoadCreateRateConfirmation.java'
+        )
+        booleanParam(
+                name: 'WES003_LoadCreatePod',
+                defaultValue: false,
+                description: 'Запустити WES003_LoadCreatePod.java'
+        )
+        booleanParam(
+                name: 'WES004_LoadCreateOther',
+                defaultValue: false,
+                description: 'Запустити WES004_LoadCreateOther.java'
+        )
+        booleanParam(
+                name: 'WES005_ValidateRateBrokerOwner',
+                defaultValue: false,
+                description: 'Запустити WES005_ValidateRateBrokerOwner.java'
+        )
+        booleanParam(
+                name: 'RUN_ALL_TESTS',
+                defaultValue: false,
+                description: 'Запустити всі тести'
         )
     }
 
     stages {
-
-        stage('Checkout') {
+        stage('Підготовка') {
             steps {
-                git branch: 'master',
-                        credentialsId: 'your-git-credentials-id',
-                        url: 'https://github.com/nazardorog/crm.git'
-            }
-        }
-
-        stage('Run selected tests') {
-            steps {
+                echo "Перевірка вибраних тестів..."
                 script {
-                    if (!params.TEST_CLASSES_TO_RUN?.trim()) {
-                        error "Оберіть хоча б один тест для запуску"
+                    def selectedTests = []
+
+                    if (params.RUN_ALL_TESTS) {
+                        selectedTests = [
+                                'WES001_LoadCreateBol',
+                                'WES002_LoadCreateRateConfirmation',
+                                'WES003_LoadCreatePod',
+                                'WES004_LoadCreateOther',
+                                'WES005_ValidateRateBrokerOwner'
+                        ]
+                        echo "Вибрано: ВСІ ТЕСТИ"
+                    } else {
+                        if (params.WES001_LoadCreateBol) selectedTests.add('WES001_LoadCreateBol')
+                        if (params.WES002_LoadCreateRateConfirmation) selectedTests.add('WES002_LoadCreateRateConfirmation')
+                        if (params.WES003_LoadCreatePod) selectedTests.add('WES003_LoadCreatePod')
+                        if (params.WES004_LoadCreateOther) selectedTests.add('WES004_LoadCreateOther')
+                        if (params.WES005_ValidateRateBrokerOwner) selectedTests.add('WES005_ValidateRateBrokerOwner')
+
+                        if (selectedTests.isEmpty()) {
+                            error("Не вибрано жодного тесту! Виберіть тести для запуску.")
+                        }
+
+                        echo "Вибрані тести: ${selectedTests.join(', ')}"
                     }
 
-                    def tests = params.TEST_CLASSES_TO_RUN.split(',')*.trim()
-                    def testList = tests.join(",")
-
-                    echo "Запускаємо тести: ${testList}"
-
-                    sh """
-                        docker run --rm \\
-                            --network shared_network \\
-                            -v "\${PWD}":/app \\
-                            -w /app \\
-                            -e RUN_ENV=jenkins \\
-                            maven:3.8-openjdk-17 \\
-                            mvn clean test -Dtest="${testList}" -Dsurefire.rerunFailingTestsCount=1
-                    """
+                    env.SELECTED_TESTS = selectedTests.join(',')
                 }
             }
         }
 
-        stage('Allure Report') {
+        stage('Запуск тестів') {
             steps {
-                allure([
-                        reportBuildPolicy: 'ALWAYS',
-                        results: [[path: 'target/allure-results']]
-                ])
+                script {
+                    def testsToRun = env.SELECTED_TESTS.split(',')
+
+                    for (test in testsToRun) {
+                        stage("Запуск ${test}") {
+                            echo "Запускаємо тест: ${test}"
+
+                            // Визначаємо повний шлях до тесту
+                            def testPath = "web/expedite/smoke/loadBoard/${test}.java"
+                            echo "Шлях до тесту: ${testPath}"
+
+                            try {
+                                // Запуск через Maven (змініть команду під ваш проект)
+                                bat """
+                                    mvn test -Dtest=${test}
+                                """
+
+                                // Або якщо використовуєте Gradle:
+                                // bat "gradle test --tests ${test}"
+
+                                echo "✅ Тест ${test} пройшов успішно"
+
+                            } catch (Exception e) {
+                                echo "❌ Тест ${test} завершився з помилкою: ${e.message}"
+                                currentBuild.result = 'UNSTABLE'
+                            }
+                        }
+                    }
+                }
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Завершення виконання тестів"
+
+            // Архівуємо результати тестів
+            publishTestResults testResultsPattern: '**/target/surefire-reports/*.xml'
+
+            // Архівуємо логи
+            archiveArtifacts artifacts: '**/target/surefire-reports/*', fingerprint: true, allowEmptyArchive: true
+        }
+        success {
+            echo "🎉 Усі вибрані тести виконані успішно!"
+        }
+        failure {
+            echo "💥 Деякі тести завершилися невдало"
+        }
+        unstable {
+            echo "⚠️ Деякі тести мають проблеми"
         }
     }
 }
