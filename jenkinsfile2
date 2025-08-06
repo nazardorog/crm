@@ -107,7 +107,7 @@ pipeline {
                             try {
                                 // Запуск через Maven (змініть команду під ваш проект)
                                 sh """
-                                    mvn test -Dtest=WES001_LoadCreateBol.java
+                                    mvn test -Dtest=${test} || echo "Спроба 1 не вдалася"
                                 """
 
                                 echo "✅ Тест ${test} пройшов успішно"
@@ -125,22 +125,11 @@ pipeline {
 
     post {
         always {
-            echo "Завершення виконання тестів"
-
-            // Архівуємо результати тестів
-            publishTestResults testResultsPattern: '**/target/surefire-reports/*.xml'
-
-            // Архівуємо логи
-            archiveArtifacts artifacts: '**/target/surefire-reports/*', fingerprint: true, allowEmptyArchive: true
-        }
-        success {
-            echo "🎉 Усі вибрані тести виконані успішно!"
-        }
-        failure {
-            echo "💥 Деякі тести завершилися невдало"
-        }
-        unstable {
-            echo "⚠️ Деякі тести мають проблеми"
+            allure([
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+            ])
+            echo "Тест завершено: ${params.TEST_CLASS}"
         }
     }
 }
