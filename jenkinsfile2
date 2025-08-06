@@ -78,7 +78,6 @@ pipeline {
 
                     for (test in testsToRun) {
                         parallelStages[test] = {
-                            node("${env.PARALLEL_AGENT_LABEL}") {
                                 stage("Запуск ${test}") {
                                     echo "Запускаємо тест: ${test}"
 
@@ -91,7 +90,6 @@ pipeline {
                                         currentBuild.result = 'UNSTABLE'
                                     }
                                 }
-                            }
                         }
                     }
                     // Запускаємо всі гілки паралельно
