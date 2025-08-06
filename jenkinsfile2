@@ -35,6 +35,17 @@ pipeline {
     }
 
     stages {
+        stage('Тест середовища') {
+            steps {
+                bat '''
+            mvn --version
+            echo "Директорія: %CD%"
+            dir src\\test\\java\\web\\expedite\\smoke\\loadBoard
+            mvn clean compile
+        '''
+            }
+        }
+
         stage('Підготовка') {
             steps {
                 echo "Перевірка вибраних тестів..."
