@@ -78,7 +78,7 @@ pipeline {
 
                     for (test in testsToRun) {
                         parallelStages[test] = {
-                            node('any') {
+                            node("${env.PARALLEL_AGENT_LABEL}") {
                                 stage("Запуск ${test}") {
                                     echo "Запускаємо тест: ${test}"
 
