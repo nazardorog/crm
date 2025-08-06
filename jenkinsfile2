@@ -5,27 +5,27 @@ pipeline {
         booleanParam(
                 name: 'WES001_LoadCreateBol',
                 defaultValue: false,
-                description: 'Запустити WES001_LoadCreateBol.java'
+                description: 'Создание New Load с типом файла Pod'
         )
         booleanParam(
                 name: 'WES002_LoadCreateRateConfirmation',
                 defaultValue: false,
-                description: 'Запустити WES002_LoadCreateRateConfirmation.java'
+                description: 'Создание New Load с типом файла Rate Confirmation'
         )
         booleanParam(
                 name: 'WES003_LoadCreatePod',
                 defaultValue: false,
-                description: 'Запустити WES003_LoadCreatePod.java'
+                description: 'Создание New Load с типом файла Pod'
         )
         booleanParam(
                 name: 'WES004_LoadCreateOther',
                 defaultValue: false,
-                description: 'Запустити WES004_LoadCreateOther.java'
+                description: 'Создание New Load с типом файла Other'
         )
         booleanParam(
+                description: 'Создание New Load / валидация полей рейта брокер и драйвера',
                 name: 'WES005_ValidateRateBrokerOwner',
-                defaultValue: false,
-                description: 'Запустити WES005_ValidateRateBrokerOwner.java'
+                defaultValue: false
         )
         booleanParam(
                 name: 'RUN_ALL_TESTS',
@@ -35,27 +35,6 @@ pipeline {
     }
 
     stages {
-        stage('Тест середовища') {
-            steps {
-                sh '''
-                    echo "=== ДІАГНОСТИКА ==="
-                    echo "Поточна директорія:"
-                    pwd
-                    echo "Список файлів:"
-                    ls -la
-                    echo "Java версія:"
-                    java -version || echo "Java не знайдено"
-                    echo "Maven версія:"
-                    mvn -version || echo "Maven не знайдено"
-                    echo "Перевірка pom.xml:"
-                    ls -la pom.xml || echo "pom.xml не знайдено"
-                    echo "Перевірка testng.xml:"
-                    ls -la testng.xml || echo "testng.xml не знайдено"
-                    echo "Структура проекту:"
-                    find src -name "*.java" -path "*/WES*" || echo "Тести не знайдено"
-                '''
-            }
-        }
 
         stage('Підготовка') {
             steps {
