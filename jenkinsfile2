@@ -100,13 +100,9 @@ pipeline {
                         stage("Запуск ${test}") {
                             echo "Запускаємо тест: ${test}"
 
-                            // Визначаємо повний шлях до тесту
-                            def testPath = "web/expedite/smoke/loadBoard/${test}.java"
-                            echo "Шлях до тесту: ${testPath}"
-
                             try {
-                                // Запуск через Maven (змініть команду під ваш проект)
                                 sh """
+                                    RUN_ENV=jenkins
                                     mvn test -Dtest=${test} || echo "Спроба 1 не вдалася"
                                 """
 
