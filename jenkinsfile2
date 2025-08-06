@@ -80,7 +80,7 @@ pipeline {
                             echo "Запускаємо тест: ${test}"
 
                             try {
-                                sh "RUN_ENV=jenkins mvn test -Dtest=${test} || echo 'Спроба 1 не вдалася'"
+                                sh "RUN_ENV=jenkins mvn test -Dtest=${test}"
                                 echo "✅ Тест ${test} пройшов успішно"
 
                             } catch (Exception e) {
