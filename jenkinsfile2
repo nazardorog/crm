@@ -37,12 +37,23 @@ pipeline {
     stages {
         stage('Тест середовища') {
             steps {
-                bat '''
-            mvn --version
-            echo "Директорія: %CD%"
-            dir src\\test\\java\\web\\expedite\\smoke\\loadBoard
-            mvn clean compile
-        '''
+                sh '''
+                    echo "=== ДІАГНОСТИКА ==="
+                    echo "Поточна директорія:"
+                    pwd
+                    echo "Список файлів:"
+                    ls -la
+                    echo "Java версія:"
+                    java -version || echo "Java не знайдено"
+                    echo "Maven версія:"
+                    mvn -version || echo "Maven не знайдено"
+                    echo "Перевірка pom.xml:"
+                    ls -la pom.xml || echo "pom.xml не знайдено"
+                    echo "Перевірка testng.xml:"
+                    ls -la testng.xml || echo "testng.xml не знайдено"
+                    echo "Структура проекту:"
+                    find src -name "*.java" -path "*/WES*" || echo "Тести не знайдено"
+                '''
             }
         }
 
@@ -95,12 +106,9 @@ pipeline {
 
                             try {
                                 // Запуск через Maven (змініть команду під ваш проект)
-                                bat """
+                                sh """
                                     mvn test -Dtest=WES001_LoadCreateBol.java
                                 """
-
-                                // Або якщо використовуєте Gradle:
-                                // bat "gradle test --tests ${test}"
 
                                 echo "✅ Тест ${test} пройшов успішно"
 
