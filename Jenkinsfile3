@@ -49,22 +49,22 @@ pipeline {
                 defaultValue: false
         )
         booleanParam(
-                description: 'Создание New Load / dispatch load \ добавление трака на груз через поле имя водителя',
+                description: 'Создание New Load / dispatch load / добавление трака на груз через поле имя водителя',
                 name: 'WES009_DispatchAddTruckByDriver',
                 defaultValue: false
         )
         booleanParam(
-                description: 'Создание New Load / dispatch load \ добавление трака на груз через поле тим драйвер',
+                description: 'Создание New Load / dispatch load / добавление трака на груз через поле тим драйвер',
                 name: 'WES010_DispatchAddTruckByTeamDriver',
                 defaultValue: false
         )
         booleanParam(
-                description: 'Создание New Load / dispatch load \ assign user',
+                description: 'Создание New Load / dispatch load / assign user',
                 name: 'WES011_DispatchAssignUser',
                 defaultValue: false
         )WES013_FileOpenAll
         booleanParam(
-                description: 'Создание New Load / dispatch load \ калькулятор груза',
+                description: 'Создание New Load / dispatch load / калькулятор груза',
                 name: 'WES012_DispatchCalculate',
                 defaultValue: false
         )
