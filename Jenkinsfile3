@@ -39,7 +39,7 @@ pipeline {
         )
 
         booleanParam(
-                description: 'Создание New Load / валидация поле подсчета plts \ wght \ pcs',
+                description: 'Создание New Load / валидация поле подсчета plts / wght / pcs',
                 name: 'WES007_ValidatePltWtPcs',
                 defaultValue: false
         )
