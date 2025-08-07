@@ -76,23 +76,26 @@ pipeline {
                     def testsToRun = env.SELECTED_TESTS.split(',')
                     def parallelStages = [:]
 
-                    testsToRun.each { testItem ->
-                        def testName = testItem.trim() // потрібно для захисту closure
+                    for (int i = 0; i < testsToRun.size(); i++) {
+                        def testName = testsToRun[i].trim()
 
-                        parallelStages["${testName}"] = {
-                            stage("Запуск ${test}") {
-                                echo "Запускаємо тест: ${test}"
+                        parallelStages["${testName}"] = { currentTest ->
+                            return {
+                                stage("Запуск ${currentTest}") {
+                                    echo "Запускаємо тест: ${currentTest}"
 
-                                try {
-                                    sh "RUN_ENV=jenkins mvn test -Dtest=${test}"
-                                    echo "✅ Тест ${test} пройшов успішно"
+                                    try {
+                                        sh "RUN_ENV=jenkins mvn test -Dtest=${currentTest}"
+                                        echo "✅ Тест ${currentTest} пройшов успішно"
 
-                                } catch (Exception e) {
-                                    echo "❌ Тест ${test} завершився з помилкою: ${e.message}"
-                                    currentBuild.result = 'UNSTABLE'
+                                    } catch (Exception e) {
+                                        echo "❌ Тест ${currentTest} завершився з помилкою: ${e.message}"
+                                        currentBuild.result = 'UNSTABLE'
+                                    }
                                 }
                             }
-                        }
+
+                        }(testName)
                     }
                     parallel parallelStages
                 }
