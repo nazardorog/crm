@@ -74,22 +74,19 @@ pipeline {
             steps {
                 script {
                     def testsToRun = env.SELECTED_TESTS.split(',')
-                    def parallelStages = [:]
 
                     for (test in testsToRun) {
-                        parallelStages[test] = {
-                                stage("Запуск ${test}") {
-                                    echo "Запускаємо тест: ${test}"
+                        stage("Запуск ${test}") {
+                            echo "Запускаємо тест: ${test}"
 
-                                    try {
-                                        sh "RUN_ENV=jenkins mvn test -Dtest=${test}"
-                                        echo "✅ Тест ${test} пройшов успішно"
+                            try {
+                                sh "RUN_ENV=jenkins mvn test -Dtest=${test}"
+                                echo "✅ Тест ${test} пройшов успішно"
 
-                                    } catch (Exception e) {
-                                        echo "❌ Тест ${test} завершився з помилкою: ${e.message}"
-                                        currentBuild.result = 'UNSTABLE'
-                                    }
-                                }
+                            } catch (Exception e) {
+                                echo "❌ Тест ${test} завершився з помилкою: ${e.message}"
+                                currentBuild.result = 'UNSTABLE'
+                            }
                         }
                     }
                 }
