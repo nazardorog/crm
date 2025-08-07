@@ -31,7 +31,6 @@ public class WES001_LoadCreateBol {
     // 4. Создание New Load
 
     @Test
-    @DisplayName("Load Creation Test")
     public void createBol() {
 
         System.out.println("Тест1 розпочато");
