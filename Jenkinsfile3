@@ -3,6 +3,11 @@ pipeline {
 
     parameters {
         booleanParam(
+                name: 'ExpediteSmoke',
+                defaultValue: false,
+                description: 'Expedite Smoke запустити всі тести'
+        )
+        booleanParam(
                 name: 'WES001_LoadCreateBol',
                 defaultValue: false,
                 description: 'Создание New Load с типом файла Pod'
@@ -27,11 +32,6 @@ pipeline {
                 name: 'WES005_ValidateRateBrokerOwner',
                 defaultValue: false
         )
-        booleanParam(
-                name: 'RUN_ALL_TESTS',
-                defaultValue: false,
-                description: 'Запустити всі тести'
-        )
         choice(
                 name: 'MAX_PARALLEL_THREADS',
                 choices: ['1', '2', '3', '4', '5'],
@@ -48,7 +48,7 @@ pipeline {
                     def selectedTests = []
 
                     if (params.ExpediteSmoke) {
-                        echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke/loadBoard..."
+                        echo "ExpediteSmoke увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke/loadBoard..."
 
                         def testFiles = sh(
                                 script: "find src/test/java/web/expedite/smoke/loadBoard -name 'WES*.java' -exec basename {} .java \\;",
