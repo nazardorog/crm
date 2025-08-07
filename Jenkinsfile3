@@ -5,7 +5,7 @@ pipeline {
         booleanParam(
                 name: 'ExpediteSmoke',
                 defaultValue: false,
-                description: 'Expedite Smoke запустити всі тести'
+                description: '🔹🔹🔹Expedite Smoke запустити всі тести🔹🔹🔹'
         )
         booleanParam(
                 name: 'WES001_LoadCreateBol',
