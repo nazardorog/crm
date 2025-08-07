@@ -1,6 +1,44 @@
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(
+                name: 'ExpediteSmoke',
+                defaultValue: false,
+                description: 'Expedite Smoke запустити всі тести'
+        )
+        booleanParam(
+                name: 'WES001_LoadCreateBol',
+                defaultValue: false,
+                description: 'Створення New Load з типом файла Pod'
+        )
+        booleanParam(
+                name: 'WES002_LoadCreateRateConfirmation',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Rate Confirmation'
+        )
+        booleanParam(
+                name: 'WES003_LoadCreatePod',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Pod'
+        )
+        booleanParam(
+                name: 'WES004_LoadCreateOther',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Other'
+        )
+        booleanParam(
+                description: 'Создание New Load / валидация полей рейта брокер и драйвера',
+                name: 'WES005_ValidateRateBrokerOwner',
+                defaultValue: false
+        )
+        choice(
+                name: 'MAX_PARALLEL_THREADS',
+                choices: ['1', '2', '3', '4', '5'],
+                description: 'Максимальна кількість одночасних потоків для тестів'
+        )
+    }
+
     stages {
         stage('Init parameters') {
             steps {
