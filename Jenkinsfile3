@@ -44,7 +44,7 @@ pipeline {
                 defaultValue: false
         )
         booleanParam(
-                description: 'Создание New Load / dispatch load \ добавление трака на груз через поле трак',
+                description: 'Создание New Load / dispatch load / добавление трака на груз через поле трак',
                 name: 'WES008_DispatchAddTruckByTruck',
                 defaultValue: false
         )
