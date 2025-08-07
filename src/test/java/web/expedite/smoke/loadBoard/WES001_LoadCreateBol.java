@@ -36,9 +36,7 @@ public class WES001_LoadCreateBol {
 
         // Назва класу для Allure
         System.out.println("Тест1 розпочато");
-//        CustomName.setCustomTestName();
-        String nameClass = CustomName.getCustomName("WES001_LoadCreateBol");
-//        Allure.description(getDescription("WES001_LoadCreateBol"));
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");
