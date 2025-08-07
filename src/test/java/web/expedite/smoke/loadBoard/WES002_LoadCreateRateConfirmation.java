@@ -34,7 +34,7 @@ public class WES002_LoadCreateRateConfirmation {
 
         // Назва класу для Allure
         System.out.println("Тест2 розпочато");
-//        CustomName.getDescription();
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");
