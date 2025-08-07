@@ -1,0 +1,177 @@
+pipeline {
+    agent any
+
+    parameters {
+        booleanParam(
+                name: 'WES001_LoadCreateBol',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Pod'
+        )
+        booleanParam(
+                name: 'WES002_LoadCreateRateConfirmation',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Rate Confirmation'
+        )
+        booleanParam(
+                name: 'WES003_LoadCreatePod',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Pod'
+        )
+        booleanParam(
+                name: 'WES004_LoadCreateOther',
+                defaultValue: false,
+                description: 'Создание New Load с типом файла Other'
+        )
+        booleanParam(
+                description: 'Создание New Load / валидация полей рейта брокер и драйвера',
+                name: 'WES005_ValidateRateBrokerOwner',
+                defaultValue: false
+        )
+        booleanParam(
+                name: 'RUN_ALL_TESTS',
+                defaultValue: false,
+                description: 'Запустити всі тести'
+        )
+        choice(
+                name: 'MAX_PARALLEL_THREADS',
+                choices: ['1', '2', '3', '4', '5'],
+                description: 'Максимальна кількість одночасних потоків для тестів'
+        )
+    }
+
+    stages {
+
+        stage('Підготовка') {
+            steps {
+                echo "Перевірка вибраних тестів..."
+                script {
+                    def selectedTests = []
+
+                    if (params.RUN_ALL_TESTS) {
+                        selectedTests = [
+                                'WES001_LoadCreateBol',
+                                'WES002_LoadCreateRateConfirmation',
+                                'WES003_LoadCreatePod',
+                                'WES004_LoadCreateOther',
+                                'WES005_ValidateRateBrokerOwner'
+                        ]
+                        echo "Вибрано: ВСІ ТЕСТИ"
+                    } else {
+                        if (params.WES001_LoadCreateBol) selectedTests.add('WES001_LoadCreateBol')
+                        if (params.WES002_LoadCreateRateConfirmation) selectedTests.add('WES002_LoadCreateRateConfirmation')
+                        if (params.WES003_LoadCreatePod) selectedTests.add('WES003_LoadCreatePod')
+                        if (params.WES004_LoadCreateOther) selectedTests.add('WES004_LoadCreateOther')
+                        if (params.WES005_ValidateRateBrokerOwner) selectedTests.add('WES005_ValidateRateBrokerOwner')
+
+                        if (selectedTests.isEmpty()) {
+                            error("Не вибрано жодного тесту! Виберіть тести для запуску.")
+                        }
+
+                        echo "Вибрані тести: ${selectedTests.join(', ')}"
+                    }
+
+                    env.SELECTED_TESTS = selectedTests.join(',')
+                }
+            }
+        }
+
+        stage('Запуск тестів') {
+            steps {
+                script {
+                    def testsToRun = env.SELECTED_TESTS.split(',')
+                    def maxThreads = params.MAX_PARALLEL_THREADS.toInteger()
+
+                    echo "Запуск тестів з максимальною кількістю потоків: ${maxThreads}"
+
+                    // Якщо потоків більше ніж тестів, або потік тільки один - запускаємо звичайно
+                    if (maxThreads >= testsToRun.size() || maxThreads == 1) {
+                        if (maxThreads == 1) {
+                            echo "Запуск тестів послідовно (один за одним)"
+                            for (int i = 0; i < testsToRun.size(); i++) {
+                                def testName = testsToRun[i].trim()
+                                stage("Запуск ${testName}") {
+                                    echo "Запускаємо тест: ${testName}"
+                                    try {
+                                        sh "RUN_ENV=jenkins mvn test -Dtest=${testName}"
+                                        echo "✅ Тест ${testName} пройшов успішно"
+                                    } catch (Exception e) {
+                                        echo "❌ Тест ${testName} завершився з помилкою: ${e.message}"
+                                        currentBuild.result = 'UNSTABLE'
+                                    }
+                                }
+                            }
+                        } else {
+                            // Запуск всіх тестів паралельно
+                            def parallelStages = [:]
+                            for (int i = 0; i < testsToRun.size(); i++) {
+                                def testName = testsToRun[i].trim()
+                                parallelStages["${testName}"] = { currentTest ->
+                                    return {
+                                        stage("Запуск ${currentTest}") {
+                                            echo "Запускаємо тест: ${currentTest}"
+                                            try {
+                                                sh "RUN_ENV=jenkins mvn test -Dtest=${currentTest}"
+                                                echo "✅ Тест ${currentTest} пройшов успішно"
+                                            } catch (Exception e) {
+                                                echo "❌ Тест ${currentTest} завершився з помилкою: ${e.message}"
+                                                currentBuild.result = 'UNSTABLE'
+                                            }
+                                        }
+                                    }
+                                }(testName)
+                            }
+                            parallel parallelStages
+                        }
+                    } else {
+                        // Запуск тестів батчами з обмеженням потоків
+                        echo "Запуск тестів батчами по ${maxThreads} потоків"
+
+                        for (int startIndex = 0; startIndex < testsToRun.size(); startIndex += maxThreads) {
+                            def endIndex = Math.min(startIndex + maxThreads, testsToRun.size())
+                            def currentBatch = testsToRun[startIndex..<endIndex]
+
+                            echo "Запуск батчу ${(startIndex / maxThreads).toInteger() + 1}: ${currentBatch.join(', ')}"
+
+                            def parallelStages = [:]
+                            for (int i = 0; i < currentBatch.size(); i++) {
+                                def testName = currentBatch[i].trim()
+                                parallelStages["${testName}"] = { currentTest ->
+                                    return {
+                                        stage("Запуск ${currentTest}") {
+                                            echo "Запускаємо тест: ${currentTest}"
+                                            try {
+                                                sh "RUN_ENV=jenkins mvn test -Dtest=${currentTest}"
+                                                echo "✅ Тест ${currentTest} пройшов успішно"
+                                            } catch (Exception e) {
+                                                echo "❌ Тест ${currentTest} завершився з помилкою: ${e.message}"
+                                                currentBuild.result = 'UNSTABLE'
+                                            }
+                                        }
+                                    }
+                                }(testName)
+                            }
+
+                            parallel parallelStages
+
+                            // Невелика пауза між батчами для стабільності
+                            if (endIndex < testsToRun.size()) {
+                                echo "Пауза між батчами..."
+                                sleep(2)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            allure([
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+            ])
+            echo "Тести завершено"
+        }
+    }
+}
