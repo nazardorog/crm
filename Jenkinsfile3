@@ -47,15 +47,16 @@ pipeline {
                 script {
                     def selectedTests = []
 
-                    if (params.RUN_ALL_TESTS) {
-                        selectedTests = [
-                                'WES001_LoadCreateBol',
-                                'WES002_LoadCreateRateConfirmation',
-                                'WES003_LoadCreatePod',
-                                'WES004_LoadCreateOther',
-                                'WES005_ValidateRateBrokerOwner'
-                        ]
-                        echo "Вибрано: ВСІ ТЕСТИ"
+                    if (params.ExpediteSmoke) {
+                        echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke/loadBoard..."
+
+                        def testFiles = sh(
+                                script: "find src/test/java/web/expedite/smoke/loadBoard -name 'WES*.java' -exec basename {} .java \\;",
+                                returnStdout: true
+                        ).trim()
+
+                        selectedTests = testFiles.split('\n')
+                        echo "Автовибрані тести: ${selectedTests.join(', ')}"
                     } else {
                         if (params.WES001_LoadCreateBol) selectedTests.add('WES001_LoadCreateBol')
                         if (params.WES002_LoadCreateRateConfirmation) selectedTests.add('WES002_LoadCreateRateConfirmation')
