@@ -42,7 +42,9 @@ pipeline {
     stages {
 
         stage('Підготовка') {
+            echo "Очищення Allure звітів..."
             steps {
+
                 script {
                     sh '''
                         # Очищення workspace
@@ -52,9 +54,7 @@ pipeline {
                         echo "✅ Workspace очищено"
                     '''
                 }
-            }
 
-            steps {
                 echo "Перевірка вибраних тестів..."
                 script {
                     def selectedTests = []
