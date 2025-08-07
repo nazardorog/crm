@@ -43,7 +43,7 @@ pipeline {
                     def selectedTests = []
 
                     if (params.RUN_ALL_TESTS) {
-                        echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke/loadBoard..."
+                        echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke..."
 
                         def testFiles = sh(
                                 script: "find src/test/java/web/expedite/smoke -name 'WES*.java' -exec basename {} .java \\;",
