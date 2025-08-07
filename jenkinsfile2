@@ -3,6 +3,11 @@ pipeline {
 
     parameters {
         booleanParam(
+                name: 'RUN_ALL_TESTS',
+                defaultValue: false,
+                description: 'Expedite Smoke запустити всі тести'
+        )
+        booleanParam(
                 name: 'WES001_LoadCreateBol',
                 defaultValue: false,
                 description: 'Создание New Load с типом файла Pod'
@@ -27,11 +32,6 @@ pipeline {
                 name: 'WES005_ValidateRateBrokerOwner',
                 defaultValue: false
         )
-        booleanParam(
-                name: 'RUN_ALL_TESTS',
-                defaultValue: false,
-                description: 'Запустити всі тести'
-        )
     }
 
     stages {
@@ -43,13 +43,23 @@ pipeline {
                     def selectedTests = []
 
                     if (params.RUN_ALL_TESTS) {
-                        selectedTests = [
-                                'WES001_LoadCreateBol',
-                                'WES002_LoadCreateRateConfirmation',
-                                'WES003_LoadCreatePod',
-                                'WES004_LoadCreateOther',
-                                'WES005_ValidateRateBrokerOwner'
-                        ]
+                        echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke/loadBoard..."
+
+                        def testFiles = sh(
+                                script: "find src/test/java/web/expedite/smoke/loadBoard -name 'WES*.java' -exec basename {} .java \\;",
+                                returnStdout: true
+                        ).trim()
+
+                        selectedTests = testFiles.split('\n')
+                        echo "Автовибрані тести: ${selectedTests.join(', ')}"
+
+//                        selectedTests = [
+//                                'WES001_LoadCreateBol',
+//                                'WES002_LoadCreateRateConfirmation',
+//                                'WES003_LoadCreatePod',
+//                                'WES004_LoadCreateOther',
+//                                'WES005_ValidateRateBrokerOwner'
+//                        ]
                         echo "Вибрано: ВСІ ТЕСТИ"
                     } else {
                         if (params.WES001_LoadCreateBol) selectedTests.add('WES001_LoadCreateBol')
