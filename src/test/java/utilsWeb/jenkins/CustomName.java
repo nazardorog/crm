@@ -43,6 +43,7 @@ public class CustomName {
         String fullClassName = Thread.currentThread().getStackTrace()[2].getClassName();
         String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
 
+        // Записує нове ім'я для відображення в Allure звіті
         String desc = description.getString(className);
         Allure.getLifecycle().updateTestCase(testResult -> testResult.setName(desc));
 

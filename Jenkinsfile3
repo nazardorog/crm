@@ -10,7 +10,7 @@ pipeline {
         booleanParam(
                 name: 'WES001_LoadCreateBol',
                 defaultValue: false,
-                description: 'Создание New Load с типом файла Pod'
+                description: ''
         )
         booleanParam(
                 name: 'WES002_LoadCreateRateConfirmation',
@@ -103,6 +103,8 @@ pipeline {
                                 stage("Запуск ${testName}") {
                                     echo "Запускаємо тест: ${testName}"
                                     try {
+                                        def testDescriptions = readJSON file: 'json/descriptionsTest.json'
+                                        echo "✅ ${testDescriptions['WES001_LoadCreateBol']}"
                                         sh "RUN_ENV=jenkins mvn test -Dtest=${testName}"
                                         echo "✅ Тест ${testName} пройшов успішно"
                                     } catch (Exception e) {
