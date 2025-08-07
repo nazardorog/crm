@@ -126,7 +126,7 @@ pipeline {
                         if (params.WES005_ValidateRateBrokerOwner) selectedTests.add('WES005_ValidateRateBrokerOwner')
                         if (params.WES006_ValidateDateShipperReceiver) selectedTests.add('WES006_ValidateDateShipperReceiver')
                         if (params.WES007_ValidatePltWtPcs) selectedTests.add('WES007_ValidatePltWtPcs')
-                        if (params.WES008_DispatchAddTruckByTruck) selectedTests.add(WES008_DispatchAddTruckByTruck
+                        if (params.WES008_DispatchAddTruckByTruck) selectedTests.add('WES008_DispatchAddTruckByTruck')
                         if (params.WES009_DispatchAddTruckByDriver) selectedTests.add('WES009_DispatchAddTruckByDriver')
                         if (params.WES010_DispatchAddTruckByTeamDriver) selectedTests.add('WES010_DispatchAddTruckByTeamDriver')
                         if (params.WES011_DispatchAssignUser) selectedTests.add('WES011_DispatchAssignUser')
