@@ -3,6 +3,7 @@ package web.expedite.smoke.loadBoard;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.*;
+import org.junit.jupiter.api.DisplayName;
 import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -29,8 +30,8 @@ public class WES001_LoadCreateBol {
     // 4. Создание New Load
 
     @Test(description = "тест в description")
-    @Story("Load board")
-    @Description("дескріпш")
+    @Story("Story")
+    @DisplayName("Load Creation Test")
     @Severity(SeverityLevel.CRITICAL)
     public void createBol() {
 
