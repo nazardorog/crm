@@ -31,7 +31,6 @@ public class WES001_LoadCreateBol {
 
     @Test(description = "тест в description")
     @Story("Story")
-    @DisplayName("Load Creation Test")
     @Severity(SeverityLevel.CRITICAL)
     public void createBol() {
 
