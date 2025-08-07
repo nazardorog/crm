@@ -46,7 +46,7 @@ pipeline {
                         echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke..."
 
                         def testFiles = sh(
-                                script: "find src/test/java/web/expedite/smoke -name 'WES*.java' -exec basename {} .java \\;",
+                                script: "find src/test/java/web/expedite/smoke/broker -name 'WES*.java' -exec basename {} .java \\;",
                                 returnStdout: true
                         ).trim()
 
