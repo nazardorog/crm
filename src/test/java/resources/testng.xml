@@ -1,13 +1,206 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="web" parallel="classes" thread-count="1">
+<suite name="web" parallel="classes" thread-count="4">
     <listeners>
         <listener class-name="utilsWeb.commonWeb.Listener"/>
     </listeners>
+<!--    <test name="WES" preserve-order="true">-->
+<!--        <classes>-->
+<!--            &lt;!&ndash; expedite.smoke.loadBoard &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES001_LoadCreateBol"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES002_LoadCreateRateConfirmation"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES003_LoadCreatePod"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES004_LoadCreateOther"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES005_ValidateRateBrokerOwner"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES006_ValidateDateShipperReceiver"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES007_ValidatePltWtPcs"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES008_DispatchAddTruckByTruck"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES009_DispatchAddTruckByDriver"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES010_DispatchAddTruckByTeamDriver"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES011_DispatchAssignUser"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES012_DispatchCalculate"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES013_FileOpenAll"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES014_LoadEdit"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES015_LoadAddSecondTruck"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES016_LoadChangeTruck"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES017_LoadEnRouteToDelivered"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES018_PossibleClaim"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES019_LoadMarkAsInvoiced"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES020_LoadPaid"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES021_LoadBounceToEnRoute"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES022_ShowMyLoads"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES023_LoadEditDispatch"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES024_DispatchDriverAddDell"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES025_DispatchWarehouseAddDell"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES026_LoadExpensesAddDell"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES027_LoadCheckCallAdd"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES028_LoadCheckCallEdit"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES029_LoadCheckCallDelete"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES030_LoadGetConfirmation"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES031_LoadGetBol"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES032_LoadGetInvoice"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES033_LoadRatingChanges"/>-->
+<!--            <class name="web.expedite.smoke.loadBoard.WES034_LoadReportAdd"/>-->
 
-    <test name="Web Expedite Smoke" preserve-order="true">
-    <classes>
-        <class name="web.expedite.smoke.loadBoard.WES001_LoadCreateBol"/>
-        <class name="web.expedite.smoke.loadBoard.WES002_LoadCreateRateConfirmation"/>
-    </classes>
+<!--            &lt;!&ndash; expedite.smoke.broker &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.broker.WES035_BrokerCreate"/>-->
+<!--            <class name="web.expedite.smoke.broker.WES036_BrokerEdit"/>-->
+<!--            <class name="web.expedite.smoke.broker.WES037_BrokerDnuAdd"/>-->
+<!--            <class name="web.expedite.smoke.broker.WES038_BrokerDnuDell"/>-->
+
+<!--            &lt;!&ndash; expedite.smoke.owner &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.owner.WES039_OwnerCreatePerson"/>-->
+<!--            <class name="web.expedite.smoke.owner.WES040_OwnerCreateCompany"/>-->
+<!--            <class name="web.expedite.smoke.owner.WES041_OwnerIsDriverNotChecked"/>-->
+<!--            <class name="web.expedite.smoke.owner.WES042_OwnerEdit"/>-->
+<!--            <class name="web.expedite.smoke.owner.WES043_OwnerDell"/>-->
+
+<!--            &lt;!&ndash; expedite.smoke.truck &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.truck.WES044_TruckCreate"/>-->
+<!--            <class name="web.expedite.smoke.truck.WES045_TruckEdit"/>-->
+<!--            <class name="web.expedite.smoke.truck.WES046_TruckDell"/>-->
+<!--            <class name="web.expedite.smoke.truck.WES047_TruckReplacementListCreate"/>-->
+<!--            <class name="web.expedite.smoke.truck.WES048_TruckReplacementListView"/>-->
+<!--            <class name="web.expedite.smoke.truck.WES049_TruckReplacementListEdit"/>-->
+<!--            <class name="web.expedite.smoke.truck.WES050_TruckReplacementListDell"/>-->
+
+<!--            &lt;!&ndash; expedite.smoke.offers &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.offers.WES051_FindTruckFilters"/>-->
+<!--            <class name="web.expedite.smoke.offers.WES052_OfferCreate"/>-->
+<!--            <class name="web.expedite.smoke.offers.WES053_OfferHold"/>-->
+
+<!--            &lt;!&ndash; expedite.smoke.truck &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.driver.WES054_DriverCreate"/>-->
+<!--            <class name="web.expedite.smoke.driver.WES055_DriverEdit"/>-->
+<!--            <class name="web.expedite.smoke.driver.WES056_DriverDell"/>-->
+
+<!--            &lt;!&ndash; expedite.smoke.shipperReceiver &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.shipperReceiver.WES057_SRCreate"/>-->
+<!--            <class name="web.expedite.smoke.shipperReceiver.WES058_SRCreateLocationDropdown"/>-->
+<!--            <class name="web.expedite.smoke.shipperReceiver.WES059_SREdit"/>-->
+<!--            <class name="web.expedite.smoke.shipperReceiver.WES060_SRDell"/>-->
+
+<!--            &lt;!&ndash; expedite.smoke.loads &ndash;&gt;-->
+<!--            <class name="web.expedite.smoke.loads.WES061_LoadsFilterOperation"/>-->
+<!--            <class name="web.expedite.smoke.loads.WES062_LoadsDispatchCheck"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="WBS">
+        <classes>
+            <!-- bigTruck.smoke -->
+            <class name="web.bigTruck.smoke.loadBoard.WBS001_LoadCreate"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS002_LoadEdit"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS003_LoadAvailableToEnRout"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS004_LoadEnRouteToDelivered"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS005_LoadDeliveredToInvoiced"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS006_LoadInvoicedToPaid"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS007_LoadDeliveredToEnRout"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS008_LoadDispatchEdit"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS009_LoadDriverAddDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS010_LoadWareHousesAddDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS011_LoadExpensesAddDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS012_LoadCheckCallAdd"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS013_LoadCheckCallEdit"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS014_LoadCheckCallDell"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS015_LoadGetConfirmation"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS016_LoadGetBol"/>
+            <class name="web.bigTruck.smoke.loadBoard.WBS017_LoadGetInvoice"/>
+
+            <!-- bigTruck.smoke.broker -->
+            <class name="web.bigTruck.smoke.broker.WBS018_BrokerCreate"/>
+            <class name="web.bigTruck.smoke.broker.WBS019_BrokerEdit"/>
+            <class name="web.bigTruck.smoke.broker.WBS020_BrokerDnuAdd"/>
+            <class name="web.bigTruck.smoke.broker.WBS021_BrokerDnuDell"/>
+
+            <!-- bigTruck.smoke.owner -->
+            <class name="web.bigTruck.smoke.owner.WBS022_OwnerCreate"/>
+            <class name="web.bigTruck.smoke.owner.WBS023_OwnerEdit"/>
+            <class name="web.bigTruck.smoke.owner.WBS024_OwnerDell"/>
+
+            <!-- bigTruck.smoke.truck -->
+            <class name="web.bigTruck.smoke.truck.WBS025_TruckCreate"/>
+            <class name="web.bigTruck.smoke.truck.WBS026_TruckEdit"/>
+            <class name="web.bigTruck.smoke.truck.WBS027_TruckDell"/>
+
+            <!-- bigTruck.smoke.trailer -->
+            <class name="web.bigTruck.smoke.trailer.WBS028_TrailerCreateDryVan"/>
+            <class name="web.bigTruck.smoke.trailer.WBS029_TrailerCreateReefer"/>
+            <class name="web.bigTruck.smoke.trailer.WBS030_TrailerEdit"/>
+            <class name="web.bigTruck.smoke.trailer.WBS031_TrailerDell"/>
+
+            <!-- bigTruck.smoke.shipperReceiver -->
+            <class name="web.bigTruck.smoke.shipperReceiver.WBS032_ShipperReceiverCreate"/>
+            <class name="web.bigTruck.smoke.shipperReceiver.WBS033_ShipperReceiverEdit"/>
+            <class name="web.bigTruck.smoke.shipperReceiver.WBS034_ShipperReceiverDell"/>
+
+            <!-- bigTruck.smoke.driver -->
+            <class name="web.bigTruck.smoke.driver.WBS035_DriverCreate"/>
+            <class name="web.bigTruck.smoke.driver.WBS036_DriverEdit"/>
+        </classes>
     </test>
+
+<!--    <test name="WEF" preserve-order="true">-->
+<!--    <classes>-->
+<!--        &lt;!&ndash; expedite.full &ndash;&gt;-->
+<!--        <class name="web.expedite.full.loadBoard.WEF001_LoadLogin"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF002_LoadCreateBol"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF003_LoadCreateRateConfirmation"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF004_LoadCreatePod"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF005_LoadCreateOther"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF006_LoadTwoShipperReceiver"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF007_ValidateRateBrokerOwner"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF008_ValidateDateShipperReceiver"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF009_ValidatePltWtPcs"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF010_DispatchAddTruckByTruck"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF011_DispatchAddTruckByDriver"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF012_DispatchAddTruckByTeamDriver"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF013_DispatchAssignUser"/>-->
+<!--        <class name="web.expedite.full.loadBoard.WEF014_DispatchCalculate"/>-->
+<!--        <class name="web.expedite.full.WEF015_BrokerCreateEdit"/>-->
+<!--        <class name="web.expedite.full.WEF016_ShipperReceiverCreateEdit"/>-->
+<!--        <class name="web.expedite.full.WEF017_ShipperCoordinateNotSet"/>-->
+<!--        <class name="web.expedite.full.WEF018_DriverAvailableOnAuto"/>-->
+<!--        <class name="web.expedite.full.WEF019_FileOpenAll"/>-->
+<!--        <class name="web.expedite.full.WEF020_LoadEdit"/>-->
+<!--    </classes>-->
+<!--    </test>-->
+<!--    <test name="WEU" preserve-order="true">-->
+<!--    <classes>-->
+<!--        &lt;!&ndash; expedite.ui &ndash;&gt;-->
+<!--        <class name="web.expedite.ui.WEU001_LoadBoard"/>-->
+<!--        <class name="web.expedite.ui.WEU002_Broker"/>-->
+<!--        <class name="web.expedite.ui.WEU003_Truck"/>-->
+<!--        <class name="web.expedite.ui.WEU004_ExpediteFleet"/>-->
+<!--        <class name="web.expedite.ui.WEU005_ShipperReceiver"/>-->
+<!--        <class name="web.expedite.ui.WEU006_Warehouse"/>-->
+<!--        <class name="web.expedite.ui.WEU007_Load"/>-->
+<!--        <class name="web.expedite.ui.WEU008_DocumentsSignature"/>-->
+<!--    </classes>-->
+<!--    </test>-->
+
+<!--        <test name="Mobile smoke" preserve-order="true">-->
+<!--            <classes>-->
+<!--                &lt;!&ndash; Cancel Load &ndash;&gt;-->
+<!--                <class name="mobile.android.MAD001_LoginMobile"/>-->
+<!--            </classes>-->
+<!--        </test>-->
+
+<!--    <test name="CancelLoadExpedite" preserve-order="true">-->
+<!--        <classes>-->
+<!--            &lt;!&ndash; Cancel Load &ndash;&gt;-->
+<!--            <class name="local.cancelLoad.CancelLoadExpedite1"/>-->
+<!--            <class name="local.cancelLoad.CancelLoadExpedite2"/>-->
+<!--            <class name="local.cancelLoad.CancelLoadExpedite3"/>-->
+<!--            <class name="local.cancelLoad.CancelLoadExpedite4"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+<!--    <test name="CancelLoadBigTruck" preserve-order="true">-->
+<!--        <classes>-->
+<!--            &lt;!&ndash; Cancel Load &ndash;&gt;-->
+<!--            <class name="local.cancelLoad.CancelLoadBigTruck1"/>-->
+<!--            <class name="local.cancelLoad.CancelLoadBigTruck2"/>-->
+<!--            <class name="local.cancelLoad.CancelLoadBigTruck3"/>-->
+<!--            <class name="local.cancelLoad.CancelLoadBigTruck4"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

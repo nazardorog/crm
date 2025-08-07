@@ -20,6 +20,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.switchTo;
 import static org.assertj.core.api.Assertions.assertThat;
+import static utilsWeb.configWeb.GlobalGenerateName.globalName;
 
 public class WBS027_TruckDell {
 
@@ -28,6 +29,7 @@ public class WBS027_TruckDell {
     // Trucks
     // 3. Удаление трака
 
+    String globalName = globalName();
     String globalNumberSeventeen = "1234567890" + GlobalGenerateName.globalNumberSeven();
 
     @Test
@@ -50,7 +52,7 @@ public class WBS027_TruckDell {
         int randomNumber = random.nextInt(1000);
 
         // *** Вкладка General фрейму Add owner ***
-        String atTruckNumber = "Truck Number auto test 1" + randomNumber;
+        String atTruckNumber = globalName + "Truck Number 1";
         final String atVinNumber = globalNumberSeventeen;
         String atPlateNumber = "Plate auto test 1" + randomNumber;
         String atPlateState = "PL";
@@ -89,7 +91,7 @@ public class WBS027_TruckDell {
 
         //поле Owner
         $("#select2-owner_id-create-container").click();
-        $(".select2-search__field").setValue("AutoTestOwner");
+        $(".select2-container--open .select2-search__field").setValue("AutoTestOwner");
         $$("li.select2-results__option")
                 .findBy(text(atOwner))
                 .click();

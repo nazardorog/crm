@@ -16,8 +16,7 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS011_LoadExpensesAddDell {
@@ -168,7 +167,7 @@ public class WBS011_LoadExpensesAddDell {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //клік по Submit фрейм Add driver

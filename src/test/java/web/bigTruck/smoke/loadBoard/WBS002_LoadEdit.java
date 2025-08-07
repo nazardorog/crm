@@ -15,8 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS002_LoadEdit {
@@ -92,8 +91,6 @@ public class WBS002_LoadEdit {
         $$("li.select2-results__option")
                 .findBy(text("Auto test shipper 1"))
                 .click();
-
-        $("#shippersreceivers-name").setValue("Тест має сфейлитись");
 
         //Destination Shippers
         $("#select2-shippers-receiver-destination-container").shouldBe(enabled).click();
@@ -178,7 +175,7 @@ public class WBS002_LoadEdit {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //перевіряє вибрану дату Start Date
@@ -203,7 +200,6 @@ public class WBS002_LoadEdit {
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //Load Board знаходить створений вантаж на вкладці Loads en Route
-        //String loadNumber = "30957";
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
@@ -273,11 +269,17 @@ public class WBS002_LoadEdit {
         $$("#loads-load_type label").findBy(text("Warm")).click();
 
         $("#select2-booked_with-container").shouldBe(enabled).click();
+        $(".select2-search__field").setValue("Auto 3Test BT");
         $$(".select2-results__options")
                 .findBy(text("Auto 3Test BT"))
                 .click();
 
         $("#update_load_send").shouldBe(enabled).click();
+
+        // Toast massage
+        $("#toast-container").shouldBe(visible, EXPECT_GLOBAL);
+        $(".toast-message").shouldHave(visible, EXPECT_GLOBAL).shouldHave(text("Loads successfully updated"));
+        $("#toast-container").shouldNotHave(visible, EXPECT_GLOBAL);
 
         //клік редагування вантажу
         $("#main-loads-grid .dropdown-toggle").shouldBe(enabled).click();

@@ -4,7 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
-import utilsWeb.createDataExp.WCD001_Driver;
+import utilsWeb.createDataExp.WCE001_Driver;
 
 import java.io.File;
 
@@ -24,13 +24,13 @@ public class WES055_DriverEdit {
     String globalNumberSeventeen = "12" + GlobalGenerateName.globalNumberSeven();
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
-    WCD001_Driver driverCreate = new WCD001_Driver();
+    WCE001_Driver driverCreate = new WCE001_Driver();
 
     @Test
     public void edit() {
 
         //Create Driver
-        WCD001_Driver newDriver = driverCreate.create();
+        WCE001_Driver newDriver = driverCreate.create();
 
         // Login
         GlobalLogin.login("exp_hr");
@@ -54,10 +54,10 @@ public class WES055_DriverEdit {
         final String atEditEmergencyContactName2 = "Emergency Contact Name22";
         final String atEditLicenseNumber = globalNumberSeventeen;
         final String atEditSsn = globalNumberSeventeen;
-        final String atEditPhoto = "jpeg2.jpg";
-        final String atEditFile = "pdf2.pdf";
+        final String atEditPhoto = "4jpeg.jpg";
+        final String atEditFile = "1pdf.pdf";
         final String atEditHiredBy = "Agent003 HR";
-        final String atEditNotifications = "uxCam";
+        final String atEditNotifications = "Location";
         final String atEditImportantInformation = "Other company sticker";
         final String atEditNotes = "Notes2";
         final String atEditDescription = "Description2";

@@ -2,7 +2,7 @@ package utilsWeb.configWeb;
 
 public class GlobalGenerateName {
 
-    public static final String GLOBAL_PREFIX_STRING = "AT01_";
+    public static final String GLOBAL_PREFIX_STRING = "AT02_";
     public static final String GLOBAL_PREFIX_INT = "10";
     public static final String GLOBAL_DOMAIN = "@gmail";
 

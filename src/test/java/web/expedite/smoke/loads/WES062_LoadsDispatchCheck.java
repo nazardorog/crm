@@ -5,7 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.GlobalLogin;
-import utilsWeb.createDataExp.WCD005_Load;
+import utilsWeb.createDataExp.WCE005_Load;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -18,13 +18,13 @@ public class WES062_LoadsDispatchCheck {
     // 2. Pro# и глазик
 
     // Global data
-    WCD005_Load loadCreate = new WCD005_Load();
+    WCE005_Load loadCreate = new WCE005_Load();
 
     @Test
     public void dispatchCheck() {
 
         // Create new Loads
-        WCD005_Load load = loadCreate.create();
+        WCE005_Load load = loadCreate.create();
 
         // Login
         GlobalLogin.login("exp_disp1");

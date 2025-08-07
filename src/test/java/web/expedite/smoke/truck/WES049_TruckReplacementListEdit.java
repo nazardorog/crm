@@ -22,16 +22,16 @@ public class WES049_TruckReplacementListEdit {
     // 4. Trucks \ replacement list. 3. Update
 
     // Global data
-    WCD001_Driver driverCreate = new WCD001_Driver();
-    WCD002_Truck truckCreate = new WCD002_Truck();
+    WCE001_Driver driverCreate = new WCE001_Driver();
+    WCE002_Truck truckCreate = new WCE002_Truck();
     String globalName = GlobalGenerateName.globalName();
 
     @Test
     public void replacementListEdit() {
 
         //Create Truck. Create Driver
-        WCD001_Driver newDriver = driverCreate.create();
-        WCD002_Truck newTruck = truckCreate.create();
+        WCE001_Driver newDriver = driverCreate.create();
+        WCE002_Truck newTruck = truckCreate.create();
 
         // Login
         GlobalLogin.login("exp_hr");
@@ -127,7 +127,7 @@ public class WES049_TruckReplacementListEdit {
         final String atEditZip = "78229";
         final String atEditStatus = "Not Available";
         final String atEditNote = globalName + "Note2";
-        final String atEditFile = "jpeg2.jpg";
+        final String atEditFile = "1pdf.pdf";
         final String atEditDescription = "Description2";
 
         // [Update Trucks] Tab General. Input data

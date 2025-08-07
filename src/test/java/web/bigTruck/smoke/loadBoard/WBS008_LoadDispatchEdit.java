@@ -14,8 +14,7 @@ import java.time.YearMonth;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WBS008_LoadDispatchEdit {
@@ -170,7 +169,7 @@ public class WBS008_LoadDispatchEdit {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //клік по Submit фрейм Add driver
@@ -248,7 +247,7 @@ public class WBS008_LoadDispatchEdit {
         $("#loadexpenses-location_to").setValue("edit New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(1);
 
         //клік по Submit фрейм Add driver

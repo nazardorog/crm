@@ -2,8 +2,8 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.*;
-import org.junit.jupiter.api.DisplayName;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -29,20 +29,13 @@ public class WES001_LoadCreateBol {
     // CRM EXPEDITE - Smoke - Loadboard
     // 4. Создание New Load
 
-    @Test(description = "тест в description")
-    @Story("Story")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void createBol() {
 
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание New Load с типом файла Bol");
-        });
+        System.out.println("Тест1 розпочато");
 
         // Login
         GlobalLogin.login("exp_disp1");
-
-        System.out.println("Топ топ кейс1");
 
         // Data for creating a load
         String atBroker = "at_Broker1";
@@ -61,9 +54,6 @@ public class WES001_LoadCreateBol {
         if (chatWidget){
             executeJavaScript("document.querySelector('.chat-widget').style.display='none'");
         }
-
-        System.out.println("Тест 1 має впасти");
-        $("#loadnotes-note").shouldBe(visible).setValue("noteText1");
 
         // Field Broker
         $("#loads-form-create").shouldBe(visible, EXPECT_GLOBAL);
@@ -175,7 +165,7 @@ public class WES001_LoadCreateBol {
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
 
-        System.out.println("Го кейс1");
+        System.out.println("Тест1 завершено");
     }
 
     @AfterMethod(alwaysRun = true)

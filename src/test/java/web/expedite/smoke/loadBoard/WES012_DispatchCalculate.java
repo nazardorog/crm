@@ -1,8 +1,6 @@
 package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
-import io.qameta.allure.*;
-import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
@@ -17,25 +15,14 @@ import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-@Listeners(utilsWeb.commonWeb.Listener.class)
-@Epic("Expedite")
-@Feature("Smoke")
 public class WES012_DispatchCalculate {
 
     // Click Up:
     // CRM EXPEDITE - Smoke - Loadboard
     // 11. Создание New Load / dispatch load \ калькулятор груза
 
-    @Test(description = "тест в description")
-    @Story("Load board")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void calculate() {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание New Load / dispatch load \\ калькулятор груза");
-        });
 
         // Login
         GlobalLogin.login("exp_disp1");

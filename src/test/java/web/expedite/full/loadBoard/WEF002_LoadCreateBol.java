@@ -92,7 +92,7 @@ public class WEF002_LoadCreateBol {
         $("#add_load").find(".modal-footer-button .fa-files-o").click();
 
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
-        File file = new File(downloadsFolder + "/pdf1.pdf");
+        File file = new File(downloadsFolder + "/1pdf.pdf");
         $("#loaddocuments-0-file").uploadFile(file);
 
         if (!$("#loaddocuments-0-type").isDisplayed()){ //scroll

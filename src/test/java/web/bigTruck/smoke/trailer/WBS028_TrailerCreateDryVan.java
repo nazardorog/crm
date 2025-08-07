@@ -1,6 +1,5 @@
 package web.bigTruck.smoke.trailer;
 
-import io.qameta.allure.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.Condition;
@@ -31,16 +30,8 @@ public class WBS028_TrailerCreateDryVan {
     String globalName = GlobalGenerateName.globalName();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test(description = "тест в description")
-    @Story("Trailer")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void createDryVan() {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("1. Создание трейлера Dry van");
-        });
 
         // Login
         GlobalLogin.login("bt_disp1");

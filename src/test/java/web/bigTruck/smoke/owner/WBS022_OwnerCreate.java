@@ -1,6 +1,5 @@
 package web.bigTruck.smoke.owner;
 
-import io.qameta.allure.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.SelenideElement;
@@ -23,16 +22,8 @@ public class WBS022_OwnerCreate {
     String globalName = GlobalGenerateName.globalName();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test(description = "тест в description")
-    @Story("Owner")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void create() throws InterruptedException{
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("1. Создание owner (type company )");
-        });
         
         // Login
         GlobalLogin.login("bt_disp1");

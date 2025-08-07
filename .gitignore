@@ -9,19 +9,14 @@ allure-report/
 .allure/
 
 # Docker / Jenkins
-docker-compose*
-Dockerfile*
 .jenkins_home/
 jenkins_home/
-Jenkinsfile
-
 
 # Системні файли
 *.log
 *.tmp
 .DS_Store
 .vscode
-.env
 
 # Bash script
 run-tests.sh
@@ -34,3 +29,7 @@ src/test/java/resources/*
 # Папки для завантаження файлів
 empire/down/
 empire/test-download/
+src/test/resources/apk/docs.apk
+empire/apk/disp/app-release.apk
+empire/apk
+*.apk

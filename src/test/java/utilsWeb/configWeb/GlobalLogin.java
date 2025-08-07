@@ -23,7 +23,7 @@ import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class GlobalLogin {
 
-    private static JSONObject credentials;
+    public static JSONObject credentials;
 
     public static void openWeb(String user) {
 
@@ -68,11 +68,11 @@ public class GlobalLogin {
             Configuration.headless = false; // для дебагу
         }
 
-        System.out.println("Allure reports will be saved 1: " + Configuration.reportsFolder);
         Allure.step("Відкриває браузер", () ->
                 Selenide.open(Configuration.baseUrl));
 
         WebDriver driver = webdriver().driver().getWebDriver();
+        driver.manage().window().maximize();
     }
 
     @Description("Авторизація користувача в системі")

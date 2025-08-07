@@ -1,7 +1,6 @@
 package web.bigTruck.smoke.broker;
 
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
@@ -27,21 +26,8 @@ public class WBS018_BrokerCreate {
     String globalPhoneNumber = GlobalGenerateName.globalPhoneNumber();
     String globalMail = GlobalGenerateName.globalMail();
 
-    @Test(description = "тест в description")
-    @Story("Broker")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void create() throws InterruptedException{
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("1. Создание Брокера");
-        });
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание New Load с типом файла RateConfirmation");
-        });
 
         // Login
         GlobalLogin.login("bt_disp1");

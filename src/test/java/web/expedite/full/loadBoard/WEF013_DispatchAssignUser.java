@@ -173,7 +173,7 @@ public class WEF013_DispatchAssignUser {
             $("a.view_load").shouldBe(text(loadNumber), Duration.ofSeconds(10));
             $("td.our_pro_number i.glyphicon.glyphicon-link").click();
 
-            $$("td").findBy(Condition.text("Auto Test user2" ))
+            $$(".table-assigned-users td").findBy(Condition.text("Auto Test user2" ))
                     .shouldHave(Condition.text("Auto Test user2"), Duration.ofSeconds(5));
             $$("td").findBy(text(currentTime)).shouldBe(visible);
 

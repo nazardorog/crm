@@ -2,26 +2,20 @@ package web.bigTruck.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.*;
-import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.time.Duration;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-@Listeners(utilsWeb.commonWeb.Listener.class)
-@Epic("SEMI Truck")
-@Feature("Smoke")
 public class WBS004_LoadEnRouteToDelivered {
 
     // Click Up:
@@ -29,16 +23,8 @@ public class WBS004_LoadEnRouteToDelivered {
     // Load board
     // 4. Перевод груза с еn routе в dеlivеrеd
 
-    @Test(description = "тест в description3")
-    @Story("Load board")
-    @Description("дескріпшн WBS001_LoadCreate")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void enRoutToDelivered() {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("");
-        });
 
         // Login
         GlobalLogin.login("bt_disp1");
@@ -181,7 +167,7 @@ public class WBS004_LoadEnRouteToDelivered {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //клік по Submit фрейм Add driver
@@ -192,11 +178,60 @@ public class WBS004_LoadEnRouteToDelivered {
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
+        //*** Переводить вантаж на вкладку Loads Delivered ***
         //в Load Board знаходить створений вантаж
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
+        $("#loadsdeliverylocations-date_delivery").shouldNotBe(visible);
+
+        //відкриває Pick Info
+        $(".col-origin .view_pick_up_location").shouldBe(visible).click();
+        $("#view_item .modal-title").shouldBe(visible, Duration.ofSeconds(5));
+
+        //Pick Info вводить calendar Check In
+        $("#loadspickuplocations-date_check_in-datetime .kv-datetime-picker").click();
+        Calendar.setDateTime(0);
+
+        // Add BOL
+        $("button.add-document").click();
+        $("#bol_documents").shouldBe(visible, EXPECT_GLOBAL);
+        File fileBol = new File(downloadsFolder + "1pdf.pdf");
+        $("#loaddocuments-0-file").uploadFile(fileBol);
+        $("#loaddocuments-0-description").setValue("Description");
+        $("#bol_documents_send").click();
+        $("#bol_documents").shouldNotBe(visible, EXPECT_GLOBAL);
+
+        // [Toast] Check message
+        Message.checkToast("Load documents update sucessfully");
+
+        // Add Seal Pictures
+        $("button.seal-add-btn").click();
+        $("#seal_pictures_documents").shouldBe(visible, EXPECT_GLOBAL);
+        String fileNameJpeg = "4jpeg.jpg";
+        File fileJpeg = new File(downloadsFolder + fileNameJpeg);
+        $("#loaddocuments-0-file").uploadFile(fileJpeg);
+        sleep(10000);
+        $("#loaddocuments-0-description").setValue("Description");
+        $("#loaddocuments-0-seal_number").setValue("Seal");
+        $("#loaddocuments-0-seal_position").selectOption("Left");
+        $("#seal_pictures_documents_send").click();
+        $("#seal_pictures_documents").shouldNotBe(visible, EXPECT_GLOBAL);
+
+        // [Toast] Check message
+        Message.checkToast("Load documents update sucessfully");
+
+        //Pick Info вводить calendar Next STOP ETA
+        $("#loadspickuplocations-eta_to_destination-datetime .kv-datetime-picker").click();
+        Calendar.setDateTime(0);
+
+        //Pick Info вводить calendar Check Out
+        $("#loadspickuplocations-date_check_out-datetime .kv-datetime-picker").click();
+        Calendar.setDateTime(0);
+
+        // закриває модальне вікно Pick Info
+        $("#view_item .close").click();
 
         //відкриває Drop Info
         $("#loadsdeliverylocations-date_delivery").shouldNotBe(visible);
@@ -204,36 +239,77 @@ public class WBS004_LoadEnRouteToDelivered {
         $("#view_item .modal-title").shouldBe(visible, Duration.ofSeconds(5));
         $("#view_item .loads-delivery-view").shouldBe(visible, Duration.ofSeconds(5));
 
+        //Drop Info встановлює Check In
+        $("#loadsdeliverylocations-date_check_in-datetime .kv-datetime-picker").shouldBe(enabled).click();
+        Calendar.setDateTime(1);
+
+        // Add POD
+        $("button.add-document").click();
+        $("#pod_picture_documents").shouldBe(visible, EXPECT_GLOBAL);
+        String filePodPictures = "1pdf.pdf";
+        File filePod = new File(downloadsFolder + filePodPictures);
+        sleep(10000);
+        $("#loaddocuments-0-file").uploadFile(filePod);
+        $("#loaddocuments-0-description").setValue("Description");
+        $("#pod_picture_documents_send").click();
+        $("#pod_picture_documents").shouldNotBe(visible, EXPECT_GLOBAL);
+
+        // [Toast] Check message
+        Message.checkToast("Load documents update sucessfully");
+
+        // Check box No seal
+        $("#not_have_seal").click();
+
         //Drop Info встановлює Date delivery
         $("#loadsdeliverylocations-date_delivery-datetime .kv-datetime-picker").shouldBe(enabled).click();
         Calendar.setDateTime(1);
+
+        //очікує модальне вікно Load Delivered for Trip
+        $("#load_delivered").shouldBe(visible, EXPECT_GLOBAL);
+        $("#load_delivered .close").click();
+        $("#load_delivered").shouldNotBe(visible, EXPECT_GLOBAL);
 
         //закриває модальне вікно Drop Info
         $("#view_item .close").click();
         $("#view_item").shouldNotBe(visible, Duration.ofSeconds(10));
 
-        //додатково перевіряє що вантаж на вкладці Loads en Route
+        //клік редагування вантажу клік "Documents"
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
-        $("a.view_load").shouldBe(text(loadNumber));
-
-
-        //клік редагування вантажу клік "Mark as delivered"
         SelenideElement rowLoad = $$("table.table-striped tbody tr").get(0);
         rowLoad.shouldHave(text(loadNumber));
         rowLoad.$("button.dropdown-toggle").shouldBe(clickable).click();
         rowLoad.$(".btn-group").shouldHave(Condition.cssClass("open"), Duration.ofSeconds(20));
-        rowLoad.$$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled).click();
+        rowLoad.$$(".dropdown-menu-right li").findBy(text("Documents")).shouldBe(enabled).click();
+
+        //додає документ Preview load
+        $("#load_documents").shouldBe(visible, EXPECT_GLOBAL);
+        $("button.add-document").click();
+        String filePreviewLoad = "5jpeg.jpg";
+        File filePreview = new File(downloadsFolder + filePreviewLoad);
+        sleep(10000);
+        $("#loaddocuments-1-file").uploadFile(filePreview);
+        $("#loaddocuments-1-type").selectOption("Preview load");
+        sleep(10000);
+        $("#load_documents_send").click();
+
+        // [Toast] Check message
+        Message.checkToast("Load documents update sucessfully");
+
+        //клік редагування вантажу клік "Mark as delivered"
+        SelenideElement rowLoadMark = $$("table.table-striped tbody tr").get(0);
+        rowLoadMark.shouldHave(text(loadNumber));
+        rowLoadMark.$("button.dropdown-toggle").shouldBe(clickable).click();
+        rowLoadMark.$(".btn-group").shouldHave(Condition.cssClass("open"), Duration.ofSeconds(20));
+        rowLoadMark.$$(".dropdown-menu-right li").findBy(text("Mark as delivered")).shouldBe(enabled).click();
 
         //popap підтвердження переведення в Loads Delivered
         String popapText = switchTo().alert().getText();
         assertThat(popapText).isEqualTo("Are you sure you want to Mark as delivered this load?");
         switchTo().alert().accept();
 
-        //тост вспливайка
-        $("#toast-container").shouldBe(visible, Duration.ofSeconds(20));
-        $(".toast-message").shouldHave(visible, Duration.ofSeconds(20)).shouldHave(text("Load Delivered successfully"));
-        $("#toast-container").shouldNotHave(visible, Duration.ofSeconds(20));
+        // [Toast] Check message
+        Message.checkToast("Load Delivered successfully");
 
         //перевіряє що вантаж вже не відображається на Loads en Route
         $("a.view_load").shouldNotBe(text(loadNumber));

@@ -115,11 +115,11 @@ public class WEF017_ShipperCoordinateNotSet {
 //        $$(".load-error div").shouldHave(sizeGreaterThanOrEqual(2));
         $$(".load-error div")
                 .get(0)
-                .shouldHave(text("You cannot add this load because shipper-receiver’s address is not valid."))
+                .shouldHave(text("You cannot add this load because shipper-receiver’s address is not valid. Please click here and then update the address to valid."))
                 .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));
         $$(".load-error div")
                 .get(1)
-                .shouldHave(exactText("You cannot add this load because shipper-receiver’s address is not valid."))
+                .shouldHave(exactText("You cannot add this load because shipper-receiver’s address is not valid. Please click here and then update the address to valid."))
                 .shouldHave(Condition.cssValue("color", "rgba(221, 75, 57, 1)"));
     }
 

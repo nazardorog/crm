@@ -23,8 +23,7 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 import static web.expedite.full.WEF019_FileOpenAll.clearDownloadFolder;
@@ -179,7 +178,7 @@ public class WBS016_LoadGetBol {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //клік по Submit фрейм Add driver

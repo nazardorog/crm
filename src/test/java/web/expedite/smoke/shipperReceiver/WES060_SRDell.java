@@ -17,13 +17,13 @@ public class WES060_SRDell {
     // 4. Удаление Shippers Receivers
 
     // Global data
-    WCD003_ShipperReceiver shipperReceiver = new WCD003_ShipperReceiver();
+    WCE003_ShipperReceiver shipperReceiver = new WCE003_ShipperReceiver();
 
     @Test
     public void dell() {
 
         //Create Shipper Receiver
-        WCD003_ShipperReceiver newShipperReceiver = shipperReceiver.create();
+        WCE003_ShipperReceiver newShipperReceiver = shipperReceiver.create();
 
         // Login
         GlobalLogin.login("exp_disp1");

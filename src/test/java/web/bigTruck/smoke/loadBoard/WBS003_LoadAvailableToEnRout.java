@@ -1,5 +1,6 @@
 package web.bigTruck.smoke.loadBoard;
 
+import com.codeborne.selenide.SelenideElement;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.ElementsCollection;
@@ -15,8 +16,7 @@ import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Condition.enabled;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static java.lang.Thread.sleep;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -36,7 +36,7 @@ public class WBS003_LoadAvailableToEnRout {
         //створює новий вантаж
         $("#new_load").shouldBe(enabled, EXPECT_GLOBAL).click();
 
-        //brocker
+        //broker
         $("#loads-form-create").shouldBe(visible, Duration.ofSeconds(10));
         $("#select2-broker_search-container").shouldBe(visible).click();
         $(".select2-search__field").shouldBe(visible).setValue("Auto test broker");
@@ -130,23 +130,21 @@ public class WBS003_LoadAvailableToEnRout {
 
         // отримує номер вантажу
         String loadNumber = $("#view_load .check_call_pro").getText();
+        System.out.println("Створений вантаже:" + loadNumber);
 
         //закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
+        $("#view_load").shouldNotBe(visible, EXPECT_GLOBAL);
 
-        //перевіряє що вантаж створено в Load bord вводить номер вантажу і перевіряє що він є в таб частині
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
-        $$("#loadTabs .updated-tabs-name-link")
-                .findBy(text("Available Loads:"))
-                .click();
-
-        $("#available-loads-grid-filters .form-control")
-                .shouldBe(visible, enabled)
-                .setValue(loadNumber).pressEnter();
-
-        //клік на око, редагування вантажу Dispatch load
-        $("#available-loads-grid button.view_load").click();
+        // Check creation load
+        $$("#loadTabs .updated-tabs-name-link").findBy(text("Available Loads:")).click();
+        $("#available-loads-grid-filters").shouldBe(visible, EXPECT_GLOBAL);
+        $("#available-page input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).pressEnter();
+        SelenideElement rowLoad = $$("#available-page table.table-striped tbody tr").get(0).shouldHave(text(loadNumber));
+        rowLoad.shouldHave(text(loadNumber));
+        rowLoad.$(".icon-glyphicon-eye-open").click();
+        $("#view_load").shouldBe(visible, EXPECT_GLOBAL);
 
         //клік add Driver
         $("a[title='Add Driver'] .glyphicon.icon-plus-load").click();
@@ -186,20 +184,24 @@ public class WBS003_LoadAvailableToEnRout {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //клік по Submit фрейм Add driver
+        System.out.println("Додавання водія перед Submit:" + loadNumber);
         $("#update_load_driver_send").click();
         $("#add_driver").shouldNotBe(visible, Duration.ofSeconds(20));
+
+        // [Toast] Check message
+        Message.checkToast("Driver successfully added");
 
         //закриває модальне вікно Dispatch Load
         $("#toast-container").shouldNotBe(visible, Duration.ofSeconds(20));
         $(".load-info-modal-dialog .close").shouldBe(enabled, Duration.ofSeconds(10)).click();
 
         //перевіряє що вантаж відображається на Loads en Route
-        $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $$("#loadTabs .updated-tabs-name-link").findBy(text("Loads en Route")).click();
+        System.out.println("Перевіряє вантаж після додавання водія:" + loadNumber);
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).pressEnter();
         $("a.view_load").shouldBe(text(loadNumber));
     }

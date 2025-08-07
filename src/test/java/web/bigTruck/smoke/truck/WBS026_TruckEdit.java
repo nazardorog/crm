@@ -96,7 +96,7 @@ public class WBS026_TruckEdit {
 
         // Поле Owner
         $("#select2-owner_id-create-container").click();
-        $(".select2-search__field").setValue("AutoTestOwner");
+        $(".select2-container--open .select2-search__field").setValue("AutoTestOwner");
         $$("li.select2-results__option")
                 .findBy(text(atOwner))
                 .click();
@@ -201,7 +201,7 @@ public class WBS026_TruckEdit {
 
         // Редагування поле Owner
         $("#select2-owner_id-update-container").click();
-        $(".select2-search__field").setValue("AutoTestOwner");
+        $(".select2-container--open .select2-search__field").setValue("AutoTestOwner");
         $$("li.select2-results__option")
                 .findBy(text(atOwnerEdit))
                 .click();

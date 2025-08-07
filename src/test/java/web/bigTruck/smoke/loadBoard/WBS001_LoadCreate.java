@@ -1,8 +1,6 @@
 package web.bigTruck.smoke.loadBoard;
 
 import com.codeborne.selenide.Configuration;
-import io.qameta.allure.*;
-import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import com.codeborne.selenide.ElementsCollection;
@@ -24,9 +22,6 @@ import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
-@Listeners(utilsWeb.commonWeb.Listener.class)
-@Epic("SEMI Truck")
-@Feature("Smoke")
 public class WBS001_LoadCreate {
 
     // Click Up:
@@ -39,16 +34,8 @@ public class WBS001_LoadCreate {
     int hour = now.getHour();
     int minute = (now.getMinute() / 5) * 5;
 
-    @Test(description = "тест в description3")
-    @Story("Load board")
-    @Description("дескріпшн WBS001_LoadCreate")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void create() throws InterruptedException {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("Создание New Load с типом файла RateConfirmation");
-        });
 
         // Login
         GlobalLogin.login("bt_disp1");
@@ -185,7 +172,7 @@ public class WBS001_LoadCreate {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         //вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         //перевіряє вибрану дату Start Date

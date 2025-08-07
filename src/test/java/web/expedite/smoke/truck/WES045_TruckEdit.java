@@ -145,7 +145,7 @@ public class WES045_TruckEdit {
         final String atEditZip = "78229";
         final String atEditStatus = "Not Available";
         final String atEditNote = globalName + "Note2";
-        final String atEditFile = "jpeg2.jpg";
+        final String atEditFile = "5jpeg.jpg";
         final String atEditDescription = "Description2";
 
         // [Update truck] Edit Trucks

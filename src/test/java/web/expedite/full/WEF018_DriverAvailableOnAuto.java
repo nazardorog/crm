@@ -28,10 +28,6 @@ public class WEF018_DriverAvailableOnAuto {
     int hourNotRounded = now.getHour();
     int hour = ((hourNotRounded + 1) / 2) * 2;
     int minute = (now.getMinute() / 5) * 5;
-//    LocalDateTime statusDateDriver = now.plusDays(3).withHour(hour).withMinute(minute);
-//    LocalDateTime statusDateDriver = now.plusDays(3).withHour(hour).withMinute(minute);
-    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
-//    String dateToShippersDestination = statusDateDriver.format(formatDate);
 
     @Test
     public void availableOnAuto() throws InterruptedException {
@@ -44,8 +40,8 @@ public class WEF018_DriverAvailableOnAuto {
         $(".expedite-fleet-user").click();
         $("body").click();
 
-        $(By.name("TrucksSearch[filter_driver_name]")).setValue("AutoTest Driver2").pressEnter();
-        $(".driver-name").shouldHave(text("AutoTest Driver2"));
+        $(By.name("TrucksSearch[filter_driver_name]")).setValue("Autotest 5 Owner").pressEnter();
+        $(".driver-name").shouldHave(text("Autotest 5 Owner"));
         $(".glyphicon-pencil").click();
         $("#trucks-status").selectOption("Not Available");
         $("#trucks-last_zip").setValue("83210");
@@ -143,10 +139,10 @@ public class WEF018_DriverAvailableOnAuto {
         //dispatch board
         executeJavaScript("arguments[0].scrollTop = 0;", modal);
         $("#select2-load_truck_id-0-container").shouldBe(visible, Duration.ofSeconds(20)).click();
-        $(".select2-search__field").setValue("0304");
-        $(".select2-results__option--highlighted").shouldHave(text("0304")).click();
-        $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0304"));
-        $("#select2-load_driver_id-0-container").shouldHave(Condition.text("AutoTest Driver2"));
+        $(".select2-search__field").setValue("0301");
+        $(".select2-results__option--highlighted").shouldHave(text("0301")).click();
+        $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0301"));
+        $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test5"));
         $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text("Search for a team driver ..."));
 
         //приховуємо help блок
@@ -182,11 +178,10 @@ public class WEF018_DriverAvailableOnAuto {
         $(".expedite-fleet-user").click();
         $("body").click();
 
-        $("input[name='TrucksSearch[filter_driver_name]']").shouldBe(visible, Duration.ofSeconds(10)).setValue("AutoTest Driver2").pressEnter();
-        $(By.name("TrucksSearch[filter_driver_name]")).setValue("AutoTest Driver2").pressEnter();
+        $("input[name='TrucksSearch[filter_driver_name]']").shouldBe(visible, Duration.ofSeconds(10)).setValue("Auto Test5").pressEnter();
+        $(By.name("TrucksSearch[filter_driver_name]")).setValue("Auto Test5").pressEnter();
         $(".truck-center-text").shouldHave(text("Available On"), Duration.ofSeconds(10));
-//        $(".truck-date-when-there").shouldHave(text(dateToShippersDestination));
-        $(".driver-name").shouldHave(text("AutoTest Driver2"));
+        $(".driver-name").shouldHave(text("Auto Test5"));
         $(".city-state-zip").shouldHave(text("Philadelphia, PA 19019"));
 
         //go home

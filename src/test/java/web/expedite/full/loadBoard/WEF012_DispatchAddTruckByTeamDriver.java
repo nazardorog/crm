@@ -114,9 +114,8 @@ public class WEF012_DispatchAddTruckByTeamDriver {
 
 //dispatch board
         $("#select2-load_team_driver_id-0-container").shouldBe(visible, Duration.ofSeconds(30)).click();
-//        $("#select2-load_team_driver_id-0-container").shouldBe(Condition.visible, Condition.enabled).click();
         $(".select2-search__field").setValue("Auto");
-        $$("#select2-load_team_driver_id-0-results").findBy(Condition.text("Auto Test2")).click();
+        $$("#select2-load_team_driver_id-0-results li").findBy(Condition.text("Auto Test2")).click();
 
         $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0303"));
         $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test"));

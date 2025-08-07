@@ -174,7 +174,7 @@ public class WBS015_LoadGetConfirmation {
         $("#loadexpenses-location_to").setValue("New York, NY 10002");
 
         // Вибирає Start Date
-        $(".kv-datetime-picker").click();
+        executeJavaScript("document.querySelector('#loadexpenses-start_date-datetime .kv-datetime-picker').click()");
         Calendar.setDateTime(0);
 
         // Click по Submit фрейм Add driver

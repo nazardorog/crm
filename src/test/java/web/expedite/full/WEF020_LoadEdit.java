@@ -1,5 +1,6 @@
 package web.expedite.full;
 
+import com.codeborne.selenide.ElementsCollection;
 import org.testng.annotations.AfterMethod;
 import utilsWeb.commonWeb.*;
 
@@ -20,6 +21,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.sleep;
+import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
 public class WEF020_LoadEdit {
 
@@ -152,13 +154,13 @@ public class WEF020_LoadEdit {
         $(".content-header").shouldHave(text("Load Board"));
         Thread.sleep(1000);
         $("input[name='LoadsSearch[our_pro_number]']").shouldBe(visible).setValue(loadNumber).sendKeys(Keys.ENTER);
-
-        $("td a.view_load").shouldHave(text(loadNumber));
-        $("td a.view_truck").shouldHave(text("0303"));
+        SelenideElement rowLoad = $$("table.table-load-board tbody tr").get(0).shouldHave(text(loadNumber));
+        rowLoad.shouldHave(text(loadNumber));
+        rowLoad.shouldHave(text("0303"));
         $$("td.col_driver_carrier a.view_driver").get(0).shouldHave(exactText("Auto Test"));
         $$("td.col_driver_carrier a.view_driver").get(1).shouldHave(exactText("Auto Test2"));
-        $("td a.view_owner").shouldHave(text("Autotest 1 Owner"));
-        $("td a.view_broker").shouldHave(text("Auto test broker"));
+        rowLoad.shouldHave(text("Autotest 1 Owner"));
+        rowLoad.shouldHave(text("Auto test broker"));
 
         $(".view_pick_up_location").shouldHave(text("Kansas City, MO 64110"));
         $("span.small-txt.big-truck-none-bold").shouldHave(text("Wt 1 Plt 1 Pcs 1"));
@@ -167,8 +169,11 @@ public class WEF020_LoadEdit {
         $("span.small-txt.big-truck-none-bold").shouldHave(text("Wt 1 Plt 1 Pcs 1"));
 
         //редагування вантажу
-        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(enabled, Duration.ofSeconds(10)).click();
+        Thread.sleep(5000);
+        rowLoad.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).hover().click();
+        rowLoad.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
+        ElementsCollection dropDownLoad = rowLoad.$$(".dropdown-menu-right li");
+        dropDownLoad.findBy(exactText("Edit Load")).click();
 
         //вводить нові дані Broker, Agent, Origin Shippers, Destination Shippers
         $("#delete_load_broker").click();
@@ -219,7 +224,6 @@ public class WEF020_LoadEdit {
         $("#loadsdeliverylocations-0-weight").setValue("2");
         $("#loadsdeliverylocations-0-pcs").setValue("2");
 
-//        SelenideElement modal = $(".modal-dialog");
         executeJavaScript("arguments[0].scrollTop = arguments[0].scrollHeight;", modal);
         $("#update_load_send").click();
 
@@ -227,13 +231,15 @@ public class WEF020_LoadEdit {
         //знаходить створений вантаж
         Thread.sleep(2000);
         refresh();
-
         $(".logo-mini-icon").shouldBe(enabled, Duration.ofSeconds(30)).click();
         $(".content-header").shouldHave(text("Load Board"));
         $("input[name='LoadsSearch[our_pro_number]']").setValue(loadNumber).sendKeys(Keys.ENTER);
 
-        $("#main-loads-grid .dropdown-toggle").shouldBe(visible,enabled).click();
-        $$(".dropdown-menu-right li").findBy(text("Edit Load")).shouldBe(visible).click();
+        SelenideElement rowLoadEdit = $$("table.table-load-board tbody tr").get(0).shouldHave(text(loadNumber));
+        rowLoadEdit.$("button.dropdown-toggle").shouldBe(clickable, EXPECT_GLOBAL).hover().click();
+        rowLoadEdit.$(".btn-group").shouldHave(Condition.cssClass("open"),EXPECT_GLOBAL);
+        ElementsCollection dropDownLoadEdit = rowLoadEdit.$$(".dropdown-menu-right li");
+        dropDownLoadEdit.findBy(exactText("Edit Load")).click();
 
         $("td a.view_load").shouldHave(text(loadNumber));
         $("td a.view_truck").shouldHave(text("0303"));

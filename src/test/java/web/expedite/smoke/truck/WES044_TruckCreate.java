@@ -1,7 +1,6 @@
 package web.expedite.smoke.truck;
 
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.*;
 import org.testng.annotations.*;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -23,16 +22,8 @@ public class WES044_TruckCreate {
     String globalNumberSeventeen = "1234567890" + GlobalGenerateName.globalNumberSeven();
     String globalName = GlobalGenerateName.globalName();
 
-    @Test(description = "тест в description")
-    @Story("Truck")
-    @Description("дескріпш")
-    @Severity(SeverityLevel.CRITICAL)
+    @Test
     public void create() {
-
-        // Встановлюємо кастомну назву для тесту
-        Allure.getLifecycle().updateTestCase(testResult -> {
-            testResult.setName("1. Создание New truck");
-        });
 
         // Login
         GlobalLogin.login("exp_hr");

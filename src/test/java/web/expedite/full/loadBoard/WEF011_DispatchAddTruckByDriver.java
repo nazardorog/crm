@@ -114,7 +114,7 @@ public class WEF011_DispatchAddTruckByDriver {
         $("#select2-load_driver_id-0-container")
                 .shouldBe(visible, Duration.ofSeconds(30)).click();
         $(".select2-search__field").setValue("Auto");
-        $$("#select2-load_driver_id-0-results").findBy(Condition.text("Auto Test")).click();
+        $$("#select2-load_driver_id-0-results li").findBy(Condition.text("Auto Test")).click();
         $("#select2-load_truck_id-0-container").shouldHave(Condition.text("0303"));
         $("#select2-load_driver_id-0-container").shouldHave(Condition.text("Auto Test"));
         $("#select2-load_team_driver_id-0-container").shouldHave(Condition.text("Auto Test2"));

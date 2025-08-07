@@ -1,10 +1,8 @@
 package web.expedite.ui;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 
 import org.testng.annotations.Test;
@@ -16,13 +14,20 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
-@Epic("Логістика")
-@Feature("Створення вантажу з файлом BOL")
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WEU002_Broker {
 
-    @Test
-    @Story("Основний сценарій створення")
+    @Test(testName = "Створення брокера")
+    @Epic("Load board")
+    @Story("Создание Брокера")
     public void broker() {
+
+        // Встановлюємо кастомну назву для тесту
+        Allure.getLifecycle().updateTestCase(testResult -> {
+            testResult.setName("Создание Брокера");
+        });
 
         // Login
         GlobalLogin.login("exp_disp1");
