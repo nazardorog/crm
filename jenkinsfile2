@@ -71,35 +71,31 @@ pipeline {
         }
 
         stage('Запуск тестів') {
-            steps {
+            parallel {
+                script {
+                    def testsToRun = env.SELECTED_TESTS.split(',')
+                    def parallelStages = [:]
 
-                parallel {
-                    script {
-                        def testsToRun = env.SELECTED_TESTS.split(',')
-                        def parallelStages = [:]
+                    for (test in testsToRun) {
+                        def testName = test.trim() // потрібно для захисту closure
 
-                        for (test in testsToRun) {
-                            def testName = test.trim() // потрібно для захисту closure
+                        parallelStages["${testName}"] = {
+                            stage("Запуск ${test}") {
+                                echo "Запускаємо тест: ${test}"
 
-                            parallelStages["${testName}"] = {
-                                stage("Запуск ${test}") {
-                                    echo "Запускаємо тест: ${test}"
+                                try {
+                                    sh "RUN_ENV=jenkins mvn test -Dtest=${test}"
+                                    echo "✅ Тест ${test} пройшов успішно"
 
-                                    try {
-                                        sh "RUN_ENV=jenkins mvn test -Dtest=${test}"
-                                        echo "✅ Тест ${test} пройшов успішно"
-
-                                    } catch (Exception e) {
-                                        echo "❌ Тест ${test} завершився з помилкою: ${e.message}"
-                                        currentBuild.result = 'UNSTABLE'
-                                    }
+                                } catch (Exception e) {
+                                    echo "❌ Тест ${test} завершився з помилкою: ${e.message}"
+                                    currentBuild.result = 'UNSTABLE'
                                 }
                             }
                         }
-                        parallel parallelStages
                     }
+                    parallel parallelStages
                 }
-
             }
         }
     }
