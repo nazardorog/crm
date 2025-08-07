@@ -9,6 +9,7 @@ import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import utilsWeb.jenkins.CustomName;
 
 import java.io.File;
 import java.time.Duration;
@@ -30,6 +31,10 @@ public class WES002_LoadCreateRateConfirmation {
 
     @Test
     public void createRateConfirmation() {
+
+        // Назва класу для Allure
+        System.out.println("Тест2 розпочато");
+        CustomName.setCustomTestName();
 
         // Login
         GlobalLogin.login("exp_disp1");

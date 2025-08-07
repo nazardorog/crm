@@ -5,7 +5,7 @@ pipeline {
         booleanParam(
                 name: 'ExpediteSmoke',
                 defaultValue: false,
-                description: 'Expedite Smoke запустити всі тести'
+                description: '*********🔶Expedite Smoke запустити всі тести🔶*********'
         )
         booleanParam(
                 name: 'WES001_LoadCreateBol',
@@ -32,6 +32,12 @@ pipeline {
                 name: 'WES005_ValidateRateBrokerOwner',
                 defaultValue: false
         )
+        booleanParam(
+                description: 'Создание New Load / валидация полей даты в ПУ и ДЕЛ',
+                name: 'WES006_ValidateDateShipperReceiver',
+                defaultValue: false
+        )
+
         choice(
                 name: 'MAX_PARALLEL_THREADS',
                 choices: ['1', '2', '3', '4', '5'],

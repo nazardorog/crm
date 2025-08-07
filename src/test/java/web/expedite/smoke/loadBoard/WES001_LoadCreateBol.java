@@ -2,12 +2,15 @@ package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import io.qameta.allure.*;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import utilsWeb.jenkins.CustomName;
 
 import java.io.File;
 import java.time.Duration;
@@ -27,14 +30,15 @@ public class WES001_LoadCreateBol {
     // Click Up:
     // CRM EXPEDITE - Smoke - Loadboard
     // 4. Создание New Load
-    @Description ("Тест створення документу")
+
     @Test
     public void createBol() {
 
+        // Назва класу для Allure
         System.out.println("Тест1 розпочато");
-
-        String description = System.getProperty("test.description", "Default description");
-        Allure.description(description);
+//        CustomName.setCustomTestName();
+        String nameClass = CustomName.getCustomName("WES001_LoadCreateBol");
+//        Allure.description(getDescription("WES001_LoadCreateBol"));
 
         // Login
         GlobalLogin.login("exp_disp1");

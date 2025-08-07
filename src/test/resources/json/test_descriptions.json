@@ -1,0 +1,5 @@
+{
+  "WES001_LoadCreateBol": "Створення New Load з типом файла Pod",
+  "WES002_LoadCreateRateConfirmation": "Створення New Load з типом файла Rate Confirmation",
+  "WES003_LoadCreatePod": "Перевірка додавання Pod до Load"
+}
