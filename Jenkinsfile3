@@ -2,35 +2,35 @@ pipeline {
     agent any
 
     stages {
-        stage('Init parameters') {
-            steps {
-                script {
-                    def paramData = readJSON file: 'params.json'
+        stages {
+            stage('Init parameters') {
+                steps {
+                    script {
+                        def paramData = readJSON file: 'params.json'
 
-                    def generatedParams = []
+                        def generatedParams = []
 
-                    paramData.each { key, desc ->
-                        generatedParams << booleanParam(
-                            name: key,
-                            defaultValue: false,
-                            description: desc
+                        paramData.each { key, desc ->
+                            generatedParams << booleanParam(
+                                name: key,
+                                defaultValue: false,
+                                description: desc
+                            )
+                        }
+
+                        generatedParams << choice(
+                            name: 'MAX_PARALLEL_THREADS',
+                            choices: ['1', '2', '3', '4', '5'],
+                            description: 'Максимальна кількість одночасних потоків для тестів'
                         )
+
+                        properties([
+                            parameters(generatedParams)
+                        ])
                     }
-
-                    generatedParams << choice(
-                        name: 'MAX_PARALLEL_THREADS',
-                        choices: ['1', '2', '3', '4', '5'],
-                        description: 'Максимальна кількість одночасних потоків для тестів'
-                    )
-
-                    properties([
-                        parameters(generatedParams)
-                    ])
                 }
             }
         }
-
-    stages {
 
         stage('Підготовка') {
 
