@@ -1,6 +1,9 @@
 package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.Calendar;
 import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
@@ -15,6 +18,9 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES007_ValidatePltWtPcs {
 
     // Click Up:

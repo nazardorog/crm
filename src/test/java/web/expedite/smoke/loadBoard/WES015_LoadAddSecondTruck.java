@@ -1,6 +1,9 @@
 package web.expedite.smoke.loadBoard;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.codeborne.selenide.Condition;
@@ -18,6 +21,9 @@ import utilsWeb.jenkins.CustomName;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES015_LoadAddSecondTruck {
     // https://app.clickup.com/t/8698wg0cm
     // Добавление второго трака на груз

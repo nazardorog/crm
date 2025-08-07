@@ -1,6 +1,9 @@
 package web.expedite.smoke.loadBoard;
 
 import com.codeborne.selenide.Condition;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import org.testng.annotations.Listeners;
 import utilsWeb.commonWeb.*;
 
 import org.openqa.selenium.Keys;
@@ -17,6 +20,9 @@ import static com.codeborne.selenide.Configuration.downloadsFolder;
 import static com.codeborne.selenide.Selenide.*;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
+@Listeners(utilsWeb.commonWeb.Listener.class)
+@Epic("Expedite")
+@Feature("Smoke")
 public class WES011_DispatchAssignUser {
 
     // Click Up:
