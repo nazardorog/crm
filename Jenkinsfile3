@@ -43,6 +43,18 @@ pipeline {
 
         stage('Підготовка') {
             steps {
+                script {
+                    sh '''
+                        # Очищення workspace
+                        rm -rf target/ allure-report allure-report.zip
+                        mkdir -p target/allure-results
+
+                        echo "✅ Workspace очищено"
+                    '''
+                }
+            }
+
+            steps {
                 echo "Перевірка вибраних тестів..."
                 script {
                     def selectedTests = []
