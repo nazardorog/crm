@@ -76,8 +76,8 @@ pipeline {
                     def testsToRun = env.SELECTED_TESTS.split(',')
                     def parallelStages = [:]
 
-                    for (test in testsToRun) {
-                        def testName = test.trim() // потрібно для захисту closure
+                    testsToRun.each { testItem ->
+                        def testName = testItem.trim() // потрібно для захисту closure
 
                         parallelStages["${testName}"] = {
                             stage("Запуск ${test}") {
