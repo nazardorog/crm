@@ -124,6 +124,16 @@ pipeline {
                         if (params.WES003_LoadCreatePod) selectedTests.add('WES003_LoadCreatePod')
                         if (params.WES004_LoadCreateOther) selectedTests.add('WES004_LoadCreateOther')
                         if (params.WES005_ValidateRateBrokerOwner) selectedTests.add('WES005_ValidateRateBrokerOwner')
+                        if (params.WES006_ValidateDateShipperReceiver) selectedTests.add('WES006_ValidateDateShipperReceiver')
+                        if (params.WES007_ValidatePltWtPcs) selectedTests.add('WES007_ValidatePltWtPcs')
+                        if (params.WES008_DispatchAddTruckByTruck) selectedTests.add(WES008_DispatchAddTruckByTruck
+                        if (params.WES009_DispatchAddTruckByDriver) selectedTests.add('WES009_DispatchAddTruckByDriver')
+                        if (params.WES010_DispatchAddTruckByTeamDriver) selectedTests.add('WES010_DispatchAddTruckByTeamDriver')
+                        if (params.WES011_DispatchAssignUser) selectedTests.add('WES011_DispatchAssignUser')
+                        if (params.WES012_DispatchCalculate) selectedTests.add('WES012_DispatchCalculate')
+                        if (params.WES013_FileOpenAll) selectedTests.add('WES013_FileOpenAll')
+                        if (params.WES014_LoadEdit) selectedTests.add('WES014_LoadEdit')
+                        if (params.WES015_LoadAddSecondTruck) selectedTests.add('WES015_LoadAddSecondTruck')
 
                         if (selectedTests.isEmpty()) {
                             error("Не вибрано жодного тесту! Виберіть тести для запуску.")
