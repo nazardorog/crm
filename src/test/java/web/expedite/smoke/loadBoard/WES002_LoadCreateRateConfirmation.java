@@ -170,6 +170,8 @@ public class WES002_LoadCreateRateConfirmation {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
+
+        System.out.println("Го кейс2");
     }
 
     @AfterMethod(alwaysRun = true)

@@ -168,6 +168,8 @@ public class WES004_LoadCreateOther {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
+
+        System.out.println("Го кейс4");
     }
 
     @AfterMethod(alwaysRun = true)

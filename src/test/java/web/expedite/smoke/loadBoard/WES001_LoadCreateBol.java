@@ -171,6 +171,8 @@ public class WES001_LoadCreateBol {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
+
+        System.out.println("Го кейс1");
     }
 
     @AfterMethod(alwaysRun = true)

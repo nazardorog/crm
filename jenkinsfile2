@@ -92,10 +92,6 @@ pipeline {
                                 }
                         }
                     }
-                    // Запускаємо всі гілки паралельно
-                    if (!parallelStages.isEmpty()) {
-                        parallel parallelStages
-                    }
                 }
             }
         }

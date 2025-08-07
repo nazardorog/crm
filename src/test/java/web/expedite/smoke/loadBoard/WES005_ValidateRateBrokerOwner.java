@@ -200,6 +200,8 @@ public class WES005_ValidateRateBrokerOwner {
         rowLoad.shouldHave(text(atDriver));
         rowLoad.shouldHave(text(atTeamDriver));
         rowLoad.shouldHave(text(atBroker));
+
+        System.out.println("Го кейс5");
     }
 
     @AfterMethod(alwaysRun = true)

@@ -170,6 +170,8 @@ public class WES003_LoadCreatePod {
 //        rowLoad.shouldHave(text(atDriver));
 //        rowLoad.shouldHave(text(atTeamDriver));
 //        rowLoad.shouldHave(text(atBroker));
+
+        System.out.println("Го кейс3");
     }
 
     @AfterMethod(alwaysRun = true)
