@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         booleanParam(
-                name: 'Expedite Smoke',
+                name: 'ExpediteSmoke',
                 defaultValue: false,
                 description: 'Expedite Smoke запустити всі тести'
         )
@@ -42,7 +42,7 @@ pipeline {
                 script {
                     def selectedTests = []
 
-                    if (params.RUN_ALL_TESTS) {
+                    if (params.ExpediteSmoke) {
                         echo "RUN_ALL_TESTS увімкнено. Шукаємо всі тести у src/test/java/web/expedite/smoke..."
 
                         def testFiles = sh(
