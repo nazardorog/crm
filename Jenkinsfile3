@@ -62,7 +62,7 @@ pipeline {
                 description: 'Создание New Load / dispatch load / assign user',
                 name: 'WES011_DispatchAssignUser',
                 defaultValue: false
-        )WES013_FileOpenAll
+        )
         booleanParam(
                 description: 'Создание New Load / dispatch load / калькулятор груза',
                 name: 'WES012_DispatchCalculate',
