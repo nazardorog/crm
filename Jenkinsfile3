@@ -42,9 +42,10 @@ pipeline {
     stages {
 
         stage('Підготовка') {
-            echo "Очищення Allure звітів..."
+
             steps {
 
+                echo "Перевірка вибраних тестів..."
                 script {
                     sh '''
                         # Очищення workspace
@@ -53,10 +54,7 @@ pipeline {
 
                         echo "✅ Workspace очищено"
                     '''
-                }
 
-                echo "Перевірка вибраних тестів..."
-                script {
                     def selectedTests = []
 
                     if (params.ExpediteSmoke) {
