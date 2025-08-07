@@ -13,6 +13,8 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 import utilsWeb.commonWeb.CloseWebDriver;
 import utilsWeb.commonWeb.NewLoad;
 import utilsWeb.configWeb.GlobalLogin;
+import utilsWeb.jenkins.CustomName;
+
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_10;
 import static utilsWeb.configWeb.GlobalTimePeriods.EXPECT_GLOBAL;
 
@@ -22,6 +24,9 @@ public class WES015_LoadAddSecondTruck {
 
     @Test
     public void addSecondTruck () {
+
+        // Назва класу для Allure
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");

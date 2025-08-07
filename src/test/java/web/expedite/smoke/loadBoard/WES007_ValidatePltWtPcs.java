@@ -6,6 +6,8 @@ import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import utilsWeb.jenkins.CustomName;
+
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.*;
@@ -21,6 +23,9 @@ public class WES007_ValidatePltWtPcs {
 
     @Test
     public void pltWtPcs() {
+
+        // Назва класу для Allure
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");

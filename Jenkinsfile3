@@ -32,6 +32,57 @@ pipeline {
                 name: 'WES005_ValidateRateBrokerOwner',
                 defaultValue: false
         )
+        booleanParam(
+                description: 'Создание New Load / валидация полей даты в ПУ и ДЕЛ',
+                name: 'WES006_ValidateDateShipperReceiver',
+                defaultValue: false
+        )
+
+        booleanParam(
+                description: 'Создание New Load / валидация поле подсчета plts \ wght \ pcs',
+                name: 'WES007_ValidatePltWtPcs',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Создание New Load / dispatch load \ добавление трака на груз через поле трак',
+                name: 'WES008_DispatchAddTruckByTruck',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Создание New Load / dispatch load \ добавление трака на груз через поле имя водителя',
+                name: 'WES009_DispatchAddTruckByDriver',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Создание New Load / dispatch load \ добавление трака на груз через поле тим драйвер',
+                name: 'WES010_DispatchAddTruckByTeamDriver',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Создание New Load / dispatch load \ assign user',
+                name: 'WES011_DispatchAssignUser',
+                defaultValue: false
+        )WES013_FileOpenAll
+        booleanParam(
+                description: 'Создание New Load / dispatch load \ калькулятор груза',
+                name: 'WES012_DispatchCalculate',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Проверка, что груз создался верно, открываются все типы документов(бол райт кон и тд)',
+                name: 'WES013_FileOpenAll',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Редактирование Груза',
+                name: 'WES014_LoadEdit',
+                defaultValue: false
+        )
+        booleanParam(
+                description: 'Добавление 2го трака на груз',
+                name: 'WES015_LoadAddSecondTruck',
+                defaultValue: false
+        )
         choice(
                 name: 'MAX_PARALLEL_THREADS',
                 choices: ['1', '2', '3', '4', '5'],

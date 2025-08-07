@@ -10,6 +10,7 @@ import utilsWeb.commonWeb.CloseWebDriver;
 
 
 import utilsWeb.configWeb.GlobalLogin;
+import utilsWeb.jenkins.CustomName;
 
 import java.io.File;
 
@@ -28,6 +29,9 @@ public class WES013_FileOpenAll {
 
     @Test
     public void openAll() {
+
+        // Назва класу для Allure
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");

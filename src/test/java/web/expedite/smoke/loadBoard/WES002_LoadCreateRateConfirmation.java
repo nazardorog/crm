@@ -33,7 +33,6 @@ public class WES002_LoadCreateRateConfirmation {
     public void createRateConfirmation() {
 
         // Назва класу для Allure
-        System.out.println("Тест2 розпочато");
         CustomName.getDescription();
 
         // Login

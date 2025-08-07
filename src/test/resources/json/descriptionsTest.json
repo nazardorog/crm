@@ -1,5 +1,20 @@
 {
   "WES001_LoadCreateBol": "Створення New Load з типом файла Pod",
   "WES002_LoadCreateRateConfirmation": "Створення New Load з типом файла Rate Confirmation",
-  "WES003_LoadCreatePod": "Перевірка додавання Pod до Load"
+  "WES003_LoadCreatePod": "Перевірка додавання Pod до Load",
+  "WES004_LoadCreateOther": "Создание New Load с типом файла Other",
+  "WES005_ValidateRateBrokerOwner": "Создание New Load / валидация полей рейта брокер и драйвера",
+  "WES006_ValidateDateShipperReceiver": "Создание New Load / валидация полей даты в ПУ и ДЕЛ",
+  "WES007_ValidatePltWtPcs": "Создание New Load / валидация поле подсчета plts \\ wght \\ pcs",
+  "WES008_DispatchAddTruckByTruck": "Создание New Load / dispatch load \\ добавление трака на груз через поле трак",
+  "WES009_DispatchAddTruckByDriver": "Создание New Load / dispatch load \\ добавление трака на груз через поле имя водителя",
+  "WES010_DispatchAddTruckByTeamDriver": "Создание New Load / dispatch load \\ добавление трака на груз через поле тим драйвер",
+  "WES011_DispatchAssignUser": "Создание New Load / dispatch load \\ assign user",
+  "WES012_DispatchCalculate": "Создание New Load / dispatch load \\ калькулятор груза",
+  "WES013_FileOpenAll": "Проверка, что груз создался верно, открываются все типы документов(бол райт кон и тд)",
+  "WES014_LoadEdit": "Редактирование Груза",
+  "WES015_LoadAddSecondTruck": "Добавление 2го трака на груз"
+
+
+
 }

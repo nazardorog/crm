@@ -35,7 +35,6 @@ public class WES001_LoadCreateBol {
     public void createBol() {
 
         // Назва класу для Allure
-        System.out.println("Тест1 розпочато");
         CustomName.getDescription();
 
         // Login

@@ -7,6 +7,7 @@ import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import utilsWeb.configWeb.GlobalLogin;
+import utilsWeb.jenkins.CustomName;
 
 import java.io.File;
 
@@ -24,6 +25,9 @@ public class WES011_DispatchAssignUser {
 
     @Test
     public void assignUser() throws InterruptedException {
+
+        // Назва класу для Allure
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");

@@ -5,6 +5,7 @@ import utilsWeb.commonWeb.*;
 import utilsWeb.configWeb.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+import utilsWeb.jenkins.CustomName;
 
 import java.io.File;
 import java.time.Duration;
@@ -23,6 +24,9 @@ public class WES006_ValidateDateShipperReceiver {
 
     @Test
     public void dateShipperReceiver() {
+
+        // Назва класу для Allure
+        CustomName.getDescription();
 
         // Login
         GlobalLogin.login("exp_disp1");
