@@ -38,6 +38,8 @@ public class CustomName {
         if (description == null) {
             description();
         }
+
+        // Отримує імя класу запущеного тесту
         String fullClassName = Thread.currentThread().getStackTrace()[2].getClassName();
         String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
 
