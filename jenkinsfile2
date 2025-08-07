@@ -71,7 +71,7 @@ pipeline {
         }
 
         stage('Запуск тестів') {
-            parallel {
+            steps {
                 script {
                     def testsToRun = env.SELECTED_TESTS.split(',')
                     def parallelStages = [:]
