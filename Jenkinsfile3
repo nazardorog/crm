@@ -1,43 +1,34 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(
-                name: 'ExpediteSmoke',
-                defaultValue: false,
-                description: 'Expedite Smoke запустити всі тести'
-        )
-        booleanParam(
-                name: 'WES001_LoadCreateBol',
-                defaultValue: false,
-                description: ''
-        )
-        booleanParam(
-                name: 'WES002_LoadCreateRateConfirmation',
-                defaultValue: false,
-                description: 'Создание New Load с типом файла Rate Confirmation'
-        )
-        booleanParam(
-                name: 'WES003_LoadCreatePod',
-                defaultValue: false,
-                description: 'Создание New Load с типом файла Pod'
-        )
-        booleanParam(
-                name: 'WES004_LoadCreateOther',
-                defaultValue: false,
-                description: 'Создание New Load с типом файла Other'
-        )
-        booleanParam(
-                description: 'Создание New Load / валидация полей рейта брокер и драйвера',
-                name: 'WES005_ValidateRateBrokerOwner',
-                defaultValue: false
-        )
-        choice(
-                name: 'MAX_PARALLEL_THREADS',
-                choices: ['1', '2', '3', '4', '5'],
-                description: 'Максимальна кількість одночасних потоків для тестів'
-        )
-    }
+    stages {
+        stage('Init parameters') {
+            steps {
+                script {
+                    def paramData = readJSON file: 'params.json'
+
+                    def generatedParams = []
+
+                    paramData.each { key, desc ->
+                        generatedParams << booleanParam(
+                            name: key,
+                            defaultValue: false,
+                            description: desc
+                        )
+                    }
+
+                    generatedParams << choice(
+                        name: 'MAX_PARALLEL_THREADS',
+                        choices: ['1', '2', '3', '4', '5'],
+                        description: 'Максимальна кількість одночасних потоків для тестів'
+                    )
+
+                    properties([
+                        parameters(generatedParams)
+                    ])
+                }
+            }
+        }
 
     stages {
 
@@ -103,8 +94,6 @@ pipeline {
                                 stage("Запуск ${testName}") {
                                     echo "Запускаємо тест: ${testName}"
                                     try {
-                                        def testDescriptions = readJSON file: 'json/descriptionsTest.json'
-                                        echo "✅ ${testDescriptions['WES001_LoadCreateBol']}"
                                         sh "RUN_ENV=jenkins mvn test -Dtest=${testName}"
                                         echo "✅ Тест ${testName} пройшов успішно"
                                     } catch (Exception e) {
